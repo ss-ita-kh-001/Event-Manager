@@ -1,0 +1,22 @@
+{
+  "name": "event-manager",
+  "version": "1.0.0",
+  "description": "Events tracking project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maryna-Yelakova/Event-Manager.git"
+  },
+  "author": "Kharkiv SoftServe ITA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maryna-Yelakova/Event-Manager/issues"
+  },
+  "homepage": "https://github.com/Maryna-Yelakova/Event-Manager#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
