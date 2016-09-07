@@ -2,4 +2,4 @@ deployment:
   prod:
     branch: master
     heroku:
-      appname: event-manager
+      appname: ita-event-manager
