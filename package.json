@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Maryna-Yelakova/Event-Manager.git"
+    "url": "git+https://github.com/ss-ita-kh-001/Event-Manager.git"
   },
   "author": "Kharkiv SoftServe ITA",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Maryna-Yelakova/Event-Manager/issues"
+    "url": "https://github.com/ss-ita-kh-001/Event-Manager.git"
   },
-  "homepage": "https://github.com/Maryna-Yelakova/Event-Manager#readme",
+  "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
     "express": "^4.14.0"
   }
