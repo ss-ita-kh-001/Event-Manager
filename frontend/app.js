@@ -1,3 +1,3 @@
 (function() {
-    angular.module("em", ["ngRoute"]);
+   angular.module("em", ["ngRoute", "em.main"]);
 })();

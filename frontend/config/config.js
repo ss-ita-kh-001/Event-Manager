@@ -1,13 +1,13 @@
 (function() {
-    angular.module("em").config(function($stateProvider) {
+    angular.module("em").config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(false);
         $routeProvider
-            .state("/main", {
-                template: "../features/main/views/main.html",
-                controller: function() {}
+            .when("/", {
+                templateUrl: "../features/main/views/main.html",
+                controller: "em.main.mainController"
             })
             .otherwise({
                 template: "../features/main/views/main.html"
             });
     })
-})()
+})();
