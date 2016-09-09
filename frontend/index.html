@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="em">
 
 <head lang="ru">
     <meta charset="UTF-8">
+    <base href="/" />
     <title>Event Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <script type="text/ng-template" src="features/main/views/main.html"></script>
+
+    <script src="app.js"></script>
+
+
 </head>
 
 <body>
@@ -14,6 +21,7 @@
         Header
     </header>
     <main>
+        <div ng-view></div>
         <p>Event manager main section</p>
     </main>
     <footer>
