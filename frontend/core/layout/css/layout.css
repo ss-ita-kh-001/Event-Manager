@@ -14,6 +14,7 @@ body {
 .content {
   background-color: #ffffff;
   width: 800px;
+  height: 100%;
   margin: 20px auto;
   padding: 20px;
   border-style: solid;
@@ -33,12 +34,17 @@ body {
     color: #f0bb29; }
 
 .footer {
+  height: 40px;
   text-align: center;
-  margin: 20px; }
+  margin-bottom: 0; }
   .footer .copyright {
     font-family: "Orange Juice";
     font-size: 30px;
     color: #f0bb29; }
 
 .main {
-  margin: 20px; }
+  margin: 20px;
+  min-height: 500px; }
+  .main::after {
+    content: "";
+    display: block; }

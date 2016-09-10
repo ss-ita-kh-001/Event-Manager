@@ -26,11 +26,15 @@ $footer-align: $header-align;
 
 //Dimensions
 $content-width: 800px;
+$content-height: 100%;
+$main-min-height: 500px;
+$footer-height: 40px;
 
 //Margins
 $content-margin-top-n-bottom: 20px;
 $header-main-footer-margin: 20px;
 $logo-right-margin: 50px;
+$footer-margin-bottom: 0;
 
 //Borders
 $content-border-radius: 30px;

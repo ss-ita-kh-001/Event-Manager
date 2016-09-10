@@ -8,6 +8,7 @@ body {
   background-color: $content-background-color;
 
   width: $content-width;
+  height: $content-height;
   margin: $content-margin-top-n-bottom auto;
   padding: $content-padding;
 
@@ -32,8 +33,9 @@ body {
 }
 
 .footer {
+  height: $footer-height;
   text-align: $footer-align;
-  margin: $header-main-footer-margin;
+  margin-bottom: $footer-margin-bottom;
   .copyright {
     font-family: $footer-font-family;
     font-size: $footer-font-size;
@@ -43,4 +45,9 @@ body {
 
 .main {
     margin: $header-main-footer-margin;
+    min-height: $main-min-height;
+    &::after{
+      content: "";
+      display: block;
+    }
 }
