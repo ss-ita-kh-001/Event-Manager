@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "Orange Juice";
+  src: url("../font/orange juice 2.0.ttf"); }
+
+@font-face {
+  font-family: "Fjalla One";
+  src: url("../font/FjallaOne-Regular.ttf"); }
+
+body {
+  background-color: #e7eceb;
+  font-family: "Fjalla One";
+  font-size: 20px; }
+
+.content {
+  background-color: #ffffff;
+  width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-style: solid;
+  border-radius: 30px;
+  border-width: 3px;
+  border-color: #f0bb29; }
+
+.header {
+  text-align: center;
+  margin: 20px; }
+  .header img {
+    width: 200px;
+    margin-right: 50px; }
+  .header .title {
+    font-family: "Orange Juice";
+    font-size: 80px;
+    color: #f0bb29; }
+
+.footer {
+  text-align: center;
+  margin: 20px; }
+  .footer .copyright {
+    font-family: "Orange Juice";
+    font-size: 30px;
+    color: #f0bb29; }
+
+.main {
+  margin: 20px; }

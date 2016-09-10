@@ -1,0 +1,46 @@
+@import "variables";
+body {
+  background-color: $body-background-color;
+  font-family: $regular-font-family;
+  font-size: $regular-font-size;
+}
+.content {
+  background-color: $content-background-color;
+
+  width: $content-width;
+  margin: $content-margin-top-n-bottom auto;
+  padding: $content-padding;
+
+  border-style: $content-boder-style;
+  border-radius: $content-border-radius;
+  border-width: $content-boder-width;
+  border-color: $content-border-color;
+}
+
+.header {
+  text-align: $header-align;
+  margin: $header-main-footer-margin;
+  img {
+    width: 200px;
+    margin-right: $logo-right-margin;
+  }
+  .title {
+    font-family: $title-font-family;
+    font-size: $title-font-size;
+    color: $text-color-light;
+  }
+}
+
+.footer {
+  text-align: $footer-align;
+  margin: $header-main-footer-margin;
+  .copyright {
+    font-family: $footer-font-family;
+    font-size: $footer-font-size;
+    color: $text-color-light;
+  }
+}
+
+.main {
+    margin: $header-main-footer-margin;
+}

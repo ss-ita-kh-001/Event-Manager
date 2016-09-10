@@ -1,0 +1,42 @@
+//Colors
+$body-background-color: #e7eceb;
+$content-background-color: #ffffff;
+$text-color-light: #f0bb29;
+$text-color-dark: #c17900;
+
+//Fonts
+@font-face {
+  font-family: "Orange Juice";
+  src: url("../font/orange juice 2.0.ttf");
+}
+@font-face {
+    font-family: "Fjalla One";
+    src: url("../font/FjallaOne-Regular.ttf");
+}
+$title-font-family: "Orange Juice";
+$footer-font-family: $title-font-family;
+$regular-font-family: "Fjalla One";
+$title-font-size: 80px;
+$footer-font-size: 30px;
+$regular-font-size: 20px;
+
+//Aligns
+$header-align: center;
+$footer-align: $header-align;
+
+//Dimensions
+$content-width: 800px;
+
+//Margins
+$content-margin-top-n-bottom: 20px;
+$header-main-footer-margin: 20px;
+$logo-right-margin: 50px;
+
+//Borders
+$content-border-radius: 30px;
+$content-boder-style: solid;
+$content-boder-width: 3px;
+$content-border-color: $text-color-light;
+
+//Paddings
+$content-padding: 20px;
