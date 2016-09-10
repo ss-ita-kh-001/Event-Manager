@@ -4,7 +4,8 @@
   "description": "Events tracking project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"All is ok\" && exit 0"
+    "test": "echo \"All is ok\" && exit 0",
+    "start": "heroku local web"
   },
   "repository": {
     "type": "git",
