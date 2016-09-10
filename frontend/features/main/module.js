@@ -1,1 +1,3 @@
-angular.module('em.main', []);
+(function() {
+    angular.module('em.main', []);
+})()
