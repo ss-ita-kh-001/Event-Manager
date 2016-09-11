@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "gulp-rename": "^1.2.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

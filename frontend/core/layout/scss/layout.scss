@@ -1,53 +1,61 @@
 @import "variables";
 body {
-  background-color: $body-background-color;
-  font-family: $regular-font-family;
-  font-size: $regular-font-size;
+  background-color: #fefefe;
 }
-.content {
-  background-color: $content-background-color;
-
-  width: $content-width;
-  height: $content-height;
-  margin: $content-margin-top-n-bottom auto;
-  padding: $content-padding;
-
-  border-style: $content-boder-style;
-  border-radius: $content-border-radius;
-  border-width: $content-boder-width;
-  border-color: $content-border-color;
-}
-
 .header {
-  text-align: $header-align;
-  margin: $header-main-footer-margin;
-  img {
-    width: 200px;
-    margin-right: $logo-right-margin;
+  font-family: $title-font-family;
+  @media screen and (max-width: 768px){
+    font-size: $title-font-size-xs;
+    margin-top: $title-margin-top-xs;
   }
-  .title {
-    font-family: $title-font-family;
-    font-size: $title-font-size;
-    color: $text-color-light;
+  @media screen and (min-width: 769px) and (max-height: 992px){
+    font-size: $title-font-size-sm;
+    margin-top: $title-margin-top-sm;
   }
+  @media screen and (min-width: 993px) and (max-height: 1200px){
+    font-size: $title-font-size-md;
+    margin-top: $title-margin-top-md;
+  }
+  @media screen and (min-width: 1201px){
+    font-size: $title-font-size-lg;
+    margin-top: $title-margin-top-lg;
+  }
+  color: $text-color-light;
 }
 
 .footer {
-  height: $footer-height;
-  text-align: $footer-align;
-  margin-bottom: $footer-margin-bottom;
-  .copyright {
-    font-family: $footer-font-family;
-    font-size: $footer-font-size;
-    color: $text-color-light;
+  font-family: $footer-font-family;
+  @media screen and (max-width: 768px){
+    font-size: $footer-font-size-xs;
   }
+  @media screen and (min-width: 769px) and (max-height: 992px){
+    font-size: $footer-font-size-sm;
+  }
+  @media screen and (min-width: 993px) and (max-height: 1200px){
+    font-size: $footer-font-size-md;
+  }
+  @media screen and (min-width: 1201px){
+    font-size: $footer-font-size-lg;
+  }
+  color: $text-color-light;
 }
 
-.main {
-    margin: $header-main-footer-margin;
-    min-height: $main-min-height;
-    &::after{
-      content: "";
-      display: block;
-    }
+.main-content {
+  font-family: $regular-font-family;
+  @media screen and (max-width: 768px){
+    min-height: $main-content-min-height-xs;
+    font-size: $regular-font-size-xs;
+  }
+  @media screen and (min-width: 769px) and (max-height: 992px){
+    min-height: $main-content-min-height-sm;
+    font-size: $regular-font-size-sm;
+  }
+  @media screen and (min-width: 993px) and (max-height: 1200px){
+    min-height: $main-content-min-height-md;
+    font-size: $regular-font-size-md;
+  }
+  @media screen and (min-width: 1201px){
+    min-height: $main-content-min-height-lg;
+    font-size: $regular-font-size-lg;
+  }
 }
