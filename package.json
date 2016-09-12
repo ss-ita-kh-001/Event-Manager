@@ -21,6 +21,8 @@
     "express": "^4.14.0"
   },
   "devDependencies": {
+    "angular": "^1.5.8",
+    "angular-bootstrap": "^0.12.2",
     "browser-sync": "^2.15.0",
     "connect": "^3.5.0",
     "core-util-is": "^1.0.2",
