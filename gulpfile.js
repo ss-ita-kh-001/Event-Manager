@@ -25,6 +25,7 @@ var gulp = require('gulp'),
             js: 'src/js/main.js',//we need only main.css and main.js
             style: 'src/style/main.scss',
             img: 'src/img/**/*.*' // img/**/*.* - get all files with all expansion from all nested folders
+          },
         watch: { //watch changes form those files
             js: 'src/js/**/*.js',
             style: 'src/style/**/*.scss',
