@@ -16,17 +16,16 @@ var gulp = require('gulp'),
 
 
     var path = {
-        build: { //Тут мы укажем куда складывать готовые после сборки файлы
+        build: { //building files
             js: 'frontend/build/js/',
             css: 'frontend/build/css/',
             img: 'frontend/build/img/',
         },
-        src: { //Пути откуда брать исходники
-            js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
+        src: { //source files
+            js: 'src/js/main.js',//we need only main.css and main.js
             style: 'src/style/main.scss',
-            img: 'src/img/**/*.*' //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
-        },
-        watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
+            img: 'src/img/**/*.*' // img/**/*.* - get all files with all expansion from all nested folders
+        watch: { //watch changes form those files
             js: 'src/js/**/*.js',
             style: 'src/style/**/*.scss',
             img: 'src/img/**/*.*'
@@ -45,36 +44,36 @@ var gulp = require('gulp'),
 };
 
 gulp.task('style:build', function () {
-    gulp.src(path.src.style) //Выберем наш main.scss
-        .pipe(sourcemaps.init()) //То же самое что и с js
-        .pipe(sass()) //Скомпилируем
-        .pipe(prefixer()) //Добавим вендорные префиксы
-        .pipe(cssmin()) //Сожмем
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.build.css)) //И в build
-        .pipe(reload({stream: true}));
+    gulp.src(path.src.style) //get main.scss
+        .pipe(sourcemaps.init()) //init sourcemap
+        .pipe(sass()) //compile
+        .pipe(prefixer()) //Add vendor prefixes
+        .pipe(cssmin()) //compressing css
+        .pipe(sourcemaps.write())//write sourcemap
+        .pipe(gulp.dest(path.build.css)) //put compressed files to the build
+        .pipe(reload({stream: true}));//refresh server
 });
 
 
 gulp.task('js:build', function () {
-    gulp.src(path.src.js) //Найдем наш main файл
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        .pipe(uglify()) //Сожмем наш js
-        .pipe(sourcemaps.write()) //Пропишем карты
-        .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
-        .pipe(reload({stream: true})); //И перезагрузим сервер
+    gulp.src(path.src.js) //get main.js
+        .pipe(rigger()) //
+        .pipe(sourcemaps.init()) //init sourcemap
+        .pipe(uglify()) //compressing js
+        .pipe(sourcemaps.write()) //write sourcemap
+        .pipe(gulp.dest(path.build.js)) //put compressed files to the build
+        .pipe(reload({stream: true})); //refresh server
 });
 
 gulp.task('image:build', function () {
-    gulp.src(path.src.img) //Выберем наши картинки
-        .pipe(imagemin({ //Сожмем их
+    gulp.src(path.src.img) //get all images
+        .pipe(imagemin({ //compressing images
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
         }))
-        .pipe(gulp.dest(path.build.img)) //И бросим в build
+        .pipe(gulp.dest(path.build.img)) ///put compressed files to the build
         .pipe(reload({stream: true}));
 });
 
