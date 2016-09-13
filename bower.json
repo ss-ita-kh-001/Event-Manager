@@ -1,0 +1,20 @@
+{
+  "name": "event-manager",
+  "description": "Events tracking project",
+  "main": "index.js",
+  "authors": [
+    "Kharkiv SoftServe ITA"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Maryna-Yelakova/Event-Manager",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7"
+  }
+}
