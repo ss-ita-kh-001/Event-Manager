@@ -27,8 +27,8 @@ var gulp = require('gulp'),
             img: 'frontend/build/img/',
         },
         src: { //source files
-            js: 'src/js/**/*.js',//we need only main.css and main.js
-            style: 'src/style/main.scss',
+            js: 'src/js/**/*.js',//we need all js files 
+            style: 'src/style/main.scss',//we need only main.css 
             img: 'src/img/**/*.*' // img/**/*.* - get all files with all expansion from all nested folders
           },
         watch: { //watch changes form those files
