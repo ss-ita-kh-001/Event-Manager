@@ -62,15 +62,19 @@ body {
 
 //Bootstrap recoloring
 .navbar-default {
-    background-color: #FEFCF4;
-    border-color: #E6C999;
+    background-color: $navbar-bg-color;
+    border-color: $navbar-border-color;
 }
 
 .navbar-default .navbar-nav>li>a {
-    color: #CA8D26;
+    color: $navbar-text-color;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-    color: #CA8D26;
-    background-color: #F9F2E7;
+    color: $navbar-text-color;
+    background-color: $navbar-active-bg-color;
+}
+
+.logo {
+  width: 100%;
 }

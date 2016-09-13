@@ -1,6 +1,10 @@
 //Colors
 $text-color-light: #f0bb29;
 $text-color-dark: #c17900;
+$navbar-bg-color: #FEFCF4;
+$navbar-border-color: #E6C999;
+$navbar-text-color: #CA8D26;
+$navbar-active-bg-color: #F9F2E7;
 //Fonts
 @font-face {
   font-family: "Orange Juice";
@@ -31,7 +35,7 @@ $title-margin-top-sm: 80px;
 $title-margin-top-md: $title-margin-top-sm;
 $title-margin-top-lg: $title-margin-top-sm;
 //Min-heights
-$main-content-min-height-xs: calc(100vh - 78px - 28px);
-$main-content-min-height-sm: calc(100vh - 223px - 35px);
-$main-content-min-height-md: calc(100vh - 223px - 35px);
-$main-content-min-height-lg: calc(100vh - 265px - 50px);
+$main-content-min-height-xs: calc(100vh - 78px - 28px - 100px);
+$main-content-min-height-sm: calc(100vh - 223px - 35px - 100px);
+$main-content-min-height-md: calc(100vh - 223px - 35px - 100px);
+$main-content-min-height-lg: calc(100vh - 265px - 50px - 100px);
