@@ -18,14 +18,6 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "express": "^4.14.0",
-    "gulp-rename": "^1.2.2"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sass": "^2.3.2"
-=======
     "express": "^4.14.0"
   },
   "devDependencies": {
@@ -49,6 +41,5 @@
     "inherits": "^2.0.3",
     "rimraf": "^2.5.4",
     "serve-static": "^1.11.1"
->>>>>>> refs/remotes/origin/master
   }
 }
