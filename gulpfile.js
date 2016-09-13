@@ -12,6 +12,11 @@ var gulp = require('gulp'),
     pngquant = require('imagemin-pngquant'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
+    rename = require('gulp-rename'),
+    gulpif = require('gulp-if'),
+    runSequence = require('run-sequence'),
+    extend  = require('extend'),
+    parseArgs   = require('minimist'),
     reload = browserSync.reload;
 
 
@@ -22,7 +27,7 @@ var gulp = require('gulp'),
             img: 'frontend/build/img/',
         },
         src: { //source files
-            js: 'src/js/main.js',//we need only main.css and main.js
+            js: 'src/js/**/*.js',//we need only main.css and main.js
             style: 'src/style/main.scss',
             img: 'src/img/**/*.*' // img/**/*.* - get all files with all expansion from all nested folders
           },
@@ -44,13 +49,31 @@ var gulp = require('gulp'),
     logPrefix: "Frontend_Devil"
 };
 
+
+// Configuration
+//
+var config = extend({
+   env: process.env.NODE_ENV
+}, parseArgs(process.argv.slice(2)));
+
+// Getters / Setters
+//
+gulp.task('set-dev-node-env', function() {
+   return process.env.NODE_ENV = config.env = 'development';
+});
+gulp.task('set-prod-node-env', function() {
+   return process.env.NODE_ENV = config.env = 'production';
+});
+
+/*Tasks*/
+
 gulp.task('style:build', function () {
     gulp.src(path.src.style) //get main.scss
-        .pipe(sourcemaps.init()) //init sourcemap
+        .pipe(gulpif(config.env === 'development', sourcemaps.init()))  //init sourcemap
         .pipe(sass()) //compile
         .pipe(prefixer()) //Add vendor prefixes
-        .pipe(cssmin()) //compressing css
-        .pipe(sourcemaps.write())//write sourcemap
+        .pipe(gulpif(config.env === 'production', cssmin())) //compressing css
+        .pipe(gulpif(config.env === 'development', sourcemaps.write()))//write sourcemap
         .pipe(gulp.dest(path.build.css)) //put compressed files to the build
         .pipe(reload({stream: true}));//refresh server
 });
@@ -59,9 +82,9 @@ gulp.task('style:build', function () {
 gulp.task('js:build', function () {
     gulp.src(path.src.js) //get main.js
         .pipe(rigger()) //
-        .pipe(sourcemaps.init()) //init sourcemap
-        .pipe(uglify()) //compressing js
-        .pipe(sourcemaps.write()) //write sourcemap
+        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
         .pipe(gulp.dest(path.build.js)) //put compressed files to the build
         .pipe(reload({stream: true})); //refresh server
 });
@@ -82,11 +105,7 @@ gulp.task('webserver', function () {
     browserSync(config);
 });
 
-gulp.task('build', [
-    'js:build',
-    'style:build',
-    'image:build'
-]);
+
 
 
 gulp.task('watch', function(){
@@ -102,8 +121,30 @@ gulp.task('watch', function(){
 });
 
 
+/*Run task*/
+
+gulp.task('build', [
+    'js:build',
+    'style:build',
+    'image:build'
+]);
+
 gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('default', ['build', 'watch']);
+//development is default
+ gulp.task('default', ['dev', 'watch']);
+
+
+gulp.task('dev', ['set-dev-node-env'], function() {
+   return runSequence(
+      'build'
+   );
+});
+
+gulp.task('prod', ['set-prod-node-env'], function() {
+   return runSequence(
+      'build'
+   );
+});
