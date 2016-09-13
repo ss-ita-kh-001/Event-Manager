@@ -59,3 +59,18 @@ body {
     font-size: $regular-font-size-lg;
   }
 }
+
+//Bootstrap recoloring
+.navbar-default {
+    background-color: #FEFCF4;
+    border-color: #E6C999;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #CA8D26;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #CA8D26;
+    background-color: #F9F2E7;
+}
