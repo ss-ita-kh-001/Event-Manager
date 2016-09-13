@@ -18,11 +18,37 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.14.0",
     "gulp-rename": "^1.2.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.2"
+=======
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.15.0",
+    "connect": "^3.5.0",
+    "core-util-is": "^1.0.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-filter": "^4.0.0",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rigger": "^0.5.8",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-uncss": "^1.0.6",
+    "gulp-watch": "^4.3.9",
+    "gulp.spritesmith": "^6.2.1",
+    "imagemin-pngquant": "^5.0.0",
+    "inherits": "^2.0.3",
+    "rimraf": "^2.5.4",
+    "serve-static": "^1.11.1"
+>>>>>>> refs/remotes/origin/master
   }
 }
