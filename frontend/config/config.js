@@ -9,6 +9,9 @@
             .when("/user", {
                 templateUrl: "../features/user/views/index.html"
             })
+            .when("/settings", {
+                templateUrl: "../features/user/views/settings.html"
+            })
             .otherwise({
                 template: "../features/main/views/main.html"
             });
