@@ -1,0 +1,80 @@
+@import "variables";
+body {
+  background-color: #fefefe;
+}
+.header {
+  font-family: $title-font-family;
+  @media screen and (max-width: 768px){
+    font-size: $title-font-size-xs;
+    margin-top: $title-margin-top-xs;
+  }
+  @media screen and (min-width: 769px) and (max-height: 992px){
+    font-size: $title-font-size-sm;
+    margin-top: $title-margin-top-sm;
+  }
+  @media screen and (min-width: 993px) and (max-height: 1200px){
+    font-size: $title-font-size-md;
+    margin-top: $title-margin-top-md;
+  }
+  @media screen and (min-width: 1201px){
+    font-size: $title-font-size-lg;
+    margin-top: $title-margin-top-lg;
+  }
+  color: $text-color-light;
+}
+
+.footer {
+  font-family: $footer-font-family;
+  @media screen and (max-width: 768px){
+    font-size: $footer-font-size-xs;
+  }
+  @media screen and (min-width: 769px) and (max-height: 992px){
+    font-size: $footer-font-size-sm;
+  }
+  @media screen and (min-width: 993px) and (max-height: 1200px){
+    font-size: $footer-font-size-md;
+  }
+  @media screen and (min-width: 1201px){
+    font-size: $footer-font-size-lg;
+  }
+  color: $text-color-light;
+}
+
+.main-content {
+  font-family: $regular-font-family;
+  @media screen and (max-width: 768px){
+    min-height: $main-content-min-height-xs;
+    font-size: $regular-font-size-xs;
+  }
+  @media screen and (min-width: 769px) and (max-height: 992px){
+    min-height: $main-content-min-height-sm;
+    font-size: $regular-font-size-sm;
+  }
+  @media screen and (min-width: 993px) and (max-height: 1200px){
+    min-height: $main-content-min-height-md;
+    font-size: $regular-font-size-md;
+  }
+  @media screen and (min-width: 1201px){
+    min-height: $main-content-min-height-lg;
+    font-size: $regular-font-size-lg;
+  }
+}
+
+//Bootstrap recoloring
+.navbar-default {
+    background-color: $navbar-bg-color;
+    border-color: $navbar-border-color;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: $navbar-text-color;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: $navbar-text-color;
+    background-color: $navbar-active-bg-color;
+}
+
+.logo {
+  width: 100%;
+}

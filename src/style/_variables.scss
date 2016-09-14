@@ -1,0 +1,41 @@
+//Colors
+$text-color-light: #f0bb29;
+$text-color-dark: #c17900;
+$navbar-bg-color: #FEFCF4;
+$navbar-border-color: #E6C999;
+$navbar-text-color: #CA8D26;
+$navbar-active-bg-color: #F9F2E7;
+//Fonts
+@font-face {
+  font-family: "Orange Juice";
+  src: url("build/font/orange-juice-2.0.ttf");
+}
+@font-face {
+  font-family: "Fjalla One Regular";
+  src: url("build/font/FjallaOne-Regular.ttf");
+}
+$title-font-family: "Orange Juice";
+$title-font-size-xs: 55px;
+$title-font-size-sm: 70px;
+$title-font-size-md: 80px;
+$title-font-size-lg: 100px;
+$footer-font-family: $title-font-family;
+$footer-font-size-xs: 20px;
+$footer-font-size-sm: 25px;
+$footer-font-size-md: 30px;
+$footer-font-size-lg: 35px;
+$regular-font-family: "Fjalla One Regular";
+$regular-font-size-xs: 18px;
+$regular-font-size-sm: 20px;
+$regular-font-size-md: $regular-font-size-sm;
+$regular-font-size-lg: $regular-font-size-sm;
+//Margins
+$title-margin-top-xs: 0px;
+$title-margin-top-sm: 40px;
+$title-margin-top-md: $title-margin-top-sm;
+$title-margin-top-lg: $title-margin-top-sm;
+//Min-heights
+$main-content-min-height-xs: calc(100vh - 78px - 28px - 100px);
+$main-content-min-height-sm: calc(100vh - 223px - 35px - 100px);
+$main-content-min-height-md: calc(100vh - 223px - 35px - 100px);
+$main-content-min-height-lg: calc(100vh - 265px - 50px - 100px);
