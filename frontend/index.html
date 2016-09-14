@@ -43,7 +43,7 @@
                             <li><a href="#">Event calender</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Login</a></li>
+                            <li><a href="login">Login</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
@@ -51,19 +51,23 @@
                 <!-- /.container-fluid -->
             </nav>
         </div>
-        <!-- Content -->
-        <div class="col-xs-12 main-content text-justify">
-            <div ng-view></div>
-        </div>
-        <div class="col-xs-12 text-center footer">
-            (C)KH-001-WebUI Team
-        </div>
+
+    </div>
+
+
+    <!-- Content -->
+    <div class="col-xs-12 main-content text-justify">
+        <div ng-view></div>
+    </div>
+    <div class="col-xs-12 text-center footer">
+        (C)KH-001-WebUI Team
+    </div>
     </div>
 
     <script src="app.js"></script>
-    <script src="config/config.js"></script>
-    <script src="features/main/module.js"></script>
-    <script src="features/main/controllers/mainController.js"></script>
+    <script src="./app/config/config.js"></script>
+    <script src="./app/features/main/module.js"></script>
+    <script src="./app/features/main/controllers/mainController.js"></script>
 </body>
 
 </html>
