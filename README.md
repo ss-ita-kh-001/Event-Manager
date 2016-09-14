@@ -11,3 +11,7 @@ This project is designed to track events schedule.
 * Install bower modules by running `bower install`
 * Install the heroku toolbelt following the recommendations here: https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up
 * Launch the project locally by running the following command: `npm start`
+
+## Application available online:
+
+* https://ita-event-manager.herokuapp.com/
