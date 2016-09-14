@@ -84,5 +84,10 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+<<<<<<< HEAD
 #Bower
 bower_components
+=======
+/src/lib
+>>>>>>> refs/remotes/origin/master
+frontend/build/css/main.css
