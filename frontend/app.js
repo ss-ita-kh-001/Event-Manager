@@ -1,5 +1,5 @@
 (function() {
-   var app = angular.module("em", ["ngRoute", "em.main", "ui.bootstrap"]);
+   var app = angular.module("em", ["ngRoute", "em.main", 'ngAnimate', "ui.bootstrap"]);
    app.controller('DropdownCtrl', function ($scope, $log) {
   $scope.items = [
     'The first choice!',
