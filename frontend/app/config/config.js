@@ -3,23 +3,23 @@
         $locationProvider.html5Mode(true);
         $routeProvider
             .when("/", {
-                templateUrl: "../features/main/views/main.html",
+                templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
             .when("/user", {
-                templateUrl: "../features/user/views/index.html"
+                templateUrl: "./app/features/user/views/index.html"
             })
             .when("/settings", {
-                templateUrl: "../features/user/views/settings.html"
+                templateUrl: "./app/features/user/views/settings.html"
             })
             .when("/login", {
-                templateUrl: "../features/login/views/login.html"
+                templateUrl: "./app/features/login/views/login.html"
             })
             .when("/register", {
-                templateUrl: "../features/register/views/register.html"
+                templateUrl: "./app/features/register/views/register.html"
             })
             .otherwise({
-                template: "../features/main/views/main.html"
+                template: "./app/features/main/views/main.html"
             });
     })
 })();
