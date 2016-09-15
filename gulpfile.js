@@ -32,7 +32,7 @@ var path = {
         js: 'src/js/'
     },
     src: { //source files
-        js: 'src/js/**/*.js', //we need all js files
+        js: ['src/js/**/*.js', 'frontend/app/*.js'], //we need all js files
         style: 'src/style/main.scss', //we need only main.css
         img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
         font: 'src/font/**/*.*' // fonts/**/*.* - get all files with all expansion from all nested folders
