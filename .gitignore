@@ -86,6 +86,3 @@ crashlytics-build.properties
 fabric.properties
 /src/lib
 frontend/build/css/main.css
-
-/src/js
-frontend/build
