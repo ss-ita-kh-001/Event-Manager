@@ -17,6 +17,7 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     extend  = require('extend'),
     parseArgs   = require('minimist'),
+    fontmin = require('gulp-fontmin'),
     reload = browserSync.reload;
 
 
@@ -25,16 +26,29 @@ var gulp = require('gulp'),
             js: 'frontend/build/js/',
             css: 'frontend/build/css/',
             img: 'frontend/build/img/',
+            font: 'frontend/build/font/'
+        },
+        copy: { //building files
+            js: 'src/js/'
         },
         src: { //source files
-            js: 'src/js/**/*.js',//we need all js files 
-            style: 'src/style/main.scss',//we need only main.css 
-            img: 'src/img/**/*.*' // img/**/*.* - get all files with all expansion from all nested folders
+            js: 'src/js/**/*.js',//we need all js files
+            style: 'src/style/main.scss',//we need only main.css
+            img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
+            font: 'src/font/**/*.*' // fonts/**/*.* - get all files with all expansion from all nested folders
           },
+          lib: { //source files
+              js: ['src/lib/angular/angular.js',
+              'src/lib/angular-animate/angular-animate.js',
+               'src/lib/angular-bootstrap/ui-bootstrap.js',
+              'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+              'src/lib/angular-route/angular-route.js']
+            },
         watch: { //watch changes form those files
             js: 'src/js/**/*.js',
             style: 'src/style/**/*.scss',
-            img: 'src/img/**/*.*'
+            img: 'src/img/**/*.*',
+            font: 'src/font/**/*.*'
         },
         clean: 'frontend/build'
     };
@@ -89,6 +103,27 @@ gulp.task('js:build', function () {
         .pipe(reload({stream: true})); //refresh server
 });
 
+gulp.task('lib:copy', function () {
+    gulp.src(path.lib.js) //get main.js
+        .pipe(rigger()) //
+        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
+        .pipe(gulp.dest(path.copy.js)) //put compressed files to the build
+        .pipe(reload({stream: true})); //refresh server
+});
+
+
+gulp.task('lib:build', function () {
+    gulp.src(path.lib.js) //get main.js
+        .pipe(rigger()) //
+        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
+        .pipe(gulp.dest(path.build.js)) //put compressed files to the build
+        .pipe(reload({stream: true})); //refresh server
+});
+
 gulp.task('image:build', function () {
     gulp.src(path.src.img) //get all images
         .pipe(imagemin({ //compressing images
@@ -100,6 +135,15 @@ gulp.task('image:build', function () {
         .pipe(gulp.dest(path.build.img)) ///put compressed files to the build
         .pipe(reload({stream: true}));
 });
+
+gulp.task('font:build', function () {
+    gulp.src(path.src.font)
+        .pipe(fontmin())
+        .pipe(gulp.dest(path.build.font))
+        .pipe(reload({stream: true}));
+});
+
+
 
 gulp.task('webserver', function () {
     browserSync(config);
@@ -126,7 +170,9 @@ gulp.task('watch', function(){
 gulp.task('build', [
     'js:build',
     'style:build',
-    'image:build'
+    'image:build',
+    'lib:copy',
+    'font:build'
 ]);
 
 gulp.task('clean', function (cb) {
