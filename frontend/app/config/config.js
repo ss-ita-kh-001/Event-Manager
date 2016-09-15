@@ -6,8 +6,11 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/user", {
-                templateUrl: "./app/features/user/views/index.html"
+            .when("/profile", {
+                templateUrl: "./app/features/profile/views/index.html"
+            })
+            .when("/users", {
+                templateUrl: "./app/features/users-table/views/index.html"
             })
             .when("/settings", {
                 templateUrl: "./app/features/user/views/settings.html"
