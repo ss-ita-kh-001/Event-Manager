@@ -37,7 +37,7 @@ var gulp = require('gulp'),
             img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
             font: 'src/font/**/*.*' // fonts/**/*.* - get all files with all expansion from all nested folders
           },
-          lib: { //source files
+        lib: { //source files
               js: ['src/lib/angular/angular.js',
               'src/lib/angular-animate/angular-animate.js',
                'src/lib/angular-bootstrap/ui-bootstrap.js',
@@ -160,6 +160,9 @@ gulp.task('watch', function(){
         gulp.start('js:build');
     });
     watch([path.watch.img], function(event, cb) {
+        gulp.start('image:build');
+    });
+    watch([path.watch.font], function(event, cb) {
         gulp.start('image:build');
     });
 });
