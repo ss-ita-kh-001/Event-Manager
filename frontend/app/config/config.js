@@ -18,6 +18,12 @@
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html"
             })
+            .when("/events-list", {
+                templateUrl: "./app/features/events/views/events-list.html"
+            })
+            .when("/events-list/event", {
+                templateUrl: "./app/features/events/views/event.html"
+            })
             .otherwise({
                 template: "./app/features/main/views/main.html"
             });
