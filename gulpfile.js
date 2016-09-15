@@ -43,7 +43,8 @@ var path = {
             'src/lib/angular-bootstrap/ui-bootstrap.js',
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/lib/angular-route/angular-route.js',
-            'src/lib/satellizer/dist/satellizer.js'
+            'src/lib/satellizer/dist/satellizer.js',
+            'src/lib/angular-sanitize/angular-sanitize.js'
         ]
     },
     watch: { //watch changes form those files
