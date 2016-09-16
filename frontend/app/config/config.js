@@ -18,9 +18,6 @@
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html"
             })
-            .when("/event/add", {
-                templateUrl: "./app/features/add-event/views/add-event.html"
-            })
             .otherwise({
                 template: "./app/features/main/views/main.html"
             });
