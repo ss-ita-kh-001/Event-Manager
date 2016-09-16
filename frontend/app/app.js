@@ -1,5 +1,6 @@
 (function() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     var app = angular.module("em", ["ngRoute", "em.main", 'ngAnimate', "ui.bootstrap", "satellizer", "em.addEvent"]);
     app.controller('DropdownCtrl', function($scope, $log) {
         $scope.items = [
@@ -7,6 +8,8 @@
             'And another choice for you.',
             'but wait! A third!'
         ];
+=======
+>>>>>>> refs/remotes/origin/master
 =======
 >>>>>>> refs/remotes/origin/master
 
