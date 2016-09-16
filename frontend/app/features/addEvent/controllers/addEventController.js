@@ -3,4 +3,5 @@
   function addEventController($scope) {
 
   }
+  addEventController.$inject = ["$scope"];
 })();
