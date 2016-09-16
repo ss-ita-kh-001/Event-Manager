@@ -21,13 +21,9 @@
             })
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html",
-                controller: "em.register.registerController"
-<<<<<<< HEAD
-=======
             })
             .when("/events-list", {
                 templateUrl: "./app/features/events/views/events-list.html"
->>>>>>> refs/remotes/origin/master
             })
             .when("/event/add", {
                   templateUrl: "./app/features/addEvent/views/addEvent.html",

@@ -1,3 +1,3 @@
-(function () {
-  angular.module("em.addEvent", []);
+(function() {
+    angular.module("em.addEvent", []);
 })();
