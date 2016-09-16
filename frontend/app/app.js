@@ -1,4 +1,5 @@
 (function() {
+<<<<<<< HEAD
     var app = angular.module("em", ["ngRoute", "em.main", 'ngAnimate', "ui.bootstrap", "satellizer", "em.addEvent"]);
     app.controller('DropdownCtrl', function($scope, $log) {
         $scope.items = [
@@ -6,21 +7,9 @@
             'And another choice for you.',
             'but wait! A third!'
         ];
+=======
+>>>>>>> refs/remotes/origin/master
 
-        $scope.status = {
-            isopen: false
-        };
+    var app = angular.module("em", ["ngRoute", "em.main", "em.profile", "em.register", 'ngAnimate', "ui.bootstrap", "satellizer"]);
 
-        $scope.toggled = function(open) {
-            $log.log('Dropdown is now: ', open);
-        };
-
-        $scope.toggleDropdown = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.status.isopen = !$scope.status.isopen;
-        };
-
-        $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
-    });
 })();

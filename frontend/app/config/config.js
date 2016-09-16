@@ -6,8 +6,12 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/user", {
-                templateUrl: "./app/features/user/views/index.html"
+            .when("/profile", {
+                templateUrl: "./app/features/profile/views/index.html",
+                controller: "em.profile.profile-controller"
+            })
+            .when("/users", {
+                templateUrl: "./app/features/users-table/views/index.html"
             })
             .when("/settings", {
                 templateUrl: "./app/features/user/views/settings.html"
@@ -16,7 +20,8 @@
                 templateUrl: "./app/features/login/views/login.html"
             })
             .when("/register", {
-                templateUrl: "./app/features/register/views/register.html"
+                templateUrl: "./app/features/register/views/register.html",
+                controller: "em.register.registerController"
             })
             .when("/event/add", {
                   templateUrl: "./app/features/addEvent/views/addEvent.html",

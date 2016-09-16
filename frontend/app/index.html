@@ -7,10 +7,11 @@
     <base href="/">
     <link rel="stylesheet" href="build/css/main.css" media="screen" title="no title">
     <script type="text/javascript" src="./build/js/angular.js"></script>
-    <script type="text/javascript" src="./build/js/ui-bootstrap.js"></script>
-    <script type="text/javascript" src="./build/js/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="./build/js/angular-route.js"></script>
+    <script type="text/javascript" src="./build/js/ui-bootstrap.js"></script>
     <script type="text/javascript" src="./build/js/angular-animate.js"></script>
+    <script type="text/javascript" src="./build/js/angular-sanitize.js"></script>
+    <script type="text/javascript" src="./build/js/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="./build/js/satellizer.js"></script>
     <title>Event Manager</title>
 </head>
@@ -42,8 +43,10 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="/">Main<span class="sr-only">(current)</span></a></li>
                             <li><a href="events-list">Events</a></li>
+                            <li><a href="users">All users</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li><a href="profile">Profile</a></li>
                             <li><a href="login">Login</a></li>
                         </ul>
                     </div>
@@ -52,10 +55,7 @@
                 <!-- /.container-fluid -->
             </nav>
         </div>
-
     </div>
-
-
     <!-- Content -->
     <div class="col-xs-12 main-content text-justify">
         <div ng-view></div>
@@ -69,8 +69,22 @@
     <script src="./app/config/config.js"></script>
     <script src="./app/features/main/module.js"></script>
     <script src="./app/features/main/controllers/mainController.js"></script>
+<<<<<<< HEAD
     <script src="./app/features/addEvent/module.js"></script>
     <script src="./app/features/addEvent/controllers/addEventController.js"></script>
+=======
+    <script type="text/javascript" src="./app/features/profile/module.js"></script>
+    <script type="text/javascript" src="./app/features/profile/const/mocked-values.js"></script>
+    <script type="text/javascript" src="./app/features/profile/controllers/profile-controller.js"></script>
+    <script type="text/javascript" src="./app/features/profile/services/profile-service.js"></script>
+
+    <script type="text/javascript" src="./app/features/register/module.js"></script>
+    <script type="text/javascript" src="./app/features/register/controllers/registerController.js"></script>
+    <script type="text/javascript" src="./app/features/register/directives/compare-password.js"></script>
+
+
+    </script>
+>>>>>>> refs/remotes/origin/master
 </body>
 
 </html>
