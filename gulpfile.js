@@ -32,7 +32,7 @@ var path = {
         js: 'src/js/'
     },
     src: { //source files
-        js: 'src/js/**/*.js', //we need all js files
+        js: ['src/js/**/*.js', 'frontend/app/*.js'], //we need all js files
         style: 'src/style/main.scss', //we need only main.css
         img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
         font: 'src/font/**/*.*' // fonts/**/*.* - get all files with all expansion from all nested folders
@@ -43,7 +43,8 @@ var path = {
             'src/lib/angular-bootstrap/ui-bootstrap.js',
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/lib/angular-route/angular-route.js',
-            'src/lib/satellizer/dist/satellizer.js'
+            'src/lib/satellizer/dist/satellizer.js',
+            'src/lib/angular-sanitize/angular-sanitize.js'
         ]
     },
     watch: { //watch changes form those files
