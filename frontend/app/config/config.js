@@ -19,7 +19,8 @@
                 templateUrl: "./app/features/register/views/register.html"
             })
             .when("/event/add", {
-                  templateUrl: "./app/features/addEvent/views/addEvent.html"
+                  templateUrl: "./app/features/addEvent/views/addEvent.html",
+                  controller: "em.addEvent.addEventController"
             })
             .otherwise({
                 template: "./app/features/main/views/main.html"
