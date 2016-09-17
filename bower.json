@@ -20,6 +20,7 @@
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
     "angular-route": "^1.5.8",
-    "satellizer": "^0.15.5"
+    "satellizer": "^0.15.5",
+    "angular-sanitize": "^1.5.8"
   }
 }
