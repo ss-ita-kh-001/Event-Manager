@@ -5,6 +5,31 @@
         border-radius: 5px;
         border: 1px solid silver;
     }
+
+    .form-style {
+        position: relative;
+        background: #F8F8F8;
+        border: 5px dashed #DDDDDD;
+    }
+
+    input[type=file] {
+        width: 300px;
+        height: 300px;
+        background: #F8F8F8;
+        border: 5px dashed #DDDDDD;
+        opacity: 0;
+    }
+
+    input[type=file]~label {
+        position: absolute;
+        top: 48%;
+        left: 28%;
+    }
+
+    .small-img {
+        width: 50px;
+        margin: 5px;
+    }
 </style>
 <div class="container">
     <div class="row form-group">
@@ -55,7 +80,22 @@
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Photos</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place title here..">
+            <div class="image-container">
+
+                <div class="dropzone" file-dropzone="[image/png, image/jpeg, image/gif]" file="image" file-name="imageFileName" data-max-file-size="3">
+                    <img ng-src={{image}} />
+                    <span class="file-name">{{imageFileName}}</span>
+                </div>
+
+                <form action class="form-style">
+                    <input type="file" name="file-1" fileread="uploadme.src">
+                    <label for="file-1">
+                  <span>Select or Drop Image</span>
+                </label>
+
+                </form>
+                <img ng-src="{{ uploadme.src }}" class="small-img">
+            </div>
         </div>
     </div>
     <div class="row form-group">

@@ -4,6 +4,13 @@
     function addEventController($scope, datePicker, map) {
         $scope.datePicker = datePicker;
         $scope.place = {};
+
+        $scope.image = null;
+        $scope.imageFileName = '';
+
+        $scope.uploadme = {};
+        $scope.uploadme.src = '';
+
         $scope.search = function() {
             $scope.apiError = false;
             map.search($scope.searchPlace)
@@ -22,5 +29,7 @@
         }
         map.init();
     }
+
     addEventController.$inject = ["$scope", "em.addEvent.datePicker", "em.addEvent.map"];
+
 })();
