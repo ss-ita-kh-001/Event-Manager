@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
     "start": "heroku local web",
-    "postinstall": "gulp default"
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",
