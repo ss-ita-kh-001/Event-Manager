@@ -1,0 +1,69 @@
+<style>
+    #map {
+        height: 400px;
+        margin: 20px 0;
+        border-radius: 5px;
+        border: 1px solid silver;
+    }
+</style>
+<div class="container">
+    <div class="row form-group">
+        <div class="col-sm-offset-3 col-sm-2">Title</div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Place title here..">
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-3 col-sm-2">Description</div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Place description here..">
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-3 col-sm-2">Date</div>
+        <div class="col-sm-4">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.format}}" ng-model="datePicker.dt" is-open="datePicker.popup.opened" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="datePicker.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-3 col-sm-2">Location</div>
+        <div class="col-sm-4">
+            <div class="alert alert-danger text-center" role="alert" ng-show="apiError">
+                <b>API Error : </b>
+                <span>{{ apiStatus }}</span>
+            </div>
+            <form name="searchForm" novalidate ng-submit="search()">
+                <div class="input-group">
+                    <input name="place" type="text" class="form-control" ng-model="searchPlace" required autofocus />
+                    <span class="input-group-btn">
+                <button class="btn btn-primary"
+                ng-disabled="searchForm.$invalid">Search</button>
+            </span>
+                </div>
+            </form>
+            <div id="map"></div>
+
+            <form name="resForm" class="form-horizontal" novalidate ng-submit="send()">
+            </form>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-3 col-sm-2">Photos</div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Place title here..">
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-offset-6 col-sm-1">
+            <button type="button" class="btn btn-danger">Clear</button>
+        </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
