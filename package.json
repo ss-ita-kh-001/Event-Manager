@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "start": "heroku local web"
+    "start": "heroku local web",
+    "postinstall": "bower install && gulp"
   },
   "repository": {
     "type": "git",
@@ -18,12 +19,11 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
-    "express": "^4.14.0"
-  },
-  "devDependencies": {
+    "bower": "^1.7.9",
     "browser-sync": "^2.15.0",
     "connect": "^3.5.0",
     "core-util-is": "^1.0.2",
+    "express": "^4.14.0",
     "extend": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
@@ -33,6 +33,7 @@
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^3.0.3",
     "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
     "gulp-rigger": "^0.5.8",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
@@ -46,12 +47,14 @@
     "rimraf": "^2.5.4",
     "run-sequence": "^1.2.2",
     "serve-static": "^1.11.1",
-    "yargs": "^5.0.0",
+    "yargs": "^5.0.0"
+  },
+  "devDependencies": {
     "jasmine": "^2.5.1",
     "jasmine-core": "^2.5.1",
     "karma": "^1.3.0",
-    "karma-jasmine": "^1.0.2",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-firefox-launcher": "^1.0.0"
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.0.2"
   }
 }
