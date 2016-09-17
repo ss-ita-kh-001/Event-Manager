@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "start": "heroku local web"
+    "start": "heroku local web",
+    "postinstall": "gulp default"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,7 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
-    "express": "^4.14.0"
-  },
-  "devDependencies": {
+    "express": "^4.14.0",
     "browser-sync": "^2.15.0",
     "connect": "^3.5.0",
     "core-util-is": "^1.0.2",
@@ -54,5 +53,8 @@
     "karma-jasmine": "^1.0.2",
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0"
+  },
+  "devDependencies": {
+
   }
 }
