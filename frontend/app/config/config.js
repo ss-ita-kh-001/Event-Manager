@@ -21,13 +21,13 @@
             })
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html",
-                controller: "em.register.registerController"
             })
             .when("/events-list", {
                 templateUrl: "./app/features/events/views/events-list.html"
             })
-            .when("/events-list/event", {
-                templateUrl: "./app/features/events/views/event.html"
+            .when("/event/add", {
+                  templateUrl: "./app/features/addEvent/views/addEvent.html",
+                  controller: "em.addEvent.addEventController"
             })
             .otherwise({
                 template: "./app/features/main/views/main.html"

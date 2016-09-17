@@ -199,7 +199,7 @@ gulp.task('clean', function(cb) {
 });
 
 //development is default
-gulp.task('default', ['dev', 'watch']);
+gulp.task('default', ['dev']);
 
 
 gulp.task('dev', ['set-dev-node-env'], function() {
