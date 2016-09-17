@@ -1,19 +1,29 @@
 <div class="content-wrapper">
-    <section class="carousel-content">
-        <div ng-controller="CarouselDemoCtrl">
-            <div style="height: 305px; position: relative;">
-                <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                    <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                        <img ng-src="{{slide.image}}" style="margin:auto;">
-                        <div class="carousel-caption">
-                            <h4>Slide {{slide.id}}</h4>
-                            <p>{{slide.text}}</p>
-                        </div>
-                    </div>
+    <div class="carousel-content">
+        <div uib-carousel active="0" interval="3000">
+            <div uib-slide index="0">
+                <img src="build/img/ocean.jpg" alt="ocean" style="margin:auto;">
+                <div class="carousel-caption caption-event">
+                    <h4>Vacation</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel accumsan ipsum. Cras dictum magna massa, eget euismod odio commodo in</p>
+                </div>
+            </div>
+            <div uib-slide index="1">
+                <img src="build/img/picnic.jpg" alt="picnic" style="margin:auto;">
+                <div class="carousel-caption caption-event">
+                    <h4>Time with your family!</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel accumsan ipsum. Cras dictum magna massa, eget euismod odio commodo in</p>
+                </div>
+            </div>
+            <div uib-slide index="2">
+                <img src="build/img/badminton.jpg" alt="badminton" style="margin:auto;">
+                <div class="carousel-caption caption-event">
+                    <h4>Slide</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel accumsan ipsum. Cras dictum magna massa, eget euismod odio commodo in</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <div class="upcoming-events">
         <div class="upcoming-events-item1">
             <h4>May require custom widths</h4>
@@ -31,7 +41,7 @@
             <p>Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom widths may be required.</p>
         </div>
     </div>
-    <section class="container-fluid grid grid-item four-cols">
+    <div class="container-fluid grid grid-item four-cols">
         <div class="item-news">
             <article>
                 <time>
@@ -76,5 +86,5 @@
                 </div>
             </article>
         </div>
-    </section>
+    </div>
 </div>
