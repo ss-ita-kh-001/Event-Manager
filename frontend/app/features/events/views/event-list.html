@@ -12,8 +12,8 @@
             <td>{{event.title}}</td>
             <td>{{event.date}}</td>
             <td>{{event.descr}}
-                <div class="row">
-                    <a href="/events-list/event" class="btn">View event</a>
+                <div class="row" id="{{event.id}}">
+                    <a href="/events/{{event.id}}" class="btn">View event</a>
                  </div>
             </td>
         </tr>

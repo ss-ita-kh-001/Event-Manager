@@ -2,6 +2,11 @@
 body {
   background-color: #fefefe;
 }
+
+img{
+  max-width: 100%;
+}
+
 .header {
   font-family: $title-font-family;
   @media screen and (max-width: 768px){

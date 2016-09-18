@@ -5,6 +5,7 @@
         this.getEvents = function() {
             return mockedEventList;
         }
+
     }
     eventService.$inject = ["em.events.mock-event-list"]
 })();
