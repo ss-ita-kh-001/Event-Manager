@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <h1>Event list page</h1>
+    </div>
+    <table class="table table-bordered table-hover">
+        <tr class="warning">
+            <th class="info">EVENT ID</th>
+            <th class="info">DATE</th>
+            <th class="info">DESCRIPTION</th>
+        </tr>
+        <tr ng-repeat="event in events" class="">
+            <td>{{event.title}}</td>
+            <td>{{event.date}}</td>
+            <td>{{event.descr}}
+                <div class="row" id="{{event.id}}">
+                    <a href="/events/{{event.id}}" class="btn">View event</a>
+                 </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="row">
+        <a href="add-event" class="btn">Add new event</a>
+     </div>
+  </div>
+</div>

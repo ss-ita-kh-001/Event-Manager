@@ -12,10 +12,12 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <div ng-repeat="event in events" ng-if="isVisible" class="upcoming-events-item">
+            <div ng-repeat="event in events" ng-if="isVisible"  class="upcoming-events-item">
+              <div ng-if="event.isSubscribe" >
                 <h4>{{event.title}}</h4>
                 <h6>{{event.date}}</h6>
                 <p>{{event.descr}} </p>
+                  </div>
             </div>
         </div>
     </div>

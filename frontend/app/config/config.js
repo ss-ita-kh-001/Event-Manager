@@ -22,9 +22,16 @@
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html",
             })
-            .when("/events-list", {
-                templateUrl: "./app/features/events/views/events-list.html"
+            .when("/events", {
+                templateUrl: "./app/features/events/views/event-list.html",
+                controller: "em.events.event-list-controller"
             })
+            .when('/events/:id', {
+          templateUrl: function($routeParams) {
+            return './app/features/events/views/event.html';
+          },
+          controller: "em.events.eventController"
+        })
             .when("/event/add", {
                   templateUrl: "./app/features/addEvent/views/addEvent.html",
                   controller: "em.addEvent.addEventController"
