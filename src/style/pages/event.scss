@@ -1,0 +1,18 @@
+.event-page{
+  h1{
+    text-transform: capitalize;;
+  }
+  .date{
+    font-size: 0.75em;
+  }
+  .btn-group{
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    .btn{
+      float: none;
+      width: 50%;
+    }
+
+  }
+}
