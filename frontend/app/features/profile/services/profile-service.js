@@ -1,9 +1,9 @@
 (function() {
     angular.module("em.profile").service("em.profile.profile-service", profileService);
 
-    function profileService(mockedValues) {
+    function profileService(users) {
         this.getEventsByUserId = function() {
-            return mockedValues;
+            return users;
         }
         this.updateEventSubscribe = function($scope, state) {
 
