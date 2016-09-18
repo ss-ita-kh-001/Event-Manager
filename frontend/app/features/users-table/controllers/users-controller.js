@@ -1,4 +1,5 @@
 (function() {
+    console.log('yy');
     angular.module("em.users-table").controller("em.users-table.users-table-controller", usersTableController);
 
     function usersTableController($scope, usersTableService) {

@@ -3,7 +3,7 @@
         <div class="col-sm-4">
             <div class="user-info">
                 <h2>User name</h2>
-                <img src="http://images.clipartpanda.com/happy-computer-user-happy-computeruser.png" alt="Your Photo" class="img-responsive" />
+                <img src="http://images.clipartpanda.com/happy-computer-user-happy-computeruser.png" alt="Your Photo" class="img-responsive"/>
                 <p>
                     email: email@email.com
                 </p>
@@ -12,21 +12,14 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <div ng-repeat="event in events" ng-if="isVisible"  class="upcoming-events-item">
-              <div ng-if="event.isSubscribe" >
-                <h4>{{event.title}}</h4>
-                <h6>{{event.date}}</h6>
-                <p>{{event.descr}} </p>
-                  </div>
+            <div ng-repeat="event in events" class="upcoming-events-item">
+                <div>
+                    <h4>{{event.title}}</h4>
+                    <h6>{{event.date}}</h6>
+                    <p>{{event.descr}}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<style media="screen">
-    .upcoming-events-item {
-        border-left: 4px solid #CC6666;
-        padding: 0px 10px;
-        margin: 20px 5px;
-    }
-</style>
