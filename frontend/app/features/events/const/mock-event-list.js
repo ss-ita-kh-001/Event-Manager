@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.profile").value("em.profile.mocked-values", [{
+    angular.module("em.events").value("em.events.mock-event-list", [{
       title: "Chess tournament",
       date: "15.09.2016",
       descr: "Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom",
@@ -26,5 +26,4 @@
       isSubscribe : false
 
     }]);
-
 })();

@@ -1,6 +1,25 @@
-<div class="container">
+<div class="container event-page">
   <div class="row">
-    <h1>Event page</h1>
+    <h1 ng-repeat="event in events" ng-if="event.id == path">{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
     </div>
+    <div class="row" ng-repeat="event in events" ng-if="event.id == path" >
+      <div class="col-md-6">
+        <img src="./build/img/{{event.imgURL}}" alt="" />
+
+      </div>
+      <div class="col-md-6">
+        <p>{{event.descr}}</p>
+        <div class="btn-group" ng-if = "!isSubscribe" ng-show="!isSubscribe">
+         <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()" >Subscribe</button>
+       </div>
+       <div  ng-if = "isSubscribe">
+         <div class="alert alert-success" >
+           You have successfully subscribed to event
+         </div>
+         <button type="button" class="btn " ng-click="unSubscribe()" >Unsubscribe</button>
+
+       </div>
+
+      </div>
   </div>
 </div>
