@@ -7,12 +7,13 @@
         }
         this.updateEventSubscribe = function($scope, state) {
 
-            angular.forEach(users, function(users,  path ){
-              if(users.id == $scope.path){
-                users.isSubscribe = state;
-              }
+            angular.forEach(users, function(users, path) {
+                if (users.id == $scope.path) {
+                    users.isSubscribe = state;
+                }
             });
         }
+
     }
-    profileService.$inject = ["em.profile.mocked-values"]
+    profileService.$inject = ["em.profile.mocked-values", "em.db.users"]
 })();
