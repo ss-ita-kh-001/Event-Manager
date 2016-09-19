@@ -1,10 +1,22 @@
 (function() {
     angular.module("em.db").value("em.db.users", [{
-        name: "User 1",
-        email: "user1@gmail.com"
+        name: "Vasyl",
+        email: "vasyl@gmail.com"
     }, {
-        name: "User 2",
-        email: "user2@hotmail.com"
+        name: "Petro",
+        email: "petro@hotmail.com"
+    }, {
+        name: "Evhenii",
+        email: "evhenii@hotmail.com"
+    }, {
+        name: "Kazimir",
+        email: "kazimir@hotmail.com"
+    } {
+        name: "Platon",
+        email: "platon@hotmail.com"
+    } {
+        name: "Agafia",
+        email: "agafia@i.ua"
     }]);
 
 })();
