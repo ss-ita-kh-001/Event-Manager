@@ -1,6 +1,7 @@
 (function() {
     var app = angular.module("em", [
         "ngRoute",
+        "em.db",
         "em.main",
         "em.profile",
         "em.users",

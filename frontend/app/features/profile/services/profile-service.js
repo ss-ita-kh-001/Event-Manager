@@ -7,9 +7,9 @@
         }
         this.updateEventSubscribe = function($scope, state) {
 
-            angular.forEach(mockedValues, function(mockedValues,  path ){
-              if(mockedValues.id == $scope.path){
-                mockedValues.isSubscribe = state;
+            angular.forEach(users, function(users,  path ){
+              if(users.id == $scope.path){
+                users.isSubscribe = state;
               }
             });
         }
