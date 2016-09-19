@@ -7,6 +7,7 @@
         'ngAnimate',
         "ui.bootstrap",
         "em.addEvent",
+        "em.editEvent",
         "em.events"
     ]);
     app.controller('DropdownCtrl', function($scope, $log) {
