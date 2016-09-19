@@ -3,11 +3,12 @@
         "ngRoute",
         "em.main",
         "em.profile",
-        "em.users-table",
+        "em.users",
         "em.register",
         'ngAnimate',
         "ui.bootstrap",
         "em.addEvent",
+        "em.editEvent",
         "em.events"
     ]);
 })();

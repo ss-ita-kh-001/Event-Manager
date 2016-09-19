@@ -11,7 +11,8 @@
                 controller: "em.profile.profile-controller"
             })
             .when("/users", {
-                templateUrl: "./app/features/users-table/views/users-table.html"
+                templateUrl: "./app/features/users/views/users.html",
+                controller: "em.users.users-controller"
             })
             .when("/settings", {
                 templateUrl: "./app/features/profile/views/settings.html"
@@ -27,14 +28,18 @@
                 controller: "em.events.event-list-controller"
             })
             .when('/events/:id', {
-          templateUrl: function($routeParams) {
-            return './app/features/events/views/event.html';
-          },
-          controller: "em.events.eventController"
-        })
+                templateUrl: function($routeParams) {
+                    return './app/features/events/views/event.html';
+                },
+                controller: "em.events.eventController"
+            })
             .when("/event/add", {
-                  templateUrl: "./app/features/addEvent/views/addEvent.html",
-                  controller: "em.addEvent.addEventController"
+                templateUrl: "./app/features/addEvent/views/addEvent.html",
+                controller: "em.addEvent.addEventController"
+            })
+            .when("/events/:id/edit", {
+                templateUrl: "./app/features/editEvent/views/editEvent.html",
+                controller: "em.editEvent.editEventController"
             })
             .otherwise({
                 template: "./app/features/main/views/main.html"
