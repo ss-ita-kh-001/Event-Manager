@@ -9,6 +9,7 @@
             .when("/profile/:id", {
                 templateUrl: function($routeParams) {
                     return "./app/features/profile/views/profile.html";
+                },
                 controller: "em.profile.profile-controller"
             })
             .when("/users", {
