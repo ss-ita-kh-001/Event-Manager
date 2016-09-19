@@ -11,10 +11,10 @@
     }, {
         name: "Kazimir",
         email: "kazimir@hotmail.com"
-    } {
+    }, {
         name: "Platon",
         email: "platon@hotmail.com"
-    } {
+    }, {
         name: "Agafia",
         email: "agafia@i.ua"
     }]);
