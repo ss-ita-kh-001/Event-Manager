@@ -31,6 +31,7 @@
 
         $scope.add = function() {
             var addedEvent = {};
+            addedEvent.id = Math.ceil(Math.random() * 1000);
             addedEvent.title = $scope.title;
             addedEvent.description = $scope.description;
             addedEvent.date = $scope.datePicker.dt;
