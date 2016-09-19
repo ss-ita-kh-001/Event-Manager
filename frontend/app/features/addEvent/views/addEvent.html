@@ -83,12 +83,12 @@
             <div class="image-container">
 
                 <div class="dropzone" file-dropzone="[image/png, image/jpeg, image/gif]" file="image" file-name="imageFileName" data-max-file-size="3">
-                    <img ng-src={{image}} />
+                    <img ng-src={{image.length}} />
                     <span class="file-name">{{imageFileName}}</span>
                 </div>
 
                 <form action class="form-style">
-                    <input type="file" name="file-1" fileread="uploadme.src">
+                    <input type="file" multiple name="file-1" fileread="uploadme.src">
                     <label for="file-1">
                   <span>Select or Drop Image</span>
                 </label>
