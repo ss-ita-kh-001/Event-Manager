@@ -27,14 +27,18 @@
                 controller: "em.events.event-list-controller"
             })
             .when('/events/:id', {
-          templateUrl: function($routeParams) {
-            return './app/features/events/views/event.html';
-          },
-          controller: "em.events.eventController"
-        })
+                templateUrl: function($routeParams) {
+                    return './app/features/events/views/event.html';
+                },
+                controller: "em.events.eventController"
+            })
             .when("/event/add", {
-                  templateUrl: "./app/features/addEvent/views/addEvent.html",
-                  controller: "em.addEvent.addEventController"
+                templateUrl: "./app/features/addEvent/views/addEvent.html",
+                controller: "em.addEvent.addEventController"
+            })
+            .when("/events/:id/edit", {
+                templateUrl: "./app/features/editEvent/views/editEvent.html",
+                controller: "em.editEvent.editEventController"
             })
             .otherwise({
                 template: "./app/features/main/views/main.html"
