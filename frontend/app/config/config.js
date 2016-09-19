@@ -7,14 +7,15 @@
                 controller: "em.main.mainController"
             })
             .when("/profile", {
-                templateUrl: "./app/features/profile/views/index.html",
+                templateUrl: "./app/features/profile/views/profile.html",
                 controller: "em.profile.profile-controller"
             })
             .when("/users", {
-                templateUrl: "./app/features/users-table/views/index.html"
+                templateUrl: "./app/features/users/views/users.html",
+                controller: "em.users.users-controller"
             })
             .when("/settings", {
-                templateUrl: "./app/features/user/views/settings.html"
+                templateUrl: "./app/features/profile/views/settings.html"
             })
             .when("/login", {
                 templateUrl: "./app/features/login/views/login.html"

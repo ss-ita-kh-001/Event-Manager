@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="user-info">
+                <h2>User name</h2>
+                <img src="http://images.clipartpanda.com/happy-computer-user-happy-computeruser.png" alt="Your Photo" class="img-responsive"/>
+                <p>
+                    email: email@email.com
+                </p>
+                <a href="/settings" class="btn btn-primary btn-lg">Settings</a>
+                <button class="btn btn-primary btn-lg" ng-click="toggle()">Toggle data</button>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div ng-repeat="event in events" class="upcoming-events-item">
+                <div>
+                    <h4>{{event.title}}</h4>
+                    <h6>{{event.date}}</h6>
+                    <p>{{event.descr}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
