@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.users").value("em.users.users", [{
+    angular.module("em.db").value("em.db.users", [{
         name: "User 1",
         email: "user1@gmail.com"
     }, {

@@ -6,5 +6,5 @@
             return users;
         }
     }
-    usersService.$inject = ["em.users.users"]
+    usersService.$inject = ["em.db.users"]
 })();
