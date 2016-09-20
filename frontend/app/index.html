@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link rel="stylesheet" href="build/css/main.css" media="screen" title="no title">
+    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="./build/js/angular.js"></script>
     <script type="text/javascript" src="./build/js/angular-route.js"></script>
     <script type="text/javascript" src="./build/js/ui-bootstrap.js"></script>
@@ -13,6 +14,7 @@
     <script type="text/javascript" src="./build/js/angular-sanitize.js"></script>
     <script type="text/javascript" src="./build/js/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="./build/js/satellizer.js"></script>
+    <script src="//code.angularjs.org/1.5.8/angular-cookies.js"></script>
     <title>Event Manager</title>
 </head>
 
@@ -67,6 +69,16 @@
 
     <script src="./app/app.js"></script>
     <script src="./app/config/config.js"></script>
+    <script src="./app/config/run.js"></script>
+
+    <script src="./app/features/register/services/authentication.service.js"></script>
+    <script src="./app/features/register/services/flash.service.js"></script>
+
+    <!-- Real user service that uses an api -->
+    <!-- <script src="app-services/user.service.js"></script> -->
+
+    <!-- Fake user service for demo that uses local storage -->
+    <script src="./app/features/register/services/user.service.local-storage.js"></script>
 
     <!-- Database files -->
     <script src="./app/features/db/module.js"></script>
@@ -106,6 +118,10 @@
 
     <script type="text/javascript" src="./app/features/register/module.js"></script>
     <script type="text/javascript" src="./app/features/register/controllers/registerController.js"></script>
+    <script type="text/javascript" src="./app/features/register/directives/compare-password.js"></script>
+
+    <script type="text/javascript" src="./app/features/login/module.js"></script>
+    <script type="text/javascript" src="./app/features/login/controllers/loginController.js"></script>
     <script type="text/javascript" src="./app/features/register/directives/compare-password.js"></script>
 
 

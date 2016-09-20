@@ -18,10 +18,14 @@
                 templateUrl: "./app/features/profile/views/settings.html"
             })
             .when("/login", {
-                templateUrl: "./app/features/login/views/login.html"
+                templateUrl: "./app/features/login/views/login.html",
+                controller: "em.login.loginController",
+                controllerAs: 'vm'
             })
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html",
+                controller: "em.register.registerController",
+                controllerAs: 'vm'
             })
             .when("/events", {
                 templateUrl: "./app/features/events/views/event-list.html",
@@ -42,7 +46,7 @@
                 controller: "em.editEvent.editEventController"
             })
             .otherwise({
-                template: "./app/features/main/views/main.html"
+                templateUrl: "./app/features/main/views/main.html"
             });
     })
 })();
