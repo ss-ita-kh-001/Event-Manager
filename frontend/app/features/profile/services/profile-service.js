@@ -14,14 +14,13 @@
                     }
                 });
             }
-            // get current user from db
+        // get current user from db
         this.getUserData = function() {
             angular.forEach(users, function(users, path) {
                 if (users.id == $scope.path) {
                     return users[index];
                 }
             });
-
         }
     }
     profileService.$inject = ["em.profile.mocked-values", "em.db.users"]
