@@ -1,19 +1,19 @@
 (function() {
     angular.module("em.profile").service("em.profile.profile-service", profileService);
 
-    function profileService($scope, $routeParams, users) {
+    function profileService( $routeParams, users) {
       $scope.path = $routeParams.id;
 
-        this.getEventsByUserId = function() {
-            return users;
-        }
-        this.updateEventSubscribe = function($scope, state) {
-                angular.forEach(users, function(users, path) {
-                    if (users.id == $scope.path) {
-                        users.isSubscribe = state;
-                    }
-                });
-            }
+        // this.getEventsByUserId = function() {
+        //     return events;
+        // }
+        // this.updateEventSubscribe = function($scope, state) {
+        //         angular.forEach(users, function(users, path) {
+        //             if (users.id == $scope.path) {
+        //                 users.isSubscribe = state;
+        //             }
+        //         });
+        //     }
         // get current user from db
         this.getUserData = function() {
             angular.forEach(users, function(users, path) {
@@ -23,5 +23,5 @@
             });
         }
     }
-    profileService.$inject = ["em.profile.mocked-values", "em.db.users"]
+    profileService.$inject = [ "$routeParams", "em.db.users"]
 })();
