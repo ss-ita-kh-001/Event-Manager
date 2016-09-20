@@ -10,6 +10,7 @@
         "ui.bootstrap",
         "em.addEvent",
         "em.editEvent",
-        "em.events"
+        "em.events",
+        "em.result-table"
     ]);
 })();
