@@ -35,13 +35,13 @@
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Title</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place title here..">
+            <input type="text" class="form-control" placeholder="Place title here.." ng-model="title">
         </div>
     </div>
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Description</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place description here..">
+            <input type="text" class="form-control" placeholder="Place description here.." ng-model="description">
         </div>
     </div>
     <div class="row form-group">
@@ -100,10 +100,10 @@
     </div>
     <div class="row form-group">
         <div class="col-sm-offset-6 col-sm-1">
-            <button type="button" class="btn btn-danger">Clear</button>
+            <button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>
         </div>
         <div class="col-sm-1">
-            <button type="button" class="btn btn-success">Add</button>
+            <button type="button" class="btn btn-success" ng-click="add()">Add</button>
         </div>
     </div>
 </div>
