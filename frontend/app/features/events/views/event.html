@@ -1,14 +1,14 @@
 <div class="container event-page">
   <div class="row">
-    <h1 ng-repeat="event in events" ng-if="event.id == path">{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
+    <h1>{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
     </div>
-    <div class="row" ng-repeat="event in events" ng-if="event.id == path" >
+    <div class="row" >
       <div class="col-md-6">
         <img src="./build/img/{{event.imgURL}}" alt="" />
-
+        <div id="map"></div>
       </div>
       <div class="col-md-6">
-        <p>{{event.descr}}</p>
+        <p>{{event.description}}</p>
         <div class="btn-group" ng-if = "!isSubscribe" ng-show="!isSubscribe">
          <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()" >Subscribe</button>
        </div>
