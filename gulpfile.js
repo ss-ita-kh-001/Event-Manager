@@ -68,8 +68,12 @@ var path = {
             "frontend/app/features/events/services/event-service.js",
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
-            "frontend/app/features/register/directives/compare-password.js"
-          ]
+            "frontend/app/features/register/directives/compare-password.js",
+             "frontend/app/features/result-table/module.js",
+            "frontend/app/features/result-table/controllers/result-table-controller.js"
+
+
+         ]
     },
     lib: { //source files
         js: ['src/lib/angular/angular.js',
