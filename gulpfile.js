@@ -18,6 +18,7 @@ var gulp = require('gulp'),
     extend = require('extend'),
     parseArgs = require('minimist'),
     fontmin = require('gulp-fontmin'),
+    concat = require('gulp-concat'),
     reload = browserSync.reload;
 
 
@@ -35,7 +36,40 @@ var path = {
         js: ['src/js/**/*.js'], //we need all js files
         style: 'src/style/main.scss', //we need only main.css
         img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
-        font: 'src/font/**/*.*' // fonts/**/*.* - get all files with all expansion from all nested folders
+        font: 'src/font/**/*.*', // fonts/**/*.* - get all files with all expansion from all nested folders
+         concatJS: ["frontend/app/app.js",
+            "frontend/app/config/config.js",
+            "frontend/app/features/db/module.js",
+            "frontend/app/features/db/users.js",
+            "frontend/app/features/main/module.js",
+            "frontend/app/features/main/controllers/mainController.js",
+            "frontend/app/features/addEvent/module.js",
+            "frontend/app/features/addEvent/controllers/addEventController.js",
+            "frontend/app/features/addEvent/directives/addEventDirective.js",
+            "frontend/app/features/addEvent/services/datePicker.js",
+            "frontend/app/features/addEvent/services/map.js"    ,
+            "frontend/app/features/editEvent/module.js",
+            "frontend/app/features/editEvent/controllers/editEventController.js",
+            "frontend/app/features/editEvent/directives/editEventDirective.js",
+            "frontend/app/features/editEvent/services/datePicker.js",
+            "frontend/app/features/editEvent/services/map.js",
+            "frontend/app/features/profile/module.js",
+            "frontend/app/features/profile/const/mocked-values.js",
+            "frontend/app/features/profile/controllers/profile-controller.js",
+            "frontend/app/features/profile/services/profile-service.js",
+            "frontend/app/features/users/module.js",
+            "frontend/app/features/users/db/users.js",
+            "frontend/app/features/users/controllers/users-controller.js",
+            "frontend/app/features/users/services/users-service.js",
+            "frontend/app/features/events/module.js",
+            "frontend/app/features/events/const/mock-event-list.js",
+            "frontend/app/features/events/controllers/event-list-controller.js",
+            "frontend/app/features/events/controllers/eventController.js",
+            "frontend/app/features/events/services/event-service.js",
+            "frontend/app/features/register/module.js",
+            "frontend/app/features/register/controllers/registerController.js",
+            "frontend/app/features/register/directives/compare-password.js"
+          ]
     },
     lib: { //source files
         js: ['src/lib/angular/angular.js',
@@ -50,7 +84,8 @@ var path = {
         js: 'src/js/**/*.js',
         style: 'src/style/**/*.scss',
         img: 'src/img/**/*.*',
-        font: 'src/font/**/*.*'
+        font: 'src/font/**/*.*',
+        concatJS: 'frontend/app/**/*.*'
     },
     clean: 'frontend/build'
 };
@@ -159,7 +194,17 @@ gulp.task('font:build', function() {
         }));
 });
 
-
+gulp.task('concat', function() {
+  gulp.src(path.src.concatJS)
+      .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+      //.pipe(uglify())
+      .pipe(concat('all.js'))
+      .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
+      .pipe(gulp.dest(path.build.js))
+      .pipe(reload({
+          stream: true
+      }));
+});
 
 gulp.task('webserver', function() {
     browserSync(config);
@@ -181,6 +226,9 @@ gulp.task('watch', function() {
     watch([path.watch.font], function(event, cb) {
         gulp.start('image:build');
     });
+    watch([path.watch.concatJS], function(event, cb) {
+        gulp.start('concat');
+    });
 });
 
 
@@ -191,7 +239,8 @@ gulp.task('build', [
     'style:build',
     'image:build',
     'lib:copy',
-    'font:build'
+    'font:build',
+    'concat'
 ]);
 
 gulp.task('clean', function(cb) {
