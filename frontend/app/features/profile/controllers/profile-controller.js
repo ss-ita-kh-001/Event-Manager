@@ -5,7 +5,6 @@
         // $scope.events = profileService.getEventsByUserId();
         $scope.user = profileService.getUserData();
 
-
     }
     profileController.$inject = ["$scope", "em.profile.profile-service"]
 })();
