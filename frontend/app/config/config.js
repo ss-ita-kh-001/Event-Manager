@@ -6,7 +6,7 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/profile/:id", {
+            .when("/profile/:userID", {
               templateUrl: function($routeParams) {
                   return "./app/features/profile/views/profile.html";
               },
