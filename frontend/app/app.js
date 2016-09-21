@@ -1,6 +1,7 @@
 (function() {
-    var app = angular.module("em", [
+    angular.module("em", [
         "ngRoute",
+        "LocalStorageModule",
         "em.db",
         "em.main",
         "em.profile",
