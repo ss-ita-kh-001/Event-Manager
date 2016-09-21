@@ -8,7 +8,7 @@
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
 
-        $rootScope.$on('$locationChangeStart', function(event, next, current) {
+      /*  $rootScope.$on('$locationChangeStart', function(event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(),
             ['/login', '/register', '/users', '/', '/events','/settings', '/events/:id', '/results']) === -1;
@@ -16,6 +16,6 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
-        });
+        });*/
     })
 })();
