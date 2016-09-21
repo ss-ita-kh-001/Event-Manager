@@ -48,6 +48,7 @@ var path = {
             "frontend/app/features/main/module.js",
             "frontend/app/features/main/controllers/mainController.js",
             "frontend/app/features/addEvent/module.js",
+            "frontend/app/features/addEvent/services/addEventService.js",
             "frontend/app/features/addEvent/controllers/addEventController.js",
             "frontend/app/features/addEvent/directives/addEventDirective.js",
             "frontend/app/features/addEvent/services/datePicker.js",
