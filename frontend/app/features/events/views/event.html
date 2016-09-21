@@ -1,6 +1,7 @@
-<div class="container event-page">
+<div class="container event-page" ng-hide = "eventNotFound" >
   <div class="row">
     <h1>{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
+      <a  href="/events/{{event.id}}/edit" class="btn pull-right">Edit event</a>
     </div>
     <div class="row" >
       <div class="col-md-6">
@@ -21,5 +22,11 @@
        </div>
 
       </div>
+  </div>
+</div>
+<div class="container event-page" ng-show = "eventNotFound" >
+  <div class="alert alert-danger">
+    <h2>404</h2>
+    <p>Requested event not a found</p>
   </div>
 </div>
