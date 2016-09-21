@@ -43,6 +43,10 @@
                 templateUrl: "./app/features/editEvent/views/editEvent.html",
                 controller: "em.editEvent.editEventController"
             })
+            .when("/results", {
+                templateUrl: "./app/features/result-table/views/result-table.html",
+                controller: "em.result-table.chessResultController"
+            })
             .otherwise({
                 template: "./app/features/main/views/main.html"
             });
