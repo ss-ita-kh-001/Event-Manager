@@ -12,6 +12,10 @@
         "em.addEvent",
         "em.editEvent",
         "em.events",
+<<<<<<< HEAD
         "ngCookies"
+=======
+        "em.result-table"
+>>>>>>> refs/remotes/origin/master
     ]);
 })();
