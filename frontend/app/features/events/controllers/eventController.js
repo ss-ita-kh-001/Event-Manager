@@ -1,11 +1,12 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $routeParams, eventService, profileService, map) {
+    function eventController($scope, $routeParams, map, localStorageService) {
         //  $scope.events = profileService.getEventsByUserId();
-          $scope.events = JSON.parse(localStorage.getItem('events'));
+          $scope.events = JSON.parse(localStorageService.get('events'));
           $scope.event = $scope.events[0];
           console.log($scope.events, 'local');
+
           var lat = $scope.event.place.lat;
           var lng = $scope.event.place.lng;
 
@@ -30,5 +31,5 @@
           //   profileService.updateEventSubscribe($scope, state);
           // }
     }
-    eventController.$inject = ["$scope", "$routeParams", "em.events.event-service", "em.profile.profile-service", "em.addEvent.map"]
+    eventController.$inject = ["$scope", "$routeParams", "em.addEvent.map", "localStorageService"]
 })();
