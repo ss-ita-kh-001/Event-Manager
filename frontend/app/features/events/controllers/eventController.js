@@ -4,11 +4,11 @@
     function eventController($scope, $routeParams, eventService, profileService, map) {
         //  $scope.events = profileService.getEventsByUserId();
           $scope.events = JSON.parse(localStorage.getItem('events'));
-          $scope.event = $scope.events[7];
+          $scope.event = $scope.events[0];
           console.log($scope.events, 'local');
           var lat = $scope.event.place.lat;
           var lng = $scope.event.place.lng;
-          
+
           map.init();
           map.staticMarker(lat, lng);
           //
