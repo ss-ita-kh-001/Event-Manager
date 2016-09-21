@@ -25,5 +25,7 @@
       imgURL : "picnic.jpg",
       isSubscribe : false
 
-    }]);
+  }, 
+
+]);
 })();
