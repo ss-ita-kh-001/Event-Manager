@@ -30,7 +30,6 @@
 
         $scope.add = function() {
             addEventService.add();
-            console.log(JSON.parse(localStorage.getItem("events")));
         }
     }
 
