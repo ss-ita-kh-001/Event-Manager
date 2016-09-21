@@ -39,6 +39,10 @@ var path = {
         font: 'src/font/**/*.*', // fonts/**/*.* - get all files with all expansion from all nested folders
         concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
+            "frontend/app/config/run.js",
+            "frontend/app/features/register/services/authentication.service.js",
+            "frontend/app/features/register/services/flash.service.js",
+            "frontend/app/features/register/services/user.service.local-storage.js",
             "frontend/app/features/db/module.js",
             "frontend/app/features/db/users.js",
             "frontend/app/features/main/module.js",
@@ -68,6 +72,9 @@ var path = {
             "frontend/app/features/events/services/event-service.js",
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
+            "frontend/app/features/register/directives/compare-password.js",
+            "frontend/app/features/login/module.js",
+            "frontend/app/features/login/controllers/loginController.js",
             "frontend/app/features/register/directives/compare-password.js",
             "frontend/app/features/result-table/module.js",
             "frontend/app/features/result-table/controllers/result-table-controller.js"
