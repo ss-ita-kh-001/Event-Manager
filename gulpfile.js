@@ -89,7 +89,8 @@ var path = {
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
-            'src/lib/angular-local-storage/dist/angular-local-storage.js'
+            'src/lib/angular-local-storage/dist/angular-local-storage.js',
+            'src/lib/angular-cookies/angular-cookies.js'
         ]
     },
     watch: { //watch changes form those files
