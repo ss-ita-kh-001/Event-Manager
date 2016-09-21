@@ -37,7 +37,7 @@ var path = {
         style: 'src/style/main.scss', //we need only main.css
         img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
         font: 'src/font/**/*.*', // fonts/**/*.* - get all files with all expansion from all nested folders
-         concatJS: ["frontend/app/app.js",
+        concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
             "frontend/app/features/db/module.js",
             "frontend/app/features/db/users.js",
@@ -47,7 +47,7 @@ var path = {
             "frontend/app/features/addEvent/controllers/addEventController.js",
             "frontend/app/features/addEvent/directives/addEventDirective.js",
             "frontend/app/features/addEvent/services/datePicker.js",
-            "frontend/app/features/addEvent/services/map.js"    ,
+            "frontend/app/features/addEvent/services/map.js",
             "frontend/app/features/editEvent/module.js",
             "frontend/app/features/editEvent/controllers/editEventController.js",
             "frontend/app/features/editEvent/directives/editEventDirective.js",
@@ -69,11 +69,11 @@ var path = {
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
             "frontend/app/features/register/directives/compare-password.js",
-             "frontend/app/features/result-table/module.js",
+            "frontend/app/features/result-table/module.js",
             "frontend/app/features/result-table/controllers/result-table-controller.js"
 
 
-         ]
+        ]
     },
     lib: { //source files
         js: ['src/lib/angular/angular.js',
@@ -81,11 +81,13 @@ var path = {
             'src/lib/angular-bootstrap/ui-bootstrap.js',
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/lib/angular-route/angular-route.js',
-            'src/lib/satellizer/dist/satellizer.js'
+            'src/lib/satellizer/dist/satellizer.js',
+            'src/lib/angular-local-storage/dist/angular-local-storage.js'
         ]
     },
     watch: { //watch changes form those files
         js: 'src/js/**/*.js',
+        // lib: 'src/lib/**/*.js',
         style: 'src/style/**/*.scss',
         img: 'src/img/**/*.*',
         font: 'src/font/**/*.*',
@@ -161,17 +163,17 @@ gulp.task('lib:copy', function() {
 });
 
 
-gulp.task('lib:build', function() {
-    gulp.src(path.lib.js) //get main.js
-        .pipe(rigger()) //
-        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
-        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
-        .pipe(gulp.dest(path.build.js)) //put compressed files to the build
-        .pipe(reload({
-            stream: true
-        })); //refresh server
-});
+// gulp.task('lib:build', function() {
+//     gulp.src(path.lib.js) //get main.js
+//         .pipe(rigger()) //
+//         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+//         .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+//         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
+//         .pipe(gulp.dest(path.build.js)) //put compressed files to the build
+//         .pipe(reload({
+//             stream: true
+//         })); //refresh server
+// });
 
 gulp.task('image:build', function() {
     gulp.src(path.src.img) //get all images
@@ -199,15 +201,15 @@ gulp.task('font:build', function() {
 });
 
 gulp.task('concat', function() {
-  gulp.src(path.src.concatJS)
-      .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-      //.pipe(uglify())
-      .pipe(concat('all.js'))
-      .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
-      .pipe(gulp.dest(path.build.js))
-      .pipe(reload({
-          stream: true
-      }));
+    gulp.src(path.src.concatJS)
+        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+        //.pipe(uglify())
+        .pipe(concat('all.js'))
+        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
+        .pipe(gulp.dest(path.build.js))
+        .pipe(reload({
+            stream: true
+        }));
 });
 
 gulp.task('webserver', function() {
@@ -228,8 +230,11 @@ gulp.task('watch', function() {
         gulp.start('image:build');
     });
     watch([path.watch.font], function(event, cb) {
-        gulp.start('image:build');
+        gulp.start('font:build');
     });
+    // watch([path.watch.lib], function(event, cb) {
+    //     gulp.start('lib:build');
+    // });
     watch([path.watch.concatJS], function(event, cb) {
         gulp.start('concat');
     });
