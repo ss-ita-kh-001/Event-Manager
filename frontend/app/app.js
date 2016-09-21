@@ -1,5 +1,5 @@
 (function() {
-    var em = angular.module("em", [
+    var app = angular.module("em", [
         "ngRoute",
         "em.db",
         "em.main",
@@ -12,10 +12,7 @@
         "em.addEvent",
         "em.editEvent",
         "em.events",
-<<<<<<< HEAD
+        "em.result-table",
         "ngCookies"
-=======
-        "em.result-table"
->>>>>>> refs/remotes/origin/master
     ]);
 })();
