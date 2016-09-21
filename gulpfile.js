@@ -69,8 +69,11 @@ var path = {
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
             "frontend/app/features/register/directives/compare-password.js",
-             "frontend/app/features/result-table/module.js",
-            "frontend/app/features/result-table/controllers/result-table-controller.js"
+            "frontend/app/features/result-table/module.js",
+            "frontend/app/features/result-table/controllers/result-table-controller.js",
+             "frontend/app/features/result-table/const/usersarray.js",
+             "frontend/app/features/result-table/services/result-table-service.js"
+
 
 
          ]
