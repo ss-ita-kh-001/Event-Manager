@@ -1,11 +1,11 @@
-<div class="container">
+  <div class="container">
     <div class="row">
         <div class="col-sm-4">
             <div class="user-info">
-                <h2>User name</h2>
-                <img src="http://images.clipartpanda.com/happy-computer-user-happy-computeruser.png" alt="Your Photo" class="img-responsive" />
+                <img src="{{user.photo}}" alt="Your Photo" class="img-responsive" />
+                <h2>{{user.name}}</h2>
                 <p>
-                    email: email@email.com
+                    {{user.email}}
                 </p>
                 <a href="/settings" class="btn btn-primary btn-lg">Settings</a>
             </div>
