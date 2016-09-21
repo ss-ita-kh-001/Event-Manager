@@ -8,7 +8,7 @@
                 controller: "em.main.mainController"
             })
             .when("/users/profile/:userID", {
-                templateUrl: function($routeParams) {
+                templateUrl: function($routeParams, localStorageService) {
                     return "./app/features/profile/views/profile.html";
                 },
                 controller: "em.profile.profile-controller"
