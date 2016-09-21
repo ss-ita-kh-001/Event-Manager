@@ -2,9 +2,15 @@
     angular.module("em.events").controller("em.events.eventController", eventController);
 
     function eventController($scope, $routeParams, map, localStorageService) {
-        //  $scope.events = profileService.getEventsByUserId();
-          $scope.events = JSON.parse(localStorageService.get('events'));
-          $scope.event = $scope.events[0];
+          $scope.path = $routeParams.id;
+          $scope.events = JSON.parse(localStorageService.get('events'))
+
+          angular.forEach($scope.events, function(event,  path ){
+           if(event.id == $scope.path){
+             $scope.event = event;
+           }
+         });
+          console.log($scope.event, 'vw');
           console.log($scope.events, 'local');
 
           var lat = $scope.event.place.lat;
