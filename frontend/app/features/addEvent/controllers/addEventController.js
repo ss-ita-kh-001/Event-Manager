@@ -29,7 +29,14 @@
         map.init();
 
         $scope.add = function() {
-            addEventService.add();
+            var addedEvent = {};
+            addedEvent.title = $scope.title;
+            addedEvent.description = $scope.description;
+            addedEvent.date = $scope.datePicker.dt;
+            addedEvent.place = $scope.place;
+            addedEvent.uploadme = $scope.uploadme;
+
+            addEventService.add(addedEvent);
         }
     }
 

@@ -1,15 +1,8 @@
 (function() {
     angular.module("em.addEvent").service("em.addEvent.addEventService", addEventService);
 
-    function addEventService($scope, datePicker, map, localStorageServiceProvider) {
-        this.add = function() {
-            var addedEvent = {};
-            addedEvent.title = $scope.title;
-            addedEvent.description = $scope.description;
-            addedEvent.date = $scope.datePicker.dt;
-            addedEvent.place = $scope.place;
-            addedEvent.uploadme = $scope.uploadme;
-
+    function addEventService(datePicker, map, localStorageService) {
+        this.add = function(addedEvent) {
             var events = JSON.parse(localStorage.getItem("events"));
             if (events === null) {
                 events = [];
@@ -20,5 +13,5 @@
             localStorage.setItem("events", JSON.stringify(events));
         }
     }
-    addEventService.$inject = ["$scope", "em.addEvent.datePicker", "em.addEvent.map", "localStorageServiceProvider"];
+    addEventService.$inject = ["em.addEvent.datePicker", "em.addEvent.map", "localStorageService"];
 })();
