@@ -1,16 +1,17 @@
 (function() {
-    angular.module("em").config(function($routeProvider, $locationProvider) {
+    angular.module("em").config(function($routeProvider, $locationProvider, localStorageServiceProvider) {
         $locationProvider.html5Mode(true);
+        // localStorageServiceProvider.setPrefix('em');
         $routeProvider
             .when("/", {
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
             .when("/profile/:userID", {
-              templateUrl: function($routeParams) {
-                  return "./app/features/profile/views/profile.html";
-              },
-              controller: "em.profile.profile-controller"
+                templateUrl: function($routeParams) {
+                    return "./app/features/profile/views/profile.html";
+                },
+                controller: "em.profile.profile-controller"
             })
             .when("/users", {
                 templateUrl: "./app/features/users/views/users.html",
@@ -50,5 +51,6 @@
             .otherwise({
                 template: "./app/features/main/views/main.html"
             });
+
     })
 })();
