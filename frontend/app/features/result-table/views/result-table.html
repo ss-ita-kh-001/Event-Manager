@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th ng-click="sortData("name")">Name
+                    <div ng-class="getSortClass("name")"></div>
+                </th>
+                <th ng-click="sortData("DateOfBirth")">DateOfBirth
+                    <div ng-class="getSortClass("DateOfBirth")"></div>
+                  </th>
+                <th ng-click="sortData("descr")">Description
+                    <div ng-class="getSortClass("descr")"></div>
+                </th>
+                <th ng-click="sortData("win")">Win
+                    <div ng-class="getSortClass("win")"></div>
+                </th>
+                <th ng-click="sortData("lose")">Lose
+                    <div ng-class="getSortClass("lose")"></div>
+                </th>
+                <th ng-click="sortData("draw")">Draw
+                    <div ng-class="getSortClass("draw")"></div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="player in players | orderBy:sortColoumn:reverseSort">
+                <td>{{ player.name }}</td>
+                <td>{{ player.DateOfBirth | date }}</td>
+                <td>{{ player.descr }}</td>
+                <td>{{ player.win }}</td>
+                <td>{{ player.lose }}</td>
+                <td>{{ player.draw }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</tr>
+</tbody>
+</table>
+</div>

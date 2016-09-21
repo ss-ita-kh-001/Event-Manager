@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.addEvent").controller("em.addEvent.addEventController", addEventController);
 
-    function addEventController($scope, datePicker, map, $route) {
+    function addEventController($scope, datePicker, map, addEventService) {
         $scope.datePicker = datePicker;
         $scope.place = {};
 
@@ -14,8 +14,7 @@
         $scope.search = function() {
             $scope.apiError = false;
             map.search($scope.searchPlace)
-                .then(
-                    function(res) { // success
+                .then(function(res) { // success
                         map.addMarker(res);
                         $scope.place.name = res.name;
                         $scope.place.lat = res.geometry.location.lat();
@@ -31,23 +30,16 @@
 
         $scope.add = function() {
             var addedEvent = {};
-            addedEvent.id = Math.ceil(Math.random() * 1000);
             addedEvent.title = $scope.title;
             addedEvent.description = $scope.description;
             addedEvent.date = $scope.datePicker.dt;
             addedEvent.place = $scope.place;
             addedEvent.uploadme = $scope.uploadme;
 
-            var events = JSON.parse(localStorage.getItem("events"));
-            if (events === null) {
-                events = [];
-            }
-
-            events[events.length] = addedEvent;
-            localStorage.setItem("events", JSON.stringify(events));
+            addEventService.add(addedEvent);
         }
     }
 
-    addEventController.$inject = ["$scope", "em.addEvent.datePicker", "em.addEvent.map", "$route"];
+    addEventController.$inject = ["$scope", "em.addEvent.datePicker", "em.addEvent.map", "em.addEvent.addEventService"];
 
 })();
