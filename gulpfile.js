@@ -46,6 +46,8 @@ var path = {
             "frontend/app/features/db/module.js",
             "frontend/app/features/db/users.js",
             "frontend/app/features/main/module.js",
+            "frontend/app/features/main/const/mock-news.js",
+            "frontend/app/features/main/services/event-service-news.js",
             "frontend/app/features/main/controllers/mainController.js",
             "frontend/app/features/addEvent/module.js",
             "frontend/app/features/addEvent/services/addEventService.js",
@@ -79,8 +81,6 @@ var path = {
             "frontend/app/features/register/directives/compare-password.js",
             "frontend/app/features/result-table/module.js",
             "frontend/app/features/result-table/controllers/result-table-controller.js"
-
-
         ]
     },
     lib: { //source files
