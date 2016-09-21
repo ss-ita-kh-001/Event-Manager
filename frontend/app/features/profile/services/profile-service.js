@@ -2,20 +2,6 @@
     angular.module("em.profile").service("em.profile.profile-service", profileService);
 
     function profileService($routeParams) {
-        // $scope.path = $routeParams.userID;
-
-        // this.getEventsByUserId = function() {
-        //     return events;
-        // }
-        // this.updateEventSubscribe = function($scope, state) {
-        //         angular.forEach(users, function(users, path) {
-        //             if (users.id == $scope.path) {
-        //                 users.isSubscribe = state;
-        //             }
-        //         });
-        //     }
-        // wrtite users to localStorageService
-
         // get current user from db
 
         this.getUserData = function() {
@@ -31,6 +17,9 @@
 
             });
             return users[index];
+
+        }
+        this.updateUserData = function () {
 
         }
     }
