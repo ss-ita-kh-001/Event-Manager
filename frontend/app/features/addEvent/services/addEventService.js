@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.addEvent").service("em.addEvent.addEventService", addEventService);
 
-    function addEventService($scope, datePicker, map) {
+    function addEventService($scope, datePicker, map, localStorageServiceProvider) {
         this.add = function() {
             var addedEvent = {};
             addedEvent.title = $scope.title;
@@ -20,5 +20,5 @@
             localStorage.setItem("events", JSON.stringify(events));
         }
     }
-    addEventService.$inject = ["$scope", "em.addEvent.datePicker", "em.addEvent.map"];
+    addEventService.$inject = ["$scope", "em.addEvent.datePicker", "em.addEvent.map", "localStorageServiceProvider"];
 })();
