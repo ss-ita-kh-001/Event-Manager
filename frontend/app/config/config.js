@@ -17,8 +17,10 @@
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller"
             })
-            .when("/settings", {
-                templateUrl: "./app/features/profile/views/settings.html",
+            .when("/users/profile/:userID/settings", {
+                templateUrl: function($routeParams) {
+                    return "./app/features/profile/views/settings.html";
+                },
                 controller: "em.profile.profile-controller"
             })
             .when("/login", {
