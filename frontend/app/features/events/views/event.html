@@ -1,14 +1,15 @@
-<div class="container event-page">
+<div class="container event-page" ng-hide = "eventNotFound" >
   <div class="row">
-    <h1 ng-repeat="event in events" ng-if="event.id == path">{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
+    <h1>{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
+      <a  href="/events/{{event.id}}/edit" class="btn pull-right">Edit event</a>
     </div>
-    <div class="row" ng-repeat="event in events" ng-if="event.id == path" >
+    <div class="row" >
       <div class="col-md-6">
         <img src="./build/img/{{event.imgURL}}" alt="" />
-
+        <div id="map"></div>
       </div>
       <div class="col-md-6">
-        <p>{{event.descr}}</p>
+        <p>{{event.description}}</p>
         <div class="btn-group" ng-if = "!isSubscribe" ng-show="!isSubscribe">
          <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()" >Subscribe</button>
        </div>
@@ -21,5 +22,11 @@
        </div>
 
       </div>
+  </div>
+</div>
+<div class="container event-page" ng-show = "eventNotFound" >
+  <div class="alert alert-danger">
+    <h2>404</h2>
+    <p>Requested event not a found</p>
   </div>
 </div>
