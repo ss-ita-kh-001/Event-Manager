@@ -32,7 +32,8 @@
             var addedEvent = {};
             addedEvent.title = $scope.title;
             addedEvent.description = $scope.description;
-            addedEvent.date = $scope.datePicker.dt;
+            addedEvent.date = $scope.datePicker.dt.toString().substring(0, 11);
+
             addedEvent.place = $scope.place;
             addedEvent.uploadme = $scope.uploadme;
 
