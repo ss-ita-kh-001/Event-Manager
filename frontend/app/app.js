@@ -2,7 +2,6 @@
     angular.module("em", [
         "ngRoute",
         "LocalStorageModule",
-        "em.db",
         "em.main",
         "em.profile",
         "em.users",
