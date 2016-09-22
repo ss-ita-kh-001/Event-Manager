@@ -18,7 +18,14 @@
           AuthenticationService.Login(vm.user.username, vm.user.password, function (response) {
               if (response.success) {
                   AuthenticationService.SetCredentials(vm.user.username, vm.user.password);
-                  $location.path('/profile');
+                  var users = JSON.parse(localStorage.users);
+                  var id;
+                  for (var i = 0; i < users.length; i++) {
+                    if (users[i].username == vm.user.username) {
+                      id = users[i].id;
+                    }
+                  }
+                  $location.path('/profile/' + id);
               } else {
                   FlashService.Error(response.message);
                   vm.dataLoading = false;
