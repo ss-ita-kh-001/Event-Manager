@@ -21,11 +21,11 @@
         };
 
         $scope.getSortClass = function(coloumn){
-            if ($scope.sortColoumn ==coloumn){
+            if ($scope.sortColoumn == coloumn){
                 if($scope.reverseSort){
-                    return ".arrow-up";
+                    return "glyphicon glyphicon-arrow-up";
                 }else{
-                    return ".arrow-down";
+                    return "glyphicon glyphicon-arrow-down";
                 }
             }else{
                 return '';
