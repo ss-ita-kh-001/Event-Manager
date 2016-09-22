@@ -35,7 +35,7 @@
             })
             .when("/events", {
                 templateUrl: "./app/features/events/views/event-list.html",
-                controller: "em.events.event-list-controller"
+                controller: "em.events.add-item-event-controller"
             })
             .when('/events/:id', {
                 templateUrl: './app/features/events/views/event.html',
