@@ -7,7 +7,7 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/users/profile/:userID", {
+            .when("/profile/:userID", {
                 templateUrl: function($routeParams, localStorageService) {
                     return "./app/features/profile/views/profile.html";
                 },
@@ -17,7 +17,7 @@
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller"
             })
-            .when("/users/profile/:userID/settings", {
+            .when("/profile/:userID/settings", {
                 templateUrl: function($routeParams) {
                     return "./app/features/profile/views/settings.html";
                 },

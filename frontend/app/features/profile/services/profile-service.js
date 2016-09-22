@@ -9,7 +9,6 @@
             var users = JSON.parse(localStorage.users);
             var index;
             angular.forEach(users, function(value, key) {
-              console.log('users.us');
 
                 if (value.id == $routeParams.userID) {
                     index = key;
@@ -19,7 +18,7 @@
             return users[index];
 
         }
-        this.updateUserData = function () {
+        this.updateUserData = function() {
 
         }
     }
