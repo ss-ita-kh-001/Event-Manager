@@ -38,9 +38,7 @@
                 controller: "em.events.event-list-controller"
             })
             .when('/events/:id', {
-                templateUrl: function($routeParams) {
-                    return './app/features/events/views/event.html';
-                },
+                templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController"
             })
             .when("/event/add", {

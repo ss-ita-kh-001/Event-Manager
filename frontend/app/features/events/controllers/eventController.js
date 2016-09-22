@@ -1,16 +1,31 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $routeParams, eventService, profileService, map) {
-        //  $scope.events = profileService.getEventsByUserId();
-          $scope.events = JSON.parse(localStorage.getItem('events'));
-          $scope.event = $scope.events[0];
-          console.log($scope.events, 'local');
-          var lat = $scope.event.place.lat;
-          var lng = $scope.event.place.lng;
+    function eventController($scope, $routeParams, map, localStorageService) {
 
-          map.init();
-          map.staticMarker(lat, lng);
+
+          $scope.path = $routeParams.id;
+          $scope.events = JSON.parse(localStorageService.get('events'))
+          $scope.eventNotFound = false;
+
+          angular.forEach($scope.events, function(event,  path ){
+           if(event.id == $scope.path){
+             $scope.event = event;
+           }
+         });
+
+
+         if(!$scope.event){
+           $scope.eventNotFound = true;
+         }else{
+            var lat = $scope.event.place.lat;
+            var lng = $scope.event.place.lng;
+            map.init();
+            map.staticMarker(lat, lng);
+         }
+
+
+
           //
           // angular.forEach($scope.events, function(events,  path ){
           //   if(events.id == $scope.path){
@@ -30,5 +45,5 @@
           //   profileService.updateEventSubscribe($scope, state);
           // }
     }
-    eventController.$inject = ["$scope", "$routeParams", "em.events.event-service", "em.profile.profile-service", "em.addEvent.map"]
+    eventController.$inject = ["$scope", "$routeParams", "em.addEvent.map", "localStorageService"]
 })();

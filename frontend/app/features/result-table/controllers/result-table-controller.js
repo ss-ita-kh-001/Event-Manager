@@ -3,58 +3,36 @@
 
     angular.module('em.result-table').controller('em.result-table.chessResultController', chessResultController);
 
-    function chessResultController($scope) {
-        $scope.players = players;
-        var players = [{
-            name: 'Vasyl',
-            DateOfBirth: new Date('October 1, 1986'),
-            descr: 'grandmaster',
-            win: 3,
-            lose: 0,
-            draw: 1
-        }, {
-            name: 'Petro',
-            DateOfBirth: new Date('August 18, 1986'),
-            descr: 'master',
-            win: 2,
-            lose: 2,
-            draw: 4
-        }, {
-            name: 'Platon',
-            DateOfBirth: new Date('July 25, 1989'),
-            descr: 'grandmaster',
-            win: 3,
-            lose: 0,
-            draw: 1
-        }, {
-            name: 'Agafia',
-            DateOfBirth: new Date('September 20, 1986'),
-            descr: 'grandmaster',
-            win: 5,
-            lose: 0,
-            draw: 1
-        }];
+    function chessResultController($scope,resultService) {
+       
+        $scope.players = resultService.getPlayers();
 
         $scope.sortColoumn = "name";
         $scope.reverseSort = false;
-
-        $scope.sortData = function(coloumn) {
-            if ($scope.sortColoumn == coloumn) {
+        
+        $scope.sortData = function(coloumn){
+            if ($scope.sortColoumn == coloumn){
                 $scope.reverseSort = !$scope.reverseSort;
-            } else {
-                return false;
+            }else{
+                $scope.reverseSort = false;
             }
             $scope.sortColoumn = coloumn;
+            return true;
         };
+
+        $scope.getSortClass = function(coloumn){
+            if ($scope.sortColoumn == coloumn){
+                if($scope.reverseSort){
+                    return "glyphicon glyphicon-arrow-up";
+                }else{
+                    return "glyphicon glyphicon-arrow-down";
+                }
+            }else{
+                return '';
+            }
+        
+        }
     }
+    chessResultController.$inject = ["$scope", "em.result-table.result-table-service"]
 
-    /* $scope.getSortClass = function(coloumn){
-         if ($scope.sortColoumn ==coloumn){
-              return $scope.reverseSort;
-         }else {
-
-         }
-
-
-     }*/
 })();

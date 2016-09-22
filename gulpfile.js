@@ -80,8 +80,10 @@ var path = {
             "frontend/app/features/login/controllers/loginController.js",
             "frontend/app/features/register/directives/compare-password.js",
             "frontend/app/features/result-table/module.js",
-            "frontend/app/features/result-table/controllers/result-table-controller.js"
-        ]
+            "frontend/app/features/result-table/controllers/result-table-controller.js",
+            "frontend/app/features/result-table/const/usersarray.js",
+            "frontend/app/features/result-table/services/result-table-service.js"
+            ]
     },
     lib: { //source files
         js: ['src/lib/angular/angular.js',
