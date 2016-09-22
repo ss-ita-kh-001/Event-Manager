@@ -7,6 +7,6 @@ deployment:
     heroku:
       appname: ita-event-manager
   dev:
-     branch: master
+     branch: dev
      heroku:
        appname: dev-ita-event-manager
