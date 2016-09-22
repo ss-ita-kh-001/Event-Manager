@@ -23,9 +23,9 @@
         $scope.getSortClass = function(coloumn){
             if ($scope.sortColoumn == coloumn){
                 if($scope.reverseSort){
-                    return "glyphicon glyphicon-arrow-up";
+                    return "glyphicon glyphicon-arrow-up static";
                 }else{
-                    return "glyphicon glyphicon-arrow-down";
+                    return "glyphicon glyphicon-arrow-down static";
                 }
             }else{
                 return '';

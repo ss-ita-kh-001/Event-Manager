@@ -40,6 +40,7 @@ var path = {
         concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
             "frontend/app/config/run.js",
+            "frontend/app/navbar.js",
             "frontend/app/features/register/services/authentication.service.js",
             "frontend/app/features/register/services/flash.service.js",
             "frontend/app/features/register/services/user.service.local-storage.js",
@@ -72,7 +73,9 @@ var path = {
             "frontend/app/features/events/const/mock-event-list.js",
             "frontend/app/features/events/controllers/event-list-controller.js",
             "frontend/app/features/events/controllers/eventController.js",
+            "frontend/app/features/events/controllers/add-item-event-controller.js",
             "frontend/app/features/events/services/event-service.js",
+            "frontend/app/features/events/services/add-item-event-service.js",
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
             "frontend/app/features/register/directives/compare-password.js",
@@ -83,7 +86,7 @@ var path = {
             "frontend/app/features/result-table/controllers/result-table-controller.js",
             "frontend/app/features/result-table/const/usersarray.js",
             "frontend/app/features/result-table/services/result-table-service.js"
-            ]
+        ]
     },
     lib: { //source files
         js: ['src/lib/angular/angular.js',
@@ -174,17 +177,17 @@ gulp.task('lib:copy', function() {
 });
 
 
-// gulp.task('lib:build', function() {
-//     gulp.src(path.lib.js) //get main.js
-//         .pipe(rigger()) //
-//         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-//         .pipe(gulpif(config.env === 'production', uglify())) //compressing js
-//         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
-//         .pipe(gulp.dest(path.build.js)) //put compressed files to the build
-//         .pipe(reload({
-//             stream: true
-//         })); //refresh server
-// });
+ gulp.task('lib:build', function() {
+    gulp.src(path.lib.js) //get main.js
+         .pipe(rigger()) //
+        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+       .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
+        .pipe(gulp.dest(path.build.js)) //put compressed files to the build
+         .pipe(reload({
+             stream: true
+        })); //refresh server
+ });
 
 gulp.task('image:build', function() {
     gulp.src(path.src.img) //get all images
@@ -256,6 +259,7 @@ gulp.task('watch', function() {
 
 gulp.task('build', [
     'js:build',
+    'lib:build',
     'style:build',
     'image:build',
     'lib:copy',
@@ -268,7 +272,7 @@ gulp.task('clean', function(cb) {
 });
 
 //development is default
-gulp.task('default', ['dev']);
+gulp.task('default', ['prod']);
 
 
 gulp.task('dev', ['set-dev-node-env'], function() {
