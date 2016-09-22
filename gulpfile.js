@@ -256,6 +256,7 @@ gulp.task('watch', function() {
 
 gulp.task('build', [
     'js:build',
+    'lib:build',
     'style:build',
     'image:build',
     'lib:copy',
