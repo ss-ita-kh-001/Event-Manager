@@ -7,7 +7,11 @@
         <div class="form-group">
             <label for="email">Email address:</label>
             <input type="email" class="form-control" id="email" value={{user.email}} ng-model="user.email">
-            <button id="updateUser" class="btn btn-primary btn-lg" ngclick="profileService.updateUser()">Save changes</button>
+            
         </div>
+        <div class="form-group">
+            <button id="updateUser" class="btn btn-primary btn-lg" ng-click="updateUserSend($scope.user, $routeParams)">Save changes</button>
+        </div>
+        <div ng-if="update" class="ng-binding ng-scope alert alert-success">New data saved!</div>
     </form>
 </div>
