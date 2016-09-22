@@ -8,7 +8,7 @@
                 controller: "em.main.mainController"
             })
             .when("/users/profile/:userID", {
-                templateUrl: function($routeParams) {
+                templateUrl: function($routeParams, localStorageService) {
                     return "./app/features/profile/views/profile.html";
                 },
                 controller: "em.profile.profile-controller"
@@ -17,15 +17,21 @@
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller"
             })
-            .when("/settings", {
-                templateUrl: "./app/features/profile/views/settings.html",
+            .when("/users/profile/:userID/settings", {
+                templateUrl: function($routeParams) {
+                    return "./app/features/profile/views/settings.html";
+                },
                 controller: "em.profile.profile-controller"
             })
             .when("/login", {
-                templateUrl: "./app/features/login/views/login.html"
+                templateUrl: "./app/features/login/views/login.html",
+                controller: "em.login.loginController",
+                controllerAs: 'vm'
             })
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html",
+                controller: "em.register.registerController",
+                controllerAs: 'vm'
             })
             .when("/events", {
                 templateUrl: "./app/features/events/views/event-list.html",
@@ -50,7 +56,7 @@
                 controller: "em.result-table.chessResultController"
             })
             .otherwise({
-                template: "./app/features/main/views/main.html"
+                templateUrl: "./app/features/main/views/main.html"
             });
 
     })

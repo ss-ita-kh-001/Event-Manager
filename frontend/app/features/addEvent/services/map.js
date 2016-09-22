@@ -35,5 +35,15 @@
             });
             this.map.setCenter(res.geometry.location);
         }
+
+        this.staticMarker = function(lat, lng) {
+            if (this.marker) this.marker.setMap(null);
+            this.marker =  new google.maps.Marker({
+                position: { lat: lat, lng: lng},
+                map: this.map,
+                animation: google.maps.Animation.DROP
+              });
+            this.map.setCenter({ lat: lat, lng:lng });
+        }
     }
 })();

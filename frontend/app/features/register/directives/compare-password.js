@@ -4,8 +4,7 @@
             require: "?ngModel",
             restrict: 'A',
             link: function(scope, element, attrs, ctrl) {
-                console.log(scope, element, attrs, ctrl);
-                console.log(attrs);
+
                 if (!ctrl) return; // do nothing if no ng-model
 
                 // watch own value and re-validate on change
@@ -15,7 +14,7 @@
 
                 // observe the other value and re-validate on change
                 attrs.$observe('equals', function(val) {
-                    console.log(attrs.equals);
+                  
                     validate();
                 });
 
