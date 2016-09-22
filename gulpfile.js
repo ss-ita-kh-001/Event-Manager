@@ -40,6 +40,7 @@ var path = {
         concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
             "frontend/app/config/run.js",
+            "frontend/app/navbar.js",
             "frontend/app/features/register/services/authentication.service.js",
             "frontend/app/features/register/services/flash.service.js",
             "frontend/app/features/register/services/user.service.local-storage.js",
@@ -83,7 +84,7 @@ var path = {
             "frontend/app/features/result-table/controllers/result-table-controller.js",
             "frontend/app/features/result-table/const/usersarray.js",
             "frontend/app/features/result-table/services/result-table-service.js"
-            ]
+        ]
     },
     lib: { //source files
         js: ['src/lib/angular/angular.js',
