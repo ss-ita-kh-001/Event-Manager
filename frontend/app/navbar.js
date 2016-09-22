@@ -17,5 +17,5 @@
     function navbarController($scope) {
         $scope.isCollapsed = false;
     }
-    navbar.$inject = ["$scope"];
+    navbarController.$inject = ["$scope"];
 })();
