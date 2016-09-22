@@ -12,10 +12,10 @@
             <tbody>
                 <tr ng-repeat="user in users">
                     <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
+                    <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                      <a href="profile/{{user.id}}" class="glyphicon glyphicon-circle-arrow-right text-green"></a>
+                        <a href="/profile/{{user.id}}" class="glyphicon glyphicon-circle-arrow-right text-green"></a>
                     </td>
                 </tr>
             </tbody>

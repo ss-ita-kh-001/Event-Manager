@@ -1,10 +1,9 @@
 (function() {
     angular.module("em.users").service("em.users.users-service", usersService);
 
-    function usersService(users) {
-        this.getUser = function() {
-            return users;
+    function usersService() {
+        this.getUsers = function() {
+            return JSON.parse(localStorage.users);
         }
     }
-    usersService.$inject = ["em.db.users"]
 })();
