@@ -1,16 +1,16 @@
 (function() {
     angular.module("em.main").value("em.main.mock-news", [{
-      title: "Chess tournament",
-      date: "15.09.2016",
+      title: "Film viewing",
+      date: "15.10.2016",
       descr: "Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom",
       id : "1",
-      type: "chees",
+      type: "chess",
       imgURL : "badminton.jpg",
       isSubscribe : false,
 
   }, {
-      title: "Tennis tournament",
-      date: "16.09.2016",
+      title: "Chess tournament",
+      date: "16.10.2016",
       descr: "Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom",
       id : "2",
       type: "tennis",
@@ -18,8 +18,8 @@
       isSubscribe : false
 
   }, {
-      title: "Film viewing",
-      date: "17.09.2016",
+      title: "Picnic with your family",
+      date: "17.10.2016",
       descr: "Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom",
       id : "3",
       type: "film",
@@ -27,7 +27,7 @@
       isSubscribe : false
 
   }, {
-      title: "Chess tournament",
+      title: "Tennis tournament",
       date: "15.08.2016",
       descr: "Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom",
       id : "1",
@@ -36,7 +36,7 @@
       isSubscribe : false,
 
   }, {
-      title: "Tennis tournament",
+      title: "Excursion",
       date: "16.07.2016",
       descr: "Inputs and selects have so multiple controls can reside on the same line. Depending on your layout, additional custom",
       id : "2",
