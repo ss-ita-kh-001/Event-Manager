@@ -3,7 +3,6 @@
 
     function itemEventController($scope, itemEventService) {
         $scope.events = itemEventService.getEvents();
-        console.log(typeof($scope.events));
     }
     itemEventController.$inject = ["$scope", "em.events.add-item-event-service"];
 })();
