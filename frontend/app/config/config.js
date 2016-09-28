@@ -23,6 +23,10 @@
                 },
                 controller: "em.profile.profile-controller"
             })
+            .when("/chat", {
+                templateUrl: "./app/features/chat/views/chat.html",
+                controller: "em.chat.chatController"
+            })
             .when("/login", {
                 templateUrl: "./app/features/login/views/login.html",
                 controller: "em.login.loginController",
