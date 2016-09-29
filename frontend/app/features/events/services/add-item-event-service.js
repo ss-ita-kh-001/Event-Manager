@@ -3,9 +3,8 @@
 
     function itemEventService() {
         this.getEvents = function() {
-            var eventsItem = JSON.parse(localStorage.events);
-            console.log(eventsItem);
-            return JSON.parse(localStorage.events);
+            var eventsItem = JSON.parse(JSON.parse(localStorage.getItem("ls.events")));
+            return eventsItem;
         }
     }
 })();

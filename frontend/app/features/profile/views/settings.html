@@ -2,11 +2,16 @@
     <form>
         <div class="form-group">
             <label for="email">Name:</label>
-            <input type="text" class="form-control" id="name" value={{user.username}}>
+            <input type="text" class="form-control" id="name" value={{user.username}} ng-model="user.username">
         </div>
         <div class="form-group">
             <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email" value={{user.email}}>
+            <input type="email" class="form-control" id="email" value={{user.email}} ng-model="user.email">
+            
         </div>
+        <div class="form-group">
+            <button id="updateUser" class="btn btn-primary btn-lg" ng-click="updateUserSend($scope.user, $routeParams)">Save changes</button>
+        </div>
+        <div ng-if="update" class="ng-binding ng-scope alert alert-success">New data saved!</div>
     </form>
 </div>
