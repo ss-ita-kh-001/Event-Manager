@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var path = require('path');
 
+var http = require('http').Server(app);
+
 app.use(express.static(__dirname + '/../frontend'));
 
 app.listen(process.env.PORT || 5000, function(req, res) {

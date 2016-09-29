@@ -101,7 +101,8 @@ var path = {
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
-            'src/lib/angular-cookies/angular-cookies.js'
+            'src/lib/angular-cookies/angular-cookies.js',
+            'src/lib/socket.io/lib/socket.js'
         ]
     },
     watch: { //watch changes form those files
