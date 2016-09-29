@@ -45,6 +45,7 @@
     "imagemin-pngquant": "^5.0.0",
     "inherits": "^2.0.3",
     "minimist": "^1.2.0",
+    "pg-promise": "^5.3.3",
     "rimraf": "^2.5.4",
     "run-sequence": "^1.2.2",
     "serve-static": "^1.11.1",
