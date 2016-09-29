@@ -8,16 +8,19 @@
     <link rel="stylesheet" href="build/css/main.css" media="screen" title="no title">
     <script type="text/javascript" src="./build/js/angular.js"></script>
     <script type="text/javascript" src="./build/js/angular-route.js"></script>
-    <script type="text/javascript" src="./build/js/socket.js"></script>
+    <!-- <script type="text/javascript" src="./build/js/socket.js"></script> -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
     <script type="text/javascript" src="./build/js/angular-local-storage.js"></script>
     <script type="text/javascript" src="./build/js/ui-bootstrap.js"></script>
     <script type="text/javascript" src="./build/js/angular-animate.js"></script>
     <script type="text/javascript" src="./build/js/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="./build/js/satellizer.js"></script>
     <script type="text/javascript" src="./build/js/angular-cookies.js"></script>
-    
-
     <title>Event Manager</title>
+    <script>
+    // var socket = io.connect('http://localhost:8081')
+    var socket = io();
+    </script>
 </head>
 
 <body>
@@ -64,19 +67,15 @@
     <div class="col-xs-12 main-content text-justify">
         <div ng-view></div>
         <div class="col-sm-8 col-sm-offset-2">
-        <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
         </div>
     </div>
     <div class="col-xs-12 text-center footer">
         (C)KH-001-WebUI Team
     </div>
     </div>
-
     <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAd1xMYT1bt99qtFWQEzXiRBvORDWHgPtk&libraries=places'></script>
-
     <script src="./build/js/all.js"></script>
-
-
 </body>
 
 </html>
