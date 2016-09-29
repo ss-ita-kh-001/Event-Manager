@@ -7,8 +7,6 @@
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         };
-        // io();
-        // var socket = io();
 
       /*  $rootScope.$on('$locationChangeStart', function(event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page

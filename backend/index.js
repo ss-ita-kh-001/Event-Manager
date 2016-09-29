@@ -17,13 +17,20 @@ app.get('*', function(req, res) {
 
 io.on('connection', function(socket){
   console.log('a user connected');
+
+  socket.on('message', function(msg){
+    console.log(msg);
+    io.emit('message', msg);
+  });
+
+
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(8080, function(){
+  console.log('listening on *:8080');
 });
 
 
