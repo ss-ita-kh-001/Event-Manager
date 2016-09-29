@@ -41,6 +41,7 @@ var path = {
             "frontend/app/config/config.js",
             "frontend/app/config/run.js",
             "frontend/app/navbar.js",
+            "frontend/app/mainApiService.js",
             "frontend/app/features/register/services/authentication.service.js",
             "frontend/app/features/register/services/flash.service.js",
             "frontend/app/features/register/services/user.service.local-storage.js",

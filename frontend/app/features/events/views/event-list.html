@@ -1,25 +1,32 @@
 <div class="container">
-  <div class="row">
-    <h1>Event list page</h1>
- </div>
-    <table class="table table-bordered table-hover">
-        <tr class="warning">
-            <th class="info">EVENT</th>
-            <th class="info">DATE</th>
-            <th class="info">DESCRIPTION</th>
-        </tr>
-        <tr ng-repeat="event in events | orderBy:'date'">
-            <td>{{event.title}}</td>
-            <td>{{event.date | date : "dd.MM.yyyy"}}</td>
-            <td>{{event.description}}
-                <div class="row" id="{{event.id}}">
-                    <a href="/events/{{event.id}}" class="btn">View event</a>
-                 </div>
-            </td>
-        </tr>
-    </table>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="eventItem in events | orderBy:'date'">
+                    <td>{{eventItem.title}}</td>
+                    <td>{{eventItem.date | date : "dd.MM.yyyy"}}</td>
+                    <td>{{eventItem.description}}
+                        <div class="row" id="{{event.id}}">
+                            <a href="/events/{{event.id}}" class="btn">View event</a>
+                         </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+            <button class="btn btn-primary" ng-click="editOrCreate()">New</button>
+        </div>
 
-    <div class="row">
-        <a href="/event/add" class="btn">Add new event</a>
+        <div class="row">
+            <a href="/event/add" class="btn">Add new event</a>
+         </div>
      </div>
   </div>
