@@ -1,30 +1,23 @@
+;
 (function() {
-    angular.module("em.chat").service("em.chat.chatService", chatService);
+    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", chatService]);
 
-    function chatService() {
-        var socket = io.connect('http://localhost:8080')
+    function chatService($rootScope) {
+        var socket = io.connect('http://localhost:8080');
+        var self = this;
+        self.collection = [];
 
-        function msgSend(msg) {
+        this.msgSend = function(msg) {
             socket.emit('message', msg);
         };
 
-        function msgGet(msg) {
-            // console.log('ss');
-            return msg;
-        };
-
         socket.on('message', function(msg) {
-            msgGet(msg);
+            self.collection.push(msg);
+            $rootScope.$apply();
         });
-
-        var methods = {
-            send: msgSend,
-            get: msgGet
-        };
-
-        return methods;
 
     }
 
-    chatService.$inject = []
+    // chatService.$inject = ["$rootScope"];
+
 })();

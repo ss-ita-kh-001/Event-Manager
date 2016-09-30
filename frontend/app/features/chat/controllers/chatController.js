@@ -1,3 +1,4 @@
+;
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
@@ -5,13 +6,13 @@
         // chatService
         $scope.msgSend = function() {
             var msg = document.forms.publish.message.value;
-            chatService.send(msg);
-        }
-        $scope.message = chatService.get();
+            chatService.msgSend(msg);
+        };
+        $scope.message = chatService.collection;
         console.log($scope.message);
 
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService"]
+    chatController.$inject = ["$scope", "em.chat.chatService"];
 
 })();
