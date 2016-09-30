@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 var path = require('path');
 
-// socket.io example
+
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-// 
+
 
 app.use(express.static(__dirname + '/../frontend'));
 
@@ -16,17 +16,25 @@ app.listen(process.env.PORT || 5000, function(req, res) {
 app.get('*', function(req, res) {
     res.sendFile(path.resolve('frontend/app/index.html'));
 });
+
+// connected users
 var clients = {};
-// socket.io example
+
+// all messages
+var collection = [];
+
 io.on('connection', function(socket) {
     var id = Math.random();
     clients[id] = socket;
     console.log('a user connected ' + id);
 
+    io.emit('welcome', collection);
+
     socket.on('message', function(msg) {
-        console.log(msg);
+        collection.push(msg);
         io.emit('message', msg);
     });
+
 
     socket.on('disconnect', function() {
         console.log('user disconnected ' + id);
