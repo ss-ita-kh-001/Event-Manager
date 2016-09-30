@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "bower": "^1.7.9",
     "browser-sync": "^2.15.0",
     "connect": "^3.5.0",
