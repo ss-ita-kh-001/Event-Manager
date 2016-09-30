@@ -10,8 +10,11 @@ app.listen(process.env.PORT || 5000, function(req, res) {
     console.log('Example app listening on port 5000!');
 });
 
-app.get("/api/users", function() {
-    users.getAll();
+var apiPreff = "/api";
+app.get(apiPreff + "/users", function(req, res) {
+    users.getAll().then(function(data) {
+        res.send(data);
+    });
 })
 app.get('*', function(req, res) {
     res.sendFile(path.resolve('frontend/app/index.html'));
