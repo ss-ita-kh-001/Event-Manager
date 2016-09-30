@@ -5,6 +5,7 @@ var path = require('path');
 // socket.io example
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+// 
 
 app.use(express.static(__dirname + '/../frontend'));
 
@@ -15,29 +16,25 @@ app.listen(process.env.PORT || 5000, function(req, res) {
 app.get('*', function(req, res) {
     res.sendFile(path.resolve('frontend/app/index.html'));
 });
-
-
-
+var clients = {};
+// socket.io example
 io.on('connection', function(socket) {
-    console.log('a user connected');
+    var id = Math.random();
+    clients[id] = socket;
+    console.log('a user connected ' + id);
 
     socket.on('message', function(msg) {
         console.log(msg);
-        // collection.push(msg);
         io.emit('message', msg);
     });
 
-
     socket.on('disconnect', function() {
-        console.log('user disconnected');
+        console.log('user disconnected ' + id);
+        delete clients[id];
     });
 });
 
 http.listen(8080, function() {
     console.log('listening on *:8080');
 });
-
-
-
-
 //

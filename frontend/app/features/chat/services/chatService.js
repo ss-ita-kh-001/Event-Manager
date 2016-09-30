@@ -3,11 +3,11 @@
     angular.module("em.chat").service("em.chat.chatService", ["$rootScope", chatService]);
 
     function chatService($rootScope) {
-        var socket = io.connect('http://localhost:8080');
+        var socket = $rootScope.socket;
         var self = this;
         self.collection = [];
 
-        this.msgSend = function(msg) {
+        self.msgSend = function(msg) {
             socket.emit('message', msg);
         };
 
@@ -17,7 +17,4 @@
         });
 
     }
-
-    // chatService.$inject = ["$rootScope"];
-
 })();

@@ -9,8 +9,6 @@
             chatService.msgSend(msg);
         };
         $scope.message = chatService.collection;
-        console.log($scope.message);
-
     }
 
     chatController.$inject = ["$scope", "em.chat.chatService"];
