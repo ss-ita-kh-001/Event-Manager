@@ -21,20 +21,20 @@ app.get('*', function(req, res) {
 var clients = {};
 
 // all messages
-var collection = [];
+var history = [];
 
 io.on('connection', function(socket) {
+
     var id = Math.random();
     clients[id] = socket;
+    clients[id].emit('start', history);
+
     console.log('a user connected ' + id);
 
-    io.emit('welcome', collection);
-
     socket.on('message', function(msg) {
-        collection.push(msg);
+        history.push(msg);
         io.emit('message', msg);
     });
-
 
     socket.on('disconnect', function() {
         console.log('user disconnected ' + id);

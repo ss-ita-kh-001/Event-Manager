@@ -11,7 +11,7 @@
         // history
         $scope.history = chatService.history;
         // new messages
-        $scope.collection = chatService.collection;
+        $scope.live = chatService.live;
     }
 
     chatController.$inject = ["$scope", "em.chat.chatService"];

@@ -7,35 +7,22 @@
         console.log('service.js ' + $rootScope.socket);
         var self = this;
 
-        self.history = [];
-        self.collection = [];
+        self.history = []; // old messages from server
+        self.live = []; // new messages after connection
 
         self.msgSend = function(msg) {
             socket.emit('message', msg);
         };
 
-        socket.on('welcome', function(messages) {
-
-            // if have prev history from server
-            if (messages.length > 0) {
-                // preventing from double push
-                if (!self.history.length) {
-                    self.history.push(messages);
-                }
-            }
-
-            // first msg for user
-            if (!sessionStorage.getItem('chat')) {
-                self.collection.push('Welcome to the chat!');
-                sessionStorage.setItem('chat', true);
-            }
-
+        socket.on('start', function(messages) {
+            angular.extend(self.history, messages);
+            self.live.push('Welcome to the chat!');
         });
 
         socket.on('message', function(msg) {
-            self.collection.push(msg);
-            $rootScope.$apply();
+            $rootScope.$apply(function() {
+                self.live.push(msg);
+            });
         });
-
     }
 })();
