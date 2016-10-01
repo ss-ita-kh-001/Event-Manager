@@ -22,9 +22,9 @@
 
         <div class="chat-footer">
 
-              <form name="publish" ng-submit="msgSend()" class="chat-footer__message">
-                <textarea enter-clicker="chatCtrl.addMessage()" name="message" ng-model="chatCtrl.newMessage"></textarea>
-                <input class="send-btn" ng-submit="msgSend()" type="submit" value="">
+              <form name="publish" class="chat-footer__message">
+                <textarea enter-clicker="msgSend()" name="message" ng-model="chatCtrl.newMessage"></textarea>
+                <input class="send-btn" ng-click="msgSend()" type="submit" value="">
               </form>
         </div>
 
