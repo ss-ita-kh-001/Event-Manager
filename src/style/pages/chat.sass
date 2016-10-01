@@ -4,6 +4,8 @@ $danger: #FC0D1B
 $lightColor: #eceff1
 $borderColor: #E6C999
 $bgLight: #FEFCF4
+$bgDeep: #F9F2E7
+$fontColor: #CA8D26
 
 .btn
     color: #fff
@@ -43,7 +45,7 @@ $bgLight: #FEFCF4
   padding: 20px
   box-shadow: 0 0 20px -10px #000
   position: relative
-	
+
 .chat-header
 	display: flex
 	justify-content: space-between
@@ -64,6 +66,7 @@ $bgLight: #FEFCF4
 
 .chat-footer__message
 	text-align: center
+  position: relative
 	textarea
 		width: 90%
 		padding: 10px
@@ -104,8 +107,8 @@ $bgLight: #FEFCF4
 
 .message--mine
 	float: right
-	color: #fff
-	background-color: $mainColor
+	color: $fontColor
+	background-color: $bgDeep
 
 .send-btn
 	width: 50px
@@ -114,13 +117,21 @@ $bgLight: #FEFCF4
 	border-radius: 50%
 	line-height: 50px
 	text-align: center
-	background-color: $mainColor
+	background-color: $fontColor
 	box-shadow: 0 3px 10px -5px #000
 	transition: all .3s
 	padding: 0
+  position: relative
 	img
 		height: 25px
 		margin-right: 2px
 	&:hover
 		box-shadow: 0 0 10px -5px #000
 	float: right
+  &::after
+    content: ""
+    display: block
+    position: absolute
+    top: 0
+    left: 0
+    background: url(../build/img/send-icon.png)
