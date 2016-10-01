@@ -1,6 +1,31 @@
-<form name="publish" ng-submit="msgSend()">
+<!--<form name="publish" ng-submit="msgSend()">
     <input type="text" name="message">
     <input type="submit" value="Send">
 </form>
-<p>{{message}}</p>
+<p>{{message}}</p>-->
 
+<div class="chat-page">
+    <div class="chat-window">
+
+        <div class="chat-body">
+            <ul class="messages">
+                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="m in chatCtrl.messagesToShow">
+                    <img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
+                    <span class="message__author">{{m.author}}</span>
+                    <div class="message__text">
+                        {{m.message}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chat-footer">
+            <div class="chat-footer__message">
+                <textarea enter-clicker="chatCtrl.addMessage()" ng-model="chatCtrl.newMessage"></textarea>
+                <input class="send-btn" ng-submit="msgSend()" type="submit">
+                <img src="../../img/send.svg" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
