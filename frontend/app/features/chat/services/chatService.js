@@ -1,4 +1,4 @@
-;
+
 (function() {
     angular.module("em.chat").service("em.chat.chatService", ["$rootScope", chatService]);
 

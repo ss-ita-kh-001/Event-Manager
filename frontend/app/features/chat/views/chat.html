@@ -10,7 +10,7 @@
         <div class="chat-body">
             <ul class="messages">
 
-                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="mess in message">
+                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="mess in message track by $index">
                     <!--<img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
                     <span class="message__author">{{m.author}}</span>-->
                     <div class="message__text">
