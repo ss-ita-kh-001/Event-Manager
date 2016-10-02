@@ -1,8 +1,28 @@
-<form name="publish" ng-submit="msgSend()">
-    <input type="text" name="message" ng-model="msg">
-    <input type="submit" value="Send">
-</form>
-<p>Old messages:</p>
-<p>{{history}}</p>
-<p>New messages:</p>
-<p>{{live}}</p>
+<div class="chat-page">
+    <div class="chat-window">
+        <div class="chat-body">
+            <ul class="messages">
+                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="history in history track by $index">
+                    <!--<img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
+                    <span class="message__author">{{m.author}}</span>-->
+                    <div class="message__text">
+                        {{history}}
+                    </div>
+                </li>
+                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="mess in live track by $index">
+                    <!--<img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
+                    <span class="message__author">{{m.author}}</span>-->
+                    <div class="message__text">
+                        {{mess}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="chat-footer">
+            <form name="publish" class="chat-footer__message">
+                <textarea enter-clicker="msgSend()" name="message"></textarea>
+                <input class="send-btn" ng-click="msgSend()" type="submit" value="">
+            </form>
+        </div>
+    </div>
+</div>

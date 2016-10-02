@@ -73,6 +73,7 @@ var path = {
             "frontend/app/features/chat/module.js",
             "frontend/app/features/chat/controllers/chatController.js",
             "frontend/app/features/chat/services/chatService.js",
+            "frontend/app/features/chat/directives/enterSenderDirective.js",
 
             "frontend/app/features/events/module.js",
             "frontend/app/features/events/const/mock-event-list.js",
