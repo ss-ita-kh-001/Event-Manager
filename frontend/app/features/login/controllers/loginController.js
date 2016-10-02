@@ -7,21 +7,16 @@
       var vm = this;
 
       vm.login = login;
-
-      (function initController() {
-          // reset login status
-          AuthenticationService.ClearCredentials();
-      })();
-
+      
       function login() {
           vm.dataLoading = true;
-          AuthenticationService.Login(vm.user.username, vm.user.password, function (response) {
+          AuthenticationService.Login(vm.user.email, vm.user.password, function (response) {
               if (response.success) {
-                  AuthenticationService.SetCredentials(vm.user.username, vm.user.password);
+                  AuthenticationService.SetCredentials(vm.user.email, vm.user.password);
                   var users = JSON.parse(localStorage.users);
                   var id;
                   for (var i = 0; i < users.length; i++) {
-                    if (users[i].username == vm.user.username) {
+                    if (users[i].email == vm.user.email) {
                       id = users[i].id;
                     }
                   }
