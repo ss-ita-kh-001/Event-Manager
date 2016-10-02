@@ -3,6 +3,7 @@
         "ngRoute",
         "LocalStorageModule",
         "em.main",
+        "em.chat",
         "em.profile",
         "em.users",
         "em.register",
