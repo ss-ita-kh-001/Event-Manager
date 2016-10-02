@@ -1,3 +1,3 @@
 (function() {
-    angular.module("em.addEvent", ["wysiwyg.module"]);
+    angular.module("em.addEvent", []);
 })();
