@@ -9,6 +9,7 @@
         var vm = this;
         vm.register = register;
         vm.checkPass = checkPass;
+        vm.confirmPass = confirmPass;
 
         function register() {
             vm.dataLoading = true;
@@ -25,9 +26,7 @@
         };
 
         function checkPass() {
-            console.log('check pass log ');
             var inpVal = document.getElementById('passFirst').value;
-            console.log(inpVal);
             if (inpVal.length < 6) {
                 FlashService.Error('The password must be at least 6 characters long', true);
             } else if (inpVal.length > 16) {
@@ -36,5 +35,15 @@
                 FlashService.Success('The password is fine', true)
             }
         };
+
+        function confirmPass() {
+          var inpVal1 = document.getElementById('passFirst').value;
+          var inpVal2 = document.getElementById('passSecond').value;
+          if (inpVal1 !== inpVal2) {
+            FlashService.Error('The passwords must match', true);
+          } else {
+            FlashService.Success('Great!', true)
+          }
+        }
     }
 })();
