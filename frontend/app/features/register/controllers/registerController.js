@@ -32,17 +32,17 @@
             } else if (inpVal.length > 16) {
                 FlashService.Error('The password must be no longer than 16 characters', false);
             } else {
-                FlashService.Success('The password is fine', false)
+                FlashService.clearFlashMessage();
             }
         };
 
         function confirmPass() {
           var inpVal1 = document.getElementById('passFirst').value;
           var inpVal2 = document.getElementById('passSecond').value;
-          if (inpVal1 !== inpVal2) {
-            FlashService.Error('The passwords must match', false);
+          if (inpVal1 === inpVal2) {
+            FlashService.Success('Great!', false);
           } else {
-            FlashService.Success('Great!', false)
+            FlashService.Error('The passwords must match', false);
           }
         }
     }
