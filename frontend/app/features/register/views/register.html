@@ -18,7 +18,7 @@
 
                     </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
-                        <input compare-password class="form-control input-lg" type="password" name="password" equals="{{vm.user.confirmPassword}}" ng-model="vm.user.password" placeholder="Password" required>
+                        <input compare-password pattern=".{6,16}" title="The password must have at least 6 and max 16 charachters" class="form-control input-lg" type="password" name="password" equals="{{vm.user.confirmPassword}}" ng-model="vm.user.password" placeholder="Password" required>
                         <span class="ion-key form-control-feedback"></span>
 
                     </div>
