@@ -28,11 +28,11 @@
         function checkPass() {
             var inpVal = document.getElementById('passFirst').value;
             if (inpVal.length < 6) {
-                FlashService.Error('The password must be at least 6 characters long', true);
+                FlashService.Error('The password must be at least 6 characters long', false);
             } else if (inpVal.length > 16) {
-                FlashService.Error('The password must be no longer than 16 characters', true);
+                FlashService.Error('The password must be no longer than 16 characters', false);
             } else {
-                FlashService.Success('The password is fine', true)
+                FlashService.Success('The password is fine', false)
             }
         };
 
@@ -40,9 +40,9 @@
           var inpVal1 = document.getElementById('passFirst').value;
           var inpVal2 = document.getElementById('passSecond').value;
           if (inpVal1 !== inpVal2) {
-            FlashService.Error('The passwords must match', true);
+            FlashService.Error('The passwords must match', false);
           } else {
-            FlashService.Success('Great!', true)
+            FlashService.Success('Great!', false)
           }
         }
     }
