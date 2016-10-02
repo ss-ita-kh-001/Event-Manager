@@ -8,7 +8,7 @@
                     />
                     <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
                 </div>
-                <form method="post" name="signupForm" ng-submit="vm.register()" role="form" novalidate>
+                <form method="post" name="signupForm" ng-submit="vm.register()" role="form">
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
                         <input class="form-control input-lg" type="text" name="displayName" ng-model="vm.user.username" placeholder="Full Name" required autofocus>
                         <span class="ion-person form-control-feedback"></span>
@@ -18,11 +18,11 @@
                         <span class="ion-at form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
-                        <input pattern=".{6,16}" title="The password must have at least 6 and max 16 charachters" class="form-control input-lg" type="password" name="password" ng-model="vm.user.password" placeholder="Password" required>
+                        <input pattern=".{6,16}" watch-change="vm.checkPass()" id="passFirst" title="The password must have at least 6 and max 16 charachters" class="form-control input-lg" type="password" name="password" ng-model="vm.user.password" placeholder="Password" required>
                         <span class="ion-key form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.confirmPassword.$invalid && signupForm.confirmPassword.$dirty }">
-                        <input compare-password="vm.user.password" class="form-control input-lg" type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirm Password" required>
+                        <input compare-password="vm.user.password" id="passSecond" class="form-control input-lg" type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirm Password" required>
                         <span class="ion-key form-control-feedback"></span>
                     </div>
                     <p class="text-center text-muted"><small>By clicking on Sign up, you agree to <a href="#">terms & conditions</a> and <a href="#">privacy policy</a></small></p>
