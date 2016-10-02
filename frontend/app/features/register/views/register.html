@@ -3,9 +3,12 @@
         <div class="center-form panel">
             <div class="panel-body">
                 <h2 class="text-center">Sign up</h2>
+                <div class="col-sm-8 col-sm-offset-2 flash-block">
+                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                </div>
                 <form method="post" name="signupForm" ng-submit="vm.register()" role="form">
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
-                        <input class="form-control input-lg" type="text" name="displayName" ng-model="vm.user.username" placeholder="Name" required autofocus>
+                        <input class="form-control input-lg" type="text" name="displayName" ng-model="vm.user.username" placeholder="Full Name" required autofocus>
                         <span class="ion-person form-control-feedback"></span>
 
                     </div>
