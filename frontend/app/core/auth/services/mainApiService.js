@@ -16,6 +16,25 @@
             );
         }
 
+        this.deleteItem = function(itemId) {
+            return $http.delete(baseUrl + itemId + '/').success(
+                function () {
+                    console.log("item deleted");
+                    // $scope.itemId.splice($scope.itemId.indexOf(item), 1);
+                }
+            );
+        }
+        // // удаление элемента из модели
+        // $scope.delete = function (item) {
+        //     // HTTP DELETE
+        //     // отправка DELETE запроса по адресу http://localhost:2403/items/id что приводит к удалению записей на сервере
+        //     $http({
+        //         method: "DELETE",
+        //         url: baseUrl + item.id
+        //     }).success(function () {
+        //         $scope.items.splice($scope.items.indexOf(item), 1);
+        //     });
+        // }
     }
 
     mainApiService.$inject = ["$http", "baseUrl"];
@@ -49,15 +68,5 @@
         //     });
         // }
         //
-        // // удаление элемента из модели
-        // $scope.delete = function (item) {
-        //     // HTTP DELETE
-        //     // отправка DELETE запроса по адресу http://localhost:2403/items/id что приводит к удалению записей на сервере
-        //     $http({
-        //         method: "DELETE",
-        //         url: baseUrl + item.id
-        //     }).success(function () {
-        //         $scope.items.splice($scope.items.indexOf(item), 1);
-        //     });
-        // }
+
 })();

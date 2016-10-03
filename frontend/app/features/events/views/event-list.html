@@ -1,28 +1,31 @@
 <div class="container">
     <div>
-        <table class="table table-hover">
+        <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th>Event</th>
-                    <th>Date</th>
+                    <th ng-click="sortData('event')">Event
+                        <div ng-class="getSortClass('event')"></div>
+                    </th>
+                    <th ng-click="sortData('date')">Date
+                        <div ng-class="getSortClass('date')"></div>
+                    </th>
                     <th>Description</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="eventItem in events | orderBy:'date'">
-                    <td>{{eventItem.title}}</td>
-                    <td>{{eventItem.date | date : "dd.MM.yyyy"}}</td>
-                    <td>{{eventItem.description}}
-                        <div class="row" id="{{event.id}}">
-                            <a href="/events/{{event.id}}" class="btn">View event</a>
-                         </div>
-                    </td>
+                <tr ng-repeat="eventItem in events" ng-click="fullEvent(eventItem.id)" class="row-item">
+                        <td>{{eventItem.title}}</td>
+                        <td>{{eventItem.date | date : "dd.MM.yyyy"}}</td>
+                        <td>{{eventItem.description}}
+                            <div class="row btn-delete-item">
+                                <button class="btn btn-primary" ng-click="deleteItem(eventItem.id)">Delete (test-button)</button>
+                            </div>
+                        </td>
                 </tr>
             </tbody>
         </table>
         <div>
-            <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
-            <button class="btn btn-primary" ng-click="editOrCreate()">New</button>
+            <button class="btn btn-primary" ng-click="updateEventList()">Refresh</button>
         </div>
 
         <div class="row">
