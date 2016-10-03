@@ -84,19 +84,23 @@
               });
           });
           app.get(apiPreff + "/events/:id", function(req, res) {
-              console.log(req.params.id);
               events.getByEvent(req.params.id).then(function(data) {
                   res.status(200).send(data);
               });
           });
-          app.post(apiPreff + "/event/add", function(req, res) {
-
-              //  console.dir(req.params);
-              //  res.writeHead(200, {'Content-Type': 'text/html'});
-              //   events.addEvent(req.params)
+          app.put(apiPreff + "/events/:id/edit", function(req, res) {
+            events.updateEvent(req.body);
+            res.status(200).end();
           });
-
-
+          app.post(apiPreff + "/event/add", function(req, res) {
+              events.addEvent(Object.assign({}, req.body, req.params));
+              res.status(200).end();
+          });
+          app.delete(apiPreff + "/events/event/:id", function(req, res) {
+              console.log(req.params.id)
+              events.deleteEventById(req.params.id);
+              res.status(200).end();
+          });
           app.get('*', function(req, res) {
               res.status(200).sendFile(path.resolve('frontend/app/index.html'));
           });
