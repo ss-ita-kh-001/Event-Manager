@@ -16,14 +16,9 @@
 
         $scope.updateEventList();
 
-        //redirect to other page
-        $scope.fullEvent = function (eventId) {
-           $location.path("/events/" + eventId);
-        }
 
-
-        //setting filters
-        $scope.sortColumn = "name";
+        //setting sort
+        $scope.sortColumn = "title";
         $scope.reverseSort = false;
 
         $scope.sortData = function(column){
@@ -36,20 +31,14 @@
             return true;
         };
 
-        $scope.getSortClass = function(column){
-            if ($scope.sortColumn == column){
-                if($scope.reverseSort){
-                    return "glyphicon glyphicon-arrow-up";
-                }else{
-                    return "glyphicon glyphicon-arrow-down";
-                }
-            }else{
-                return '';
-            }
 
+        //redirect to other page
+        $scope.fullEvent = function (eventId) {
+           $location.path("/events/" + eventId);
         }
 
-        $scope.deleteItem = function (eventId) {
+        //add opportunity to delete event
+        $scope.deleteItem = function (event, eventId) {
             event.stopPropagation();
             mainApiService.deleteItem('events/' + eventId).then(function (response) {
                 if (response.status < 300) { // success
