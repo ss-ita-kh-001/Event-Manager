@@ -7,7 +7,8 @@
       var vm = this;
 
       vm.login = login;
-      
+      vm.reset = reset;
+
       function login() {
           vm.dataLoading = true;
           AuthenticationService.Login(vm.user.email, vm.user.password, function (response) {
@@ -26,6 +27,9 @@
                   vm.dataLoading = false;
               }
           });
+      };
+      function reset() {
+        AuthenticationService.ClearCredentials();
       };
   }
 
