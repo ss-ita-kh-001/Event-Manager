@@ -1,5 +1,6 @@
   var events = new(require("./features/database/events")),
       games = new(require("./features/database/games")),
+      users = new(require("./features/database/users")),
       subscribe = new(require("./features/database/subscribe")),
       apiPreff = "/api";
 
@@ -10,8 +11,28 @@ var router = {
             res.send(data);
         });
     });
-
-    app.get(apiPreff + "/games/user/:user", function(req, res) {
+    app.get(apiPreff + "/users/:id", function(req, res) {
+        users.getUserById().then(function(data) {
+            res.send(data);
+        });
+    });
+     app.post(apiPreff + "/users", function(req, res) {
+         users.addUser().then(req.body);
+         res.send(req.body);
+    });
+     app.put(apiPreff + "/users/:id", function(req, res) {
+         users.updateUser(req.body);
+         res.end();
+        });
+     app.delete(apiPreff + "/users/:id", function(req, res) {
+         users.deleteUser(req.params);
+         res.end();
+        });
+        
+        
+        
+        
+     app.get(apiPreff + "/games/user/:user", function(req, res) {
         games.getByUser(req.params.user).then(function(data) {
             res.send(data);
         });
