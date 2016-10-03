@@ -21,6 +21,7 @@ var router = {
          res.status(200).end();
     });
      app.put(apiPreff + "/users/:id", function(req, res) {
+         console.log(req.body);
          users.updateUser(req.body);
          res.status(200).end();
         });
