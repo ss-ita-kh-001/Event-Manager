@@ -12,17 +12,16 @@
               });
           });
           app.get(apiPreff + "/users/:id", function(req, res) {
-              users.getUserById().then(function(data) {
+              users.getUserById(req.params.id).then(function(data) {
                   res.status(200).send(data);
               });
           });
           app.post(apiPreff + "/users", function(req, res) {
-              users.addUser().then(req.body);
+              users.addUser(req.body);
               res.status(200).end();
           });
           app.put(apiPreff + "/users/:id", function(req, res) {
-              console.log(req.body);
-              users.updateUser(req.body);
+              users.updateUser(Object.assign({}, req.body, req.params));
               res.status(200).end();
           });
           app.delete(apiPreff + "/users/:id", function(req, res) {

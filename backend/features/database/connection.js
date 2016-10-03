@@ -12,8 +12,9 @@
         port: 5432,
         database: "d3fhukpkuqto8d",
         user: "yqifxpsiqstfzq",
-        password: "9GKXzO6J838Mw0aBsNoXL6CMGZ"
+        password: "9GKXzO6J838Mw0aBsNoXL6CMGZ",
+        ssl: true
     };
-    var db = pgp(localDbConnection);
+    var db = pgp(herokuDbConnection);
     module.exports = db;
 })();
