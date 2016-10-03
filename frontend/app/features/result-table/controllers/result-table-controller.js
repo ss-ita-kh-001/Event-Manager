@@ -21,7 +21,7 @@
         };
 
         $scope.getSortClass = function(coloumn){
-            if ($scope.sortColoumn == coloumn){
+            if ($scope.sortColoumn === coloumn){
                 if($scope.reverseSort){
                     return "glyphicon glyphicon-arrow-up static";
                 }else{
