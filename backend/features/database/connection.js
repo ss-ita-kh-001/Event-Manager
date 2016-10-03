@@ -14,6 +14,6 @@
         user: "yqifxpsiqstfzq",
         password: "9GKXzO6J838Mw0aBsNoXL6CMGZ"
     };
-    var db = pgp(herokuDbConnection);
+    var db = pgp(localDbConnection);
     module.exports = db;
 })();
