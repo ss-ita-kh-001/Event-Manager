@@ -1,7 +1,14 @@
 <div class="chat-page">
     <div class="chat-window">
         <div class="chat-body">
-            <ul class="messages">
+          <!-- Form for login to the chat -->
+          <div class="" ng-if="!login">
+            <form name="login" class="" ng-submit="chatLogin()">
+              <input type="text" name="login" value="" ng-model="username">
+              <input class="send-btn" ng-click="chatLogin()" type="submit" value="">
+            </form>
+          </div>
+            <ul class="messages" ng-if="login">
                 <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="history in history track by $index">
                     <!--<img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
                     <span class="message__author">{{m.author}}</span>-->
@@ -17,6 +24,7 @@
                     </div>
                 </li>
             </ul>
+
         </div>
         <div class="chat-footer">
             <form name="publish" class="chat-footer__message">
