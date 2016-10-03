@@ -1,37 +1,37 @@
-﻿(function () {
+(function() {
     'use strict';
 
     angular.module('em').factory('FlashService', FlashService);
 
     FlashService.$inject = ['$rootScope'];
+
     function FlashService($rootScope) {
         var service = {};
 
         service.Success = Success;
         service.Error = Error;
+        service.clearFlashMessage = clearFlashMessage;
 
         initService();
 
         return service;
 
         function initService() {
-            $rootScope.$on('$locationChangeStart', function () {
+            $rootScope.$on('$locationChangeStart', function() {
                 clearFlashMessage();
             });
-
-            function clearFlashMessage() {
-                var flash = $rootScope.flash;
-                if (flash) {
-                    if (!flash.keepAfterLocationChange) {
-                        delete $rootScope.flash;
-                    } else {
-                        // only keep for a single location change
-                        flash.keepAfterLocationChange = false;
-                    }
+        }
+        function clearFlashMessage() {
+            var flash = $rootScope.flash;
+            if (flash) {
+                if (!flash.keepAfterLocationChange) {
+                    delete $rootScope.flash;
+                } else {
+                    // only keep for a single location change
+                    flash.keepAfterLocationChange = false;
                 }
             }
         }
-
         function Success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,

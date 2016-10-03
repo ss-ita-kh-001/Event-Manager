@@ -29,9 +29,13 @@
         <div class="chat-footer">
             <form name="publish" class="chat-footer__message">
                 <textarea enter-clicker="msgSend()" name="message"></textarea>
-                <input class="send-btn" ng-click="msgSend()" type="submit" value="">
-                <span></span>
+                <div class="send-wrapper">
+                  <input class="send-btn" ng-click="msgSend()" type="submit" value="">
+                </div>
             </form>
         </div>
     </div>
+</div>
+<div class="col-sm-8 col-sm-offset-2 flash-block">
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
 </div>
