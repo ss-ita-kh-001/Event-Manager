@@ -2,6 +2,20 @@
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
     function chatController($scope, chatService, $timeout, FlashService, $rootScope) {
+        // console.log("$scope.login = " + $scope.login);
+        if (sessionStorage.getItem("chatLogin")) {
+            $scope.login = true;
+        } else {
+            $scope.login = false;
+        };
+
+        $scope.chatLogin = function() {
+            var login = document.forms.login.login.value;
+
+            sessionStorage.setItem("chatLogin", login);
+            $scope.login = true;
+            $scope.username = login;
+        };
         var self = this;
         self.scrollBottom = function() {
             var objDiv = document.querySelector('.chat-body');
@@ -15,7 +29,7 @@
                 document.forms.publish.message.value = '';
                 $timeout(self.scrollBottom, 10);
             } else {
-              console.log('flaaaaash');
+                console.log('flaaaaash');
                 FlashService.Error('Please, enter something', false);
             }
         };
