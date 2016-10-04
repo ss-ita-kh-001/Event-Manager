@@ -22,12 +22,18 @@
                         <td>{{eventItem.date | date : "dd.MM.yyyy"}}</td>
                         <td>{{eventItem.description}}
                             <div class="row btn-delete-item">
-                                <button class="btn" ng-click="deleteEventItem($event, eventItem.id)">Delete (test-button)</button>
+                                <button class="btn" ng-click="deleteEventItem($event, eventItem.id, $index)">Delete (test-button)</button>
+                            </div>
+                            <div class="row btn-delete-item">
+                                <button class="btn" ng-click="putEventItem($event, updateMockData, $index)">Update item event(test-button)</button>
                             </div>
                         </td>
                 </tr>
             </tbody>
         </table>
+        <div class="row btn-delete-item">
+            <button class="btn" ng-click="postEventItem(mockData)">Create new event(test-button)</button>
+        </div>
 
         <div class="row">
             <a href="/event/add" class="btn">Add new event</a>

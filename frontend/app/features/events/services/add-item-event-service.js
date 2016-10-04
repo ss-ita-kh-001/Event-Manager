@@ -4,7 +4,7 @@
     function itemEventService(mainApiService) {
         this.getEvents = function() {
             return mainApiService.get('events').then(function (response) {
-                if (response.status < 300) { // success
+                if (response) { // success
                     return response.data;
                 }
             });
@@ -12,10 +12,24 @@
 
         this.deleteEvent = function (id) {
             return mainApiService.delete('events/' + id).then(function (response) {
-                if (response.status < 300) { // success
-                    $scope.events = response.data;
-                }else {
-                    console.log("error");
+                if (response) { // success
+                    return true;
+                }
+            });
+        }
+
+        this.postEvent = function (data) {
+            return mainApiService.post('events', data).then(function (response) {
+                if (response) { // success
+                    return response.data;
+                }
+            });
+        }
+
+        this.putEvent = function (data) {
+            return mainApiService.put('events/' + data.id, data).then(function (response) {
+                if (response) { // success
+                    return response.data;
                 }
             });
         }

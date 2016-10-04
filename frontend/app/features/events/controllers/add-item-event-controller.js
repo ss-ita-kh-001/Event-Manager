@@ -35,13 +35,48 @@
 
 
         //add opportunity to delete event
-        $scope.deleteEventItem = function (event, id) {
+        $scope.deleteEventItem = function (event, id, index) {
             event.stopPropagation();
             itemEventService.deleteEvent(id).then(function (response) {
-                    $scope.events = response.data;
-                // }else {
-                //     console.log("error");
-                // }
+                // splice deleted element from event list
+                if (response) {
+                    $scope.events.splice(index, 1);
+                }
+            });
+        }
+
+        //add opportunity to create event
+        $scope.mockData = {
+            "title": "Football",
+            "description": " Sports commonly called 'football' in certain places include: association football (known as soccer in some countries); gridiron football (specifically American football or Canadian football);",
+            "date": "24.11.2016",
+            "src": "build/img/ocean.jpg"
+        };
+
+        $scope.postEventItem = function (data) {
+            itemEventService.postEvent(data).then(function (response) {
+                $scope.events.push(response);
+            });
+        }
+
+            //add opportunity to change event
+        $scope.updateMockData = {
+            "title": "Football New",
+            "description": " New New Sports commonly called 'football' in certain places include: association football (known as soccer in some countries); gridiron football (specifically American football or Canadian football);",
+            "date": "24.11.2016",
+            "src": "build/img/ocean.jpg",
+            "id": "35df3a8e23c3e843"
+        };
+
+        $scope.putEventItem = function (event, data, index) {
+            event.stopPropagation();
+            itemEventService.putEvent(data).then(function (response) {
+                if (response) {
+                    console.log(response);
+                    $scope.events[index] = response;
+                    // $scope.events.splice(index, 1);
+                }
+                // $scope.events.push(response);
             });
         }
  }
