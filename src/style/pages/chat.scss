@@ -52,13 +52,16 @@ $fontColor: #CA8D26;
     background-color: $bgLight;
     text-align: center;
     padding: 20px;
-    box-shadow: 0 0 20px -10px #000;
+    box-shadow: 0 0 27px -7px #000;
     position: relative;
 }
 
 .chat-header {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid $borderColor;
+    border-top: none;
+    z-index: 2;
 }
 
 .chat-header__author {
@@ -80,15 +83,18 @@ $fontColor: #CA8D26;
 .chat-footer__message {
     text-align: center;
     position: relative;
-    textarea {
-        width: 90%;
+    overflow: hidden;
+    div {
+      padding: 2px;
+    }
+      textarea {
+        width: 100%;
         padding: 10px;
         border: none;
-        box-shadow: 0 0 10px -5px #000;
+        box-shadow: 0 0 15px -5px #000;
         border-radius: 15px;
         outline: none;
-        display: inline-block;
-        vertical-align: middle;
+
     }
 }
 
@@ -116,7 +122,8 @@ $fontColor: #CA8D26;
 .message__author {
 	display: inline-block;
 	position: relative;
-	top: -15px;
+	vertical-align: top;
+  top: 8px;
 	left: -10px;
     font-weight: 700;
     padding-left: 10px;
@@ -126,6 +133,7 @@ $fontColor: #CA8D26;
 .message__text {
     position: relative;
     display: inline-block;
+    vertical-align: top;
     max-width: 80%;
     background-color: $bgDeep;
     border-radius: 10px;
@@ -165,13 +173,12 @@ $fontColor: #CA8D26;
 
 .send-wrapper {
     background-color: $fontColor;
-    width: 50px;
+    padding: 2px;
     height: 50px;
     border: none;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 3px 10px -5px #000;
-    vertical-align: middle;
+    border-radius: 15px;
+    margin: 5px;
+    box-shadow: 0 3px 15px -5px #000;
     &:active,
     &:focus {
         outline: none;
@@ -184,10 +191,9 @@ $fontColor: #CA8D26;
     height: 100%;
     line-height: 50px;
     text-align: center;
-    background: url(../img/send-icon.png) no-repeat 3px 9px;
+    background: url(../img/send-icon.png) no-repeat 45% 3px;
     border: none;
     transition: all .3s;
-    padding: 1px 0;
     position: relative;
     &:active,
     &:focus {
