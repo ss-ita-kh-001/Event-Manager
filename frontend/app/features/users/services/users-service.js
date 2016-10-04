@@ -3,7 +3,13 @@
 
     function usersService() {
         this.getUsers = function() {
-            return JSON.parse(localStorage.users);
+            var users = localStorage.getItem("users");
+            if (users) {
+                return JSON.parse(users);
+            } else {
+                return false;
+            }
+
         }
     }
 })();

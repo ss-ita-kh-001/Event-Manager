@@ -45,27 +45,6 @@
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-sm-offset-3 col-sm-2">Photos</div>
-        <div class="col-sm-4">
-            <div class="image-container">
-
-                <div class="dropzone" file-dropzone="[image/png, image/jpeg, image/gif]" file="image" file-name="imageFileName" data-max-file-size="3">
-                    <img ng-src={{image.length}} />
-                    <span class="file-name">{{imageFileName}}</span>
-                </div>
-
-                <form action class="form-style">
-                    <input type="file" multiple name="file-1" fileread="uploadme.src">
-                    <label for="file-1">
-                  <span>Select or Drop Image</span>
-                </label>
-
-                </form>
-                <img ng-src="{{ uploadme.src }}" class="small-img">
-            </div>
-        </div>
-    </div>
-    <div class="row form-group">
         <div class="col-sm-offset-6 col-sm-1">
             <a class="btn btn-danger" href="/">Cancel</a>
         </div>

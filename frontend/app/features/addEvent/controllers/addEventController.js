@@ -34,7 +34,6 @@
             addedEvent.description = $scope.description;
             addedEvent.date = $scope.datePicker.dt.toISOString().slice(0, 10);
             addedEvent.place = $scope.place;
-            addedEvent.uploadme = $scope.uploadme;
 
             addEventService.add(addedEvent);
         }
