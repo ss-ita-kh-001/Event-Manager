@@ -1,15 +1,34 @@
 (function() {
     angular.module("em.editEvent").controller("em.editEvent.editEventController", editEventController);
 
-    function editEventController($scope, datePicker, map) {
-        $scope.datePicker = datePicker;
-        $scope.place = {};
+    function editEventController($scope, $routeParams, datePicker, map, localStorageService, $timeout, addEventService) {
 
-        $scope.image = null;
-        $scope.imageFileName = '';
+      $scope.path = $routeParams.id;
+      $scope.events = JSON.parse(localStorageService.get('events'))
+      $scope.eventNotFound = false;
+      $scope.datePicker = datePicker;
 
-        $scope.uploadme = {};
-        $scope.uploadme.src = '';
+      angular.forEach($scope.events, function(event,  path ){
+       if(event.id == $scope.path){
+         $scope.event = event;
+       }
+     });
+
+  console.log( $scope.event)
+
+     $scope.title = $scope.event.title;
+     $scope.description = $scope.event.description;
+
+
+        var lat = $scope.event.place.lat;
+        var lng = $scope.event.place.lng;
+
+        $timeout(function() {
+          map.init();
+          map.staticMarker(lat, lng);
+        }, 100);
+
+         $scope.place = $scope.event.place;
 
         $scope.search = function() {
             $scope.apiError = false;
@@ -27,9 +46,18 @@
                     }
                 );
         }
-        map.init();
+        $scope.update = function() {
+            var updateEvent = {};
+            updateEvent.title = $scope.title;
+            updateEvent.description = $scope.description;
+            updateEvent.date = $scope.datePicker.dt.toISOString().slice(0, 10);
+            updateEvent.place = $scope.place;
+             console.log(updateEvent)
+            addEventService.add(updateEvent);
+        }
+
     }
 
-    editEventController.$inject = ["$scope", "em.editEvent.datePicker", "em.editEvent.map"];
+    editEventController.$inject = ["$scope", "$routeParams", "em.editEvent.datePicker", "em.addEvent.map", "localStorageService", "$timeout", "em.addEvent.addEventService"];
 
 })();
