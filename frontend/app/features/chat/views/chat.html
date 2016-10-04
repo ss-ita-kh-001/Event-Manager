@@ -22,7 +22,7 @@
             </div>
 
             <ul class="messages" ng-if="login">
-                <li class="message" ng-class="{ 'message--mine': obj.author == mess.author }" ng-repeat="history in history track by $index">
+                <li class="message" ng-class="{ 'message--mine': auth == live[$index].author }" ng-repeat="history in history track by $index">
                     <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
                     <div class="message__author">{{history.author}}</div>
                     <div class="message__text">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="message" ng-class="{ 'message--mine': live.author == obj.author }" ng-repeat="mess in live track by $index">
+                <li class="message" ng-class="{ 'message--mine': auth == live[$index].author }" ng-repeat="mess in live track by $index">
                     <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
                     <div class="message__author">{{mess.author}}</div>
                     <div class="message__text">

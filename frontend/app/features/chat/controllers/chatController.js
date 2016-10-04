@@ -24,6 +24,7 @@
             localStorage.setItem("chatLogin", login);
             chatService.msgGet();
             obj.author = login;
+            $scope.auth = obj.author;
             $scope.login = true;
         };
 
