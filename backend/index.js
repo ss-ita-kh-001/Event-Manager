@@ -27,7 +27,10 @@ io.on('connection', function(socket) {
 
     var id = Math.random();
     clients[id] = socket;
-    clients[id].emit('start', history);
+    socket.on('get history', function() {
+        clients[id].emit('post history', history);
+    });
+    
 
     console.log('a user connected ' + id);
 

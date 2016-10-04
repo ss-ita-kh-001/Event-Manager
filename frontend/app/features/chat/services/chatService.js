@@ -11,12 +11,13 @@
         self.msgSend = function(msg) {
             socket.emit('message', msg);
         };
+        self.msgGet = function () {
+            socket.emit('get history');
+        }
 
-        socket.on('start', function(messages) {
-
+        socket.on('post history', function(messages) {
             $rootScope.$apply(function() {
                 angular.extend(self.history, messages);
-                self.live.push('Welcome to the chat!');
             });
 
         });
