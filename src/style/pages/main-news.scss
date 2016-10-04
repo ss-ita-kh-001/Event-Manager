@@ -1,9 +1,17 @@
 body {
     background: $navbar-bg-color;
 }
+
+.aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .main-content {
     background: #f5f5f5;
 }
+
 .content-wrapper {
     height: 100%;
     width: 100%;
