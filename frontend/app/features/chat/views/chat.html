@@ -1,7 +1,16 @@
 <div class="chat-page">
     <div class="chat-window">
+        <div class="chat-header">
+          <!--<ul class="rooms">
+            <li>Room1</li>
+            <li>Room2</li>
+            <li>Room3</li>
+          </ul>-->
+        </div>
         <div class="chat-body">
             <!-- Form for login to the chat -->
+
+
             <div class="f" ng-if="!login">
                 <form name="login" class="form__login short" ng-submit="chatLogin()">
                     <p>Login</p>
@@ -11,6 +20,7 @@
                     </div>
                 </form>
             </div>
+
             <ul class="messages" ng-if="login">
                 <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="history in history track by $index">
                     <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
@@ -40,9 +50,9 @@
         </div>
         <div class="chat-footer">
             <form name="publish" class="chat-footer__message">
-              <div class="col-sm-10 col-xs-12">
-                <textarea enter-clicker="msgSend()" name="message"></textarea>
-              </div>
+                <div class="col-sm-10 col-xs-12">
+                    <textarea enter-clicker="msgSend()" name="message"></textarea>
+                </div>
                 <div class="col-sm-1 col-xs-12 send-wrapper">
                     <input class="send-btn" ng-click="msgSend()" type="submit" value="">
                 </div>

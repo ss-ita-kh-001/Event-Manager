@@ -59,6 +59,9 @@ $fontColor: #CA8D26;
 .chat-header {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid $borderColor;
+    border-top: none;
+    z-index: 2;
 }
 
 .chat-header__author {
