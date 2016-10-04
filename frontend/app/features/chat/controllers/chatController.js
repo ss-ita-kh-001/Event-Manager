@@ -49,13 +49,12 @@
             var objDiv = document.querySelector('.chat-body');
             objDiv.scrollTop = objDiv.scrollHeight;
         };
-        //scroll to bottom for new user
+        //scroll to bottom for a new user
         $timeout(self.scrollBottom, 1000);
         // history
         $scope.history = chatService.history;
         // new messages
         $scope.live = chatService.live;
-        // console.log($scope.live);
 
     }
 
