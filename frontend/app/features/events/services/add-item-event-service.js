@@ -1,10 +1,25 @@
 (function() {
     angular.module("em.events").service("em.events.add-item-event-service", itemEventService);
 
-    function itemEventService() {
+    function itemEventService(mainApiService) {
         this.getEvents = function() {
-            var eventsItem = JSON.parse(JSON.parse(localStorage.getItem("ls.events")));
-            return eventsItem;
+            return mainApiService.get('events').then(function (response) {
+                if (response.status < 300) { // success
+                    return response.data;
+                }
+            });
+        }
+
+        this.deleteEvent = function (id) {
+            return mainApiService.delete('events/' + id).then(function (response) {
+                if (response.status < 300) { // success
+                    $scope.events = response.data;
+                }else {
+                    console.log("error");
+                }
+            });
         }
     }
+
+    itemEventService.$inject = ["em.mainApiService"];
 })();

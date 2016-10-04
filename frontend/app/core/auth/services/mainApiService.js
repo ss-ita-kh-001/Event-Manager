@@ -4,8 +4,20 @@
     .service("em.mainApiService", mainApiService);
     function mainApiService($http, baseUrl) {
 
-        this.getItems = function(itemsName) {
-            return $http.get(baseUrl + itemsName + '/').then(
+        // this.getItems = function(itemsName) {
+        //     return $http.get(baseUrl + itemsName + '/').then(
+        //         function (response) {
+        //             return response;
+        //         },
+        //         function (error) {
+        //             alert('Error: ' + error.data.status + '. ' + error.data.message);
+        //             return error;
+        //         }
+        //     );
+        // }
+
+        this.get = function(url) {
+            return $http.get(baseUrl + url + '/').then(
                 function (response) {
                     return response;
                 },
@@ -16,11 +28,13 @@
             );
         }
 
-        this.deleteItem = function(itemId) {
-            return $http.delete(baseUrl + itemId + '/').success(
+
+
+
+        this.delete = function(id) {
+            return $http.delete(baseUrl + id + '/').success(
                 function () {
                     console.log("item deleted");
-                    // $scope.itemId.splice($scope.itemId.indexOf(item), 1);
                 }
             );
         }

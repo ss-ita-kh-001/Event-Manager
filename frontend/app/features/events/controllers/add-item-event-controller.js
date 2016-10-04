@@ -7,15 +7,17 @@
         * Called when init controller and update button on click
         */
         $scope.updateEventList = function () {
-            mainApiService.getItems('events').then(function (response) {
-                if (response.status < 300) { // success
-                    $scope.events = response.data;
-                }
+            itemEventService.getEvents().then(function (events) {
+                $scope.events = events;
             });
         };
 
         $scope.updateEventList();
 
+        //redirect to other page
+        $scope.fullEvent = function (eventId) {
+           $location.path("/events/" + eventId);
+        };
 
         //setting sort
         $scope.sortColumn = "title";
@@ -32,24 +34,16 @@
         };
 
 
-        //redirect to other page
-        $scope.fullEvent = function (eventId) {
-           $location.path("/events/" + eventId);
-        }
-
         //add opportunity to delete event
-        $scope.deleteItem = function (event, eventId) {
+        $scope.deleteEventItem = function (event, id) {
             event.stopPropagation();
-            mainApiService.deleteItem('events/' + eventId).then(function (response) {
-                if (response.status < 300) { // success
+            itemEventService.deleteEvent(id).then(function (response) {
                     $scope.events = response.data;
-                }else {
-                    console.log("error");
-                }
+                // }else {
+                //     console.log("error");
+                // }
             });
         }
-
-
  }
     itemEventController.$inject = ["$scope", "$location", "em.events.add-item-event-service", "em.mainApiService"];
 })();
