@@ -1,11 +1,4 @@
-$mainColor: #4688F1;
-$success: #3AA757;
-$danger: #FC0D1B;
-$lightColor: #eceff1;
-$borderColor: #E6C999;
-$bgLight: #FEFCF4;
-$bgDeep: #F9F2E7;
-$fontColor: #CA8D26;
+
 .btn {
     color: #fff;
     border: none;
@@ -32,13 +25,6 @@ $fontColor: #CA8D26;
         width: 50%;
     }
 }
-
-.chat-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .chat-window {
     overflow: hidden;
     border: 1px solid $borderColor;
