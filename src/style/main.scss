@@ -1,5 +1,8 @@
 @import "../lib/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "fonts.scss";
+@import "variables.scss";
+@import "_variables.scss";
+@import "themes/theme-light.scss"; //include custom theme here
 @import "layout.scss";
 
 
@@ -11,3 +14,4 @@
 
 @import "pages/editEvent.scss";
 @import "pages/res.scss";
+

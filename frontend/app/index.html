@@ -18,14 +18,14 @@
 </head>
 
 <body>
-    <div class="container">
+    <header class="container">
         <div class="row">
             <div class="aligner">
-                <div class="hidden-xs col-sm-3 col-md-2">
+                <div class="hidden-xs col-sm-3 col-md-2 no-pad">
                     <a href="/"><img src="./build/img/logoEM.png" alt="LOGO" class="logo"></a>
                 </div>
                 <div class="col-xs-12 col-sm-9 col-md-10 header text-center">
-                    event manager
+                    <span class="color">event</span>manager
                 </div>
             </div>
         </div>
@@ -58,17 +58,23 @@
                 <!-- /.container-fluid -->
             </nav>
         </div>
-    </div>
+    </header>
     <!-- Content -->
-    <div class="col-xs-12 main-content text-justify">
-        <div ng-view></div>
-        <div class="col-sm-8 col-sm-offset-2">
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+    <main class="main-content text-justify">
+        <div class="container">
+            <div class="row">
+                <div ng-view></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-xs-12 text-center footer">
+    </main>
+    <footer class="container footer text-center">
         (C)KH-001-WebUI Team
-    </div>
+    </footer>
     </div>
     <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAd1xMYT1bt99qtFWQEzXiRBvORDWHgPtk&libraries=places'></script>
     <script src="./build/js/all.js"></script>
