@@ -9,47 +9,90 @@
           app.get(apiPreff + "/users", function(req, res) {
               users.getAll().then(function(data) {
                   res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
               });
           });
           app.get(apiPreff + "/users/:id", function(req, res) {
               users.getUserById(req.params.id).then(function(data) {
                   res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
               });
           });
           app.post(apiPreff + "/users", function(req, res) {
-              users.addUser(req.body);
-              res.status(200).end();
+              users.addUser(req.body).then(function() {
+                  users.getLastId().then(function(data) {
+                      res.status(200).send(data);
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+
           });
           app.put(apiPreff + "/users/:id", function(req, res) {
-              users.updateUser(Object.assign({}, req.body, req.params));
-              res.status(200).end();
+              users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.delete(apiPreff + "/users/:id", function(req, res) {
-              users.deleteUser(req.params);
-              res.status(200).end();
+              users.deleteUser(req.params).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
 
           app.get(apiPreff + "/games/user/:user", function(req, res) {
               games.getByUser(req.params.user).then(function(data) {
                   res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
               });
           });
           app.get(apiPreff + "/games/event/:event", function(req, res) {
               games.getByEvent(req.params.event).then(function(data) {
                   res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
               });
           });
           app.post(apiPreff + "/games/event/:event", function(req, res) {
-              games.addGame(Object.assign({}, req.body, req.params));
-              res.status(200).end();
+              games.addGame(Object.assign({}, req.body, req.params)).then(function() {
+                  games.getLastId().then(function(data) {
+                      res.status(200).send(data);
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.post(apiPreff + "/games/user/:user", function(req, res) {
-              games.addGame(Object.assign({}, req.body, req.params));
-              res.status(200).end();
+              games.addGame(Object.assign({}, req.body, req.params)).then(function() {
+                  games.getLastId().then(function(data) {
+                      res.status(200).send(data);
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.post(apiPreff + "/games/:user/:event", function(req, res) {
-              games.addGame(Object.assign({}, req.body, req.params));
-              res.status(200).end();
+              games.addGame(Object.assign({}, req.body, req.params)).then(function() {
+                  games.getLastId().then(function(data) {
+                      res.status(200).send(data);
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.put(apiPreff + "/games/:id", function(req, res) {
               games.updateGame(Object.assign({}, req.params, req.body));
@@ -88,8 +131,8 @@
               });
           });
           app.put(apiPreff + "/events/:id/edit", function(req, res) {
-            events.updateEvent(req.body);
-            res.status(200).end();
+              events.updateEvent(req.body);
+              res.status(200).end();
           });
           app.post(apiPreff + "/event/add", function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params));
