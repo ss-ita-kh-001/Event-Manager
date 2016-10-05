@@ -1,29 +1,29 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('em').factory('UserService', UserService);
+    angular.module('em').factory('userService', userService);
 
-    UserService.$inject = ['$timeout', '$filter', '$q'];
-    function UserService($timeout, $filter, $q) {
+    userService.$inject = ['$timeout', '$filter', '$q'];
+    function userService($timeout, $filter, $q) {
 
         var service = {};
 
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
-        service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
+        service.getAll = getAll;
+        service.getById = getById;
+        service.getByUsername = getByUsername;
+        service.create = create;
+        service.update = update;
+        service.remove = remove;
 
         return service;
 
-        function GetAll() {
+        function getAll() {
             var deferred = $q.defer();
             deferred.resolve(getUsers());
             return deferred.promise;
         }
 
-        function GetById(id) {
+        function getById(id) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getUsers(), { id: id });
             var user = filtered.length ? filtered[0] : null;
@@ -31,7 +31,7 @@
             return deferred.promise;
         }
 
-        function GetByUsername(email) {
+        function getByUsername(email) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getUsers(), { email: email });
             var user = filtered.length ? filtered[0] : null;
@@ -39,12 +39,12 @@
             return deferred.promise;
         }
 
-        function Create(user) {
+        function create(user) {
             var deferred = $q.defer();
 
             // simulate api call with $timeout
             $timeout(function () {
-                GetByUsername(user.email)
+                getByUsername(user.email)
                     .then(function (duplicateUser) {
                         if (duplicateUser !== null) {
                             deferred.resolve({ success: false, message: 'Email "' + user.email + '" is already taken' });
@@ -67,7 +67,7 @@
             return deferred.promise;
         }
 
-        function Update(user) {
+        function update(user) {
             var deferred = $q.defer();
 
             var users = getUsers();
@@ -83,7 +83,7 @@
             return deferred.promise;
         }
 
-        function Delete(id) {
+        function remove(id) {
             var deferred = $q.defer();
 
             var users = getUsers();

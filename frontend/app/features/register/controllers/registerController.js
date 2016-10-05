@@ -3,9 +3,9 @@
 
 
     angular.module('em.register').controller('em.register.registerController', registerController);
-    registerController.$inject = ['$scope', 'UserService', '$location', '$rootScope', 'FlashService'];
+    registerController.$inject = ['$scope', 'userService', '$location', '$rootScope', 'flashService'];
 
-    function registerController($scope, UserService, $location, $rootScope, FlashService) {
+    function registerController($scope, userService, $location, $rootScope, flashService) {
 
         $scope.register = register;
         $scope.checkPass = checkPass;
@@ -13,13 +13,13 @@
 
         function register() {
             $scope.dataLoading = true;
-            UserService.Create($scope.user)
+            userService.create($scope.user)
                 .then(function(response) {
                     if (response.success) {
-                        FlashService.Success('Registration successful', true);
+                        flashService.success('Registration successful', true);
                         $location.path('/login');
                     } else {
-                        FlashService.Error(response.message);
+                        flashService.error(response.message);
                         $scope.dataLoading = false;
                     }
                 });
@@ -27,23 +27,24 @@
 
         function checkPass() {
           console.log('check pass');
-            var inpVal = document.getElementById('passFirst').value;
+            //var inpVal = document.getElementById('passFirst').value;
+            var inpVal = $scope.passFirst;
             if (inpVal.length < 6) {
-                FlashService.Error('The password must be at least 6 characters long', false);
+                flashService.error('The password must be at least 6 characters long', false);
             } else if (inpVal.length > 16) {
-                FlashService.Error('The password must be no longer than 16 characters', false);
+                flashService.error('The password must be no longer than 16 characters', false);
             } else {
-                FlashService.clearFlashMessage();
+                flashService.clearFlashMessage();
             }
         };
 
         function confirmPass() {
-          var inpVal1 = document.getElementById('passFirst').value;
-          var inpVal2 = document.getElementById('passSecond').value;
-          if (inpVal1 === inpVal2) {
-            FlashService.Success('Great!', false);
+          //var inpVal1 = document.getElementById('passFirst').value;
+          //var inpVal2 = document.getElementById('passSecond').value;
+          if ($scope.passFirst === $scope.passSecond) {
+            flashService.success('Great!', false);
           } else {
-            FlashService.Error('The passwords must match', false);
+            flashService.error('The passwords must match', false);
           }
         }
     }

@@ -2,15 +2,15 @@
 (function() {
     'use strict';
 
-    angular.module('em').factory('FlashService', FlashService);
+    angular.module('em').factory('flashService', flashService);
 
-    FlashService.$inject = ['$rootScope'];
+    flashService.$inject = ['$rootScope'];
 
-    function FlashService($rootScope) {
+    function flashService($rootScope) {
         var service = {};
 
-        service.Success = Success;
-        service.Error = Error;
+        service.success = success;
+        service.error = error;
         service.clearFlashMessage = clearFlashMessage;
 
         initService();
@@ -33,7 +33,7 @@
                 }
             }
         }
-        function Success(message, keepAfterLocationChange) {
+        function success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'success',
@@ -41,7 +41,7 @@
             };
         }
 
-        function Error(message, keepAfterLocationChange) {
+        function error(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'error',

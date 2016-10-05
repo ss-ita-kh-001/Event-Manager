@@ -1,25 +1,25 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('em').factory('AuthenticationService', AuthenticationService);
+    angular.module('em').factory('authenticationService', authenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    authenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'userService'];
+    function authenticationService($http, $cookieStore, $rootScope, $timeout, userService) {
         var service = {};
 
-        service.Login = Login;
-        service.SetCredentials = SetCredentials;
-        service.ClearCredentials = ClearCredentials;
+        service.logIn = logIn;
+        service.setCredentials = setCredentials;
+        service.clearCredentials = clearCredentials;
 
         return service;
 
-        function Login(email, password, callback) {
+        function logIn(email, password, callback) {
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
             $timeout(function () {
                 var response;
-                UserService.GetByUsername(email)
+                userService.getByUsername(email)
                     .then(function (user) {
                         if (user !== null && user.password === password) {
                             response = { success: true };
@@ -39,7 +39,7 @@
 
         }
 
-        function SetCredentials(email, password) {
+        function setCredentials(email, password) {
             var authdata = Base64.encode(email + ':' + password);
 
             $rootScope.globals = {
@@ -53,14 +53,14 @@
             $cookieStore.put('globals', $rootScope.globals);
         }
 
-        function ClearCredentials() {
+        function clearCredentials() {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
         }
     }
 
-    // Base64 encoding service used by AuthenticationService
+    // Base64 encoding service used by authenticationService
     var Base64 = {
 
         keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
