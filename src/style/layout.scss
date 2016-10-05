@@ -31,6 +31,7 @@ img {
 }
 
 .footer {
+    margin-top: 20px;
     padding: 10px;
     font-family: $footer-font-family;
     color: $footer-text-color;
@@ -109,4 +110,8 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.full-height {
+    height: 100%;
 }

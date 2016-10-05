@@ -1,7 +1,7 @@
-<div class="chat-page">
+<div class="aligner">
     <div class="chat-window">
         <div class="chat-header">
-          <!--<ul class="rooms">
+            <!--<ul class="rooms">
             <li>Room1</li>
             <li>Room2</li>
             <li>Room3</li>
@@ -9,8 +9,6 @@
         </div>
         <div class="chat-body">
             <!-- Form for login to the chat -->
-
-
             <div class="f" ng-if="!login">
                 <form name="login" class="form__login short" ng-submit="chatLogin()">
                     <p>Login</p>
@@ -20,7 +18,6 @@
                     </div>
                 </form>
             </div>
-
             <ul class="messages" ng-if="login">
                 <li class="message" ng-class="{ 'message--mine': auth == live[$index].author }" ng-repeat="history in history track by $index">
                     <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
