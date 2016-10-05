@@ -7,7 +7,6 @@
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         };
-        $rootScope.socket = io.connect('http://localhost:8080');
 
     })
 })();

@@ -9,8 +9,6 @@
             time: ''
         }
 
-        // console.log("Last Sync: " + currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds());
-
         if (localStorage.getItem("chatLogin")) {
             obj.author = localStorage.getItem("chatLogin");
             chatService.msgGet();

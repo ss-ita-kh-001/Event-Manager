@@ -2,7 +2,7 @@
     angular.module("em.chat").service("em.chat.chatService", ["$rootScope", chatService]);
 
     function chatService($rootScope) {
-        var socket = $rootScope.socket;
+        var socket = io.connect('http://localhost:8080');
         var self = this;
 
         self.history = []; // old messages from server
@@ -19,7 +19,6 @@
             $rootScope.$apply(function() {
                 angular.extend(self.history, messages);
             });
-
         });
 
         socket.on('message', function(msg) {
