@@ -95,59 +95,86 @@
               });
           });
           app.put(apiPreff + "/games/:id", function(req, res) {
-              games.updateGame(Object.assign({}, req.params, req.body));
-              res.status(200).end();
+              games.updateGame(Object.assign({}, req.params, req.body)).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.delete(apiPreff + "/games/:id", function(req, res) {
-              games.deleteById(req.params.id);
-              res.status(200).end();
+              games.deleteById(req.params.id).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.delete(apiPreff + "/games/user/:user", function(req, res) {
-              games.deleteByUser(req.params.user);
-              res.status(200).end();
+              games.deleteByUser(req.params.user).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.delete(apiPreff + "/games/event/:event", function(req, res) {
-              games.deleteByEvent(req.params.event);
-              res.status(200).end();
+              games.deleteByEvent(req.params.event).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
 
           app.post(apiPreff + "/subscribe/:user/:event", function(req, res) {
-              subscribe.subscribe(req.params);
-              res.status(200).end();
+              subscribe.subscribe(req.params).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.delete(apiPreff + "/unsubscribe/:user/:event", function(req, res) {
-              subscribe.unsubscribe(req.params);
-              res.status(200).end();
+              subscribe.unsubscribe(req.params).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
-
           app.get(apiPreff + "/events", function(req, res) {
               events.getAll().then(function(data) {
                   res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
               });
           });
           app.get(apiPreff + "/events/:id", function(req, res) {
               events.getByEvent(req.params.id).then(function(data) {
                   res.status(200).send(data);
-              });
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              })
           });
           app.put(apiPreff + "/events/:id/edit", function(req, res) {
-              events.updateEvent(req.body);
-              res.status(200).end();
+              events.updateEvent(req.body).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.post(apiPreff + "/event/add", function(req, res) {
-              events.addEvent(Object.assign({}, req.body, req.params));
-              res.status(200).end();
+              events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.delete(apiPreff + "/events/event/:id", function(req, res) {
-              console.log(req.params.id)
-              events.deleteEventById(req.params.id);
-              res.status(200).end();
+              events.deleteEventById(req.params.id).then(function() {
+                  res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.get('*', function(req, res) {
               res.status(200).sendFile(path.resolve('frontend/app/index.html'));
           });
-
       }
   };
-
   module.exports = router;
