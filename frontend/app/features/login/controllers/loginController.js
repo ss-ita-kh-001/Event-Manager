@@ -3,28 +3,27 @@
 
     angular.module('em.login').controller('em.login.loginController',loginController);
 
-    function loginController($location, AuthenticationService, FlashService) {
-      var vm = this;
+    function loginController($scope, $location, AuthenticationService, FlashService) {
 
-      vm.login = login;
-      vm.reset = reset;
+      $scope.login = login;
+      $scope.reset = reset;
 
       function login() {
-          vm.dataLoading = true;
-          AuthenticationService.Login(vm.user.email, vm.user.password, function (response) {
+          $scope.dataLoading = true;
+          AuthenticationService.Login($scope.user.email, $scope.user.password, function (response) {
               if (response.success) {
-                  AuthenticationService.SetCredentials(vm.user.email, vm.user.password);
+                  AuthenticationService.SetCredentials($scope.user.email, $scope.user.password);
                   var users = JSON.parse(localStorage.users);
                   var id;
                   for (var i = 0; i < users.length; i++) {
-                    if (users[i].email == vm.user.email) {
+                    if (users[i].email == $scope.user.email) {
                       id = users[i].id;
                     }
                   }
                   $location.path('/profile/' + id);
               } else {
                   FlashService.Error(response.message);
-                  vm.dataLoading = false;
+                  $scope.dataLoading = false;
               }
           });
       };
