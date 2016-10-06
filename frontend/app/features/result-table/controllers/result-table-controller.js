@@ -1,6 +1,5 @@
 (function() {
     'use strict';
-
     angular.module('em.result-table').controller('em.result-table.chessResultController', chessResultController);
 
     function chessResultController($scope,resultService) {
@@ -21,5 +20,4 @@
         };
     }
     chessResultController.$inject = ["$scope", "em.result-table.result-table-service"]
-
 })();
