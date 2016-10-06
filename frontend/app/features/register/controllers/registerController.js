@@ -10,6 +10,7 @@
         $scope.register = register;
         $scope.checkPass = checkPass;
         $scope.confirmPass = confirmPass;
+        $scope.range = '.{6,16}';
 
         function register() {
             $scope.dataLoading = true;
@@ -26,26 +27,19 @@
         };
 
         function checkPass() {
-          console.log('check pass');
-            //var inpVal = document.getElementById('passFirst').value;
-            var inpVal = $scope.passFirst;
-            if (inpVal.length < 6) {
-                flashService.error('The password must be at least 6 characters long', false);
-            } else if (inpVal.length > 16) {
-                flashService.error('The password must be no longer than 16 characters', false);
+            if ($scope.signupForm.password.$invalid) {
+                flashService.error('The password must be between 6 and 16 characters long', false);
             } else {
                 flashService.clearFlashMessage();
             }
         };
 
         function confirmPass() {
-          //var inpVal1 = document.getElementById('passFirst').value;
-          //var inpVal2 = document.getElementById('passSecond').value;
-          if ($scope.passFirst === $scope.passSecond) {
-            flashService.success('Great!', false);
-          } else {
-            flashService.error('The passwords must match', false);
-          }
-        }
+            if ($scope.user.password === $scope.user.confirmPassword) {
+                flashService.success('Great!', false);
+            } else {
+                flashService.error('The passwords must match', false);
+            }
+        };
     }
 })();
