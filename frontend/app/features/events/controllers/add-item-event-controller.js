@@ -3,13 +3,13 @@
 
     function itemEventController($scope, $location, itemEventService, mainApiService) {
         /**
-        * Update event list.
+        * Update event list. 5432
         * Called when init controller and update button on click
         */
         $scope.updateEventList = function () {
-            itemEventService.getEvents().then(function (events) {
-                $scope.events = events;
-            });
+            itemEventService.getEvents().then(function (response) {
+                $scope.events = response.data;
+            }, rejected);
         };
 
         $scope.updateEventList();
@@ -38,11 +38,8 @@
         $scope.deleteEventItem = function (event, id, index) {
             event.stopPropagation();
             itemEventService.deleteEvent(id).then(function (response) {
-                // splice deleted element from event list
-                if (response) {
                     $scope.events.splice(index, 1);
-                }
-            });
+                }, rejected);
         }
 
         //add opportunity to create event
@@ -55,8 +52,8 @@
 
         $scope.postEventItem = function (data) {
             itemEventService.postEvent(data).then(function (response) {
-                $scope.events.push(response);
-            });
+                $scope.events.push(response.data);
+            }, rejected);
         }
 
             //add opportunity to change event
@@ -65,19 +62,19 @@
             "description": " New New Sports commonly called 'football' in certain places include: association football (known as soccer in some countries); gridiron football (specifically American football or Canadian football);",
             "date": "24.11.2016",
             "src": "build/img/ocean.jpg",
-            "id": "35df3a8e23c3e843"
+            "id": "683dabd7690c98c9"
         };
 
         $scope.putEventItem = function (event, data, index) {
             event.stopPropagation();
             itemEventService.putEvent(data).then(function (response) {
-                if (response) {
-                    console.log(response);
-                    $scope.events[index] = response;
-                    // $scope.events.splice(index, 1);
-                }
-                // $scope.events.push(response);
-            });
+                console.log(response);
+                $scope.events[index] = response.data;
+            }, rejected);
+        }
+
+        function rejected (error) {
+            console.log('Error: ' + error.data.status);
         }
  }
     itemEventController.$inject = ["$scope", "$location", "em.events.add-item-event-service", "em.mainApiService"];

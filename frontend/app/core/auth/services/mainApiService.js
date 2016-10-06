@@ -1,8 +1,10 @@
 (function() {
     angular.module("em")
-    .constant("baseUrl", "http://localhost:2403/")
+    .constant("baseUrl", "http://localhost:5000/api/")
     .service("em.mainApiService", mainApiService);
+
     function mainApiService($http, baseUrl) {
+
         this.get = function(url) {
             return $http.get(baseUrl + url + '/');
         }
@@ -17,13 +19,6 @@
 
         this.put = function(url, data) {
             return $http.put(baseUrl + url + '/', data);
-        }
-
-        function fulfilled (response) {
-            return response;
-        }
-        function rejected (error) {
-            alert('Error: ' + error.data.status);
         }
     }
 
