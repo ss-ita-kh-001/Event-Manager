@@ -35,8 +35,7 @@
                     <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
                     <div class="message__author">{{mess.author}}</div>
                     <div class="message__text">
-                        <div>
-                            {{mess.msg}}
+                        <div ng-bind-html="mess.msg">
                         </div>
                         <div class="message__time">
                             {{mess.time}}

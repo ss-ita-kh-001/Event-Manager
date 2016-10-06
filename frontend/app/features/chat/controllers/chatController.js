@@ -26,10 +26,11 @@
 
         $scope.msgSend = function() {
             var date = new Date();
+            var temp;
             var currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
             FlashService.clearFlashMessage();
             if ($scope.textMsg !== '') {
-                obj.msg = $scope.textMsg;
+                obj.msg = $scope.textMsg.replace(/\r?\n/g, '<br />');
                 obj.time = currentTime;
                 chatService.msgSend(obj);
                 $scope.textMsg = '';

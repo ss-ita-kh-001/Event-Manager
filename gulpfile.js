@@ -103,6 +103,7 @@ var path = {
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
             'src/lib/angular-cookies/angular-cookies.js',
+            'src/lib/angular-sanitize/angular-sanitize.js',
             'src/lib/ng-textarea-enter/build/ng-textarea-enter.min.js',
             'src/lib/socket.io/lib/socket.js'
         ]
