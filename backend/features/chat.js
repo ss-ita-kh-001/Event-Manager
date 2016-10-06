@@ -1,7 +1,10 @@
 var chat = {
     init: function init(app) {
-        var http = require('http').Server(app);
-        var io = require('socket.io')(http);
+        var WebSocketServer = new require('ws');
+        var webSocketServer = new WebSocketServer.Server({
+            port: 8080
+        });
+
 
         // connected users
         var clients = {};
@@ -9,30 +12,27 @@ var chat = {
         // all messages
         var history = [];
 
-        io.on('connection', function(socket) {
+        webSocketServer.on('connection', function(socket) {
 
             var id = Math.random();
             clients[id] = socket;
-            socket.on('get history', function() {
-                clients[id].emit('post history', history);
-            });
 
             console.log('a user connected ' + id);
 
-            socket.on('message', function(msg) {
-                history.push(msg);
-                io.emit('message', msg);
+            socket.on('message', function(obj) {
+                // var msg = JSON.parse(obj);
+                for (var key in clients) {
+                    clients[key].send(obj);
+                    console.log(obj);
+                }
             });
 
-            socket.on('disconnect', function() {
+            socket.on('close', function() {
                 console.log('user disconnected ' + id);
                 delete clients[id];
             });
         });
 
-        http.listen(8080, function() {
-            console.log('listening on *:8080');
-        });
     }
 };
 

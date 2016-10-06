@@ -102,8 +102,7 @@ var path = {
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
-            'src/lib/angular-cookies/angular-cookies.js',
-            'src/lib/socket.io/lib/socket.js'
+            'src/lib/angular-cookies/angular-cookies.js'
         ]
     },
     watch: { //watch changes form those files
@@ -184,17 +183,17 @@ gulp.task('lib:copy', function() {
 });
 
 
- gulp.task('lib:build', function() {
+gulp.task('lib:build', function() {
     gulp.src(path.lib.js) //get main.js
-         .pipe(rigger()) //
+        .pipe(rigger()) //
         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-       .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
         .pipe(gulp.dest(path.build.js)) //put compressed files to the build
-         .pipe(reload({
-             stream: true
+        .pipe(reload({
+            stream: true
         })); //refresh server
- });
+});
 
 gulp.task('image:build', function() {
     gulp.src(path.src.img) //get all images

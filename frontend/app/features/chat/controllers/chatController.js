@@ -11,7 +11,7 @@
 
         if (localStorage.getItem("chatLogin")) {
             obj.author = localStorage.getItem("chatLogin");
-            chatService.msgGet();
+            // chatService.msgGet();
             $scope.login = true;
         } else {
             $scope.login = false;
@@ -20,7 +20,7 @@
         $scope.chatLogin = function() {
             var login = document.forms.login.login.value;
             localStorage.setItem("chatLogin", login);
-            chatService.msgGet();
+            // chatService.msgGet();
             obj.author = login;
             $scope.auth = obj.author;
             $scope.login = true;
