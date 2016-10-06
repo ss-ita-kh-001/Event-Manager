@@ -66,19 +66,26 @@
         </div>
     </header>
     <!-- Content -->
-    <main class="main-content container text-justify">
-        <div ng-view></div>
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+    <main class="main text-justify">
+        <div class="main-content container">
+            <div ng-view></div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                </div>
             </div>
         </div>
+
     </main>
     <footer class="container footer text-center">
         (C)KH-001-WebUI Team
     </footer>
     <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAd1xMYT1bt99qtFWQEzXiRBvORDWHgPtk&libraries=places'></script>
     <script src="./build/js/all.js"></script>
+</body>
+
+</html>
+cript>
 </body>
 
 </html>
