@@ -16,28 +16,25 @@
         } else {
             $scope.login = false;
         };
-
+        $scope.formData = {};
         $scope.chatLogin = function() {
-            var login = document.forms.login.login.value;
-            localStorage.setItem("chatLogin", login);
+            localStorage.setItem("chatLogin", $scope.formData.username);
             chatService.msgGet();
-            obj.author = login;
-            $scope.auth = obj.author;
+            obj.author = $scope.formData.username;
             $scope.login = true;
         };
 
         $scope.msgSend = function() {
-            var msg = document.forms.publish.message.value;
             var date = new Date();
+            var temp;
             var currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-
             FlashService.clearFlashMessage();
-            if (msg !== '') {
-                obj.msg = msg;
+            if ($scope.textMsg !== '') {
+                obj.msg = $scope.textMsg.replace(/\r?\n/g, '<br />');
                 obj.time = currentTime;
                 chatService.msgSend(obj);
-                document.forms.publish.message.value = '';
-                $timeout(self.scrollBottom, 10);
+                $scope.textMsg = '';
+                $timeout(self.scrollBottom, 10);// need to approve
             } else {
                 console.log('flaaaaash');
                 FlashService.Error('Please, enter something', false);
