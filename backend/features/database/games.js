@@ -1,4 +1,3 @@
-(function() {
     var db = require("./connection");
     var games = function() {
         this.getByUser = function(id) {
@@ -39,4 +38,3 @@
         };
     }
     module.exports = games;
-})();

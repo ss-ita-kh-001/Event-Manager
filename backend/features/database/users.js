@@ -1,4 +1,3 @@
-(function() {
     var db = require("./connection");
     var users = function() {
         this.getAll = function() {
@@ -26,4 +25,4 @@
         };
     };
     module.exports = users;
-})();
+

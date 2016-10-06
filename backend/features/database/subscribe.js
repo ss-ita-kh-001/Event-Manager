@@ -1,4 +1,3 @@
-(function() {
     var db = require("./connection");
     var subscribe = function() {
         this.subscribe = function(conn) {
@@ -11,4 +10,4 @@
         }
     };
     module.exports = subscribe;
-})();
+

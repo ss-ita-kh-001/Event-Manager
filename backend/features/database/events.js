@@ -1,4 +1,3 @@
-(function() {
     var db = require("./connection");
     var events = function() {
         this.getAll = function() {
@@ -26,4 +25,3 @@
         };
     };
     module.exports = events;
-})();

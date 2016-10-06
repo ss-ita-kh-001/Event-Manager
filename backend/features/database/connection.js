@@ -1,4 +1,3 @@
-(function() {
     var pgp = require("pg-promise")();
     var localDbConnection = {
         host: "localhost",
@@ -17,4 +16,4 @@
     };
     var db = pgp(herokuDbConnection);
     module.exports = db;
-})();
+
