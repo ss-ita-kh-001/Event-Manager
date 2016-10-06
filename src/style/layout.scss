@@ -1,68 +1,75 @@
-@import "variables";
 body {
-  background-color: #fefefe;
+    background: $body-bg-color;
 }
 
-img{
-  max-width: 100%;
+img {
+    max-width: 100%;
 }
 
 .header {
-  font-family: $title-font-family;
-  @media screen and (max-width: 768px){
-    font-size: $title-font-size-xs;
-    margin-top: $title-margin-top-xs;
-  }
-  @media screen and (min-width: 769px) and (max-height: 992px){
-    font-size: $title-font-size-sm;
-    margin-top: $title-margin-top-sm;
-  }
-  @media screen and (min-width: 993px) and (max-height: 1200px){
-    font-size: $title-font-size-md;
-    margin-top: $title-margin-top-md;
-  }
-  @media screen and (min-width: 1201px){
-    font-size: $title-font-size-lg;
-    margin-top: $title-margin-top-lg;
-  }
-  color: $text-color-light;
+    font-family: $title-font-family;
+    color: $header-text-color;
+    @media screen and (max-width: 768px) {
+        font-size: $title-font-size-xs;
+        margin-top: $title-margin-top-xs;
+    }
+    @media screen and (min-width: 769px) and (max-height: 992px) {
+        font-size: $title-font-size-sm;
+        margin-top: $title-margin-top-sm;
+    }
+    @media screen and (min-width: 993px) and (max-height: 1200px) {
+        font-size: $title-font-size-md;
+        margin-top: $title-margin-top-md;
+    }
+    @media screen and (min-width: 1201px) {
+        font-size: $title-font-size-lg;
+        margin-top: $title-margin-top-lg;
+    }
+    .color {
+        color: $navbar-active-text-color;
+    }
 }
 
 .footer {
-  font-family: $footer-font-family;
-  @media screen and (max-width: 768px){
-    font-size: $footer-font-size-xs;
-  }
-  @media screen and (min-width: 769px) and (max-height: 992px){
-    font-size: $footer-font-size-sm;
-  }
-  @media screen and (min-width: 993px) and (max-height: 1200px){
-    font-size: $footer-font-size-md;
-  }
-  @media screen and (min-width: 1201px){
-    font-size: $footer-font-size-lg;
-  }
-  color: $text-color-light;
+    margin-top: 20px;
+    padding: 10px;
+    font-family: $footer-font-family;
+    color: $footer-text-color;
+    background: $footer-bg-color;
+    border-radius: 4px;
+    @media screen and (max-width: 768px) {
+        font-size: $footer-font-size-xs;
+    }
+    @media screen and (min-width: 769px) and (max-height: 992px) {
+        font-size: $footer-font-size-sm;
+    }
+    @media screen and (min-width: 993px) and (max-height: 1200px) {
+        font-size: $footer-font-size-md;
+    }
+    @media screen and (min-width: 1201px) {
+        font-size: $footer-font-size-lg;
+    }
 }
 
 .main-content {
-  font-family: $regular-font-family;
-  @media screen and (max-width: 768px){
-    min-height: $main-content-min-height-xs;
-    font-size: $regular-font-size-xs;
-  }
-  @media screen and (min-width: 769px) and (max-height: 992px){
-    min-height: $main-content-min-height-sm;
-    font-size: $regular-font-size-sm;
-  }
-  @media screen and (min-width: 993px) and (max-height: 1200px){
-    min-height: $main-content-min-height-md;
-    font-size: $regular-font-size-md;
-  }
-  @media screen and (min-width: 1201px){
-    min-height: $main-content-min-height-lg;
-    font-size: $regular-font-size-lg;
-  }
+    background: $main-content-bg-color;
+    font-family: $regular-font-family;
+    @media screen and (max-width: 768px) {
+        min-height: $main-content-min-height-xs;
+        font-size: $regular-font-size-xs;
+    }
+    @media screen and (min-width: 769px) and (max-height: 992px) {
+        min-height: $main-content-min-height-sm;
+        font-size: $regular-font-size-sm;
+    }
+    @media screen and (min-width: 993px) and (max-height: 1200px) {
+        min-height: $main-content-min-height-md;
+        font-size: $regular-font-size-md;
+    }
+    @media screen and (min-width: 1201px) {
+        min-height: $main-content-min-height-lg;
+        font-size: $regular-font-size-lg;
+    }
 }
 
 //Bootstrap recoloring
@@ -75,11 +82,36 @@ img{
     color: $navbar-text-color;
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+    color: $navbar-active-text-color;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
     color: $navbar-text-color;
     background-color: $navbar-active-bg-color;
 }
 
 .logo {
-  width: 100%;
+    width: 100%;
+    max-width: 165px;
+    padding: 10px;
+    border-radius: 10px;
+    background: $logo-bg-color;
+}
+
+.no-pad {
+    padding: 0!important;
+}
+
+.aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-height {
+    height: 100%;
 }

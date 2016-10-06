@@ -1,36 +1,57 @@
-<div class="chat-page">
+<div class="aligner">
     <div class="chat-window">
+        <div class="chat-header">
+            <!--<ul class="rooms">
+            <li>Room1</li>
+            <li>Room2</li>
+            <li>Room3</li>
+          </ul>-->
+        </div>
         <div class="chat-body">
-          <!-- Form for login to the chat -->
-          <div class="" ng-if="!login">
-            <form name="login" class="" ng-submit="chatLogin()">
-              <input type="text" name="login" value="" ng-model="username">
-              <input class="send-btn" ng-click="chatLogin()" type="submit" value="">
-            </form>
-          </div>
+            <!-- Form for login to the chat -->
+            <div class="f" ng-if="!login">
+                <form name="login" class="form__login short" ng-submit="chatLogin()">
+                    <p>Login</p>
+                    <input type="text" name="login" class="form-control input-lg" value="" ng-model="username">
+                    <div class="send-wrapper">
+                        <input class="send-btn" ng-click="chatLogin()" type="submit" value="">
+                    </div>
+                </form>
+            </div>
             <ul class="messages" ng-if="login">
-                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="history in history track by $index">
-                    <!--<img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
-                    <span class="message__author">{{m.author}}</span>-->
+                <li class="message" ng-class="{ 'message--mine': auth == live[$index].author }" ng-repeat="history in history track by $index">
+                    <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
+                    <div class="message__author">{{history.author}}</div>
                     <div class="message__text">
-                        {{history}}
+                        <div>
+                            {{history.msg}}
+                        </div>
+                        <div class="message__time">
+                            {{history.time}}
+                        </div>
                     </div>
                 </li>
-                <li class="message" ng-class="{ 'message--mine': m.authorId == chatCtrl.author.uid }" ng-repeat="mess in live track by $index">
-                    <!--<img class="message__author-img" ng-src="{{m.authorImg}}" alt="">
-                    <span class="message__author">{{m.author}}</span>-->
+                <li class="message" ng-class="{ 'message--mine': auth == live[$index].author }" ng-repeat="mess in live track by $index">
+                    <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
+                    <div class="message__author">{{mess.author}}</div>
                     <div class="message__text">
-                        {{mess}}
+                        <div>
+                            {{mess.msg}}
+                        </div>
+                        <div class="message__time">
+                            {{mess.time}}
+                        </div>
                     </div>
                 </li>
             </ul>
-
         </div>
         <div class="chat-footer">
             <form name="publish" class="chat-footer__message">
-                <textarea enter-clicker="msgSend()" name="message"></textarea>
-                <div class="send-wrapper">
-                  <input class="send-btn" ng-click="msgSend()" type="submit" value="">
+                <div class="col-sm-10 col-xs-12">
+                    <textarea enter-clicker="msgSend()" name="message"></textarea>
+                </div>
+                <div class="col-sm-1 col-xs-12 send-wrapper">
+                    <input class="send-btn" ng-click="msgSend()" type="submit" value="">
                 </div>
             </form>
         </div>
