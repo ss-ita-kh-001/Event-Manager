@@ -79,6 +79,7 @@ var path = {
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
             "frontend/app/features/register/directives/compare-password.js",
+            "frontend/app/features/register/directives/watch-change.js",
             "frontend/app/features/login/module.js",
             "frontend/app/features/login/controllers/loginController.js",
             "frontend/app/features/register/directives/compare-password.js",

@@ -3,26 +3,43 @@
 
 
     angular.module('em.register').controller('em.register.registerController', registerController);
-    registerController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
+    registerController.$inject = ['$scope', 'userService', '$location', '$rootScope', 'flashService'];
 
-    function registerController(UserService, $location, $rootScope, FlashService) {
-        var vm = this;
+    function registerController($scope, userService, $location, $rootScope, flashService) {
 
-        vm.register = register;
+        $scope.register = register;
+        $scope.checkPass = checkPass;
+        $scope.confirmPass = confirmPass;
+        $scope.range = '.{6,16}';
 
         function register() {
-            vm.dataLoading = true;
-            UserService.Create(vm.user)
+            $scope.dataLoading = true;
+            userService.create($scope.user)
                 .then(function(response) {
                     if (response.success) {
-                        FlashService.Success('Registration successful', true);
-                        console.log('registration!');
+                        flashService.success('Registration successful', true);
                         $location.path('/login');
                     } else {
-                        FlashService.Error(response.message);
-                        vm.dataLoading = false;
+                        flashService.error(response.message);
+                        $scope.dataLoading = false;
                     }
                 });
-        }
+        };
+
+        function checkPass() {
+            if ($scope.signupForm.password.$invalid) {
+                flashService.error('The password must be between 6 and 16 characters long', false);
+            } else {
+                flashService.clearFlashMessage();
+            }
+        };
+
+        function confirmPass() {
+            if ($scope.user.password === $scope.user.confirmPassword) {
+                flashService.success('Great!', false);
+            } else {
+                flashService.error('The passwords must match', false);
+            }
+        };
     }
 })();
