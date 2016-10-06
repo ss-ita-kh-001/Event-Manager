@@ -1,6 +1,6 @@
 (function() {
     angular.module("em")
-    .constant("baseUrl", "http://localhost:5000/api/")
+    .constant("baseUrl", "http://dev-ita-event-manager.herokuapp.com/api/")
     .service("em.mainApiService", mainApiService);
 
     function mainApiService($http, baseUrl) {
