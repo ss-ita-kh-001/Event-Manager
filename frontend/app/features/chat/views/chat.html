@@ -19,8 +19,7 @@
                 </form>
             </div>
             <ul class="messages" ng-if="login">
-                <li class="message" ng-class="{ 'message--mine': auth == live[$index].author }" ng-repeat="history in history track by $index">
-                    <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
+                <li class="message" ng-class="{ 'messagemine': auth == live[$index].author }" ng-repeat="history in history track by $index">
                     <div class="message__author">{{history.author}}</div>
                     <div class="message__text">
                         <div>
