@@ -9,7 +9,7 @@
 
         service.getAll = getAll;
         service.getById = getById;
-        service.getByUsername = getByUsername;
+        service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;
         service.remove = remove;
@@ -24,7 +24,7 @@
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function getByUsername(username) {
+        function getByUserEmail(username) {
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 

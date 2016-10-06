@@ -19,7 +19,7 @@
              ----------------------------------------------*/
             $timeout(function () {
                 var response;
-                userService.getByUsername(email)
+                userService.getByUserEmail(email)
                     .then(function (user) {
                         if (user !== null && user.password === password) {
                             response = { success: true };
