@@ -16,14 +16,14 @@ var chat = {
 
             var id = Math.random();
             clients[id] = socket;
+            // clients[id].send(history);
 
             console.log('a user connected ' + id);
 
             socket.on('message', function(obj) {
-                // var msg = JSON.parse(obj);
+                history.push(obj);
                 for (var key in clients) {
                     clients[key].send(obj);
-                    console.log(obj);
                 }
             });
 
