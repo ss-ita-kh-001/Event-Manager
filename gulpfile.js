@@ -103,7 +103,8 @@ var path = {
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
             'src/lib/angular-cookies/angular-cookies.js',
-            'src/lib/angular-sanitize/angular-sanitize.js'
+            'src/lib/angular-sanitize/angular-sanitize.js',
+            'src/lib/angular-scroll-glue/src/scrollglue.js'
         ]
     },
     watch: { //watch changes form those files
