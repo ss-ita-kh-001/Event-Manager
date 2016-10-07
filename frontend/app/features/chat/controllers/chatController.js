@@ -2,7 +2,6 @@
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
     function chatController($scope, chatService, $timeout, FlashService, $rootScope, $anchorScroll, $location) {
-        var self = this;
         var obj = {
             author: '',
             msg: '',

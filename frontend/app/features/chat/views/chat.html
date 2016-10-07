@@ -1,13 +1,8 @@
 <div class="aligner">
     <div class="chat-window">
         <div class="chat-header">
-            <!--<ul class="rooms">
-            <li>Room1</li>
-            <li>Room2</li>
-            <li>Room3</li>
-          </ul>-->
         </div>
-        <div id="scrollArea" scroll-glue class="chat-body">
+        <div scroll-glue class="chat-body">
             <!-- Form for login to the chat -->
             <div class="f" ng-if="!login">
                 <form name="login" class="form__login short" ng-submit="chatLogin()">
