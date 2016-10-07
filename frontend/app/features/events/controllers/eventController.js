@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $routeParams, map, localStorageService) {
+    function eventController($scope, $routeParams, localStorageService) {
 
 
           $scope.path = $routeParams.id;
@@ -20,9 +20,9 @@
          }else{
             var lat = $scope.event.place.lat;
             var lng = $scope.event.place.lng;
-            map.init();
-            map.staticMarker(lat, lng);
+            // map.init();
+            // map.staticMarker(lat, lng);
          }
     }
-    eventController.$inject = ["$scope", "$routeParams", "em.addEvent.map", "localStorageService"]
+    eventController.$inject = ["$scope", "$routeParams", "localStorageService"]
 })();

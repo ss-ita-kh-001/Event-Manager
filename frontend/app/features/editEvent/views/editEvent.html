@@ -38,8 +38,9 @@
             </span>
                 </div>
             </form>
-            <div id="map"></div>
-
+            <!-- <div id="map"></div> -->
+                  <div id="map" lat="{{event.place.lat}}" lng="{{event.place.lng}}" ></div>
+ <!-- <map lat="{{event.place.lat}}" lng="{{event.place.lng}}"></map> -->
             <form name="resForm" class="form-horizontal" novalidate ng-submit="send()">
             </form>
         </div>
