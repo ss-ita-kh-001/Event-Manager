@@ -15,7 +15,6 @@
         "em.events",
         "em.result-table",
         "ngCookies",
-        "ngTextareaEnter",
         "ngSanitize"
     ]);
 })();
