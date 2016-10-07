@@ -2,86 +2,35 @@
     <div class="row">
         <div class="carousel-content col-sm-12 col-md-6">
             <div uib-carousel active="0" interval="3000">
-                <div uib-slide index="0">
-                    <img src="build/img/ocean.jpg" alt="ocean" style="margin:auto;">
+                <div uib-slide ng-repeat="eventItem in events" index="$index">
+                    <img src="{{eventItem.src}}" alt="ocean" style="margin:auto;">
                     <div class="carousel-caption caption-event">
-                        <h4>{{events[0].title}}</h4>
-                        <p>{{events[0].descr}}</p>
-                    </div>
-                </div>
-                <div uib-slide index="1">
-                    <img src="build/img/picnic.jpg" alt="picnic" style="margin:auto;">
-                    <div class="carousel-caption caption-event">
-                        <h4>{{events[2].title}}</h4>
-                        <p>{{events[2].descr}}</p>
-                    </div>
-                </div>
-                <div uib-slide index="2">
-                    <img src="build/img/badminton.jpg" alt="badminton" style="margin:auto;">
-                    <div class="carousel-caption caption-event">
-                        <h4>{{events[1].title}}</h4>
-                        <p>{{events[1].descr}}</p>
+                        <h4>{{eventItem.title}}</h4>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="upcoming-events col-sm-12 col-md-6">
-            <div class="upcoming-events-item1">
-                <h4><a href="/events/{{events[0].id}}">{{events[0].title}}</a></h4>
-                <h6>{{events[0].date}}</h6>
-                <p>{{events[0].descr}}</p>
-            </div>
-            <div class="upcoming-events-item2">
-                <h4><a href="/events/{{events[1].id}}">{{events[1].title}}</a></h4>
-                <h6>{{events[1].date}}</h6>
-                <p>{{events[1].descr}}</p>
-            </div>
-            <div class="upcoming-events-item3">
-                <h4><a href="/events/{{events[2].id}}">{{events[2].title}}</a></h4>
-                <h6>{{events[2].date}}</h6>
-                <p>{{events[2].descr}}</p>
+        <div>
+            <div class="upcoming-events col-sm-12 col-md-6">
+                <div ng-repeat="eventItem in events" class="upcoming-events-items">
+                    <h4><a href="#">{{eventItem.title}}</a></h4>
+                    <h6>{{eventItem.date}}</h6>
+                    <p>{{eventItem.description}}</p>
+                </div>
             </div>
         </div>
     </div>
     <div class="row items-news">
-        <div class="item-news col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-3">
+        <div ng-repeat="eventItem in events" class="item-news col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-3">
             <article>
                 <time>
                     <div class="time-header">
-                        <em class="data">{{events[3].date}}</em>
+                        <em class="data">{{eventItem.date}}</em>
                     </div>
                 </time>
                 <div class="inner-caption-item">
-                    <h4 class="header-link"><a href="#">{{events[3].title}}</a></h4>
-                    <p>{{events[3].descr}}</p>
-                </div>
-            </article>
-        </div>
-        <div class="item-news col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-3">
-            <div>
-                <article>
-                    <time>
-                        <div class="time-header">
-                            <em class="data">{{events[4].date}}</em>
-                        </div>
-                    </time>
-                    <div class="inner-caption-item">
-                        <h4 class="header-link"><a href="#">{{events[4].title}}</a></h4>
-                        <p>{{events[4].descr}}</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-        <div class="item-news col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-3">
-            <article>
-                <time>
-                    <div class="time-header">
-                        <em class="data">{{events[5].date}}</em>
-                    </div>
-                </time>
-                <div class="inner-caption-item">
-                    <h4 class="header-link"><a href="#">{{events[5].title}}</a></h4>
-                    <p>{{events[5].descr}}</p>
+                    <h4 class="header-link"><a href="#">{{eventItem.title}}</a></h4>
+                    <p>{{eventItem.description}}</p>
                 </div>
             </article>
         </div>

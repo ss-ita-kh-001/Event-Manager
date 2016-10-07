@@ -63,29 +63,16 @@
     padding: 5px;
 }
 
-.upcoming-events{
+.upcoming-events-items{
     display: inline-block;
     height: 100%;
-    margin-top: 5%;
     font-size: 1em;
     vertical-align: top;
-}
-
-.upcoming-events-item1,
-.upcoming-events-item2,
-.upcoming-events-item3{
+    border-left: 4px solid #FF9900;
     padding: 0px 10px;
-    margin: 20px 5px;
+    margin: 5px 10px;
 }
 
-.upcoming-events-item1{
-border-left: 4px solid #CC6666;
-}
-
-.upcoming-events-item2{
-    border-left: 4px solid #CCCCFF;
-}
-
-.upcoming-events-item3{
-    border-left: 4px solid #CCFF66;
+.upcoming-events{
+    margin-top: 5%;
 }
