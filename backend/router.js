@@ -11,6 +11,7 @@
                   res.status(200).send(data);
               }).catch(function(error) {
                   res.status(500).send(error);
+                  console.log(error);
               });
           });
           app.get(apiPreff + "/users/:id", function(req, res) {
@@ -160,7 +161,12 @@
           });
           app.post(apiPreff + "/event/add", function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
-                  res.status(200).end();
+                  events.getLastId().then(function(data) {
+                      res.status(200).send(data);
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
+
               }).catch(function(error) {
                   res.status(500).send(error);
               });

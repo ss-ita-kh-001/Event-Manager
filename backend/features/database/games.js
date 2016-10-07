@@ -34,7 +34,7 @@
             return db.query("DELETE FROM \"game_result\" WHERE \"event\" = " + event + ";");
         };
         this.getLastId = function() {
-            return db.query("SELECT \"id\" FROM \"game_result\" ORDER BY \"id\" DESC;");
+            return db.query("SELECT \"id\" FROM \"game_result\" ORDER BY \"id\" DESC LIMIT 1;");
         };
     }
     module.exports = games;

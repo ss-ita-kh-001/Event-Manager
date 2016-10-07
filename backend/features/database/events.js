@@ -21,7 +21,7 @@
             return db.query("DELETE FROM events  WHERE id  = '" + id + "';");
         };
         this.getLastId = function() {
-            return db.query("SELECT \"id\" FROM \"events\" ORDER BY \"id\" DESC;");
+            return db.query("SELECT \"id\" FROM \"events\" ORDER BY \"id\" DESC LIMIT 1;");
         };
     };
     module.exports = events;

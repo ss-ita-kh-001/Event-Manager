@@ -21,8 +21,7 @@
             return db.query("DELETE FROM users WHERE id = " + user.id + ";");
         };
         this.getLastId = function() {
-            return db.query("SELECT \"id\" FROM \"users\" ORDER BY \"id\" DESC;");
+            return db.query("SELECT \"id\" FROM \"users\" ORDER BY \"id\" DESC LIMIT 1;");
         };
     };
     module.exports = users;
-
