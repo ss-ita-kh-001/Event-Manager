@@ -9,7 +9,7 @@
     <script type="text/javascript" src="./build/js/angular.js"></script>
     <script type="text/javascript" src="./build/js/angular-route.js"></script>
     <!-- <script type="text/javascript" src="./build/js/socket.js"></script> -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script> -->
     <script type="text/javascript" src="./build/js/angular-local-storage.js"></script>
     <script type="text/javascript" src="./build/js/ui-bootstrap.js"></script>
     <script type="text/javascript" src="./build/js/angular-animate.js"></script>
@@ -20,7 +20,7 @@
     <script type="text/javascript" src="./build/js/ng-textarea-enter.min.js"></script>
     <title>Event Manager</title>
     <script>
-    // var socket = io();
+        // var socket = io();
     </script>
 </head>
 
@@ -68,19 +68,26 @@
         </div>
     </header>
     <!-- Content -->
-    <main class="main-content container text-justify">
-        <div ng-view></div>
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+    <main class="main text-justify">
+        <div class="main-content container">
+            <div ng-view></div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                </div>
             </div>
         </div>
+
     </main>
     <footer class="container footer text-center">
         (C)KH-001-WebUI Team
     </footer>
     <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAd1xMYT1bt99qtFWQEzXiRBvORDWHgPtk&libraries=places'></script>
     <script src="./build/js/all.js"></script>
+</body>
+
+</html>
+cript>
 </body>
 
 </html>

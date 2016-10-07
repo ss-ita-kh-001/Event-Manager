@@ -19,26 +19,14 @@
                 </form>
             </div>
             <ul class="messages" ng-if="login">
-                <li class="message" ng-class="{ 'message--mine': formData.username == live[$index].author }" ng-repeat="history in history track by $index">
+                <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
                     <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
-                    <div class="message__author">{{history.author}}</div>
+                    <div class="message__author">{{live.author}}</div>
                     <div class="message__text">
-                        <div>
-                            {{history.msg}}
+                        <div ng-bind-html="live.msg">
                         </div>
                         <div class="message__time">
-                            {{history.time}}
-                        </div>
-                    </div>
-                </li>
-                <li class="message" ng-class="{ 'message--mine': formData.username == live[$index].author }" ng-repeat="mess in live track by $index">
-                    <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
-                    <div class="message__author">{{mess.author}}</div>
-                    <div class="message__text">
-                        <div ng-bind-html="mess.msg">
-                        </div>
-                        <div class="message__time">
-                            {{mess.time}}
+                            {{live.time}}
                         </div>
                     </div>
                 </li>

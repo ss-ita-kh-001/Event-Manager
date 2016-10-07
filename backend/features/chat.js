@@ -1,37 +1,39 @@
 var chat = {
     init: function init(app) {
-        var http = require('http').Server(app);
-        var io = require('socket.io')(http);
+        var WebSocketServer = new require('ws');
+        var webSocketServer = new WebSocketServer.Server({
+            port: 8080
+        });
 
         // connected users
         var clients = {};
-
         // all messages
         var history = [];
 
-        io.on('connection', function(socket) {
+        webSocketServer.on('connection', function(socket) {
 
             var id = Math.random();
             clients[id] = socket;
-            socket.on('get history', function() {
-                clients[id].emit('post history', history);
+            
+            if (history.length !== 0) {
+                clients[id].send(JSON.stringify(history));
+            }
+
+
+            socket.on('message', function(obj) {
+                if (history.length > 20) {
+                    history.shift();
+                }
+                history.push(JSON.parse(obj));
+                for (var key in clients) {
+                    clients[key].send(obj);
+                    console.log('sent' + key);
+                }
             });
 
-            console.log('a user connected ' + id);
-
-            socket.on('message', function(msg) {
-                history.push(msg);
-                io.emit('message', msg);
-            });
-
-            socket.on('disconnect', function() {
-                console.log('user disconnected ' + id);
+            socket.on('close', function() {
                 delete clients[id];
             });
-        });
-
-        http.listen(8080, function() {
-            console.log('listening on *:8080');
         });
     }
 };

@@ -50,7 +50,9 @@ img {
         font-size: $footer-font-size-lg;
     }
 }
-
+.main {
+  background: $main-content-bg-color;
+}
 .main-content {
     background: $main-content-bg-color;
     font-family: $regular-font-family;
