@@ -7,7 +7,7 @@
             <li>Room3</li>
           </ul>-->
         </div>
-        <div class="chat-body">
+        <div id="scrollArea" scroll-glue class="chat-body">
             <!-- Form for login to the chat -->
             <div class="f" ng-if="!login">
                 <form name="login" class="form__login short" ng-submit="chatLogin()">
@@ -20,7 +20,6 @@
             </div>
             <ul class="messages" ng-if="login">
                 <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
-                    <!-- <img class="message__author-img" ng-src="{{m.authorImg}}" alt=""> -->
                     <div class="message__author">{{live.author}}</div>
                     <div class="message__text">
                         <div ng-bind-html="live.msg">
