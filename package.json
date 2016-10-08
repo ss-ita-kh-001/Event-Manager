@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
     "start": "heroku local web",
-    "postinstall": "bower install && gulp"
+    "postinstall": "bower install && gulp dev"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "bower": "^1.7.9",
     "browser-sync": "^2.15.0",
     "connect": "^3.5.0",
@@ -45,6 +46,7 @@
     "imagemin-pngquant": "^5.0.0",
     "inherits": "^2.0.3",
     "minimist": "^1.2.0",
+    "pg-promise": "^5.3.3",
     "rimraf": "^2.5.4",
     "run-sequence": "^1.2.2",
     "serve-static": "^1.11.1",

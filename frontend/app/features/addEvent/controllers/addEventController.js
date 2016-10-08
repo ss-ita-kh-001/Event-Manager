@@ -1,15 +1,10 @@
 (function() {
     angular.module("em.addEvent").controller("em.addEvent.addEventController", addEventController);
 
-    function addEventController($scope, $rootScope, datePicker, addEventService) {
-        $scope.datePicker = datePicker;
+
+    function addEventController($scope, $rootScope, datePicker, addEventAPIService) {
+       $scope.datePicker = datePicker;
         $scope.place = {};
-
-        $scope.image = null;
-        $scope.imageFileName = '';
-
-        $scope.uploadme = {};
-        $scope.uploadme.src = '';
 
         $scope.search = function() {
             $scope.apiError = false;
@@ -29,16 +24,17 @@
         // map.init();
 
         $scope.add = function() {
-            var addedEvent = {};
-            addedEvent.title = $scope.title;
-            addedEvent.description = $scope.description;
-            addedEvent.date = $scope.datePicker.dt.toISOString().slice(0, 10);
-            addedEvent.place = $scope.place;
-
-            addEventService.add(addedEvent);
+            var eventTmp = {};
+            eventTmp.title = $scope.title;
+            eventTmp.desc = $scope.description;
+            eventTmp.date = $scope.datePicker.dt;
+            eventTmp.place = $scope.place;
+            eventTmp.report = null;
+            addEventAPIService.add(eventTmp);
         }
     }
 
-    addEventController.$inject = ["$scope","$rootScope", "em.addEvent.datePicker", "em.addEvent.addEventService"];
+
+    addEventController.$inject = ["$scope", "$rootScope", "em.addEvent.datePicker", "em.addEvent.addEventAPIService"];
 
 })();
