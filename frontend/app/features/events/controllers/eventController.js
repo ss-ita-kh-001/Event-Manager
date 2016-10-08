@@ -3,7 +3,6 @@
 
     function eventController($scope, $routeParams, localStorageService) {
 
-
           $scope.path = $routeParams.id;
           $scope.events = JSON.parse(localStorageService.get('events'))
           $scope.eventNotFound = false;
@@ -14,15 +13,6 @@
            }
          });
 
-
-         if(!$scope.event){
-           $scope.eventNotFound = true;
-         }else{
-            var lat = $scope.event.place.lat;
-            var lng = $scope.event.place.lng;
-            // map.init();
-            // map.staticMarker(lat, lng);
-         }
     }
-    eventController.$inject = ["$scope", "$routeParams", "localStorageService"]
+    eventController.$inject = ["$scope","$routeParams", "localStorageService"]
 })();

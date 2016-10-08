@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.editEvent").controller("em.editEvent.editEventController", editEventController);
 
-    function editEventController($scope, $rootScope, $routeParams, datePicker, localStorageService, $timeout, addEventService) {
+    function editEventController($scope,$rootScope, $routeParams, datePicker, localStorageService, $timeout, addEventService) {
 
       $scope.path = $routeParams.id;
       $scope.events = JSON.parse(localStorageService.get('events'))
@@ -14,41 +14,30 @@
        }
      });
 
-  //  console.log( $scope.event)
-
      $scope.title = $scope.event.title;
      $scope.description = $scope.event.description;
+     $scope.place = $scope.event.place;
 
+     var lat = $scope.event.place.lat;
+     var lng = $scope.event.place.lng;
 
-        var lat = $scope.event.place.lat;
-        var lng = $scope.event.place.lng;
+     $scope.search = function() {
+             $scope.apiError = false;
+             $rootScope.search($scope.searchPlace)
+               .then(function(res) { // success
+                        $rootScope.addMarker(res);
+                       $scope.place.name = res.name;
+                       $scope.place.lat = res.geometry.location.lat();
+                       $scope.place.lng = res.geometry.location.lng();
+                   },
+                   function(status) { // error
+                       $scope.apiError = true;
+                       $scope.apiStatus = status;
+                   }
+               );
+            };
 
-
-          // map.init();
-          //
-          // map.staticMarker(lat, lng);
-
-         $scope.place = $scope.event.place;
-
-        $scope.search = function() {
-            $scope.apiError = false;
-            $rootScope.$broadcast('serach', 'hello')
-            // map.search($scope.searchPlace)
-            //     .then(
-            //         function(res) { // success
-            //             map.addMarker(res);
-            //             $scope.place.name = res.name;
-            //             $scope.place.lat = res.geometry.location.lat();
-            //             $scope.place.lng = res.geometry.location.lng();
-            //         },
-            //         function(status) { // error
-            //             $scope.apiError = true;
-            //             $scope.apiStatus = status;
-            //         }
-            //     );
-        }
-
-        $scope.update = function() {
+      $scope.update = function() {
             var updateEvent = {};
             updateEvent.title = $scope.title;
             updateEvent.description = $scope.description;
@@ -60,6 +49,6 @@
 
     }
 
-    editEventController.$inject = ["$scope", "$rootScope", "$routeParams", "em.editEvent.datePicker", "localStorageService", "$timeout", "em.addEvent.addEventService"];
+    editEventController.$inject = ["$scope","$rootScope", "$routeParams", "em.editEvent.datePicker", "localStorageService", "$timeout", "em.addEvent.addEventService"];
 
 })();
