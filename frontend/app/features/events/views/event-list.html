@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="eventItem in events | orderBy:sortColoumn:reverseSort" ng-click="fullEvent(eventItem.id)" class="row-item">
+                <tr ng-repeat="eventItem in events | orderBy:sortColoumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item">
                         <td>{{eventItem.title}}</td>
                         <td>{{eventItem.date | date:'MM.dd.yyyy'}}</td>
                         <td>{{eventItem.desc}}
