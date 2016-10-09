@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
     "start": "heroku local web",
-    "postinstall": "bower install && gulp dev"
+    "postinstall": "bower install && gulp"
   },
   "repository": {
     "type": "git",
