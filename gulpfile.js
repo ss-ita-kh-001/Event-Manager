@@ -52,7 +52,7 @@ var path = {
             "frontend/app/features/main/services/event-service-news.js",
             "frontend/app/features/main/controllers/mainController.js",
             "frontend/app/features/addEvent/module.js",
-            "frontend/app/features/addEvent/services/addEventService.js",
+            "frontend/app/features/addEvent/services/addEventAPIService.js",
             "frontend/app/features/addEvent/controllers/addEventController.js",
             "frontend/app/features/addEvent/directives/addEventDirective.js",
             "frontend/app/features/addEvent/services/datePicker.js",
@@ -179,17 +179,17 @@ gulp.task('lib:copy', function() {
 });
 
 
- gulp.task('lib:build', function() {
+gulp.task('lib:build', function() {
     gulp.src(path.lib.js) //get main.js
-         .pipe(rigger()) //
+        .pipe(rigger()) //
         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-       .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
         .pipe(gulp.dest(path.build.js)) //put compressed files to the build
-         .pipe(reload({
-             stream: true
+        .pipe(reload({
+            stream: true
         })); //refresh server
- });
+});
 
 gulp.task('image:build', function() {
     gulp.src(path.src.img) //get all images
