@@ -7,7 +7,7 @@
         }
 
         this.deleteEvent = function (id) {
-            return mainApiService.delete('events/' + id)
+            return mainApiService.delete('events/event/' + id)
         }
 
 
