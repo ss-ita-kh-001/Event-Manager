@@ -70,6 +70,12 @@ var path = {
             "frontend/app/features/users/db/users.js",
             "frontend/app/features/users/controllers/users-controller.js",
             "frontend/app/features/users/services/users-service.js",
+
+            "frontend/app/features/chat/module.js",
+            "frontend/app/features/chat/controllers/chatController.js",
+            "frontend/app/features/chat/services/chatService.js",
+            "frontend/app/features/chat/directives/ng-textarea-enter.js",
+
             "frontend/app/features/events/module.js",
             "frontend/app/features/events/const/mock-event-list.js",
             "frontend/app/features/events/controllers/event-list-controller.js",
@@ -97,7 +103,9 @@ var path = {
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
-            'src/lib/angular-cookies/angular-cookies.js'
+            'src/lib/angular-cookies/angular-cookies.js',
+            'src/lib/angular-sanitize/angular-sanitize.js',
+            'src/lib/angular-scroll-glue/src/scrollglue.js'
         ]
     },
     watch: { //watch changes form those files
