@@ -4,36 +4,35 @@
     angular.module('em.main').controller('em.main.mainController', mainController);
 
     function mainController($scope, eventNews, mainApiService) {
-        // TODO: remove mocks when backend API will be implemented
-    //     mainApiService.getItems('events').then(function (response) {
-    //         if (response.status < 300) { // success
-    //             $scope.events = response.data;
-    //         }
-    //     });
-        $scope.events = [
-             {
-               "title": "Football",
-               "description": " Sports commonly called 'football' in certain places include: association football (known as soccer in some countries);",
-               "date": "24.11.2016",
-               "src": "build/img/ocean.jpg",
-               "id": "b6a904e4bf5bf8a6"
-             },
-             {
-               "title": "Chess",
-               "description": "Chess is a two-player strategy board. Chess is played by millions of people worldwide, both amateurs and professionals.",
-               "date": "11.11.2016",
-               "src": "build/img/badminton.jpg",
-               "id": "1c1e72aae8b82a80"
-             },
-             {
-               "title": "Test 3",
-               "description": "Football is a family of team sports that involve, to varying degrees, kicking a ball with the foot to score a goal. Unqualified, the word football is understood.",
-               "date": "Test 3",
-               "src": "build/img/picnic.jpg",
-               "id": "663a262e2f6c1803"
-             }
-            ]
+
+        $scope.PickEventListNews = function () {
+            eventNews.getEventNews().then(function (response) {
+                $scope.events = shuffleArray(response.data).slice(0, 3);                
+            }, rejected);
+         
+        };
+
+        $scope.PickEventListNews();
+
+        function rejected (error) {
+            console.log('Error: ' + error.data.status);
         }
+    }
+
+    function shuffleArray(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
 
     mainController.$inject = ["$scope", "em.main.event.service.news", "em.mainApiService"];
 })();

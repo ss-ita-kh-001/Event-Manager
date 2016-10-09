@@ -1,10 +1,13 @@
 (function() {
     angular.module("em.main").service("em.main.event.service.news", eventNews);
 
-    function eventNews(mockedNews) {
-        this.getNews = function() {
-            return mockedNews;
+    function eventNews(mainApiService) {
+ 
+        this.getEventNews = function() {
+            return mainApiService.get('events');
         }
     }
-    eventNews.$inject = ["em.main.mock-news"]
+
+    eventNews.$inject = ["em.mainApiService"]
 })();
+
