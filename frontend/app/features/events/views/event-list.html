@@ -19,24 +19,37 @@
             <tbody>
                 <tr ng-repeat="eventItem in events | orderBy:sortColoumn:reverseSort" ng-click="fullEvent(eventItem.id)" class="row-item">
                         <td>{{eventItem.title}}</td>
-                        <td>{{eventItem.date}}</td>
-                        <td>{{eventItem.description}}
-                            <div class="row btn-delete-item">
-                                <button class="btn" ng-click="deleteEventItem($event, eventItem.id, $index)">Delete (test-button)</button>
+                        <td>{{eventItem.date | date:'MM.dd.yyyy'}}</td>
+                        <td>{{eventItem.desc}}
+                            <div class="row">
+                                <a href="/event/id/edit" class="btn">Edit event</a>
                             </div>
-                            <div class="row btn-delete-item">
-                                <button class="btn" ng-click="putEventItem($event, updateMockData, $index)">Update item event(test-button)</button>
+                            <div class="row">
+                                <button class="btn" ng-click="openDeleteModal($event, eventItem, $index)">Delete event</button>
                             </div>
                         </td>
                 </tr>
             </tbody>
         </table>
-        <div class="row btn-delete-item">
+      <!--   <div class="row btn-delete-item">
             <button class="btn" ng-click="postEventItem(mockData)">Create new event(test-button)</button>
-        </div>
+        </div> -->
 
         <div class="row">
             <a href="/event/add" class="btn">Add new event</a>
-         </div>
-     </div>
-  </div>
+        </div>
+        
+        <script type="text/ng-template" id="deleteModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Delete event "{{currentEventTitle}}"</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-danger" type="button" ng-click="delete()">OK</button>
+            </div>
+        </script>
+    </div>
+</div>
