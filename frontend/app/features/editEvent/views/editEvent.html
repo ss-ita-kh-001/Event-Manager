@@ -2,13 +2,13 @@
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Title</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place title here..">
+            <input type="text" class="form-control" placeholder="Place title here.." value="{{event.title}}" ng-model="title">
         </div>
     </div>
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Description</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place description here..">
+            <input type="text" class="form-control" placeholder="Place description here.." value="{{event.description}}" ng-model="description">
         </div>
     </div>
     <div class="row form-group">
@@ -38,13 +38,12 @@
             </span>
                 </div>
             </form>
-            <div id="map"></div>
-
+                  <div id="map" map lat="{{event.place.lat}}" lng="{{event.place.lng}}" ></div>
             <form name="resForm" class="form-horizontal" novalidate ng-submit="send()">
             </form>
         </div>
     </div>
-    <div class="row form-group">
+    <!-- <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Photos</div>
         <div class="col-sm-4">
             <div class="image-container">
@@ -64,13 +63,13 @@
                 <img ng-src="{{ uploadme.src }}" class="small-img">
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row form-group">
         <div class="col-sm-offset-6 col-sm-1">
-            <button type="button" class="btn btn-danger">Clear</button>
+            <button type="button" class="btn btn-danger">Cancel</button>
         </div>
         <div class="col-sm-1">
-            <button type="button" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-success" ng-click="update()">Save</button>
         </div>
     </div>
 </div>

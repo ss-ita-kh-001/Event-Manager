@@ -46,6 +46,7 @@ var path = {
             "frontend/app/features/register/services/flash.service.js",
             "frontend/app/features/register/services/user.service.local-storage.js",
             "frontend/app/features/db/module.js",
+            "frontend/app/core/**/*.js",
             "frontend/app/features/db/users.js",
             "frontend/app/features/main/module.js",
             "frontend/app/features/main/const/mock-news.js",
@@ -286,7 +287,8 @@ gulp.task('default', ['prod']);
 
 gulp.task('dev', ['set-dev-node-env'], function() {
     return runSequence(
-        'build'
+        'build',
+        'watch'
     );
 });
 
