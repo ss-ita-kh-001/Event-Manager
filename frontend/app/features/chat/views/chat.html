@@ -6,7 +6,7 @@
             <!-- Form for login to the chat -->
             <div class="f" ng-if="!login">
                 <form name="login" class="form__login short" ng-submit="chatLogin()">
-                    <p>Login</p>
+                    <p>Enter your name</p>
                     <input type="text" name="login" class="form-control input-lg" value="" ng-model="formData.username">
                     <div class="send-wrapper">
                         <input class="send-btn" ng-click="chatLogin()" type="submit" value="">
@@ -26,13 +26,15 @@
                 </li>
             </ul>
         </div>
-        <div class="chat-footer">
+        <div class="chat-footer" ng-if="login">
             <form name="publish" class="chat-footer__message">
-                <div class="col-sm-10 col-xs-12">
+                <div class="col-sm-10">
                     <textarea ng-textarea-enter="msgSend()" name="message" ng-model="textMsg"></textarea>
                 </div>
-                <div class="col-sm-1 col-xs-12 send-wrapper">
-                    <input class="send-btn" ng-click="msgSend()" type="submit" value="">
+                <div class="col-sm-2">
+                    <div class="send-wrapper">
+                        <input class="send-btn full-width" ng-click="msgSend()" type="submit" value="">
+                    </div>
                 </div>
             </form>
         </div>

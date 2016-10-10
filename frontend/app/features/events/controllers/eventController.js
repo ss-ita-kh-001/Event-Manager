@@ -4,7 +4,7 @@
     function eventController($scope, $routeParams) {
 
         $scope.path = $routeParams.id;
-        $scope.events = JSON.parse(localStorageService.get('events'))
+        $scope.events = JSON.parse(localStorage.getItem('events'))
         $scope.eventNotFound = false;
 
         angular.forEach($scope.events, function(event, path) {

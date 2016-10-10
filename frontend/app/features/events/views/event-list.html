@@ -6,10 +6,10 @@
         <table class="table table-hover">
             <thead>
                 <tr class="text-center">
-                    <th class="col-md-2" ng-click="sortData('title')">Event
+                    <th class="col-md-2 cursor-pointer" ng-click="sortData('title')">Event
                         <div class="glyphicon" ng-if="sortColumn === 'title'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}"></div>
                     </th>
-                    <th class="col-md-2" ng-click="sortData('date')">Date
+                    <th class="col-md-2 cursor-pointer" ng-click="sortData('date')">Date
                         <div class="glyphicon" ng-if="sortColumn === 'date'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}"></div>
                     </th>
                     <th class="col-md-7">Description</th>
@@ -17,13 +17,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="eventItem in events | orderBy:sortColoumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item">
+                <tr ng-repeat="eventItem in events | orderBy:sortColoumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
                     <td>{{eventItem.title}}</td>
                     <td>{{eventItem.date | date:'MM.dd.yyyy'}}</td>
                     <td>{{eventItem.desc}}</td>
                     <td>
-                        <a href="/event/id/edit" class="btn btn-default btn-full-width">Edit event</a>
-                        <button class="btn btn-danger btn-full-width" ng-click="openDeleteModal($event, eventItem, $index)">Delete event</button>
+                        <a href="/event/id/edit" class="btn btn-primary full-width">Edit event</a>
+                        <button class="btn btn-danger full-width" ng-click="openDeleteModal($event, eventItem, $index)">Delete event</button>
                     </td>
                 </tr>
             </tbody>
@@ -36,7 +36,7 @@
                 Are you sure?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
                 <button class="btn btn-danger" type="button" ng-click="delete()">OK</button>
             </div>
         </script>
