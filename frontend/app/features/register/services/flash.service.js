@@ -1,4 +1,3 @@
-﻿
 (function() {
     'use strict';
 
@@ -9,21 +8,20 @@
     function flashService($rootScope) {
         var service = {};
 
-        service.success = function(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'success',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        };
-        service.error = function(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'error',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        };
-        service.clearFlashMessage = function() {
+        service.success = success;
+        service.error = error;
+        service.clearFlashMessage = clearFlashMessage;
+
+        initService();
+
+        return service;
+
+        function initService() {
+            $rootScope.$on('$locationChangeStart', function() {
+                clearFlashMessage();
+            });
+        }
+        function clearFlashMessage() {
             var flash = $rootScope.flash;
             if (flash) {
                 if (!flash.keepAfterLocationChange) {
@@ -34,6 +32,21 @@
                 }
             }
         }
-        return service;
+        function success(message, keepAfterLocationChange) {
+            $rootScope.flash = {
+                message: message,
+                type: 'success',
+                keepAfterLocationChange: keepAfterLocationChange
+            };
+        }
+
+        function error(message, keepAfterLocationChange) {
+            $rootScope.flash = {
+                message: message,
+                type: 'error',
+                keepAfterLocationChange: keepAfterLocationChange
+            };
+        }
     }
+
 })();
