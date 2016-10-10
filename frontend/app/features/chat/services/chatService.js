@@ -8,7 +8,7 @@
             newProtocol = "ws://";
         }
 
-        var socket = new WebSocket(newProtocol + $location.host() + ':8080');
+        var socket = new WebSocket(newProtocol + $location.host());
         console.log(newProtocol + $location.host() + ':8080');
         var self = this;
         self.live = [];
