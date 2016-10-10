@@ -8,6 +8,7 @@
         text-align: center;
     }
 }
+
 .chat-window {
     overflow: hidden;
     border: 1px solid $borderColor;
@@ -54,16 +55,15 @@
     position: relative;
     overflow: hidden;
     div {
-      padding: 2px;
+        padding: 2px;
     }
-      textarea {
+    textarea {
         width: 100%;
         padding: 10px;
         border: none;
         box-shadow: 0 0 15px -5px #000;
         border-radius: 15px;
         outline: none;
-
     }
 }
 
@@ -89,11 +89,11 @@
 }
 
 .message__author {
-	display: inline-block;
-	position: relative;
-	vertical-align: top;
-  top: 8px;
-	left: -10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    top: 8px;
+    left: -10px;
     font-weight: 700;
     padding-left: 10px;
     margin-bottom: 5px;
@@ -104,7 +104,7 @@
     display: inline-block;
     vertical-align: top;
     max-width: 80%;
-    background-color: $bgDeep;
+    background-color: rgba(238,238,238,0.30);
     border-radius: 10px;
     padding: 5px 10px;
     border: 1px solid #eee;
@@ -118,7 +118,7 @@
     width: 10px;
     height: 10px;
     border: 10px solid transparent;
-    border-right: 10px solid $bgDeep;
+    border-right: 10px solid rgba(238,238,238,0.35);
     content: "";
 }
 
@@ -136,11 +136,25 @@
 .message--mine {
     float: right;
     text-align: right;
-    color: $fontColor;
+    
+    .message__author {
+        display: none;
+    }
+    .message__text {
+        background-color: $bgDeep;
+        border-color: lighten($borderColor, 15%)
+    }
+    .message__text::before {
+        top: auto;
+        bottom: 10px;
+        right: -20px;
+        left: auto;
+        border: 10px solid transparent;
+        border-left: 10px solid lighten($borderColor, 18%);
+    }
 }
 
 .send-wrapper {
-    
     background: $navbar-bg-color;
     padding: 2px;
     border: none;
