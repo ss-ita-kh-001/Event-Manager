@@ -8,10 +8,13 @@
         //     newProtocol = "ws://";
         // }
 
-        var host = location.origin.replace(/^http/, 'ws')
 
+        var host = location.origin.replace(/^http/, 'ws')
         var socket = new WebSocket(host);
-        console.log(newProtocol + $location.host() + ':8080');
+
+
+        // var socket = new WebSocket(newProtocol + $location.host() + ':8080');
+
         var self = this;
         self.live = [];
 
