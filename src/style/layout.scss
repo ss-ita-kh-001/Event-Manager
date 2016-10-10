@@ -1,11 +1,9 @@
 body {
     background: $body-bg-color;
 }
-
 img {
     max-width: 100%;
 }
-
 .header {
     font-family: $title-font-family;
     color: $header-text-color;
@@ -29,7 +27,6 @@ img {
         color: $navbar-active-text-color;
     }
 }
-
 .footer {
     margin-top: 20px;
     padding: 10px;
@@ -51,9 +48,10 @@ img {
     }
 }
 .main {
-  background: $main-content-bg-color;
+    background: $main-content-bg-color;
 }
 .main-content {
+    padding: 15px 0;
     background: $main-content-bg-color;
     font-family: $regular-font-family;
     @media screen and (max-width: 768px) {
@@ -73,29 +71,24 @@ img {
         font-size: $regular-font-size-lg;
     }
 }
-
 //Bootstrap recoloring
 .navbar-default {
     background-color: $navbar-bg-color;
     border-color: $navbar-border-color;
 }
-
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-nav > li > a {
     color: $navbar-text-color;
 }
-
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a:hover {
     color: $navbar-active-text-color;
 }
-
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:focus,
-.navbar-default .navbar-nav>.active>a:hover {
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
     color: $navbar-text-color;
     background-color: $navbar-active-bg-color;
 }
-
 .logo {
     width: 100%;
     max-width: 165px;
@@ -103,17 +96,47 @@ img {
     border-radius: 10px;
     background: $logo-bg-color;
 }
-
 .no-pad {
-    padding: 0!important;
+    padding: 0 !important;
 }
-
 .aligner {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .full-height {
     height: 100%;
+}
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 30px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 10px -4px #000;
+    transition: all 0.4s;
+    &:hover {
+        box-shadow: 0 0 10px -4px #000;
+    }
+    &.btn-default {
+        color: #fff;
+        background: $navbar-active-text-color;
+        &:hover {
+            color: #fff;
+            background: darken($navbar-active-text-color, 7%);
+        }
+    }
+    &.btn-full-width {
+        width: 100%;
+    }
+    &.btn-lg {
+      min-width: 200px;
+    }
+}
+.table {
+    .row-item {
+        &:hover {
+            background: lighten($navbar-active-text-color, 56%);
+            cursor: pointer;
+        }
+    }
 }
