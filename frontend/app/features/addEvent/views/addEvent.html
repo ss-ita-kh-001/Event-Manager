@@ -2,20 +2,20 @@
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Title</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place title here.." ng-model="title">
+            <input type="text" class="form-control" placeholder="Place title here.." ng-model="event.title">
         </div>
     </div>
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Description</div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place description here.." ng-model="description">
+            <input type="text" class="form-control" placeholder="Place description here.." ng-model="event.desc">
         </div>
     </div>
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Date</div>
         <div class="col-sm-4">
             <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.format}}" ng-model="datePicker.dt" is-open="datePicker.popup.opened" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Close" />
+                <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.format}}" ng-model="event.date" is-open="datePicker.popup.opened" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="datePicker.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -31,7 +31,7 @@
             </div>
             <form name="searchForm" novalidate ng-submit="search()">
                 <div class="input-group">
-                    <input name="place" type="text" class="form-control" ng-model="searchPlace" required autofocus />
+                    <input name="place" type="text" class="form-control" ng-model="event.place" required autofocus />
                     <span class="input-group-btn">
                 <button class="btn btn-primary"
                 ng-disabled="searchForm.$invalid">Search</button>

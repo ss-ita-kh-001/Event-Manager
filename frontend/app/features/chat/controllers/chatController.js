@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, $timeout, FlashService, $rootScope, $anchorScroll, $location) {
+    function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location) {
         var obj = {
             author: '',
             msg: '',
@@ -28,14 +28,14 @@
         $scope.msgSend = function() {
             var date = new Date();
             var currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-            FlashService.clearFlashMessage();
+            flashService.clearFlashMessage();
             if ($scope.textMsg) {
                 obj.msg = $scope.textMsg.replace(/\r?\n/g, '<br />');
                 obj.time = currentTime;
                 chatService.msgSend(obj);
                 $scope.textMsg = '';
             } else {
-                FlashService.Error('Please, enter something', false);
+                flashService.error('Please, enter something', false);
             }
         };
         // new messages
@@ -43,6 +43,6 @@
 
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "$timeout", "FlashService", "$rootScope", "$anchorScroll", "$location"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "$timeout", "flashService", "$rootScope", "$anchorScroll", "$location"];
 
 })();
