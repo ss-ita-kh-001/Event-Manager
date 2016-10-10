@@ -1,9 +1,7 @@
 var chat = {
-    init: function init(app) {
-        var WebSocketServer = new require('ws');
-        var webSocketServer = new WebSocketServer.Server({
-            port: 8080
-        });
+    init: function init(server) {
+        var WebSocketServer = require("ws").Server;
+        var webSocketServer = new WebSocketServer({ server: server });
 
         // connected users
         var clients = {};
@@ -14,7 +12,7 @@ var chat = {
 
             var id = Math.random();
             clients[id] = socket;
-            
+
             if (history.length !== 0) {
                 clients[id].send(JSON.stringify(history));
             }
