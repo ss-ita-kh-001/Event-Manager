@@ -2,8 +2,13 @@
     angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", chatService]);
 
     function chatService($rootScope, $location) {
+        if ($location.protocol() === "https") {
+            newProtocol = "wss://";
+        } else {
+            newProtocol = "ws://";
+        }
 
-        var socket = new WebSocket('ws://' + $location.host() + ':8080');
+        var socket = new WebSocket(newProtocol + $location.host() + ':8080');
 
         var self = this;
         self.live = [];
