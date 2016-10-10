@@ -17,9 +17,9 @@ This project is designed to track events schedule.
 * login to postgres console and create database "ita-event-manager":
 * CREATE DATABASE ita-event-manager;
 * restore dump by running the following command:
-* psql -U <postgres-user-name> ita-event-manager < <path/to/database/dump.sql>
+* psql -U postgres-user-name ita-event-manager < path/to/database/dump.sql
 * add environment variable EM_PG_CONN with the following content:
-* postgres://<postgres-user-name>:<pawwsord>@127.0.0.1/ita-event-manager
+* postgres://postgres-user-name : password @127.0.0.1/ita-event-manager
 
 ## Application available online:
 
