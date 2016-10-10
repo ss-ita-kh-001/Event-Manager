@@ -44,7 +44,7 @@ var path = {
             "frontend/app/core/auth/services/mainApiService.js",
             "frontend/app/features/register/services/authentication.service.js",
             "frontend/app/features/register/services/flash.service.js",
-            "frontend/app/features/register/services/user.service.local-storage.js",
+            "frontend/app/features/register/services/user.service.js",
             "frontend/app/features/db/module.js",
             "frontend/app/core/**/*.js",
             "frontend/app/features/db/users.js",

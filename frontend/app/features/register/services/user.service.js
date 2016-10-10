@@ -1,10 +1,11 @@
-﻿(function () {
+﻿(function() {
     'use strict';
 
     angular.module('em').factory('userService', userService);
 
-    userService.$inject = ['$http'];
-    function userService($http) {
+    userService.$inject = ['$http', 'em.mainApiService', '$location'];
+
+    function userService($http, mainApiService, $location) {
         var service = {};
 
         service.getAll = getAll;
@@ -29,7 +30,11 @@
         }
 
         function create(user) {
-            return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+            mainApiService.post("users", user).then(function(res) {
+                $location.path("users" + res.data[0].id);
+            }).catch(function(error) {
+                console.log(error);
+            });
         }
 
         function update(user) {
@@ -47,7 +52,7 @@
         }
 
         function handleError(error) {
-            return function () {
+            return function() {
                 return { success: false, message: error };
             };
         }
