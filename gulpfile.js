@@ -46,6 +46,7 @@ var path = {
             "frontend/app/features/register/services/flash.service.js",
             "frontend/app/features/register/services/user.service.local-storage.js",
             "frontend/app/features/db/module.js",
+            "frontend/app/core/**/*.js",
             "frontend/app/features/db/users.js",
             "frontend/app/features/main/module.js",
             "frontend/app/features/main/const/mock-news.js",
@@ -70,6 +71,12 @@ var path = {
             "frontend/app/features/users/db/users.js",
             "frontend/app/features/users/controllers/users-controller.js",
             "frontend/app/features/users/services/users-service.js",
+
+            "frontend/app/features/chat/module.js",
+            "frontend/app/features/chat/controllers/chatController.js",
+            "frontend/app/features/chat/services/chatService.js",
+            "frontend/app/features/chat/directives/ng-textarea-enter.js",
+
             "frontend/app/features/events/module.js",
             "frontend/app/features/events/const/mock-event-list.js",
             "frontend/app/features/events/controllers/event-list-controller.js",
@@ -98,7 +105,9 @@ var path = {
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
-            'src/lib/angular-cookies/angular-cookies.js'
+            'src/lib/angular-cookies/angular-cookies.js',
+            'src/lib/angular-sanitize/angular-sanitize.js',
+            'src/lib/angular-scroll-glue/src/scrollglue.js'
         ]
     },
     watch: { //watch changes form those files
@@ -279,7 +288,8 @@ gulp.task('default', ['prod']);
 
 gulp.task('dev', ['set-dev-node-env'], function() {
     return runSequence(
-        'build'
+        'build',
+        'watch'
     );
 });
 

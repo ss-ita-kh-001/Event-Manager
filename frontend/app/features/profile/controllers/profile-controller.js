@@ -9,9 +9,6 @@
         	$scope.update = true;
         	console.log($scope.update);
         }
-
-
-
     }
     profileController.$inject = ["$scope", "em.profile.profile-service"]
 })();

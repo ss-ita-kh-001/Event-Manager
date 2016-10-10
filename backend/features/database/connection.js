@@ -1,4 +1,4 @@
 var pgp = require("pg-promise")();
-var dbConnectionString = process.env.DATABASE_URL + '?ssl=false';
+var dbConnectionString = process.env.EM_PG_CONN;
 var db = pgp(dbConnectionString);
 module.exports = db;

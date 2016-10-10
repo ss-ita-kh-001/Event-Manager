@@ -1,8 +1,9 @@
-  var events = new(require("./features/database/events")),
-      games = new(require("./features/database/games")),
-      users = new(require("./features/database/users")),
-      subscribe = new(require("./features/database/subscribe")),
-      apiPreff = "/api";
+  var path = require('path');
+  var events = new(require("./features/database/events"));
+  var games = new(require("./features/database/games"));
+  var users = new(require("./features/database/users"));
+  var subscribe = new(require("./features/database/subscribe"));
+  var apiPreff = "/api";
 
   var router = {
       init: function init(app) {

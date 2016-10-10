@@ -1,18 +1,18 @@
-.content-wrapper{
-    background: #eaddcc;
+.content-wrapper {
     height: 100%;
     width: 100%;
 }
 
-.carousel-content{
+.carousel-content {
     padding: 5% 3%;
     display: inline-block;
 }
-.carousel-inner img{
+
+.carousel-inner img {
     width: 100%;
 }
 
-.carousel{
+.carousel {
     width: 100%;
     height: 100%;
 }
@@ -21,20 +21,20 @@
     top: 20px;
 }
 
-.carousel-inner{
+.carousel-inner {
     display: inline-block;
     height: 100%;
     display: inline-block;
-    box-shadow: -1px 2px 24px 7px rgba(0,0,0,0.78);
+    box-shadow: -1px 2px 24px 7px rgba(0, 0, 0, 0.78);
 }
 
 .items-news {
     margin: 0 auto 30px;
 }
 
-.item-news{
+.item-news {
     display: inline-block;
-    background-color: #FFFFCC;
+    background-color: $item-news-bg-color;
     vertical-align: text-top;
     opacity: 0.8;
     margin-top: 10px;
@@ -42,37 +42,50 @@
 }
 
 @media (min-width: 768px) {
-    .item-news{
-        margin-left:6.2%;
+    .item-news {
+        margin-left: 6.2%;
     }
 }
 
-.item-news:hover{
-    background-color: white;
+.item-news:hover {
+    background-color: $item-news-bg-color-hover;
 }
 
-.time-header{
+.time-header {
     width: calc(100% + 30px);
     margin-left: -15px;
-    background-color: #999999;
+    background-color: $time-header-bg-color;
     padding: 5px;
-    color: white;
+    color: $time-header-text-color;
 }
 
-.inner-caption-item{
+.inner-caption-item {
     padding: 5px;
 }
 
-.upcoming-events-items{
+.upcoming-events {
     display: inline-block;
     height: 100%;
+    margin-top: 5%;
     font-size: 1em;
     vertical-align: top;
-    border-left: 4px solid #FF9900;
-    padding: 0px 10px;
-    margin: 5px 10px;
 }
 
-.upcoming-events{
-    margin-top: 5%;
+.upcoming-events-item1,
+.upcoming-events-item2,
+.upcoming-events-item3 {
+    padding: 0px 10px;
+    margin: 20px 5px;
+}
+
+.upcoming-events-item1 {
+    border-left: 4px solid #CC6666;
+}
+
+.upcoming-events-item2 {
+    border-left: 4px solid #CCCCFF;
+}
+
+.upcoming-events-item3 {
+    border-left: 4px solid #CCFF66;
 }
