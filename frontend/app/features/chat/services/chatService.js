@@ -9,7 +9,7 @@
         }
 
         var socket = new WebSocket(newProtocol + $location.host() + ':8080');
-
+        console.log(newProtocol + $location.host() + ':8080');
         var self = this;
         self.live = [];
 
