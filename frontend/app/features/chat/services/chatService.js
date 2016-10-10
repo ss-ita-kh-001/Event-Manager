@@ -1,9 +1,10 @@
 (function() {
-    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", chatService]);
+    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", chatService]);
 
-    function chatService($rootScope) {
+    function chatService($rootScope, $location) {
 
-        var socket = new WebSocket("ws://localhost:8080");
+        var socket = new WebSocket('ws://' + $location.host() + ':8080');
+
         var self = this;
         self.live = [];
 
