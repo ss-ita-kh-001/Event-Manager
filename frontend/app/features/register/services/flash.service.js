@@ -1,27 +1,29 @@
+﻿
 (function() {
     'use strict';
 
-    angular.module('em').factory('FlashService', FlashService);
+    angular.module('em').factory('flashService', flashService);
 
-    FlashService.$inject = ['$rootScope'];
+    flashService.$inject = ['$rootScope'];
 
-    function FlashService($rootScope) {
+    function flashService($rootScope) {
         var service = {};
 
-        service.Success = Success;
-        service.Error = Error;
-        service.clearFlashMessage = clearFlashMessage;
-
-        initService();
-
-        return service;
-
-        function initService() {
-            $rootScope.$on('$locationChangeStart', function() {
-                clearFlashMessage();
-            });
-        }
-        function clearFlashMessage() {
+        service.success = function(message, keepAfterLocationChange) {
+            $rootScope.flash = {
+                message: message,
+                type: 'success',
+                keepAfterLocationChange: keepAfterLocationChange
+            };
+        };
+        service.error = function(message, keepAfterLocationChange) {
+            $rootScope.flash = {
+                message: message,
+                type: 'error',
+                keepAfterLocationChange: keepAfterLocationChange
+            };
+        };
+        service.clearFlashMessage = function() {
             var flash = $rootScope.flash;
             if (flash) {
                 if (!flash.keepAfterLocationChange) {
@@ -32,21 +34,6 @@
                 }
             }
         }
-        function Success(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'success',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        }
-
-        function Error(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'error',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        }
+        return service;
     }
-
 })();
