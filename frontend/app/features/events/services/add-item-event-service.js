@@ -7,17 +7,7 @@
         }
 
         this.deleteEvent = function (id) {
-            return mainApiService.delete('events/' + id)
-        }
-
-
-        this.postEvent = function (data) {
-            return mainApiService.post('events', data)
-        }
-
-
-        this.putEvent = function (data) {
-            return mainApiService.put('events/' + data.id, data)
+            return mainApiService.delete('events/event/' + id)
         }
     }
 

@@ -46,13 +46,14 @@ var path = {
             "frontend/app/features/register/services/flash.service.js",
             "frontend/app/features/register/services/user.service.local-storage.js",
             "frontend/app/features/db/module.js",
+            "frontend/app/core/**/*.js",
             "frontend/app/features/db/users.js",
             "frontend/app/features/main/module.js",
             "frontend/app/features/main/const/mock-news.js",
             "frontend/app/features/main/services/event-service-news.js",
             "frontend/app/features/main/controllers/mainController.js",
             "frontend/app/features/addEvent/module.js",
-            "frontend/app/features/addEvent/services/addEventService.js",
+            "frontend/app/features/addEvent/services/addEventAPIService.js",
             "frontend/app/features/addEvent/controllers/addEventController.js",
             "frontend/app/features/addEvent/directives/addEventDirective.js",
             "frontend/app/features/addEvent/services/datePicker.js",
@@ -70,6 +71,12 @@ var path = {
             "frontend/app/features/users/db/users.js",
             "frontend/app/features/users/controllers/users-controller.js",
             "frontend/app/features/users/services/users-service.js",
+
+            "frontend/app/features/chat/module.js",
+            "frontend/app/features/chat/controllers/chatController.js",
+            "frontend/app/features/chat/services/chatService.js",
+            "frontend/app/features/chat/directives/ng-textarea-enter.js",
+
             "frontend/app/features/events/module.js",
             "frontend/app/features/events/const/mock-event-list.js",
             "frontend/app/features/events/controllers/event-list-controller.js",
@@ -80,6 +87,7 @@ var path = {
             "frontend/app/features/register/module.js",
             "frontend/app/features/register/controllers/registerController.js",
             "frontend/app/features/register/directives/compare-password.js",
+            "frontend/app/features/register/directives/watch-change.js",
             "frontend/app/features/login/module.js",
             "frontend/app/features/login/controllers/loginController.js",
             "frontend/app/features/register/directives/compare-password.js",
@@ -97,7 +105,9 @@ var path = {
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-local-storage/dist/angular-local-storage.js',
-            'src/lib/angular-cookies/angular-cookies.js'
+            'src/lib/angular-cookies/angular-cookies.js',
+            'src/lib/angular-sanitize/angular-sanitize.js',
+            'src/lib/angular-scroll-glue/src/scrollglue.js'
         ]
     },
     watch: { //watch changes form those files
@@ -178,17 +188,17 @@ gulp.task('lib:copy', function() {
 });
 
 
- gulp.task('lib:build', function() {
+gulp.task('lib:build', function() {
     gulp.src(path.lib.js) //get main.js
-         .pipe(rigger()) //
+        .pipe(rigger()) //
         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-       .pipe(gulpif(config.env === 'production', uglify())) //compressing js
+        .pipe(gulpif(config.env === 'production', uglify())) //compressing js
         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
         .pipe(gulp.dest(path.build.js)) //put compressed files to the build
-         .pipe(reload({
-             stream: true
+        .pipe(reload({
+            stream: true
         })); //refresh server
- });
+});
 
 gulp.task('image:build', function() {
     gulp.src(path.src.img) //get all images
@@ -278,7 +288,8 @@ gulp.task('default', ['prod']);
 
 gulp.task('dev', ['set-dev-node-env'], function() {
     return runSequence(
-        'build'
+        'build',
+        'watch'
     );
 });
 

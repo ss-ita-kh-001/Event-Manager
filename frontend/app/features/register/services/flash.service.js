@@ -1,38 +1,38 @@
-﻿(function () {
+(function() {
     'use strict';
 
-    angular.module('em').factory('FlashService', FlashService);
+    angular.module('em').factory('flashService', flashService);
 
-    FlashService.$inject = ['$rootScope'];
-    function FlashService($rootScope) {
+    flashService.$inject = ['$rootScope'];
+
+    function flashService($rootScope) {
         var service = {};
 
-        service.Success = Success;
-        service.Error = Error;
+        service.success = success;
+        service.error = error;
+        service.clearFlashMessage = clearFlashMessage;
 
         initService();
 
         return service;
 
         function initService() {
-            $rootScope.$on('$locationChangeStart', function () {
+            $rootScope.$on('$locationChangeStart', function() {
                 clearFlashMessage();
             });
-
-            function clearFlashMessage() {
-                var flash = $rootScope.flash;
-                if (flash) {
-                    if (!flash.keepAfterLocationChange) {
-                        delete $rootScope.flash;
-                    } else {
-                        // only keep for a single location change
-                        flash.keepAfterLocationChange = false;
-                    }
+        }
+        function clearFlashMessage() {
+            var flash = $rootScope.flash;
+            if (flash) {
+                if (!flash.keepAfterLocationChange) {
+                    delete $rootScope.flash;
+                } else {
+                    // only keep for a single location change
+                    flash.keepAfterLocationChange = false;
                 }
             }
         }
-
-        function Success(message, keepAfterLocationChange) {
+        function success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'success',
@@ -40,7 +40,7 @@
             };
         }
 
-        function Error(message, keepAfterLocationChange) {
+        function error(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'error',

@@ -1,43 +1,43 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('em').factory('UserService', UserService);
+    angular.module('em').factory('userService', userService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    userService.$inject = ['$http'];
+    function userService($http) {
         var service = {};
 
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
-        service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
+        service.getAll = getAll;
+        service.getById = getById;
+        service.getByUserEmail = getByUserEmail;
+        service.create = create;
+        service.update = update;
+        service.remove = remove;
 
         return service;
 
-        function GetAll() {
+        function getAll() {
             return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function GetById(id) {
+        function getById(id) {
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function GetByUsername(username) {
+        function getByUserEmail(username) {
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function Create(user) {
+        function create(user) {
             return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
         }
 
-        function Update(user) {
+        function update(user) {
             return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
-        function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+        function remove(id) {
+            return $http.remove('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
         // private functions

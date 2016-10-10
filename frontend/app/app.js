@@ -3,6 +3,7 @@
         "ngRoute",
         "LocalStorageModule",
         "em.main",
+        "em.chat",
         "em.profile",
         "em.users",
         "em.register",
@@ -13,6 +14,8 @@
         "em.editEvent",
         "em.events",
         "em.result-table",
-        "ngCookies"
+        "ngCookies",
+        "ngSanitize",
+        "luegg.directives"
     ]);
 })();

@@ -1,12 +1,11 @@
 <div class="container event-page" ng-hide = "eventNotFound" >
   <div class="row">
-    <h1>{{event.title}} <span class="date pull-right">{{event.date}}</span></h1>
+    <h1>{{event.title}} <span class="date pull-right">{{event.date | date : "dd.MM.yyyy"}}</span></h1>
       <a  href="/events/{{event.id}}/edit" class="btn pull-right">Edit event</a>
     </div>
     <div class="row" >
       <div class="col-md-6">
-        <img src="./build/img/{{event.imgURL}}" alt="" />
-        <div id="map"></div>
+      <div id="map" map lat="{{event.place.lat}}" lng="{{event.place.lng}}" ></div>
       </div>
       <div class="col-md-6">
         <p>{{event.description}}</p>
