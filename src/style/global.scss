@@ -1,0 +1,44 @@
+.no-pad {
+    padding: 0 !important;
+}
+.aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.full-height {
+    height: 100%;
+}
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 30px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 10px -4px #000;
+    transition: all 0.4s;
+    &:hover {
+        box-shadow: 0 0 10px -4px #000;
+    }
+    &.full-width {
+        width: 100%;
+    }
+    &.btn-lg {
+      min-width: 200px;
+    }
+}
+.table {
+    .row-item { 
+        &:hover {
+            background: lighten($navbar-active-text-color, 55%);
+        }
+    }
+}
+.input-group {
+    .form-control {
+        padding-top: 19px;
+        padding-bottom: 19px;
+    }
+}
