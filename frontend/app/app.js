@@ -1,7 +1,6 @@
 (function() {
     angular.module("em", [
         "ngRoute",
-        "LocalStorageModule",
         "em.main",
         "em.chat",
         "em.profile",

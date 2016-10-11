@@ -7,16 +7,7 @@
         $scope.range = '.{6,16}';
         $scope.register = function() {
             $scope.dataLoading = true;
-            userService.create($scope.user)
-                .then(function(response) {
-                    if (response.success) {
-                        flashService.success('Registration successful', true);
-                        $location.path('/login');
-                    } else {
-                        flashService.error(response.message);
-                        $scope.dataLoading = false;
-                    }
-                });
+            userService.create($scope.user);
         };
         $scope.checkPass = function() {
             if ($scope.signupForm.password.$invalid) {

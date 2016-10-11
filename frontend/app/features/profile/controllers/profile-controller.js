@@ -1,14 +1,18 @@
 (function() {
     angular.module("em.profile").controller("em.profile.profile-controller", profileController);
 
-    function profileController($scope, profileService, $routeParams) {
+    function profileController($scope, userService, $routeParams) {
 
-        $scope.user = profileService.getUserData();
+        userService.getById($routeParams.userID).then(function(res) {
+            $scope.user = res[0];
+        });
         $scope.updateUserSend = function () {
-        	profileService.updateUser($scope.user, $routeParams);
-        	$scope.update = true;
-        	console.log($scope.update);
+            console.log('click');
+            var user = $scope.user;
+            userService.update(user);
+            // body...
         }
+
     }
-    profileController.$inject = ["$scope", "em.profile.profile-service"]
+    profileController.$inject = ["$scope", "userService", "$routeParams"]
 })();

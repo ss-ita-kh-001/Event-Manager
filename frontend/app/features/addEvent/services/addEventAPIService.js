@@ -3,7 +3,7 @@
 
     function addEventAPIService(mainApiService, $location) {
         this.add = function(event) {
-            mainApiService.post("event/add", event).then(function(res) {
+            mainApiService.post("events", event).then(function(res) {
                 $location.path("/events/" + res.data[0].id);
             }).catch(function(error) {
                 console.log(error);

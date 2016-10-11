@@ -1,8 +1,13 @@
 (function() {
     angular.module("em.users").controller("em.users.users-controller", usersController);
 
-    function usersController($scope, usersService) {
-    	$scope.users = usersService.getUsers();        
+    function usersController($scope, userService) {
+
+        var obj = userService.getAll().then(function (res) {
+        	$scope.users = res;
+        });
+        
     }
-    usersController.$inject = ["$scope", "em.users.users-service"];
+    usersController.$inject = ["$scope", "userService"];
+
 })();
