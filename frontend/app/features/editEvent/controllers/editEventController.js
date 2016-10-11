@@ -3,13 +3,13 @@
 
     function editEventController($scope, $rootScope, $routeParams, datePicker, eventService) {
 
+      $scope.datePicker = datePicker;
       $scope.id = $routeParams.id;
-
 
         $scope.getEventPromise = eventService.getEvent($scope.id);
         $scope.getEventPromise.then(function (response) {
               $scope.event = response.data[0];
-                $scope.test($scope.event.place)
+             $scope.search()
           }, rejected );
 
     //  console.log('scope',$scope.event.place)
@@ -18,15 +18,10 @@
           console.log('Error: ' + error.data.status);
       }
 
-      $scope.getEventPromise.then(function (response) {
-            $scope.event = response.data[0];
-            $scope.search($scope.event.place)
-        }, rejected );
-
-        $scope.test = function(place) {
-                $rootScope.getLatLong(place)
+        $scope.search = function() {
+                $rootScope.search($scope.event.place)
                     .then(function(res) { // success
-                        $rootScope.addMarker(res);
+                            $rootScope.addMarker(res);
                         },
                         function(status) { // error
                             $scope.apiError = true;
@@ -34,6 +29,7 @@
                         }
                     );
             }
+
 
 
       $scope.update = function() {

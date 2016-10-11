@@ -17,12 +17,12 @@
 
                   if (scope.marker) scope.marker.setMap(null);
                       scope.marker =  new google.maps.Marker({
-                         position: { lat: parseFloat(attrs.lat), lng:parseFloat(attrs.lng)},
+                         position: { lat: 40.7127837, lng:-74.00594130000002},
                          map: scope.map,
                          animation: google.maps.Animation.DROP
                     });
 
-                    scope.map.setCenter({ lat: parseFloat(attrs.lat), lng:parseFloat(attrs.lng) });
+                    scope.map.setCenter({ lat: 40.7127837, lng:-74.00594130000002});
 
 
                     $rootScope.addMarker = function(res){
@@ -35,18 +35,6 @@
 
                         scope.map.setCenter(res.geometry.location);
                     }
-
-                    $rootScope.getLatLong = function(address){
-                        var d = $q.defer();
-                      var geo = new google.maps.Geocoder;
-                      geo.geocode({'address':address},function(results, status){
-                        if (status == google.maps.GeocoderStatus.OK) {
-                          d.resolve(results[0]);
-                        } else d.reject(status);
-                      });
-                      return d.promise;
-                      }
-
 
                     $rootScope.search = function(str){
                       var d = $q.defer();

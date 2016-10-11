@@ -8,7 +8,7 @@
       var getEventPromise = eventService.getEvent($scope.id);
       getEventPromise.then(function (response) {
             $scope.event = response.data[0];
-            $scope.search($scope.event.place)
+            $scope.search()
         }, rejected );
 
 
@@ -16,12 +16,11 @@
         console.log('Error: ' + error.data.status);
     }
 
-      $scope.search = function(searchPlace) {
+      $scope.search = function() {
               $scope.apiError = false;
-              $rootScope.search(searchPlace)
+              $rootScope.search($scope.event.place)
                 .then(function(res) { // success
                          $rootScope.addMarker(res);
-                         console.log(res)
                     },
                     function(status) { // error
                         $scope.apiError = true;
