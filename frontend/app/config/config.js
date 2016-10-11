@@ -1,14 +1,13 @@
 (function() {
-    angular.module("em").config(function($routeProvider, $locationProvider, localStorageServiceProvider) {
+    angular.module("em").config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
-        // localStorageServiceProvider.setPrefix('em');
         $routeProvider
             .when("/", {
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
             .when("/profile/:userID", {
-                templateUrl: function($routeParams, localStorageService) {
+                templateUrl: function($routeParams) {
                     return "./app/features/profile/views/profile.html";
                 },
                 controller: "em.profile.profile-controller"
