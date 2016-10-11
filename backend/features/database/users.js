@@ -7,9 +7,11 @@
             return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
         };
         this.addUser = function(user) {
+
             return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"avatar\", \"role\") " +
                 "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password +
                 "\', \'" + user.avatar + "\', \'" + (typeof user.role === "undefined" ? "user" : user.role) + "\');");
+
         };
         this.updateUser = function(user) {
             return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.fullName +
