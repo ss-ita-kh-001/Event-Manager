@@ -22,7 +22,7 @@
         }
 
         function getById(id) {
-            return mainApiService.get('users' + id).then(handleSuccess, handleError('Error getting user by id'));
+            return mainApiService.get('profile/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
         function getByUserEmail(email) {
@@ -38,7 +38,8 @@
         }
 
         function update(user) {
-            return mainApiService.put('users' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            console.log(user);
+            return mainApiService.put('profile/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function remove(id) {
