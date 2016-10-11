@@ -81,6 +81,7 @@ var path = {
             "frontend/app/features/events/const/mock-event-list.js",
             "frontend/app/features/events/controllers/event-list-controller.js",
             "frontend/app/features/events/controllers/eventController.js",
+            "frontend/app/features/events/services/eventService.js",
             "frontend/app/features/events/controllers/add-item-event-controller.js",
             "frontend/app/features/events/services/event-service.js",
             "frontend/app/features/events/services/add-item-event-service.js",

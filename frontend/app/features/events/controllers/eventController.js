@@ -1,18 +1,37 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $routeParams) {
+    function eventController($scope, $routeParams, eventService, $rootScope) {
 
-        $scope.path = $routeParams.id;
-        $scope.events = JSON.parse(localStorage.getItem('events'))
-        $scope.eventNotFound = false;
+      $scope.id = $routeParams.id;
 
-        angular.forEach($scope.events, function(event, path) {
-            if (event.id == $scope.path) {
-                $scope.event = event;
-            }
-        });
+      var getEventPromise = eventService.getEvent($scope.id);
+      getEventPromise.then(function (response) {
+            $scope.event = response.data[0];
+            $scope.search($scope.event.place)
+        }, rejected );
+
+
+    function rejected (error) {
+        console.log('Error: ' + error.data.status);
+    }
+
+      $scope.search = function(searchPlace) {
+              $scope.apiError = false;
+              $rootScope.search(searchPlace)
+                .then(function(res) { // success
+                         $rootScope.addMarker(res);
+                         console.log(res)
+                    },
+                    function(status) { // error
+                        $scope.apiError = true;
+                        $scope.apiStatus = status;
+                    }
+                );
+             };
+
+
 
     }
-    eventController.$inject = ["$scope", "$routeParams"]
+    eventController.$inject = ["$scope","$routeParams", "em.events.eventService", "$rootScope"]
 })();

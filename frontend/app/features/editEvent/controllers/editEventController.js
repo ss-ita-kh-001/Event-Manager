@@ -1,54 +1,49 @@
 (function() {
     angular.module("em.editEvent").controller("em.editEvent.editEventController", editEventController);
 
-    function editEventController($scope, $rootScope, $routeParams, datePicker, $timeout, addEventService) {
+    function editEventController($scope, $rootScope, $routeParams, datePicker, eventService) {
 
-        $scope.path = $routeParams.id;
-        $scope.events = JSON.parse(localStorage.getItem('events'))
-        $scope.eventNotFound = false;
-        $scope.datePicker = datePicker;
+      $scope.id = $routeParams.id;
 
-        angular.forEach($scope.events, function(event, path) {
-            if (event.id == $scope.path) {
-                $scope.event = event;
-            }
-        });
 
-        $scope.title = $scope.event.title;
-        $scope.description = $scope.event.description;
-        $scope.place = $scope.event.place;
+        $scope.getEventPromise = eventService.getEvent($scope.id);
+        $scope.getEventPromise.then(function (response) {
+              $scope.event = response.data[0];
+                $scope.test($scope.event.place)
+          }, rejected );
 
-        var lat = $scope.event.place.lat;
-        var lng = $scope.event.place.lng;
+    //  console.log('scope',$scope.event.place)
 
-        $scope.search = function() {
-            $scope.apiError = false;
-            $rootScope.search($scope.searchPlace)
-                .then(function(res) { // success
+      function rejected (error) {
+          console.log('Error: ' + error.data.status);
+      }
+
+      $scope.getEventPromise.then(function (response) {
+            $scope.event = response.data[0];
+            $scope.search($scope.event.place)
+        }, rejected );
+
+        $scope.test = function(place) {
+                $rootScope.getLatLong(place)
+                    .then(function(res) { // success
                         $rootScope.addMarker(res);
-                        $scope.place.name = res.name;
-                        $scope.place.lat = res.geometry.location.lat();
-                        $scope.place.lng = res.geometry.location.lng();
-                    },
-                    function(status) { // error
-                        $scope.apiError = true;
-                        $scope.apiStatus = status;
-                    }
-                );
-        };
+                        },
+                        function(status) { // error
+                            $scope.apiError = true;
+                            $scope.apiStatus = status;
+                        }
+                    );
+            }
 
-        $scope.update = function() {
-            var updateEvent = {};
-            updateEvent.title = $scope.title;
-            updateEvent.description = $scope.description;
-            updateEvent.date = $scope.datePicker.dt.toISOString().slice(0, 10);
-            updateEvent.place = $scope.place;
-            console.log(updateEvent)
-            addEventService.add(updateEvent);
+
+      $scope.update = function() {
+            console.log($scope.event)
+            eventService.update(Object.assign({}, $scope.event));
         }
+
 
     }
 
-    editEventController.$inject = ["$scope", "$rootScope", "$routeParams", "em.editEvent.datePicker", "$timeout", "em.addEvent.addEventService"];
+    editEventController.$inject = ["$scope", "$rootScope", "$routeParams", "em.editEvent.datePicker", "em.events.eventService"];
 
 })();

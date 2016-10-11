@@ -22,6 +22,7 @@
             // map.init();
 
         $scope.add = function() {
+          console.log($scope.event)
             addEventAPIService.add(Object.assign({
                 report: null
             }, $scope.event));
