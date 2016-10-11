@@ -1,17 +1,18 @@
     var db = require("./connection");
     var users = function() {
         this.getAll = function() {
+            console.log('getAll');
             return db.query("SELECT * FROM \"users\";");
         };
         this.getUserById = function(id) {
+            console.log('getUserById');
             return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
         };
         this.addUser = function(user) {
-
+            console.log('addUser');
             return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"avatar\", \"role\") " +
                 "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password +
                 "\', \'" + user.avatar + "\', \'" + (typeof user.role === "undefined" ? "user" : user.role) + "\');");
-
         };
         this.updateUser = function(user) {
             return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.fullName +
