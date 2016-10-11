@@ -153,14 +153,14 @@
                   res.status(500).send(error);
               })
           });
-          app.put(apiPreff + "/events/:id/edit", function(req, res) {
-              events.updateEvent(req.body).then(function() {
+          app.put(apiPreff + "/events/:id/", function(req, res) {
+              events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
                   res.status(500).send(error);
               });
           });
-          app.post(apiPreff + "/event/add", function(req, res) {
+          app.post(apiPreff + "/events", function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
                   events.getLastId().then(function(data) {
                       res.status(200).send(data);
@@ -172,7 +172,7 @@
                   res.status(500).send(error);
               });
           });
-          app.delete(apiPreff + "/events/event/:id", function(req, res) {
+          app.delete(apiPreff + "/events/:id", function(req, res) {
               events.deleteEventById(req.params.id).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
