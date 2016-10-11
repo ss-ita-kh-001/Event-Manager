@@ -18,15 +18,15 @@
         return service;
 
         function getAll() {
-            return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
+            return mainApiService.get('users').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function getById(id) {
-            return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
+            return mainApiService.get('users' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
         function getByUserEmail(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return mainApiService.get('users' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function create(user) {
@@ -38,11 +38,11 @@
         }
 
         function update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return mainApiService.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function remove(id) {
-            return $http.remove('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return mainApiService.remove('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
         // private functions

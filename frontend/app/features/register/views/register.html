@@ -10,9 +10,6 @@
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
                         <input class="form-control input-lg" type="text" name="displayName" ng-model="user.fullName" placeholder="Full Name" required autofocus>
                     </div>
-                    <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
-                        <input class="form-control input-lg" type="text" name="displayName" ng-model="user.login" placeholder="Login" required autofocus>
-                    </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
                         <input class="form-control input-lg" type="email" id="email" name="email" ng-model="user.email" placeholder="Email" required>
                     </div>
@@ -21,9 +18,6 @@
                     </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.confirmPassword.$invalid && signupForm.confirmPassword.$dirty }">
                         <input compare-password="user.password" ng-change="confirmPass()" class="form-control input-lg" type="password" name="confirmPassword" ng-model="user.confirmPassword" placeholder="Confirm Password" required>
-                    </div>
-                    <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
-                        <input class="form-control input-lg" type="text" name="displayName" ng-model="user.role" placeholder="role" required autofocus>
                     </div>
                     <p class="text-center text-muted"><small>By clicking on Sign up, you agree to <a href="#">terms & conditions</a> and <a href="#">privacy policy</a></small></p>
                     <button type="submit" ng-disabled="signupForm.$invalid || dataLoading" class="btn btn-lg btn-block btn-primary">
