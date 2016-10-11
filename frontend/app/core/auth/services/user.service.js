@@ -39,7 +39,7 @@
 
         function update(user) {
             console.log(user);
-            return mainApiService.put('users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return mainApiService.put('profile/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function remove(id) {
