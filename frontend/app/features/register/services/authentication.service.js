@@ -3,8 +3,8 @@
 
     angular.module('em').factory('authenticationService', authenticationService);
 
-    authenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'userService'];
-    function authenticationService($http, $cookieStore, $rootScope, $timeout, userService) {
+    authenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'userService', 'mainApiService'];
+    function authenticationService($http, $cookieStore, $rootScope, $timeout, userService, mainApiService) {
         var service = {};
 
         service.logIn = logIn;
@@ -17,7 +17,7 @@
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
-            $timeout(function () {
+        /*    $timeout(function () {
                 var response;
                 userService.getByUserEmail(email)
                     .then(function (user) {
@@ -32,10 +32,10 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+            mainApiService.post('/api/authenticate', { email: email, password: password })
+                .success(function (response) {
+                    callback(response);
+                });
 
         }
 
@@ -44,7 +44,6 @@
 
             $rootScope.globals = {
                 currentUser: {
-                    email: email,
                     authdata: authdata
                 }
             };
