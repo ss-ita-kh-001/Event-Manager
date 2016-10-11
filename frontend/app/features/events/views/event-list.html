@@ -3,6 +3,8 @@
         <div class="row text-right">
             <a href="/event/add" class="btn btn-success btn-lg">Add new event</a>
         </div>
+        <div class="row text-right">
+        </div>
         <table class="table table-hover">
             <thead>
                 <tr class="text-center">
@@ -16,8 +18,17 @@
                     <th class="col-md-1"></th>
                 </tr>
             </thead>
+            <div class="container">
             <tbody>
-                <tr ng-repeat="eventItem in events | orderBy:sortColoumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
+
+    <!-- search field -->
+                <div class="input-group text-right">
+                    <span class="input-group-btn form-group">
+                        <input type="text" placeholder="search" class="form-control ng-valid ng-dirty" ng-model="searchKeyword" />
+                    </span>
+                </div>
+
+                <tr ng-repeat="eventItem in events | filter: searchKeyword | orderBy:sortColoumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
                     <td>{{eventItem.title}}</td>
                     <td>{{eventItem.date | date:'MM.dd.yyyy'}}</td>
                     <td>{{eventItem.desc}}</td>
@@ -36,7 +47,7 @@
                 Are you sure?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-primary btn-style-fix" type="button" ng-click="cancel()">Cancel</button>
                 <button class="btn btn-danger" type="button" ng-click="delete()">OK</button>
             </div>
         </script>
