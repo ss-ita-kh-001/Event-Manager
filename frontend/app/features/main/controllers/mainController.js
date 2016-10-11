@@ -7,14 +7,8 @@
 
         $scope.PickEventListNews = function () {
             eventNews.getEventNews().then(function (response) {
-                console.log(response.data);
-                $scope.events = shuffleArray(response.data[0].date).slice(0, 3);                
+                $scope.events = shuffleArray(response.data).slice(0, 3);                
             }, rejected);
-
-//             var arrSorted = arr.slice().sort();
-
-// alert( arrSorted );
-// alert( arr );
          
         };
 
