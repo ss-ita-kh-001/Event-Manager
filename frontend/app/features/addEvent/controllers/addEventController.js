@@ -22,10 +22,11 @@
             // map.init();
 
         $scope.add = function() {
-          console.log($scope.event)
-            addEventAPIService.add(Object.assign({
-                report: null
-            }, $scope.event));
+            if ((typeof $scope.event.title !== "undefined") && (typeof $scope.event.date !== "undefined")) {
+                addEventAPIService.add(Object.assign({
+                    report: null
+                }, $scope.event));
+            }
         }
     }
     addEventController.$inject = ["$scope", "$rootScope", "em.addEvent.datePicker", "em.addEvent.addEventAPIService"];
