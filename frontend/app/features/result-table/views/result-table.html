@@ -5,8 +5,8 @@
             ng-change="selectGame()"
             class="form-control input-lg">
     </select>
-    <div class="panel panel-default">
-        <div class="panel-body"></div>
+    <div  class="panel panel-info">
+        <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
     </div>
     <div class="table-responsive">
         <table class="table table-hover">
