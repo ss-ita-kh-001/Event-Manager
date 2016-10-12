@@ -4,8 +4,11 @@
         .service("em.mainApiService", mainApiService);
 
     function mainApiService($http, baseUrl) {
-        this.get = function(url) {
-            return $http.get(baseUrl + url + '/');
+        this.get = function(url, datum) {
+          console.log(baseUrl + url);
+          console.log(datum);
+          return $http.get(baseUrl + url, datum);
+          //return $http.get("http://localhost:5000/lo");
         }
 
         this.delete = function(url) {

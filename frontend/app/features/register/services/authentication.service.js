@@ -3,7 +3,7 @@
 
     angular.module('em').factory('authenticationService', authenticationService);
 
-    authenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'userService', 'mainApiService'];
+    authenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'userService', 'em.mainApiService'];
     function authenticationService($http, $cookieStore, $rootScope, $timeout, userService, mainApiService) {
         var service = {};
 
@@ -32,7 +32,7 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            mainApiService.post('/api/authenticate', { email: email, password: password })
+            mainApiService.post('users', { email: email, password: password })
                 .success(function (response) {
                     callback(response);
                 });

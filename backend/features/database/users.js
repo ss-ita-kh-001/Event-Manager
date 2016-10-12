@@ -6,6 +6,10 @@ var users = function() {
     this.getUserById = function(id) {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
     };
+
+    this.getUserByEmail = function(email) {
+        return db.query("SELECT * FROM \"users\" WHERE \"email\" = " + email + ";");
+    };
     this.addUser = function(user) {
         return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"avatar\", \"role\") " +
             "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password +
@@ -24,4 +28,5 @@ var users = function() {
         return db.query("SELECT \"id\" FROM \"users\" ORDER BY \"id\" DESC LIMIT 1;");
     };
 };
+
 module.exports = users;

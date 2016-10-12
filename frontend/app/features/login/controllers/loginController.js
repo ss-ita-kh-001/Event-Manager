@@ -6,8 +6,11 @@
 
         $scope.login = function() {
             $scope.dataLoading = true;
-            authenticationService.logIn($scope.user.email, $scope.user.password, function(response) {
+
+            userService.authentication($scope.user.email, $scope.user.password);
+        /*    authenticationService.logIn($scope.user.email, $scope.user.password, function(response) {
                 if (response.success) {
+                  console.log(response);
 
                   //  authenticationService.setCredentials($scope.user.email, $scope.user.password);
                     var user = response;
@@ -17,7 +20,7 @@
                     flashService.error(response.message);
                     $scope.dataLoading = false;
                 }
-            });
+            });*/
         };
         $scope.reset = function() {
             authenticationService.clearCredentials();
