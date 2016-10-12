@@ -60,9 +60,22 @@
                   res.status(500).send(error);
               });
           });
-
           app.get(apiPreff + "/games/user/:user", function(req, res) {
               games.getByUser(req.params.user).then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
+          app.get(apiPreff + "/games", function(req, res) {
+              games.getGames().then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
+          app.get(apiPreff + "/games/users", function(req, res) {
+              games.getPlayers().then(function(data) {
                   res.status(200).send(data);
               }).catch(function(error) {
                   res.status(500).send(error);
