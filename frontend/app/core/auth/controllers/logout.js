@@ -9,7 +9,7 @@
         $auth.logout()
             .then(function() {
                 console.log('you have logged out');
-                $location.path('/');
+                $location.path('/login');
             });
     }
 

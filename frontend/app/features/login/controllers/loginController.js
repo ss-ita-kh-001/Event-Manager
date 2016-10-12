@@ -7,8 +7,9 @@
         $scope.login = function() {
             $scope.dataLoading = true;
             $auth.login($scope.user)
-                .then(function() {
+                .then(function(res) {
                     console.log('You have logged in');
+                    console.log(res);
                     $location.path('/profile/me');
                 })
                 .catch(function(error) {

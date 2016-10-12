@@ -55,7 +55,8 @@
                             <li><a href="results">Results</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="chat">Chat</a></li>
+                            <li ng-if="isAuthenticated()"><a href="chat">Chat</a></li>
+                            <li ng-if="isAuthenticated()"><a href="profile/me">Profile</a></li>
                             <li ng-if="!isAuthenticated()"><a href="login">Login</a></li>
                             <li ng-if="isAuthenticated()"><a href="logout">Logout</a></li>
                         </ul>
