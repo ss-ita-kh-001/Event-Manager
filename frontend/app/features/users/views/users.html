@@ -6,14 +6,16 @@
                     <th>id</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="user in users" class="row-item">
                     <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
+                    <td>{{ user.full_name }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
                     <td>
                         <a href="/profile/{{user.id}}" class="glyphicon glyphicon-circle-arrow-right text-green"></a>
                     </td>

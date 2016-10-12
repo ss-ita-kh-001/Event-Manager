@@ -1,25 +1,27 @@
 <div class="container event-page" ng-hide="eventNotFound">
     <div class="row">
         <h1>{{event.title}} <span class="date pull-right">{{event.date | date : "dd.MM.yyyy"}}</span></h1>
-        <a href="/events/{{event.id}}/edit" class="btn btn-default pull-right">Edit event</a>
+        <a href="/events/{{event.id}}/edit" class="btn btn-primary pull-right">Edit event</a>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div id="map" map lat="{{event.place.lat}}" lng="{{event.place.lng}}"></div>
-        </div>
-        <div class="col-md-6">
-            <p>{{event.description}}</p>
-            <div class="btn-group" ng-if="!isSubscribe" ng-show="!isSubscribe">
-                <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()">Subscribe</button>
-            </div>
-            <div ng-if="isSubscribe">
-                <div class="alert alert-success">
-                    You have successfully subscribed to event
-                </div>
-                <button type="button" class="btn btn-danger btn-lg" ng-click="unSubscribe()">Unsubscribe</button>
-            </div>
-        </div>
-    </div>
+    <div class="row" >
+      <div class="col-md-6">
+      <div id="map" map ></div>
+      </div>
+      <div class="col-md-6">
+        <p>{{event.desc}}</p>
+        <div class="btn-group" ng-if = "!isSubscribe" ng-show="!isSubscribe">
+         <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()" >Subscribe</button>
+       </div>
+       <div  ng-if = "isSubscribe">
+         <div class="alert alert-success" >
+           You have successfully subscribed to event
+         </div>
+         <button type="button" class="btn " ng-click="unSubscribe()" >Unsubscribe</button>
+
+       </div>
+
+      </div>
+  </div>
 </div>
 <div class="container event-page" ng-show="eventNotFound">
     <div class="alert alert-danger">
