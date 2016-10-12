@@ -19,6 +19,11 @@
            $location.path("/events/" + eventId);
         };
 
+        $scope.editEvent = function (eventId) {
+           $location.path("/events/" + eventId + "/edit/");
+        };
+
+
         //setting sort
         $scope.sortColumn = "title";
         $scope.reverseSort = false;

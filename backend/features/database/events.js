@@ -22,5 +22,17 @@ var events = function() {
     this.getLastId = function() {
         return db.query("SELECT \"id\" FROM \"events\" ORDER BY \"id\" DESC LIMIT 1;");
     };
+    this.getLatest = function () {
+      var today = new Date();
+      var todayString = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() +
+      " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      return db.query("SELECT * FROM \"events\" WHERE \"date\" < \'" + todayString + "\' ORDER BY \"date\" DESC LIMIT 3;");
+    };
+    this.getNext = function () {
+      var today = new Date();
+      var todayString = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() +
+      " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      return db.query("SELECT * FROM \"events\" WHERE \"date\" > \'" + todayString + "\' ORDER BY \"date\" LIMIT 3;");
+    };
 };
 module.exports = events;
