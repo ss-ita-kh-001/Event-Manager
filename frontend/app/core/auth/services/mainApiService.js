@@ -5,7 +5,7 @@
 
     function mainApiService($http, baseUrl) {
         this.get = function(url) {
-            return $http.get(baseUrl + url + '/');
+          return $http.get(baseUrl + url + '/');
         }
 
         this.delete = function(url) {
