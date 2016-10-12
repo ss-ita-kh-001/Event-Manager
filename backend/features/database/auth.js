@@ -1,5 +1,6 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
+var config = require("./config");
 var auth = function() {
     this.login = function(data, req) {
         var response = {
@@ -19,13 +20,13 @@ var auth = function() {
     }
 };
 
+
 function createJWT(user) {
-    console.log('run');
     var payload = {
         sub: user.email,
         iat: moment().unix(),
         exp: moment().add(14, 'days').unix()
     };
-    return jwt.encode(payload, 'YOUR_UNIQUE_JWT_TOKEN_SECRET');
+    return jwt.encode(payload, config.TOKEN_SECRET);
 }
 module.exports = auth;
