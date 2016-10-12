@@ -14,6 +14,7 @@
                 })
                 .catch(function(error) {
                     flashService.error('Wrong email or password', false);
+                    $scope.dataLoading = false;
                 });
 
           //  userService.authentication($scope.user);

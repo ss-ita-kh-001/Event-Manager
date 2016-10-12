@@ -4,9 +4,9 @@
 
     angular.module('em').factory('userService', userService);
 
-    userService.$inject = ['$http', 'em.mainApiService', '$location', '$rootScope'];
+    userService.$inject = ['$http', 'em.mainApiService', '$location', '$rootScope', 'flashService'];
 
-    function userService($http, mainApiService, $location, $rootScope) {
+    function userService($http, mainApiService, $location, $rootScope,flashService) {
         var service = {};
 
         service.getAll = getAll;
@@ -33,6 +33,7 @@
 
         function create(user) {
             mainApiService.post("users", user).then(function(res) {
+                flashService.success('Registration is successful', true);
                 $location.path("/login");
             }).catch(function(error) {
                 console.log(error);
