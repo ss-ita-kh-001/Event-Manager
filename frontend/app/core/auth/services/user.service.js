@@ -26,13 +26,8 @@
             email: email,
             password: password
           };
-
-          var config = {
-            params: authdata
-          };
-          console.log(config);
-          console.log('auth');
-          return mainApiService.get('login', authdata).then(handleSuccess, handleError('Error getting all users'));
+          console.log(authdata);
+          return mainApiService.post('login', authdata).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function getById(id) {

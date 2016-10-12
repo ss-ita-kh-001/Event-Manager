@@ -8,7 +8,7 @@ var users = function() {
     };
 
     this.getUserByEmail = function(email) {
-        return db.query("SELECT * FROM \"users\" WHERE \"email\" = " + email + ";");
+        return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");
     };
     this.addUser = function(user) {
         return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"avatar\", \"role\") " +

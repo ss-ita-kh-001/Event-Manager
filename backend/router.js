@@ -8,29 +8,17 @@
 
   var router = {
       init: function init(app) {
+          app.post(apiPreff + "/login", function(req, res) {
+            console.log('req.body.email', req.body.email);
+              users.getUserByEmail(req.body.email).then(function(data) {
+                  console.log(data);
+                  auth.login(data, req.body);
 
-        app.get(apiPreff + "/login/", function(req, res) {
-            console.log("email = " + req.email);
-            console.log("email_secondCase = " + req.params.email);
-            auth.login('1').then(function(data) {
-                res.status(200).send(data);
-            }).catch(function(error) {
-                res.status(500).send(error);
-            });
-        });
-        /*  app.get(apiPreff + "/login", function(req, res) {
-              users.getAll().then(function(data, req) {
-                  auth.login(data).then(function(login) {
-                      res.status(200).send(login);
-                  }).catch(function(error) {
-                      res.status(500).send(error);
-                      console.log(error);
-                  });
               }).catch(function(error) {
                   res.status(500).send(error);
                   console.log(error);
               });
-          });*/
+          });
           app.get(apiPreff + "/users", function(req, res) {
               users.getAll().then(function(data) {
                   res.status(200).send(data);
