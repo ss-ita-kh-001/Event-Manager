@@ -15,6 +15,7 @@
         "em.result-table",
         "ngCookies",
         "ngSanitize",
-        "luegg.directives"
+        "luegg.directives",
+        "satellizer"
     ]);
 })();

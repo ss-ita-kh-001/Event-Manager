@@ -101,6 +101,7 @@ var path = {
     lib: { //source files
         js: ['src/lib/angular/angular.js',
             'src/lib/angular-animate/angular-animate.js',
+            'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-bootstrap/ui-bootstrap.js',
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/lib/angular-route/angular-route.js',
