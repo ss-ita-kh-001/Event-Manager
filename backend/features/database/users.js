@@ -6,7 +6,6 @@ var users = function() {
     this.getUserById = function(id) {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
     };
-
     this.getUserByEmail = function(email) {
         return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");
     };

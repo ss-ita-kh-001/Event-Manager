@@ -38,7 +38,7 @@
             </span>
                 </div>
             </form>
-              <div id="map" map lat="40.7127837" lng="{{-74.00594130000002}}" ></div>
+              <div id="map" map ></div>
 
             <form name="resForm" class="form-horizontal" novalidate ng-submit="send()">
             </form>
@@ -46,7 +46,7 @@
     </div>
     <div class="row form-group">
         <div class="col-sm-offset-6 col-sm-1">
-            <a class="btn btn-danger" href="/">Cancel</a>
+            <a class="btn btn-danger" href="/" ng-click="cancel()">Cancel</a>
         </div>
         <div class="col-sm-1">
             <button type="button" class="btn btn-success" ng-click="add()">Add</button>

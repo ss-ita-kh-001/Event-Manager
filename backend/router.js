@@ -27,7 +27,7 @@
                   console.log(error);
               });
           });
-          app.get(apiPreff + "/users/:id", function(req, res) {
+          app.get(apiPreff + "/profile/:id", function(req, res) {
               users.getUserById(req.params.id).then(function(data) {
                   res.status(200).send(data);
               }).catch(function(error) {
@@ -46,14 +46,14 @@
               });
 
           });
-          app.put(apiPreff + "/users/:id", function(req, res) {
+          app.put(apiPreff + "/profile/:id", function(req, res) {
               users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
                   res.status(500).send(error);
               });
           });
-          app.delete(apiPreff + "/users/:id", function(req, res) {
+          app.delete(apiPreff + "/profile/:id", function(req, res) {
               users.deleteUser(req.params).then(function() {
                   res.status(200).end();
               }).catch(function(error) {

@@ -17,12 +17,13 @@
 
                   if (scope.marker) scope.marker.setMap(null);
                       scope.marker =  new google.maps.Marker({
-                         position: { lat: parseFloat(attrs.lat), lng:parseFloat(attrs.lng)},
+                         position: { lat: 40.7127837, lng:-74.00594130000002},
                          map: scope.map,
                          animation: google.maps.Animation.DROP
                     });
 
-                    scope.map.setCenter({ lat: parseFloat(attrs.lat), lng:parseFloat(attrs.lng) });
+                    scope.map.setCenter({ lat: 40.7127837, lng:-74.00594130000002});
+
 
                     $rootScope.addMarker = function(res){
                         if (scope.marker) scope.marker.setMap(null);
