@@ -5,7 +5,7 @@
                 "\"events\" WHERE \"id\" in (SELECT DISTINCT \"event\" FROM \"game_result\");");
         };
         this.getPlayers = function () {
-            return db.query("SELECT \"full_name\" FROM \"users\"  WHERE \"id\" in (SELECT DISTINCT \"user\" FROM \"game_result\");");
+            return db.query("SELECT \"id\",\"full_name\" FROM \"users\"  WHERE \"id\" in (SELECT DISTINCT \"user\" FROM \"game_result\");");
         };
 
         this.getByUser = function(id) {

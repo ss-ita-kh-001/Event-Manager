@@ -39,8 +39,10 @@
             </tbody>
         </table>
         <h2>User results</h2>
-        <select class="form-control input-lg">
-            <option ng-repeat="allPlayer in allPlayers track by $index"  class="form-control input-lg">{{allPlayer.full_name}}</option>
+        <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id"
+                ng-model="selectedPlayer"
+                ng-change="selectPlayer()"
+                class="form-control input-lg">
         </select>
         <div class="table-responsive">
             <table class="table table-hover">

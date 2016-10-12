@@ -58,6 +58,9 @@
                 resolve: {
                     games:["em.result-table.result-table-service",function (resultService) {
                         return resultService.getEventsGames();
+                    }],
+                    players:["em.result-table.result-table-service",function (resultService) {
+                        return resultService.getAllPlayers();
                     }]
                 }
             })
