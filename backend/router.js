@@ -3,10 +3,22 @@
   var games = new(require("./features/database/games"));
   var users = new(require("./features/database/users"));
   var subscribe = new(require("./features/database/subscribe"));
+  var auth = new(require("./features/database/auth"));
   var apiPreff = "/api";
 
   var router = {
       init: function init(app) {
+          app.post(apiPreff + "/login", function(req, res) {
+            console.log('req.body.email', req.body.email);
+              users.getUserByEmail(req.body.email).then(function(data) {
+                  console.log(data);
+                  auth.login(data, req.body);
+
+              }).catch(function(error) {
+                  res.status(500).send(error);
+                  console.log(error);
+              });
+          });
           app.get(apiPreff + "/users", function(req, res) {
               users.getAll().then(function(data) {
                   res.status(200).send(data);
