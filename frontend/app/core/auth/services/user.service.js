@@ -23,12 +23,7 @@
             return mainApiService.get('users').then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function authentication(email, password) {
-            var authdata = {
-                email: email,
-                password: password
-            };
-            console.log(authdata);
+        function authentication(authdata) {
             return mainApiService.post('login', authdata).then(handleSuccess, handleError('Error getting all users'));
         }
 

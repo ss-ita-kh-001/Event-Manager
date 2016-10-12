@@ -34,8 +34,7 @@
 
   var router = {
       init: function init(app) {
-          app.post(apiPreff + "/login", function(req, res) {
-              console.log('req.body.email', req.body.email);
+          app.post("/auth/login", function(req, res) {
               users.getUserByEmail(req.body.email).then(function(data) {
                   var token = auth.login(data, req.body);
                   if (token) {

@@ -7,7 +7,7 @@
         "em.users",
         "em.register",
         "em.login",
-        'ngAnimate',
+        "ngAnimate",
         "ui.bootstrap",
         "em.addEvent",
         "em.editEvent",

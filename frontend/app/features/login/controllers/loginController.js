@@ -2,18 +2,20 @@
 
     angular.module('em.login').controller('em.login.loginController', loginController);
 
-    function loginController($scope, $location, authenticationService, flashService, userService) {
+    function loginController($scope, $location, authenticationService, flashService, userService, $auth) {
 
         $scope.login = function() {
             $scope.dataLoading = true;
+            $auth.login($scope.user)
+                .then(function() {
+                    console.log('You have logged in');
+                    $location.path('/profile/me');
+                })
+                .catch(function(error) {
+                    flashService.error('Wrong email or password', false);
+                });
 
-            userService.authentication($scope.user.email, $scope.user.password).then(function(res) {
-                localStorage.setItem('xxx', res.token);
-                console.log(res);
-            }).catch(function() {
-                console.log(error);
-            });
-
+          //  userService.authentication($scope.user);
         };
         $scope.reset = function() {
             authenticationService.clearCredentials();
