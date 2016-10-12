@@ -9,11 +9,14 @@
   var router = {
       init: function init(app) {
           app.post(apiPreff + "/login", function(req, res) {
-            console.log('req.body.email', req.body.email);
+              console.log('req.body.email', req.body.email);
               users.getUserByEmail(req.body.email).then(function(data) {
-                  console.log(data);
-                  auth.login(data, req.body);
-
+                  var token = auth.login(data, req.body);
+                  if (token) {
+                      res.status(200).send(token);
+                  } else {
+                      res.status(401).send('Incorrect data!');
+                  }
               }).catch(function(error) {
                   res.status(500).send(error);
                   console.log(error);

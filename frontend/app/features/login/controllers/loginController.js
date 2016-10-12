@@ -7,20 +7,13 @@
         $scope.login = function() {
             $scope.dataLoading = true;
 
-            userService.authentication($scope.user.email, $scope.user.password);
-        /*    authenticationService.logIn($scope.user.email, $scope.user.password, function(response) {
-                if (response.success) {
-                  console.log(response);
+            userService.authentication($scope.user.email, $scope.user.password).then(function(res) {
+                localStorage.setItem('xxx', res.token);
+                console.log(res);
+            }).catch(function() {
+                console.log(error);
+            });
 
-                  //  authenticationService.setCredentials($scope.user.email, $scope.user.password);
-                    var user = response;
-                    var id = user[i].id;
-                    $location.path('/profile/' + id);
-                } else {
-                    flashService.error(response.message);
-                    $scope.dataLoading = false;
-                }
-            });*/
         };
         $scope.reset = function() {
             authenticationService.clearCredentials();
