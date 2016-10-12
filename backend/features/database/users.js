@@ -15,7 +15,7 @@ var users = function() {
             "\', \'" + user.avatar + "\', \'" + (typeof user.role === "undefined" ? "user" : user.role) + "\');");
     };
     this.updateUser = function(user) {
-        return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.fullName +
+        return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.full_name +
             "\', \"avatar\" = \'" + user.avatar + "\', \"password\" = \'" + user.password +
             "\', \"email\" = \'" + user.email + "\'" + (typeof user.role === "undefined" ? "" : ", \"role\" = \'" + user.role + "\'") +
             " WHERE \"id\" = " + user.id + ";");
