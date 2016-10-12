@@ -2,23 +2,35 @@
     'use strict';
     angular.module('em.result-table').controller('em.result-table.chessResultController', resultController);
 
-    function resultController($scope, resultService, mainApiService) {
+    function resultController($scope, resultService, games) {
+        console.log(games);
+        $scope.gamesList = games.data;
+        $scope.selectedGame = $scope.gamesList[0];
 
-        $scope.getPlayersList = function (id) {
-            resultService.getPlayersByEvent(id).then(function (response) {
+        $scope.selectGame = function () {
+            console.log($scope.selectedGame);
+            $scope.getPlayersList($scope.selectedGame);
+        };
+
+        $scope.getPlayersList = function (selectedGame) {
+            resultService.getPlayersByEvent(selectedGame.id).then(function (response) {
                 $scope.playersList = response.data;
             }, rejected);
         };
 
-        $scope.getPlayersList(11);
+        $scope.getPlayersList($scope.selectedGame);
 
-        $scope.getEventListSelect = function (){
-            resultService.getEventsGames().then(function (response) {
-                $scope.gamesList = response.data;
-            },rejected);
-        };
 
-        $scope.getEventListSelect();
+
+
+
+
+
+
+
+
+        
+
 
         $scope.getAllPlayersList = function (){
             resultService.getAllPlayers().then(function (response) {
@@ -30,9 +42,7 @@
 
         $scope.getGameListByUser = function (id) {
             resultService.getGameByUser(id).then(function (response) {
-
                 $scope.usersGameList = response.data;
-                console.log(response.data);
             }, rejected);
         };
 
@@ -57,5 +67,5 @@
 
     }
 
-    resultController.$inject = ["$scope", "em.result-table.result-table-service", "em.mainApiService"];
+    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games"];
 })();

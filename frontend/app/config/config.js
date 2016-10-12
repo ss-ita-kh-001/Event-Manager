@@ -54,7 +54,12 @@
             })
             .when("/results", {
                 templateUrl: "./app/features/result-table/views/result-table.html",
-                controller: "em.result-table.chessResultController"
+                controller: "em.result-table.chessResultController",
+                resolve: {
+                    games:["em.result-table.result-table-service",function (resultService) {
+                        return resultService.getEventsGames();
+                    }]
+                }
             })
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
