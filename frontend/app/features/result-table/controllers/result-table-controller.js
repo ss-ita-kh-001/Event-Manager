@@ -2,7 +2,7 @@
     'use strict';
     angular.module('em.result-table').controller('em.result-table.chessResultController', resultController);
 
-    function resultController($scope, resultService, games, players) {
+    function resultController($scope, resultService, games, players, participants) {
         $scope.gamesList = games.data;
         $scope.selectedGame = $scope.gamesList[0];
 
@@ -38,6 +38,24 @@
                 $scope.getPlayersList($scope.selectedGame);
             }, rejected);
         };
+        $scope.participantsList = participants.data;
+
+        $scope.newGameRes = {};
+        $scope.newGameRes.selectedParticipant = $scope.participantsList[0];
+
+        $scope.addGameRes = function () {
+            var gameResult = {
+                user: $scope.newGameRes.selectedParticipant.id,
+                wins: $scope.newGameRes.wins,
+                loses:$scope.newGameRes.loses,
+                draws:$scope.newGameRes.draws
+            };
+            resultService.addNewRes($scope.selectedGame.id,gameResult).then(function (response) {
+                $scope.getPlayersList($scope.selectedGame);
+                $scope.newGameRes = {};
+                $scope.newGameRes.selectedParticipant = $scope.participantsList[0];
+            }, rejected);
+        };
 
         $scope.sortState = [
             {sortColoumn: 'full_name',reverseSort: false},
@@ -60,5 +78,5 @@
 
     }
 
-    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players"];
+    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "participants"];
 })();

@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Game results</h2>
-    <select ng-options="game as game.title for game in gamesList track by game.id" ng-model="selectedGame" ng-change="selectGame()" class="form-control input-lg">
+    <select ng-options="game as game.title for game in gamesList track by game.id " ng-model="selectedGame" ng-change="selectGame()" class="form-control input-lg">
     </select>
     <div  class="panel panel-info">
         <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
@@ -31,6 +31,29 @@
                 <td>
                     <button type="button" class="btn btn-info btn-xs glyphicon glyphicon-pencil"></button>
                     <button ng-click="deleteGameResById(player.id)" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select ng-options="participant as participant.full_name for participant in participantsList track by participant.id" ng-model="newGameRes.selectedParticipant" class="form-control input-lg">
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control"
+                           ng-model="newGameRes.wins"  placeholder="Number of wins">
+
+                </td>
+                <td>
+                    <input type="number" class="form-control"
+                           ng-model="newGameRes.loses"  placeholder="Number of looses">
+
+                </td>
+                <td>
+                    <input type="number" class="form-control"
+                           ng-model="newGameRes.draws" placeholder="Number of draws">
+                </td>
+                <td>
+                    <button ng-click="addGameRes()" type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
                 </td>
             </tr>
         </tbody>
