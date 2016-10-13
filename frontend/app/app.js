@@ -16,6 +16,7 @@
         "ngCookies",
         "ngSanitize",
         "luegg.directives",
-        "satellizer"
+        "satellizer",
+        "wt.responsive"
     ]);
 })();
