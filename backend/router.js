@@ -63,6 +63,9 @@
               });
           });
           app.post(apiPreff + "/users", function(req, res) {
+              // hash psw
+              req.body.password = auth.hashData(req.body.password);
+
               users.addUser(req.body).then(function() {
                   users.getLastId().then(function(data) {
                       res.status(200).send(data);

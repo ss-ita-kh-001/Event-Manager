@@ -1,13 +1,15 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var config = require("./config");
+var bcrypt = require('bcrypt-nodejs');
+
 var auth = function() {
     this.login = function(data, req) {
         var response = {
             user: {},
             token: ''
         };
-        if (req.password == data[0].password) {
+        if (bcrypt.compareSync(req.password, data[0].password)) {
             response.user = data[0];
             response.user.password = 'SECRET!!!';
             response.token = createJWT(data);
@@ -17,6 +19,12 @@ var auth = function() {
             console.log('wrong');
             return false;
         }
+    };
+    this.hashData = function(data) {
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(data, salt);
+
+        return hash;
     }
 };
 
