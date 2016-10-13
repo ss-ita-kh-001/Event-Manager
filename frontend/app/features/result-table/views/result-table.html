@@ -8,29 +8,29 @@
     <table class="table table-hover responsive" wt-responsive-table>
         <thead>
             <tr>
-                <th ng-click="sortData('full_name')">Player full name
-                    <div class='glyphicon' ng-class="(sortColoumn==='full_name')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('full_name',0)">Player full name
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'full_name')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('wins')">Wins
-                    <div class='glyphicon' ng-class="(sortColoumn==='wins')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('wins',0)">Wins
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'wins')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('loses')">Loses
-                    <div class='glyphicon' ng-class="(sortColoumn==='loses')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('loses',0)">Loses
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'loses')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('draws')">Draws
-                    <div class='glyphicon' ng-class="(sortColoumn==='draws')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',0)">Draws
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'draws')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="player in playersList | orderBy:sortColoumn:reverseSort">
+            <tr ng-repeat="player in playersList | orderBy:sortState[0].sortColoumn:sortState[0].reverseSort">
                 <td>{{ player.full_name}}</td>
                 <td>{{ player.wins }}</td>
                 <td>{{ player.loses }}</td>
                 <td>{{ player.draws }}</td>
                 <td>
                     <button type="button" class="btn btn-info btn-xs glyphicon glyphicon-pencil"></button>
-                    <button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                    <button ng-click="deleteGameResById(player.id)" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
                 </td>
             </tr>
         </tbody>
@@ -39,30 +39,30 @@
     <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-change="selectPlayer()" class="form-control input-lg">
     </select>
     <table class="table table-hover responsive" wt-responsive-table>
-       s <thead>
+        <thead>
             <tr>
-                <th ng-click="sortData('date')">Game date
-                    <div class='glyphicon' ng-class="(sortColoumn==='date')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('date',1)">Game date
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'date')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('place')">Game location
-                    <div class='glyphicon' ng-class="(sortColoumn==='place')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('place',1)">Game location
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'place')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('title')">Event title
-                    <div class='glyphicon' ng-class="(sortColoumn==='title')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('title',1)">Event title
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'title')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('wins')">Wins
-                    <div class='glyphicon' ng-class="(sortColoumn==='wins')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('wins',1)">Wins
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'wins')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('loses')">Loses
-                    <div class='glyphicon' ng-class="(sortColoumn==='loses')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('loses',1)">Loses
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'loses')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
-                <th ng-click="sortData('draws')">Draws
-                    <div class='glyphicon' ng-class="(sortColoumn==='draws')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',1)">Draws
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'draws')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="usersGame in usersGameList | orderBy:sortColoumn:reverseSort ">
+            <tr ng-repeat="usersGame in usersGameList | orderBy:sortState[1].sortColoumn:sortState[1].reverseSort ">
                 <td>{{ usersGame.date | date : format : timezone}}</td>
                 <td>{{ usersGame.place}}</td>
                 <td>{{ usersGame.title }}</td>

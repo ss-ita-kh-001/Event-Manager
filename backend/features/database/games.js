@@ -15,7 +15,7 @@
                 " WHERE \"user\" = " + id + ";");
         };
         this.getByEvent = function(id) {
-            return db.query("SELECT \"users\".\"full_name\", \"wins\", \"loses\"," +
+            return db.query("SELECT \"game_result\".\"id\",\"users\".\"full_name\", \"wins\", \"loses\"," +
                 " \"draws\" FROM \"game_result\" INNER JOIN \"users\"" +
                 " ON \"game_result\".\"user\" = \"users\".\"id\"" +
                 " WHERE \"event\" = " + id + ";");
