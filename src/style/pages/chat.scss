@@ -10,10 +10,13 @@
 }
 
 .chat-window {
+    width: 100%;
     overflow: hidden;
     border: 1px solid $borderColor;
-    width: 70%;
     border-radius: 10px;
+    @media screen and (max-width: 768px) {
+        border: none;
+    }
 }
 
 .chat-header,
