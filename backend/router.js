@@ -4,16 +4,51 @@
   var users = new(require("./features/database/users"));
   var subscribe = new(require("./features/database/subscribe"));
   var auth = new(require("./features/database/auth"));
+  var config = require("./features/database/config");
+  var jwt = require('jwt-simple');
+  var moment = require('moment');
   var apiPreff = "/api";
+
+  /*
+ |--------------------------------------------------------------------------
+ | Login Required Middleware
+ |--------------------------------------------------------------------------
+ */
+  function ensureAuthenticated(req, res, next) {
+
+      var token = req.body.token;
+      var payload = null;
+
+      try {
+          payload = jwt.decode(token, config.TOKEN_SECRET);
+      } catch (err) {
+          return res.status(401).send({
+              message: err.message
+          });
+      }
+
+      if (payload.exp <= moment().unix()) {
+          return res.status(401).send({
+              message: 'Token has expired'
+          });
+      }
+      req.body.sub = payload.sub;
+      console.log(payload.sub);
+      next();
+
+
+  }
 
   var router = {
       init: function init(app) {
-          app.post(apiPreff + "/login", function(req, res) {
-            console.log('req.body.email', req.body.email);
+          app.post("/auth/login", function(req, res) {
               users.getUserByEmail(req.body.email).then(function(data) {
-                  console.log(data);
-                  auth.login(data, req.body);
-
+                  var token = auth.login(data, req.body);
+                  if (token) {
+                      res.status(200).send(token);
+                  } else {
+                      res.status(401).send('Incorrect data!');
+                  }
               }).catch(function(error) {
                   res.status(500).send(error);
                   console.log(error);
@@ -35,6 +70,9 @@
               });
           });
           app.post(apiPreff + "/users", function(req, res) {
+              // hash psw
+              req.body.password = auth.hashData(req.body.password);
+
               users.addUser(req.body).then(function() {
                   users.getLastId().then(function(data) {
                       res.status(200).send(data);
@@ -44,13 +82,18 @@
               }).catch(function(error) {
                   res.status(500).send(error);
               });
-
           });
-          app.put(apiPreff + "/profile/:id", function(req, res) {
-              users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
-                  res.status(200).end();
+          app.put(apiPreff + "/profile/:id", ensureAuthenticated, function(req, res) {
+              users.getUserByEmail(req.body.sub).then(function(data) {
+                  users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+                      console.log(req.body);
+                      res.status(200).end();
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
               }).catch(function(error) {
                   res.status(500).send(error);
+                  console.log(error);
               });
           });
           app.delete(apiPreff + "/profile/:id", function(req, res) {

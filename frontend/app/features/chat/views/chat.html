@@ -1,17 +1,7 @@
 <div class="aligner">
     <div class="chat-window">
         <div scroll-glue class="chat-body">
-            <!-- Form for login to the chat -->
-            <div class="f" ng-if="!login">
-                <form name="login" class="form__login short" ng-submit="chatLogin()">
-                    <p>Login</p>
-                    <input type="text" name="login" class="form-control input-lg" value="" ng-model="formData.username">
-                    <div class="send-wrapper">
-                        <input class="send-btn" ng-click="chatLogin()" type="submit" value="">
-                    </div>
-                </form>
-            </div>
-            <ul class="messages" ng-if="login">
+            <ul class="messages">
                 <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
                     <div class="message__author">{{live.author}}</div>
                     <div class="message__text">
