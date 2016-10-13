@@ -9,6 +9,7 @@
         $auth.logout()
             .then(function() {
                 console.log('you have logged out');
+                localStorage.clear();
                 $location.path('/login');
             });
     }

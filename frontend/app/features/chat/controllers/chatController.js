@@ -8,12 +8,8 @@
             time: ''
         }
         $scope.formData = {};
-        if (localStorage.getItem("chatLogin")) {
-            obj.author = localStorage.getItem("chatLogin");
-            $scope.login = true;
-        } else {
-            $scope.login = false;
-        };
+
+        obj.author = localStorage.getItem("fullName");
 
         $scope.chatLogin = function() {
             localStorage.setItem("chatLogin", $scope.formData.username);

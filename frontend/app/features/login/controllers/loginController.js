@@ -9,7 +9,8 @@
             $auth.login($scope.user)
                 .then(function(res) {
                     console.log('You have logged in');
-                    console.log(res);
+                    localStorage.setItem('userId', res.data.user.id);
+                    localStorage.setItem('fullName', res.data.user.full_name);
                     $location.path('/profile/me');
                 })
                 .catch(function(error) {
