@@ -3,8 +3,12 @@
 
     function eventNews(mainApiService) {
  
-        this.getEventNews = function() {
-            return mainApiService.get('events');
+        this.getNextEvents = function() {
+            return mainApiService.get('events/next');
+        }
+
+        this.getLatestEvents = function() {
+            return mainApiService.get('events/latest');
         }
     }
 

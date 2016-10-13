@@ -207,6 +207,20 @@
                   res.status(500).send(error);
               });
           });
+          app.get(apiPreff + "/events/latest", function(req, res) {
+              events.getLatest().then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
+          app.get(apiPreff + "/events/next", function(req, res) {
+              events.getNext().then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
           app.get(apiPreff + "/events", function(req, res) {
               events.getAll().then(function(data) {
                   res.status(200).send(data);
