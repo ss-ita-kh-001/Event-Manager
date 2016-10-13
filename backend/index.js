@@ -10,14 +10,16 @@ var chat = require("./features/chat.js");
 
 var server = http.createServer(app);
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 
-server.listen(port, function (req, res) {
-	console.log('Example app listening on port 5000!');
+server.listen(port, function(req, res) {
+    console.log('Example app listening on port 5000!');
 });
 
 app.use(express.static(__dirname + "/../frontend"));

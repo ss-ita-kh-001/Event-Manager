@@ -43,6 +43,8 @@ var path = {
             "frontend/app/navbar.js",
             "frontend/app/core/auth/services/mainApiService.js",
             "frontend/app/core/auth/services/user.service.js",
+            "frontend/app/core/auth/controllers/navbar-controller.js",
+            "frontend/app/core/auth/controllers/logout.js",
             "frontend/app/core/flash-service/flash.service.js",
             "frontend/app/features/register/services/authentication.service.js",
             "frontend/app/features/db/module.js",
@@ -101,6 +103,7 @@ var path = {
     lib: { //source files
         js: ['src/lib/angular/angular.js',
             'src/lib/angular-animate/angular-animate.js',
+            'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-bootstrap/ui-bootstrap.js',
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/lib/angular-route/angular-route.js',
