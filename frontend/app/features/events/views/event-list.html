@@ -1,29 +1,28 @@
 <div class="container">
     <div>
-        <div class="row text-right">
+        <div class="text-right">
             <a href="/event/add" class="btn btn-success btn-lg">Add new event</a>
         </div>
         <div class="row text-right">
         </div>
-        <table class="table table-hover">
+        <table class="table table-hover responsive" wt-responsive-table>
             <thead>
                 <tr class="text-center">
-                    <th class="col-md-2 cursor-pointer" ng-click="sortData('title')">Event
+                    <th class="col-sm-2 cursor-pointer" ng-click="sortData('title')">Event
                         <div class="glyphicon" ng-if="sortColumn === 'title'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}"></div>
                     </th>
-                    <th class="col-md-2 cursor-pointer" ng-click="sortData('date')">Date
+                    <th class="col-sm-2 cursor-pointer" ng-click="sortData('date')">Date
                         <div class="glyphicon" ng-if="sortColumn === 'date'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}"></div>
                     </th>
-                    <th class="col-md-7">Description</th>
-                    <th class="col-md-1"></th>
+                    <th class="col-sm-7">Description</th>
+                    <th class="col-sm-1"></th>
                 </tr>
             </thead>
             <div class="container">
-            <tbody>
-
-    <!-- search field -->
-                <div class="input-group text-right">
-                    <span class="input-group-btn form-group">
+                <tbody>
+                    <!-- search field -->
+                    <div class="input-group text-right">
+                        <span class="input-group-btn form-group">
                         <input type="text" placeholder="search" class="form-control ng-valid ng-dirty" ng-model="searchKeyword" />
                     </span>
                 </div>
@@ -51,5 +50,5 @@
                 <button class="btn btn-danger" type="button" ng-click="delete()">OK</button>
             </div>
         </script>
+        </div>
     </div>
-</div>

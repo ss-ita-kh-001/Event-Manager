@@ -6,7 +6,6 @@
         var obj = userService.getAll().then(function (res) {
         	$scope.users = res;
         });
-        
     }
     usersController.$inject = ["$scope", "userService"];
 
