@@ -69,6 +69,13 @@
                   res.status(500).send(error);
               });
           });
+          app.get(apiPreff + "/participants/game/:id", function(req, res) {
+              games.getParticipantsByGame(req.params.id).then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
           app.post(apiPreff + "/users", function(req, res) {
               // hash psw
               req.body.password = auth.hashData(req.body.password);

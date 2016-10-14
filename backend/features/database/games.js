@@ -20,6 +20,11 @@
                 " ON \"game_result\".\"user\" = \"users\".\"id\"" +
                 " WHERE \"event\" = " + id + ";");
         };
+        // select * from users where id not in (select "user" from game_result where event=12);
+        this.getParticipantsByGame = function(id) {
+            return db.query("SELECT \"id\",\"full_name\" FROM \"users\"" +
+                " WHERE \"id\" NOT IN (SELECT \"user\" FROM \"game_result\" WHERE \"event\" = " + id + ");");
+        };
         this.addGame = function(game) {
             return db.query("INSERT INTO \"game_result\"(\"user\", \"event\", " +
                 "\"wins\", \"loses\", \"draws\") VALUES(" + game.user + ", " +

@@ -17,8 +17,8 @@
         this.deleteGameResult = function (id){
             return mainApiService.delete('games/' + id);
         };
-        this.getParticipants =function (){
-            return mainApiService.get('users');
+        this.getParticipants =function (id){
+            return mainApiService.get('participants/game/' + id);
         };
         this.addNewRes = function (id, data){
             return mainApiService.post('games/event/' + id, data);
