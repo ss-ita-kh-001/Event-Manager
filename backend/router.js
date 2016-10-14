@@ -5,6 +5,8 @@
   var subscribe = new(require("./features/database/subscribe"));
   var auth = new(require("./features/database/auth"));
   var config = require("./features/database/config");
+  var jwt = require('jwt-simple');
+  var moment = require('moment');
   var apiPreff = "/api";
 
   /*
@@ -13,14 +15,10 @@
  |--------------------------------------------------------------------------
  */
   function ensureAuthenticated(req, res, next) {
-      if (!req.header('Authorization')) {
-          return res.status(401).send({
-              message: 'Please make sure your request has an Authorization header'
-          });
-      }
-      var token = req.header('Authorization').split(' ')[1];
 
+      var token = req.body.token;
       var payload = null;
+
       try {
           payload = jwt.decode(token, config.TOKEN_SECRET);
       } catch (err) {
@@ -34,8 +32,11 @@
               message: 'Token has expired'
           });
       }
-      req.user = payload.sub;
+      req.body.sub = payload.sub;
+      console.log(payload.sub);
       next();
+
+
   }
 
   var router = {
@@ -141,13 +142,18 @@
               }).catch(function(error) {
                   res.status(500).send(error);
               });
-
           });
-          app.put(apiPreff + "/profile/:id", function(req, res) {
-              users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
-                  res.status(200).end();
+          app.put(apiPreff + "/profile/:id", ensureAuthenticated, function(req, res) {
+              users.getUserByEmail(req.body.sub).then(function(data) {
+                  users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+                      console.log(req.body);
+                      res.status(200).end();
+                  }).catch(function(error) {
+                      res.status(500).send(error);
+                  });
               }).catch(function(error) {
                   res.status(500).send(error);
+                  console.log(error);
               });
           });
           app.delete(apiPreff + "/profile/:id", function(req, res) {
@@ -257,6 +263,20 @@
           app.delete(apiPreff + "/unsubscribe/:user/:event", function(req, res) {
               subscribe.unsubscribe(req.params).then(function() {
                   res.status(200).end();
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
+          app.get(apiPreff + "/events/latest", function(req, res) {
+              events.getLatest().then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
+          app.get(apiPreff + "/events/next", function(req, res) {
+              events.getNext().then(function(data) {
+                  res.status(200).send(data);
               }).catch(function(error) {
                   res.status(500).send(error);
               });

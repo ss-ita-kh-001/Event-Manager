@@ -1,8 +1,8 @@
     var db = require("./connection");
     var games = function() {
         this.getGames = function () {
-            return db.query("SELECT \"id\", \"date\", \"place\", \"title\" FROM " +
-                "\"events\" WHERE \"id\" in (SELECT DISTINCT \"event\" FROM \"game_result\");");
+            return db.query("SELECT \"id\", \"date\", \"place\", \"title\", \"desc\"  FROM " +
+                "\"events\" WHERE \"isGame\" = true;");
         };
         this.getPlayers = function () {
             return db.query("SELECT \"id\",\"full_name\" FROM \"users\"  WHERE \"id\" in (SELECT DISTINCT \"user\" FROM \"game_result\");");
@@ -15,7 +15,7 @@
                 " WHERE \"user\" = " + id + ";");
         };
         this.getByEvent = function(id) {
-            return db.query("SELECT \"users\".\"full_name\", \"wins\", \"loses\"," +
+            return db.query("SELECT \"game_result\".\"id\",\"users\".\"full_name\", \"wins\", \"loses\"," +
                 " \"draws\" FROM \"game_result\" INNER JOIN \"users\"" +
                 " ON \"game_result\".\"user\" = \"users\".\"id\"" +
                 " WHERE \"event\" = " + id + ";");

@@ -31,10 +31,11 @@ var auth = function() {
 
 function createJWT(user) {
     var payload = {
-        sub: user.email,
+        sub: user[0].email,
         iat: moment().unix(),
         exp: moment().add(14, 'days').unix()
     };
+
     return jwt.encode(payload, config.TOKEN_SECRET);
 }
 module.exports = auth;

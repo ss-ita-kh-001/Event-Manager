@@ -16,6 +16,9 @@
         this.getGameByUser = function (id) {
             return mainApiService.get('games/user/' + id);
         };
+        this.deleteGameResult = function (id){
+            return mainApiService.delete('games/' + id);
+        }
     }
     resultService.$inject = ["em.mainApiService"];
 })();

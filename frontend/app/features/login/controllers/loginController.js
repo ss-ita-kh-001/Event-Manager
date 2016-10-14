@@ -6,6 +6,7 @@
 
         $scope.login = function() {
             $scope.dataLoading = true;
+
             $auth.login($scope.user)
                 .then(function(res) {
                     console.log('You have logged in');
