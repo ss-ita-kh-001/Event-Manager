@@ -10,7 +10,7 @@
   var apiPreff = "/api";
   var async = require("async");
   var crypto = require('crypto');
-
+  var nodemailer = require('nodemailer');
   /*
  |--------------------------------------------------------------------------
  | Login Required Middleware
@@ -61,16 +61,12 @@
                   user: req.user
               });
           });
-      //    app.post(apiPreff + "/forgot", function(req, res) {
-      //        console.log('checcccck');
-      //    });
+
           app.post(apiPreff + "/forgot", function(req, res, next) {
-              console.log('backend forgot');
               async.waterfall([
                   function(done) {
                       crypto.randomBytes(20, function(err, buf) {
                           var token = buf.toString('hex');
-                          console.log('token: ', token);
                           done(err, token);
                       });
                   },
@@ -78,33 +74,20 @@
                     users.getUserByEmail(req.body.email).then(function() {
                       var resetPasswordToken = token;
                       var resetPasswordExpires = Date.now() + 3600000; // 1 hour
-                      var userEmail = req.body.email;
-                      console.log('email: ', userEmail);
-                      done(err, token, userEmail);
+                      var user = {};
+                      userEmail = req.body.email;
+                      done(null, token, userEmail, done);
                     });
                   },
-                  /*    User.findOne({
-                          email: req.body.email
-                      }, function(err, user) {
-                          if (!user) {
-                              req.flash('error', 'No account with that email address exists.');
-                              return res.redirect('/forgot');
-                          }*/
-
-                    //      user.save(function(err) {
-                      //        done(err, token, user);
-                    //      });
-
-
                   function(token, userEmail, done) {
-                      var smtpTransport = nodemailer.createTransport('SMTP', {
-                          service: 'gmail',
+                      var smtpTransport = nodemailer.createTransport({
+                          service: 'Gmail',
                           auth: {
                             user: 'event.manager.notification@gmail.com',
                             pass: 'ss-ita-kh-001'
                           }
-
                       });
+
                       var mailOptions = {
                           to: userEmail,
                           from: 'event.manager.notification@gmail.com',
@@ -117,7 +100,7 @@
                       smtpTransport.sendMail(mailOptions, function(err) {
                           console.log('email sent');
                           //req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-                          done(err, 'done');
+
                       });
                   }
               ], function(err) {
