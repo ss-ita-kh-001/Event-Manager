@@ -8,6 +8,8 @@
   var jwt = require('jwt-simple');
   var moment = require('moment');
   var apiPreff = "/api";
+  var async = require("async");
+  var crypto = require('crypto');
 
   /*
  |--------------------------------------------------------------------------
@@ -59,6 +61,9 @@
                   user: req.user
               });
           });
+      //    app.post(apiPreff + "/forgot", function(req, res) {
+      //        console.log('checcccck');
+      //    });
           app.post(apiPreff + "/forgot", function(req, res, next) {
               console.log('backend forgot');
               async.waterfall([
@@ -74,8 +79,10 @@
                       var resetPasswordToken = token;
                       var resetPasswordExpires = Date.now() + 3600000; // 1 hour
                       var userEmail = req.body.email;
+                      console.log('email: ', userEmail);
                       done(err, token, userEmail);
-                    })
+                    });
+                  },
                   /*    User.findOne({
                           email: req.body.email
                       }, function(err, user) {
@@ -88,7 +95,7 @@
                       //        done(err, token, user);
                     //      });
 
-                  },
+
                   function(token, userEmail, done) {
                       var smtpTransport = nodemailer.createTransport('SMTP', {
                           service: 'gmail',
