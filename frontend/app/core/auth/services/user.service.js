@@ -1,12 +1,11 @@
-﻿
-(function() {
+﻿(function() {
     'use strict';
 
     angular.module('em').factory('userService', userService);
 
     userService.$inject = ['$http', 'em.mainApiService', '$location', '$rootScope', 'flashService'];
 
-    function userService($http, mainApiService, $location, $rootScope,flashService) {
+    function userService($http, mainApiService, $location, $rootScope, flashService) {
         var service = {};
 
         service.getAll = getAll;
@@ -16,11 +15,16 @@
         service.update = update;
         service.remove = remove;
         service.authentication = authentication;
+        service.forgotPassword = forgotPassword;
 
         return service;
 
         function getAll() {
             return mainApiService.get('users').then(handleSuccess, handleError('Error getting all users'));
+        }
+        function forgotPassword(email) {
+            console.log('user service forgot');
+            return mainApiService.post('forgot', email).then(handleSuccess, handleError('There is no such email'));
         }
 
         function authentication(authdata) {

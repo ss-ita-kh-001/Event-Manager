@@ -54,16 +54,18 @@
                   console.log(error);
               });
           });
-          app.get("/forgot", function(req, res) {
+          app.get(apiPreff + "/forgot", function(req, res) {
               res.render("forgot", {
                   user: req.user
               });
           });
-          app.post("/forgot", function(req, res, next) {
+          app.post(apiPreff + "/forgot", function(req, res, next) {
+              console.log('backend forgot');
               async.waterfall([
                   function(done) {
                       crypto.randomBytes(20, function(err, buf) {
                           var token = buf.toString('hex');
+                          console.log('token: ', token);
                           done(err, token);
                       });
                   },
@@ -71,6 +73,8 @@
                     users.getUserByEmail(req.body.email).then(function() {
                       var resetPasswordToken = token;
                       var resetPasswordExpires = Date.now() + 3600000; // 1 hour
+                      var userEmail = req.body.email;
+                      done(err, token, userEmail);
                     })
                   /*    User.findOne({
                           email: req.body.email
@@ -85,7 +89,7 @@
                     //      });
 
                   },
-                  function(token, user, done) {
+                  function(token, userEmail, done) {
                       var smtpTransport = nodemailer.createTransport('SMTP', {
                           service: 'gmail',
                           auth: {
@@ -95,7 +99,7 @@
 
                       });
                       var mailOptions = {
-                          to: user.email,
+                          to: userEmail,
                           from: 'event.manager.notification@gmail.com',
                           subject: 'Node.js Password Reset',
                           text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +

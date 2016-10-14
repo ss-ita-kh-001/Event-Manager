@@ -6,7 +6,7 @@
                 <div class="col-sm-8 col-sm-offset-2 flash-block">
                     <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
                 </div>
-                <form method="post" ng-submit="forgotPassword()" role="form" name="forgotForm">
+                <form method="post" ng-submit="forgot()" role="form" name="forgotForm">
                     <div class="form-group has-feedback">
                         <input class="form-control input-lg" type="email" name="email" ng-model="user.email" placeholder="Email" required autofocus>
                     </div>
