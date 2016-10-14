@@ -7,6 +7,8 @@
         "em.users",
         "em.register",
         "em.login",
+        "em.forgot",
+        "em.reset",
         "ngAnimate",
         "ui.bootstrap",
         "em.addEvent",
