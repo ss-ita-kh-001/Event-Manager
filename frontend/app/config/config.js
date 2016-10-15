@@ -64,7 +64,7 @@
                 templateUrl: "./app/features/forgot/views/forgot.html",
                 controller: "em.forgot.forgotController"
             })
-            .when("/reset:token", {
+            .when("/reset/:token", {
                 templateUrl: "./app/features/reset/views/reset.html",
                 controller: "em.reset.resetController"
             })

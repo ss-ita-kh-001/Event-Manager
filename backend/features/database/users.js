@@ -6,6 +6,9 @@ var users = function() {
     this.getUserById = function(id) {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
     };
+    this.getUserByResetToken = function(token) {
+        return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + token + "\';");
+    };
     this.getUserByEmail = function(email) {
         return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");
     };
@@ -16,7 +19,8 @@ var users = function() {
     };
     this.updateUser = function(user) {
         return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.full_name +
-            "\', \"avatar\" = \'" + user.avatar + "\', \"password\" = \'" + user.password +
+            "\', \"avatar\" = \'" + user.avatar + "\', \"reset_password_token\" = \'" + user.reset_password_token +
+             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
             "\', \"email\" = \'" + user.email + "\'" + (typeof user.role === "undefined" ? "" : ", \"role\" = \'" + user.role + "\'") +
             " WHERE \"id\" = " + user.id + ";");
     };

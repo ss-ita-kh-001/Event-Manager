@@ -71,20 +71,25 @@
                       });
                   },
                   function(token, done) {
-                    users.getUserByEmail(req.body.email).then(function() {
-                      var resetPasswordToken = token;
-                      var resetPasswordExpires = Date.now() + 3600000; // 1 hour
-                      var user = {};
-                      userEmail = req.body.email;
-                      done(null, token, userEmail, done);
-                    });
+                      users.getUserByEmail(req.body.email).then(function(data) {
+                          data[0].reset_password_token = token;
+                          data[0].reset_password_expires = Date.now() + 3600000; // 1 hour
+                          userEmail = data[0].email;
+                          users.updateUser(data[0]).then(function() {
+                              res.status(200).end();
+                          }).catch(function(error) {
+                              res.status(500).send(error);
+                          });
+                          done(null, token, userEmail, done);
+                      });
                   },
+
                   function(token, userEmail, done) {
                       var smtpTransport = nodemailer.createTransport({
                           service: 'Gmail',
                           auth: {
-                            user: 'event.manager.notification@gmail.com',
-                            pass: 'ss-ita-kh-001'
+                              user: 'event.manager.notification@gmail.com',
+                              pass: 'ss-ita-kh-001'
                           }
                       });
 
