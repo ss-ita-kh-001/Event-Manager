@@ -31,7 +31,6 @@
             }
 
 
-
       $scope.update = function() {
             console.log($scope.event)
             eventService.update(Object.assign({}, $scope.event));

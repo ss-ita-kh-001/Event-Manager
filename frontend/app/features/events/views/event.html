@@ -9,12 +9,12 @@
       </div>
       <div class="col-md-6">
         <p>{{event.desc}}</p>
-        <div class="btn-group" ng-if = "!isSubscribe" ng-show="!isSubscribe">
-         <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()" >Subscribe</button>
+        <div class="btn-group" ng-if = "!isSubscribe">
+         <button type="button" class="btn btn-success btn-lg" ng-click="subscribe()" ng-model="Subscribe">Subscribe</button>
        </div>
        <div  ng-if = "isSubscribe">
          <div class="alert alert-success" >
-           You have successfully subscribed to event
+          You have was successfully subscribed to event
          </div>
          <button type="button" class="btn " ng-click="unSubscribe()" >Unsubscribe</button>
 
