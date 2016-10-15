@@ -79,6 +79,7 @@
                     users.getUserByResetToken(req.body.token).then(function(data) {
                       data[0].reset_password_token = null;
                       data[0].reset_password_expires = null;
+                      req.body.password = auth.hashData(req.body.password);
                       data[0].password = req.body.password;
                       userEmail = data[0].email;
                       users.updateUser(data[0]).then(function() {
