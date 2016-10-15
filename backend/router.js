@@ -244,7 +244,7 @@
                   res.status(500).send(error);
               });
           });
-          app.post(apiPreff + "/events", upload.any(), function(req, res) {
+          app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
                   events.getLastId().then(function(data) {
                       res.status(200).send(data);
