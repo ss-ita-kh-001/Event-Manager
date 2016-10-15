@@ -12,6 +12,15 @@
         </div>
     </div>
     <div class="row form-group">
+        <div class="col-sm-offset-3 col-sm-2">Type</div>
+        <div class="col-sm-4">
+            <label for="game">Game</label>
+            <input type="radio" ng-model="event.type" value="game" id="game" checked>
+            <label for="event">Event</label>
+            <input type="radio" ng-model="event.type" value="event" id="event">
+        </div>
+    </div>
+    <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Date</div>
         <div class="col-sm-4">
             <p class="input-group">
