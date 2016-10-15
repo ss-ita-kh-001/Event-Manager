@@ -56,6 +56,26 @@
                   console.log(error);
               });
           });
+          app.post(apiPreff + "/reset", function(req, res) {
+            console.log('backckckck');
+            console.log('req.body.token: ', req.body.token);
+              users.getUserByResetToken(req.body.token).then(function(data) {
+                console.log('data: ', data);
+                var now = Date.now();
+                console.log('now: ', typeof(now));
+                var expiredDate = data[0].reset_password_expires;
+                var isValid;
+                console.log('expiredDate: ', typeof(expiredDate));
+                if (+expiredDate > now) {
+                  console.log('valid');
+                  isValid = true;
+                } else {
+                  isValid = false;
+                  console.log('invalid');
+                }
+                res.status(200).send(isValid);
+              })
+          });
           app.get(apiPreff + "/forgot", function(req, res) {
               res.render("forgot", {
                   user: req.user

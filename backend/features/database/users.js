@@ -7,7 +7,8 @@ var users = function() {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
     };
     this.getUserByResetToken = function(token) {
-        return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + token + "\';");
+        console.log('getUserByResetToken DB');
+        return db.query("SELECT * FROM \"users\" WHERE \"reset_password_token\" = \'" + token + "\';");
     };
     this.getUserByEmail = function(email) {
         return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");

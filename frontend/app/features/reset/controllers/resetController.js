@@ -25,5 +25,12 @@
           $scope.dataLoading = true;
           userService.create($scope.user);
       };
+      $scope.checkToken = function() {
+        var path = $location.path();
+        var token = path.substring(7);
+        $scope.user.token = token;
+        userService.getByUserToken($scope.user);
+      };
+      $scope.checkToken();
     }
 })();

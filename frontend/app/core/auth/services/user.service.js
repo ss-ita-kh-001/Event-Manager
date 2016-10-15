@@ -16,6 +16,7 @@
         service.remove = remove;
         service.authentication = authentication;
         service.forgotPassword = forgotPassword;
+        service.getByUserToken = getByUserToken;
 
         return service;
 
@@ -29,7 +30,19 @@
             });
 
         }
-
+        function getByUserToken(token) {
+            console.log('getByUserToken func');
+            console.log('token', token);
+            return mainApiService.post('reset', token).then(function(res) {
+              console.log(res.data);
+                if (res.data) {
+                  console.log('ok');
+                } else {
+                  flashService.error('Token has expired', true);
+                  $location.path("/forgot");
+                }
+            });
+        }
         function authentication(authdata) {
             return mainApiService.post('login', authdata).then(handleSuccess, handleError('Error getting all users'));
         }
