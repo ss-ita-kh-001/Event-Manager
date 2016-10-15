@@ -11,6 +11,7 @@
 
         service.getAll = getAll;
         service.getById = getById;
+        service.getById = getUserEvents;
         //  service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;
@@ -29,6 +30,10 @@
 
         function getById(id) {
             return mainApiService.get('profile/' + id).then(handleSuccess, handleError('Error getting user by id'));
+        }
+
+        function getUserEvents (id) {
+            return mainApiService.get("users-events/" + id)
         }
 
         function create(user) {

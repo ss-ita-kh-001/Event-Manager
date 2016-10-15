@@ -19,15 +19,6 @@
             console.log('Error: ' + error);
         });
 
-        var getUserEventsPromise = eventService.getUserEvents($scope.UserId);
-        getUserEventsPromise.then(function(res) {
-            angular.forEach(res.data, function(value, key) {
-                localStorage.setItem(value.event, value.event);
-            });
-        }, function(error) {
-            console.log('Error: ' + error);
-        });
-
         $scope.search = function() {
             $scope.apiError = false;
             $rootScope.search($scope.event.place)

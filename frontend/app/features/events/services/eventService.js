@@ -6,9 +6,6 @@
         this.getEvent = function(id) {
             return mainApiService.get("events/" + id)
         }
-        this.getUserEvents = function(id) {
-            return mainApiService.get("users-events/" + id)
-        }
 
         this.update = function(event) {
             mainApiService.put("events/" + event.id, event).then(function(res) {
