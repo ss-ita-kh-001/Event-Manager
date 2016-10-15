@@ -14,12 +14,7 @@
     <div class="row form-group">
         <div class="col-sm-offset-3 col-sm-2">Date</div>
         <div class="col-sm-4">
-            <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup="{{datePicker.format}}" ng-model="event.date" is-open="datePicker.popup.opened" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="datePicker.open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-            </p>
+              <datepicker></datepicker>
         </div>
     </div>
     <div class="row form-group">
