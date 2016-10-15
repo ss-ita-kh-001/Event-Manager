@@ -7,6 +7,8 @@
   var config = require("./features/database/config");
   var jwt = require('jwt-simple');
   var moment = require('moment');
+  var multer = require("multer");
+  var uploadEvent = multer({dest: "./src/img/events"});
   var apiPreff = "/api";
 
   /*
@@ -242,14 +244,13 @@
                   res.status(500).send(error);
               });
           });
-          app.post(apiPreff + "/events", function(req, res) {
+          app.post(apiPreff + "/events", upload.any(), function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
                   events.getLastId().then(function(data) {
                       res.status(200).send(data);
                   }).catch(function(error) {
                       res.status(500).send(error);
                   });
-
               }).catch(function(error) {
                   res.status(500).send(error);
               });
