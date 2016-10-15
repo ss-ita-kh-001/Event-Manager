@@ -39,7 +39,7 @@
             console.log('token', token);
             return mainApiService.post('reset', token).then(function(res) {
                 console.log(res.data);
-                if (res.data) {
+                if (res.data == 'true') {
                     console.log('ok');
                 } else {
                     flashService.error('Token has expired', true);

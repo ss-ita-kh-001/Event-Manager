@@ -62,12 +62,16 @@
                   var expiredDate = data[0].reset_password_expires;
                   var isValid;
                   if (+expiredDate > now) {
-                      isValid = true;
+                      isValid = 'true';
                   } else {
-                      isValid = false;
+                      isValid = 'false';
                   }
                   res.status(200).send(isValid);
-              })
+              }).catch(function(error) {
+                  var isValid = 'false';
+                  res.status(200).send(isValid);
+                  console.log(error);
+              });
           });
           app.post(apiPreff + "/reset/token", function(req, res) {
               async.waterfall([
@@ -128,7 +132,7 @@
                   function(token, done) {
                       users.getUserByEmail(req.body.email).then(function(data) {
                           data[0].reset_password_token = token;
-                          data[0].reset_password_expires = Date.now() + 3600000; // 1 hour
+                          data[0].reset_password_expires = Date.now() + 3600000; // 1 hour 3600000
                           userEmail = data[0].email;
                           users.updateUser(data[0]).then(function() {
                               res.status(200).end();
