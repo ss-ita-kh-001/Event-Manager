@@ -22,9 +22,12 @@
         function getAll() {
             return mainApiService.get('users').then(handleSuccess, handleError('Error getting all users'));
         }
-        function forgotPassword(email) {
-            console.log('user service forgot');
-            return mainApiService.post('forgot', email).then(handleSuccess, handleError('There is no such email'));
+        function forgotPassword(email, callback) {
+            return mainApiService.post('forgot', email).then(function(res) {
+              flashService.success('An e-mail has been sent to ' + res.config.data.email + ' with further instructions.', true);
+              callback();
+            });
+
         }
 
         function authentication(authdata) {

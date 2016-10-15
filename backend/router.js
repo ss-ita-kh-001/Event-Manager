@@ -96,7 +96,7 @@
                       var mailOptions = {
                           to: userEmail,
                           from: 'event.manager.notification@gmail.com',
-                          subject: 'Node.js Password Reset',
+                          subject: 'Event Manager Password Reset',
                           text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
                               'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -104,8 +104,7 @@
                       };
                       smtpTransport.sendMail(mailOptions, function(err) {
                           console.log('email sent');
-                          //req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-
+                          res.status(200).send();
                       });
                   }
               ], function(err) {
