@@ -2,13 +2,16 @@
   var events = new(require("./features/database/events"));
   var games = new(require("./features/database/games"));
   var users = new(require("./features/database/users"));
+  var media = new(require("./features/database/media"));
   var subscribe = new(require("./features/database/subscribe"));
   var auth = new(require("./features/database/auth"));
   var config = require("./features/database/config");
   var jwt = require('jwt-simple');
   var moment = require('moment');
   var multer = require("multer");
-  var uploadEvent = multer({dest: "./src/img/events"});
+  var uploadEvent = multer({
+      dest: "./src/img/events"
+  });
   var apiPreff = "/api";
 
   /*
@@ -247,6 +250,14 @@
           app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
                   events.getLastId().then(function(data) {
+                    console.log(data);
+                      for (var i = 0; i < req.files.length; i++) {
+                          media.add(req.files[i].filename, "image", data[0].id).then(function () {
+
+                          }).catch(function (error) {
+                            console.log(error);
+                          });
+                      }
                       res.status(200).send(data);
                   }).catch(function(error) {
                       res.status(500).send(error);
