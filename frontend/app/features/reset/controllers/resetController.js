@@ -31,6 +31,10 @@
         $scope.user.token = token;
         userService.getByUserToken($scope.user);
       };
+      $scope.resetPassword = function() {
+          $scope.dataLoading = true;
+          userService.updatePassword($scope.user);
+      };
       $scope.checkToken();
     }
 })();

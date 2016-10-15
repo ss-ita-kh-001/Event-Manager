@@ -57,24 +57,59 @@
               });
           });
           app.post(apiPreff + "/reset", function(req, res) {
-            console.log('backckckck');
-            console.log('req.body.token: ', req.body.token);
               users.getUserByResetToken(req.body.token).then(function(data) {
-                console.log('data: ', data);
-                var now = Date.now();
-                console.log('now: ', typeof(now));
-                var expiredDate = data[0].reset_password_expires;
-                var isValid;
-                console.log('expiredDate: ', typeof(expiredDate));
-                if (+expiredDate > now) {
-                  console.log('valid');
-                  isValid = true;
-                } else {
-                  isValid = false;
-                  console.log('invalid');
-                }
-                res.status(200).send(isValid);
+                  var now = Date.now();
+                  var expiredDate = data[0].reset_password_expires;
+                  var isValid;
+                  if (+expiredDate > now) {
+                      isValid = true;
+                  } else {
+                      isValid = false;
+                  }
+                  res.status(200).send(isValid);
               })
+          });
+          app.post(apiPreff + "/reset/token", function(req, res) {
+              async.waterfall([
+                  function(done) {
+                    users.getUserByResetToken(req.body.token).then(function(data) {
+                      data[0].reset_password_token = null;
+                      data[0].reset_password_expires = null;
+                      data[0].password = req.body.password;
+                      userEmail = data[0].email;
+                      users.updateUser(data[0]).then(function() {
+                          res.status(200).end();
+                      }).catch(function(error) {
+                          res.status(500).send(error);
+                      });
+                      done(null, userEmail, done);
+                    });
+
+                  },
+                  function(userEmail, done) {
+                      var smtpTransport = nodemailer.createTransport({
+                          service: 'Gmail',
+                          auth: {
+                            user: 'event.manager.notification@gmail.com',
+                            pass: 'ss-ita-kh-001'
+                          }
+                      });
+                      var mailOptions = {
+                          to: userEmail,
+                          from: 'event.manager.notification@gmail.com',
+                          subject: 'Your password has been changed',
+                          text: 'Hello,\n\n' +
+                              'This is a confirmation that the password for your account ' + userEmail + ' has just been changed.\n'
+                      };
+                      smtpTransport.sendMail(mailOptions, function(err) {
+                          console.log('confirmation email sent');
+
+                      });
+                  }
+              ], function(err) {
+                  res.redirect('/');
+              });
+
           });
           app.get(apiPreff + "/forgot", function(req, res) {
               res.render("forgot", {

@@ -1,4 +1,5 @@
-﻿(function() {
+﻿
+(function() {
     'use strict';
 
     angular.module('em').factory('userService', userService);
@@ -17,32 +18,36 @@
         service.authentication = authentication;
         service.forgotPassword = forgotPassword;
         service.getByUserToken = getByUserToken;
+        service.updatePassword = updatePassword;
 
         return service;
 
         function getAll() {
             return mainApiService.get('users').then(handleSuccess, handleError('Error getting all users'));
         }
+
         function forgotPassword(email, callback) {
             return mainApiService.post('forgot', email).then(function(res) {
-              flashService.success('An e-mail has been sent to ' + res.config.data.email + ' with further instructions.', true);
-              callback();
+                flashService.success('An e-mail has been sent to ' + res.config.data.email + ' with further instructions.', true);
+                callback();
             });
 
         }
+
         function getByUserToken(token) {
             console.log('getByUserToken func');
             console.log('token', token);
             return mainApiService.post('reset', token).then(function(res) {
-              console.log(res.data);
+                console.log(res.data);
                 if (res.data) {
-                  console.log('ok');
+                    console.log('ok');
                 } else {
-                  flashService.error('Token has expired', true);
-                  $location.path("/forgot");
+                    flashService.error('Token has expired', true);
+                    $location.path("/forgot");
                 }
             });
         }
+
         function authentication(authdata) {
             return mainApiService.post('login', authdata).then(handleSuccess, handleError('Error getting all users'));
         }
@@ -54,6 +59,15 @@
         function create(user) {
             mainApiService.post("users", user).then(function(res) {
                 flashService.success('Registration is successful', true);
+                $location.path("/login");
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+
+        function updatePassword(user) {
+            mainApiService.post("reset/token", user).then(function(res) {
+                flashService.success('Success! Your password has been changed', true);
                 $location.path("/login");
             }).catch(function(error) {
                 console.log(error);
