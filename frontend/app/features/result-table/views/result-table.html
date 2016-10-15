@@ -24,36 +24,62 @@
         </thead>
         <tbody>
             <tr ng-repeat="player in playersList | orderBy:sortState[0].sortColoumn:sortState[0].reverseSort">
-                <td>{{ player.full_name}}</td>
-                <td>{{ player.wins }}</td>
-                <td>{{ player.loses }}</td>
-                <td>{{ player.draws }}</td>
                 <td>
-                    <button type="button" class="btn btn-info btn-xs glyphicon glyphicon-pencil"></button>
-                    <button ng-click="deleteGameResById(player.id)" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <select ng-options="participant as participant.full_name for participant in participantsList track by participant.id" ng-model="newGameRes.selectedParticipant" class="form-control input-lg">
+                    <div ng-show="{{player.id}} != upRes.id">
+                        {{ player.full_name}}
+                    </div>
+                    <select ng-show="{{player.id}} == upRes.id" ng-options="updatingParticipant as updatingParticipant.full_name for updatingParticipant in updatingParticipantsList track by updatingParticipant.id" ng-model="upRes.selectedParticipant" class="form-control input-lg" required>
                     </select>
                 </td>
                 <td>
-                    <input type="number" class="form-control"
-                           ng-model="newGameRes.wins"  placeholder="Number of wins">
+                    <div ng-show="{{player.id}} != upRes.id">
+                        {{ player.wins }}
+                    </div>
+                    <input type="number" class="form-control" name="wins" required
+                       ng-model="upRes.wins"  ng-show="{{player.id}} == upRes.id"  placeholder="Number of wins" >
                 </td>
                 <td>
-                    <input type="number" class="form-control"
-                           ng-model="newGameRes.loses"  placeholder="Number of looses">
+                    <div ng-show="{{player.id}}!= upRes.id">
+                        {{ player.loses }}
+                    </div>
+                    <input type="number" class="form-control" name="loses" required
+                       ng-model="upRes.loses" ng-show="{{player.id}} == upRes.id" placeholder="Number of looses" >
                 </td>
                 <td>
-                    <input type="number" class="form-control"
-                           ng-model="newGameRes.draws" placeholder="Number of draws">
+                    <div ng-show="{{player.id}} != upRes.id">
+                        {{ player.draws }}
+                    </div>
+                    <input type="number" class="form-control" name="draws" required
+                       ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" >
                 </td>
                 <td>
-                    <button ng-click="addGameRes()" type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
+                    <button ng-click="updateResult(player.id)" type="button" class="btn btn-info btn-xs glyphicon glyphicon-pencil"></button>
+                    <button ng-click="deleteGameResById(player.id)" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
                 </td>
             </tr>
+            <ng-form name="addGameResult" novalidate>
+            <tr>
+                <td>
+                    <select ng-options="participant as participant.full_name for participant in participantsList track by participant.id" ng-model="newGameRes.selectedParticipant" class="form-control input-lg" required>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="wins" required
+                           ng-model="newGameRes.wins"  placeholder="Number of wins" >
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="loses" required
+                           ng-model="newGameRes.loses"  placeholder="Number of looses" >
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="draws" required
+                           ng-model="newGameRes.draws" placeholder="Number of draws" >
+                </td>
+                <td>
+                    <button ng-click="addGameRes()"  type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
+                </td>
+            </tr>
+             </ng-form>
         </tbody>
     </table>
     <h2>User results</h2>
