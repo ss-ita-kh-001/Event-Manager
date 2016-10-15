@@ -154,6 +154,10 @@
             $scope.sortState[index].sortColoumn = coloumnName;
             return true;
         };
+        
+        $scope.cancelUpdate = function(){
+            $scope.upRes={id: -1};
+        };
 
         function rejected (error) {
             console.log('Error: ' + error.data.status);

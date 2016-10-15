@@ -93,9 +93,6 @@
                     players:["em.result-table.result-table-service",function (resultService) {
                         return resultService.getAllPlayers();
                     }]
-                    // participants:["em.result-table.result-table-service",function (resultService) {
-                    //     return resultService.getParticipants();
-                    // }]
                 }
             })
             .otherwise({

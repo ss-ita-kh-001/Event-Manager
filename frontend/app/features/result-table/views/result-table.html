@@ -54,7 +54,8 @@
                 </td>
                 <td>
                     <button ng-click="updateResult(player.id)" type="button" class="btn btn-info btn-xs glyphicon glyphicon-pencil"></button>
-                    <button ng-click="deleteGameResById(player.id)" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                    <button ng-click="deleteGameResById(player.id)" ng-show="{{player.id}} != upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                    <button ng-click="cancelUpdate()" ng-show="{{player.id}} == upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
                 </td>
             </tr>
             <ng-form name="addGameResult" novalidate>
