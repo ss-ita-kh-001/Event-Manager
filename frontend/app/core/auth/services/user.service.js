@@ -6,8 +6,9 @@
 
     userService.$inject = ['$http', 'em.mainApiService', '$location', '$rootScope', 'flashService'];
 
-    function userService($http, mainApiService, $location, $rootScope,flashService) {
+    function userService($http, mainApiService, $location, $rootScope, flashService) {
         var service = {};
+        var userInfo;
 
         service.getAll = getAll;
         service.getById = getById;
@@ -16,6 +17,8 @@
         service.update = update;
         service.remove = remove;
         service.authentication = authentication;
+        service.setUserInfo = setUserInfo;
+        service.getUserInfo = getUserInfo;
 
         return service;
 
@@ -62,6 +65,16 @@
                     message: error
                 };
             };
+        }
+
+        //set and get information about current loged user 
+
+        function setUserInfo (user) {
+            userInfo = user;
+        }
+
+        function getUserInfo () {
+            return userInfo;
         }
     }
 

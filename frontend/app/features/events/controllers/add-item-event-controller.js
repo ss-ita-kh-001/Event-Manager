@@ -1,11 +1,15 @@
 (function() {
     angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
 
-    function itemEventController($scope, $location, itemEventService, mainApiService, $uibModal) {
+    function itemEventController($scope, $location, itemEventService, mainApiService, $uibModal, userService) {
         /**
         * Update event list.
         * Called when init controller and update button on click
         */
+
+        $scope.currentUser = userService.getUserInfo();
+      
+
         $scope.updateEventList = function () {
             itemEventService.getEvents().then(function (response) {
                 $scope.events = response.data;
@@ -76,5 +80,14 @@
         };
 
     }
-    itemEventController.$inject = ["$scope", "$location", "em.events.add-item-event-service", "em.mainApiService", "$uibModal"];
+
+    itemEventController.$inject = [
+        "$scope",
+        "$location",
+        "em.events.add-item-event-service",
+        "em.mainApiService",
+        "$uibModal",
+        "userService"
+    ];
+
 })();
