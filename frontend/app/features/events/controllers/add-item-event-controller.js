@@ -79,6 +79,17 @@
             });
         };
 
+        //opportunity to subscribe and invite friend to event
+        $scope.subscribeOnEvent = function() {
+            event.stopPropagation();
+
+        }
+
+        $scope.inviteFriend = function() {
+            event.stopPropagation();  
+
+        }
+
     }
 
     itemEventController.$inject = [
