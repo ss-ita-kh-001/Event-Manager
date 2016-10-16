@@ -100,6 +100,27 @@
 
         $scope.inviteFriend = function() {
             event.stopPropagation();  
+            $scope.users = userService.getAll();
+            console.log($scope.users);
+
+            // $scope.currentEventTitle = eventItem.title;
+            $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'inviteFriendForEvent.html',
+                scope: $scope,
+                controller: function ($uibModalInstance, $scope) {
+                    $scope.invite = function () {
+                        $uibModalInstance.close();
+                        // $scope.currentEventTitle = null;
+                        // $scope.deleteEventItem(eventItem.id, index);
+                    };
+                    $scope.cancel = function () {
+                        $scope.currentEventTitle = null;
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            });
 
         }
 
