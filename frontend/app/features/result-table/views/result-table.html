@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Game results</h2>
-    <select ng-options="game as game.title for game in gamesList track by game.id " ng-model="selectedGame" ng-change="selectGame()" class="form-control input-lg">
+    <select ng-options="game as game.title for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
     </select>
     <div  class="panel panel-info">
         <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
@@ -35,21 +35,21 @@
                     <div ng-show="{{player.id}} != upRes.id">
                         {{ player.wins }}
                     </div>
-                    <input type="number" class="form-control" name="wins" required
+                    <input type="number" min="0" class="form-control" name="wins" required
                        ng-model="upRes.wins"  ng-show="{{player.id}} == upRes.id"  placeholder="Number of wins" >
                 </td>
                 <td>
                     <div ng-show="{{player.id}}!= upRes.id">
                         {{ player.loses }}
                     </div>
-                    <input type="number" class="form-control" name="loses" required
+                    <input type="number" min="0" class="form-control" name="loses" required
                        ng-model="upRes.loses" ng-show="{{player.id}} == upRes.id" placeholder="Number of looses" >
                 </td>
                 <td>
                     <div ng-show="{{player.id}} != upRes.id">
                         {{ player.draws }}
                     </div>
-                    <input type="number" class="form-control" name="draws" required
+                    <input type="number" min="0" class="form-control" name="draws" required
                        ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" >
                 </td>
                 <td>
@@ -61,30 +61,33 @@
             <ng-form name="addGameResult" novalidate>
             <tr>
                 <td>
-                    <select ng-options="participant as participant.full_name for participant in participantsList track by participant.id" ng-model="newGameRes.selectedParticipant" class="form-control input-lg" required>
+                    <select ng-options="participant as participant.full_name for participant in participantsList track by participant.id" ng-model="newGameRes.selectedParticipant" ng-disabled="participantsList.length == 0" class="form-control input-lg" required>
                     </select>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="wins" required
+                    <input type="number"  min="0" class="form-control" name="wins" required
+                           ng-disabled="participantsList.length == 0"
                            ng-model="newGameRes.wins"  placeholder="Number of wins" >
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="loses" required
+                    <input type="number" min="0" class="form-control" name="loses" required
+                           ng-disabled="participantsList.length == 0"
                            ng-model="newGameRes.loses"  placeholder="Number of looses" >
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="draws" required
+                    <input type="number"  min="0" class="form-control" name="draws" required
+                           ng-disabled="participantsList.length == 0"
                            ng-model="newGameRes.draws" placeholder="Number of draws" >
                 </td>
                 <td>
-                    <button ng-click="addGameRes()"  type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
+                    <button ng-click="addGameRes()" ng-disabled="participantsList.length == 0" type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
                 </td>
             </tr>
              </ng-form>
         </tbody>
     </table>
     <h2>User results</h2>
-    <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-change="selectPlayer()" class="form-control input-lg">
+    <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-disabled="allPlayers.length==0" ng-change="selectPlayer()" class="form-control input-lg">
     </select>
     <table class="table table-hover responsive" wt-responsive-table>
         <thead>

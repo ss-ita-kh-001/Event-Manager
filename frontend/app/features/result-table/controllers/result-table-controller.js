@@ -3,11 +3,6 @@
     angular.module('em.result-table').controller('em.result-table.chessResultController', resultController);
 
     function resultController($scope, resultService, games, players) {
-        $scope.gamesList = games.data;
-        $scope.selectedGame = $scope.gamesList[0];
-        $scope.newGameRes = {};
-        $scope.upRes = {id: -1};
-
 
         $scope.selectGame = function () {
             $scope.getPlayersList($scope.selectedGame);
@@ -19,8 +14,6 @@
                 $scope.playersList = response.data;
             }, rejected);
         };
-
-        $scope.getPlayersList($scope.selectedGame);
 
         $scope.getParticipantsByGame = function (selectedGame) {
             resultService.getParticipants(selectedGame.id).then(function (response) {
@@ -39,35 +32,36 @@
             }, rejected);
         };
 
-        $scope.getParticipantsByGame($scope.selectedGame);
-
-        $scope.allPlayers = players.data;
-        $scope.selectedPlayer = $scope.allPlayers[0];
-
         $scope.selectPlayer = function () {
-            $scope.getGameListByUser($scope.selectedPlayer);
+             $scope.getGameListByUser($scope.selectedPlayer);
         };
 
         $scope.getGameListByUser = function (selectedPlayer) {
-            resultService.getGameByUser(selectedPlayer.id).then(function (response) {
-                $scope.usersGameList = response.data;
-            }, rejected);
+            if (selectedPlayer == undefined){
+                $scope.usersGameList =[];
+            }else{
+                resultService.getGameByUser(selectedPlayer.id).then(function (response) {
+                    $scope.usersGameList = response.data;
+                }, rejected);
+            }
         };
-
-        $scope.getGameListByUser($scope.selectedPlayer);
         
         $scope.deleteGameResById = function(id){
             resultService.deleteGameResult(id).then(function (response) {
                 resultService.getAllPlayers().then(function (response) {
                     $scope.allPlayers = response.data;
-                    var i=0;
-                    while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.selectedPlayer.id){
-                        i++;
+                    if($scope.allPlayers.length == 0){
+                        $scope.usersGameList =[];
+                    }else{
+                        var i=0;
+                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.selectedPlayer.id){
+                            i++;
+                        }
+                        if (i>=$scope.allPlayers.length){
+                            $scope.selectedPlayer = $scope.allPlayers[0];
+                        }
+                        $scope.getGameListByUser($scope.selectedPlayer);
                     }
-                    if (i>=$scope.allPlayers.length){
-                        $scope.selectedPlayer = $scope.allPlayers[0];
-                    }
-                    $scope.getGameListByUser($scope.selectedPlayer);
                 }, rejected);
                 $scope.getPlayersList($scope.selectedGame);
                 $scope.getParticipantsByGame($scope.selectedGame);
@@ -87,13 +81,19 @@
                 $scope.getParticipantsByGame($scope.selectedGame);
                 resultService.getAllPlayers().then(function (response) {
                     $scope.allPlayers = response.data;
+                    var i=0;
+                    while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.selectedPlayer.id){
+                        i++;
+                    }
+                    if (i>=$scope.allPlayers.length){
+                        $scope.selectedPlayer = $scope.allPlayers[0];
+                    }
                     $scope.getGameListByUser($scope.selectedPlayer);
                 }, rejected);
             }, rejected);
         };
 
-
-        $scope.updateResult= function (id) {
+        $scope.updateResult = function (id) {
             if($scope.upRes.id !== id){
                 $scope.upRes.id = id;
                 var i = 0;
@@ -140,11 +140,6 @@
             }
         };
 
-        $scope.sortState = [
-            {sortColoumn: 'full_name',reverseSort: false},
-            {sortColoumn: 'date', reverseSort: false}
-        ];
-
         $scope.sortData = function(coloumnName,index){
             if ($scope.sortState[index].sortColoumn == coloumnName){
                 $scope.sortState[index].reverseSort = !$scope.sortState[index].reverseSort;
@@ -162,6 +157,33 @@
         function rejected (error) {
             console.log('Error: ' + error.data.status);
         }
+
+        $scope.gamesList = games.data;
+        if($scope.gamesList.length == 0){
+            $scope.playersList =[];
+            $scope.participantsList = [];
+        }else{
+            $scope.selectedGame = $scope.gamesList[0];
+            $scope.getPlayersList($scope.selectedGame);
+            $scope.getParticipantsByGame($scope.selectedGame);
+        }
+        $scope.newGameRes = {};
+        $scope.upRes = {id: -1};
+
+        $scope.allPlayers = players.data;
+        if ($scope.allPlayers.length == 0){
+            $scope.selectedPlayer = {};
+            $scope.selectedPlayer.id = -2;
+            $scope.selectedPlayer.full_name = "No game results"
+        }else{
+            $scope.selectedPlayer = $scope.allPlayers[0];
+            $scope.getGameListByUser($scope.selectedPlayer);
+        }
+
+        $scope.sortState = [
+            {sortColoumn: 'full_name',reverseSort: false},
+            {sortColoumn: 'date', reverseSort: false}
+        ];
     }
 
     resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players"];
