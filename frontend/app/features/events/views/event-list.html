@@ -1,7 +1,13 @@
 <div class="container">
     <div>
         <div class="text-right">
-            <a ng-if = "currentUser.role === 'admin'||!currentUser" href="/event/add" class="btn btn-success btn-lg">Add new event</a>
+            <a 
+                ng-if="currentUser.role === 'admin'" 
+                href="/event/add" 
+                class="btn btn-success btn-lg"
+                >
+                Add new event
+            </a>
         </div>
         <div class="row text-right">
         </div>
@@ -32,8 +38,8 @@
                     <td>{{eventItem.date | date:'dd.MM.yyyy'}}</td>
                     <td>{{eventItem.desc}}</td>
                     <td>
-                        <button ng-if = "currentUser.role === 'admin'||!currentUser" class="btn btn-primary full-width" ng-click="editEvent(eventItem.id)">Edit event</button>
-                        <button ng-if = "currentUser.role === 'admin'||!currentUser" class="btn btn-danger full-width" ng-click="openDeleteModal($event, eventItem, $index)">Delete event</button>
+                        <button ng-if = "currentUser.role === 'admin'" class="btn btn-primary full-width" ng-click="editEvent(eventItem.id)">Edit event</button>
+                        <button ng-if = "currentUser.role === 'admin'" class="btn btn-danger full-width" ng-click="openDeleteModal($event, eventItem, $index)">Delete event</button>
                         
                         <button ng-if = "currentUser.role === 'user'" class="btn btn-warning full-width" ng-click="subscribeOnEvent($event)">Subscribe</button>
                         <button ng-if = "currentUser.role === 'user'" class="btn btn-info full-width" ng-click="inviteFriend($event)">Invite friend</button>
