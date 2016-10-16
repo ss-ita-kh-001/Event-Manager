@@ -1,8 +1,9 @@
 (function() {
     angular.module("em.addEvent").controller("em.addEvent.addEventController", addEventController);
 
-    function addEventController($scope, $rootScope, datePicker, addEventAPIService) {
-        $scope.datePicker = datePicker;
+    function addEventController($scope, $rootScope, addEventAPIService) {
+
+      //  $scope.event.date = new Date();
         $scope.place = {};
 
         $scope.search = function() {
@@ -29,5 +30,5 @@
             }
         }
     }
-    addEventController.$inject = ["$scope", "$rootScope", "em.addEvent.datePicker", "em.addEvent.addEventAPIService"];
+    addEventController.$inject = ["$scope", "$rootScope", "em.addEvent.addEventAPIService"];
 })();
