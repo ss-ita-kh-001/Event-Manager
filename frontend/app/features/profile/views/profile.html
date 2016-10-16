@@ -13,10 +13,7 @@
         <div class="col-sm-8">
             <div ng-repeat="event in events" class="upcoming-events-item">
                 <div>
-                    <h4>{{event.title}}</h4>
-                    <h6>{{event.date}}</h6>
-                    <p>{{event.descr}}
-                    </p>
+                    <a href="/events/{{event.event}}">Event #{{event.event}}</a>
                 </div>
             </div>
         </div>
