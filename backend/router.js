@@ -8,7 +8,9 @@
   var jwt = require('jwt-simple');
   var moment = require('moment');
   var apiPreff = "/api";
-
+  var async = require("async");
+  var crypto = require('crypto');
+  var nodemailer = require('nodemailer');
   /*
  |--------------------------------------------------------------------------
  | Login Required Middleware
@@ -52,6 +54,122 @@
               }).catch(function(error) {
                   res.status(500).send(error);
                   console.log(error);
+              });
+          });
+          app.post(apiPreff + "/reset", function(req, res) {
+              users.getUserByResetToken(req.body.token).then(function(data) {
+                  var now = Date.now();
+                  var expiredDate = data[0].reset_password_expires;
+                  var isValid;
+                  if (+expiredDate > now) {
+                      isValid = 'true';
+                  } else {
+                      isValid = 'false';
+                  }
+                  res.status(200).send(isValid);
+              }).catch(function(error) {
+                  var isValid = 'false';
+                  res.status(200).send(isValid);
+                  console.log(error);
+              });
+          });
+          app.post(apiPreff + "/reset/token", function(req, res) {
+              async.waterfall([
+                  function(done) {
+                    users.getUserByResetToken(req.body.token).then(function(data) {
+                      data[0].reset_password_token = null;
+                      data[0].reset_password_expires = null;
+                      req.body.password = auth.hashData(req.body.password);
+                      data[0].password = req.body.password;
+                      userEmail = data[0].email;
+                      users.updateUser(data[0]).then(function() {
+                          res.status(200).end();
+                      }).catch(function(error) {
+                          res.status(500).send(error);
+                      });
+                      done(null, userEmail, done);
+                    });
+
+                  },
+                  function(userEmail, done) {
+                      var smtpTransport = nodemailer.createTransport({
+                          service: 'Gmail',
+                          auth: {
+                            user: 'event.manager.notification@gmail.com',
+                            pass: 'ss-ita-kh-001'
+                          }
+                      });
+                      var mailOptions = {
+                          to: userEmail,
+                          from: 'event.manager.notification@gmail.com',
+                          subject: 'Your password has been changed',
+                          text: 'Hello,\n\n' +
+                              'This is a confirmation that the password for your account ' + userEmail + ' has just been changed.\n'
+                      };
+                      smtpTransport.sendMail(mailOptions, function(err) {
+                          console.log('confirmation email sent');
+
+                      });
+                  }
+              ], function(err) {
+                  res.redirect('/');
+              });
+
+          });
+          app.get(apiPreff + "/forgot", function(req, res) {
+              res.render("forgot", {
+                  user: req.user
+              });
+          });
+
+          app.post(apiPreff + "/forgot", function(req, res, next) {
+              async.waterfall([
+                  function(done) {
+                      crypto.randomBytes(20, function(err, buf) {
+                          var token = buf.toString('hex');
+                          done(err, token);
+                      });
+                  },
+                  function(token, done) {
+                      users.getUserByEmail(req.body.email).then(function(data) {
+                          data[0].reset_password_token = token;
+                          data[0].reset_password_expires = Date.now() + 3600000; // 1 hour 3600000
+                          userEmail = data[0].email;
+                          users.updateUser(data[0]).then(function() {
+                              res.status(200).end();
+                          }).catch(function(error) {
+                              res.status(500).send(error);
+                          });
+                          done(null, token, userEmail, done);
+                      });
+                  },
+
+                  function(token, userEmail, done) {
+                      var smtpTransport = nodemailer.createTransport({
+                          service: 'Gmail',
+                          auth: {
+                              user: 'event.manager.notification@gmail.com',
+                              pass: 'ss-ita-kh-001'
+                          }
+                      });
+
+                      var mailOptions = {
+                          to: userEmail,
+                          from: 'event.manager.notification@gmail.com',
+                          subject: 'Event Manager Password Reset',
+                          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                              'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                              'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                              'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                      };
+                      smtpTransport.sendMail(mailOptions, function(err) {
+                          console.log('email sent');
+                          res.status(200).send();
+                      });
+                  }
+              ], function(err) {
+                  if (err) return next(err);
+                  res.redirect('/forgot');
               });
           });
           app.get(apiPreff + "/users", function(req, res) {
@@ -193,14 +311,14 @@
               });
           });
 
-          app.post(apiPreff + "/subscribe/:user/:event", function(req, res) {
+          app.post(apiPreff + "/subscribe/:user/:event/", function(req, res) {
               subscribe.subscribe(req.params).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
                   res.status(500).send(error);
               });
           });
-          app.delete(apiPreff + "/unsubscribe/:user/:event", function(req, res) {
+          app.delete(apiPreff + "/unsubscribe/:user/:event/", function(req, res) {
               subscribe.unsubscribe(req.params).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
@@ -234,6 +352,13 @@
               }).catch(function(error) {
                   res.status(500).send(error);
               })
+          });
+          app.get(apiPreff + "/users-events/:id", function(req, res) {
+              events.getEventByUser(req.params.id).then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.put(apiPreff + "/events/:id/", function(req, res) {
               events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {

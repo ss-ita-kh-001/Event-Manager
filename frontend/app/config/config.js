@@ -60,6 +60,14 @@
                 templateUrl: "./app/features/login/views/login.html",
                 controller: "em.logoutController"
             })
+            .when("/forgot", {
+                templateUrl: "./app/features/forgot/views/forgot.html",
+                controller: "em.forgot.forgotController"
+            })
+            .when("/reset/:token", {
+                templateUrl: "./app/features/reset/views/reset.html",
+                controller: "em.reset.resetController"
+            })
             .when("/register", {
                 templateUrl: "./app/features/register/views/register.html",
                 controller: "em.register.registerController",

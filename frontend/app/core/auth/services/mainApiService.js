@@ -17,7 +17,7 @@
         }
 
         this.put = function(url, data) {
-            return $http.put(baseUrl + url, data);
+            return $http.put(baseUrl + url + '/', data);
         }
     }
 
