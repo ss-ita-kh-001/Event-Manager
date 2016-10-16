@@ -2,20 +2,33 @@
     angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
 
     function itemEventController($scope, $location, itemEventService, mainApiService, $uibModal, userService) {
+
+        $scope.getCurrentUser = function () {
+            if (userService.getUserInfo()) {
+                $scope.currentUser = userService.getUserInfo();
+                return;
+            }            
+            if(localStorage.getItem("userId")){
+                userService.getById(localStorage.getItem("userId"))
+                .then(function (response) {
+                    if (Array.isArray(response) && response.length > 0) {
+                        userService.setUserInfo(response[0]);
+                        $scope.currentUser = userService.getUserInfo();
+                    }
+                } );
+            };
+        };
+        $scope.getCurrentUser();
+      
         /**
         * Update event list.
         * Called when init controller and update button on click
         */
-
-        $scope.currentUser = userService.getUserInfo();
-      
-
         $scope.updateEventList = function () {
             itemEventService.getEvents().then(function (response) {
                 $scope.events = response.data;
             }, rejected);
         };
-
         $scope.updateEventList();
 
         //redirect to other page
