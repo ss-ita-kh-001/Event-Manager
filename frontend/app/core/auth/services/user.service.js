@@ -11,7 +11,7 @@
 
         service.getAll = getAll;
         service.getById = getById;
-        service.getById = getUserEvents;
+        service.getUserEvents = getUserEvents;
         //  service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;

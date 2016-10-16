@@ -15,7 +15,7 @@
                     $scope.id = localStorage.getItem('userId');
                     $location.path('/profile/' + $scope.id);
 
-                    var getUserEventsPromise = userService.getById($scope.id);
+                    var getUserEventsPromise = userService.getUserEvents($scope.id);
                     getUserEventsPromise.then(function(res) {
                         angular.forEach(res.data, function(value, key) {
                             localStorage.setItem(value.event, value.event);
