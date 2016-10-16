@@ -74,6 +74,7 @@
     position: relative;
     height: 400px;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding: 15px;
 }
 
@@ -100,6 +101,7 @@
     font-weight: 700;
     padding-left: 10px;
     margin-bottom: 5px;
+
 }
 
 .message__text {
@@ -139,7 +141,6 @@
 .message--mine {
     float: right;
     text-align: right;
-    
     .message__author {
         display: none;
     }
@@ -158,7 +159,7 @@
 }
 
 .send-wrapper {
-    background: $navbar-bg-color;
+    background: $lightBlue;
     padding: 2px;
     border: none;
     border-radius: 8px;
