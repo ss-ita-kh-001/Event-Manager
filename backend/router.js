@@ -311,14 +311,14 @@
               });
           });
 
-          app.post(apiPreff + "/subscribe/:user/:event", function(req, res) {
+          app.post(apiPreff + "/subscribe/:user/:event/", function(req, res) {
               subscribe.subscribe(req.params).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
                   res.status(500).send(error);
               });
           });
-          app.delete(apiPreff + "/unsubscribe/:user/:event", function(req, res) {
+          app.delete(apiPreff + "/unsubscribe/:user/:event/", function(req, res) {
               subscribe.unsubscribe(req.params).then(function() {
                   res.status(200).end();
               }).catch(function(error) {
@@ -352,6 +352,13 @@
               }).catch(function(error) {
                   res.status(500).send(error);
               })
+          });
+          app.get(apiPreff + "/users-events/:id", function(req, res) {
+              events.getEventByUser(req.params.id).then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
           });
           app.put(apiPreff + "/events/:id/", function(req, res) {
               events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
