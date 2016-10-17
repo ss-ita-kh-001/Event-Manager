@@ -8,6 +8,7 @@
 
     function userService($http, mainApiService, $location, $rootScope, flashService) {
         var service = {};
+        var userInfo;
 
         service.getAll = getAll;
         service.getById = getById;
@@ -20,6 +21,8 @@
         service.forgotPassword = forgotPassword;
         service.getByUserToken = getByUserToken;
         service.updatePassword = updatePassword;
+        service.setUserInfo = setUserInfo;
+        service.getUserInfo = getUserInfo;
 
         return service;
 
@@ -101,6 +104,16 @@
                     message: error
                 };
             };
+        }
+
+        //set and get information about current loged user 
+
+        function setUserInfo (user) {
+            userInfo = user;
+        }
+
+        function getUserInfo () {
+            return userInfo;
         }
     }
 
