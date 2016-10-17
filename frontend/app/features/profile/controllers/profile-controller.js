@@ -6,6 +6,10 @@
         userService.getById($routeParams.userID).then(function(res) {
             $scope.user = res[0];
         });
+        userService.getUserEvents($routeParams.userID).then(function (res) {
+            $scope.events = res.data;
+            console.log($scope.events);
+        });
         $scope.updateUserSend = function() {
             var user = $scope.user;
             var token = localStorage.getItem('satellizer_token');
