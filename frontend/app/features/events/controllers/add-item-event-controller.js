@@ -18,6 +18,7 @@
                 } );
             };
         };
+
         $scope.getCurrentUser();
       
         /**
@@ -95,12 +96,46 @@
         //opportunity to subscribe and invite friend to event
         $scope.subscribeOnEvent = function() {
             event.stopPropagation();
+        };
 
-        }
-
-        $scope.inviteFriend = function() {
+        $scope.inviteFriend = function(event, eventItem) {
             event.stopPropagation();  
+            userService.getAll().then(function (response) {
+                $scope.users = response;
+            }, rejected);
 
+
+            $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'inviteFriendForEvent.html',
+                scope: $scope,
+                controller: function ($uibModalInstance, $scope) {
+                    $scope.newInvitation = {
+                        userSender: userService.getUserInfo(),
+                        userReceiver: null,
+                        event: eventItem
+                    }
+
+                    $scope.getSelectedUser = function () {
+                        $scope.newInvitation.userReceiver = $scope.selectedFriend;
+                    };
+                   
+                    $scope.invite = function (invitation) {
+                        itemEventService.sendInvitation($scope.newInvitation).then(function (response) {
+                            // TODO: add user notification about success
+                            console.log(response);
+                        }, rejected);
+                        
+                        $uibModalInstance.close();
+                    };
+                    
+                    $scope.cancel = function () {
+                        $scope.newTnvitation = null;
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            });
         }
 
     }
