@@ -6,6 +6,9 @@ var events = function() {
     this.getByEvent = function(id) {
         return db.query("SELECT * FROM \"events\" WHERE \"id\" = " + id + ";");
     };
+    this.getEventByUser = function(id) {
+        return db.query("SELECT \"event\" FROM \"users_events\" WHERE \"user\" = " + id + ";");
+    };
     this.updateEvent = function(event) {
       var date = new Date(event.date);
       var dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();

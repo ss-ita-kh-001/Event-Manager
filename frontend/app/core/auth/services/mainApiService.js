@@ -18,16 +18,16 @@
 
         this.postMultipart = function(url, data) {
             return $http.post(baseUrl + url + '/', data, {
-              transformRequest: angular.identity,
-              headers: {
-                "Content-Type": undefined
-              }
+                transformRequest: angular.identity,
+                headers: {
+                    "Content-Type": undefined
+                }
             });
         };
 
         this.put = function(url, data) {
-            return $http.put(baseUrl + url, data);
-        };
+            return $http.put(baseUrl + url + '/', data);
+        }
     }
 
     mainApiService.$inject = ["$http", "baseUrl"];

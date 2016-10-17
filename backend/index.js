@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
-
+var nodemailer = require('nodemailer');
+var async = require("async");
 var http = require("http");
 var port = process.env.PORT || 5000;
 
