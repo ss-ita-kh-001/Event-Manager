@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "start": "heroku local web",
+    "start": "node backend/index.js",
     "postinstall": "bower install && gulp"
   },
   "repository": {
@@ -56,7 +56,9 @@
     "run-sequence": "^1.2.2",
     "serve-static": "^1.11.1",
     "ws": "^1.1.1",
-    "yargs": "^5.0.0"
+    "yargs": "^5.0.0",
+    "nodemailer": "^2.4.6",
+    "async": "^2.0.0"
   },
   "devDependencies": {
     "jasmine": "^2.5.1",

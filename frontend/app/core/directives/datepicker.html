@@ -1,0 +1,10 @@
+<div ng-cloak class="input-group">
+    <script type="text/ng-template" id="datepicker.html">
+        <div ng-transclude></div>
+    </script>
+
+        <input type="text" class="form-control"  uib-datepicker-popup="{{format}}" ng-model="event.date" is-open="popup.opened" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+</div>

@@ -29,3 +29,9 @@ input[type=file]~label {
     width: 50px;
     margin: 5px;
 }
+.input-group-btn{
+  .btn{
+    margin-top:0;
+    margin-bottom: 0;
+  }
+}
