@@ -407,7 +407,7 @@ var router = {
             }).catch(function(error) {
                 res.status(500).send(error);
             });
-        });s
+        });
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
