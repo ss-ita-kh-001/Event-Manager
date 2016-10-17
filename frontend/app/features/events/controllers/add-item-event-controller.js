@@ -7,7 +7,7 @@
             if (userService.getUserInfo()) {
                 $scope.currentUser = userService.getUserInfo();
                 return;
-            }            
+            }
             if(localStorage.getItem("userId")){
                 userService.getById(localStorage.getItem("userId"))
                 .then(function (response) {
@@ -20,7 +20,7 @@
         };
 
         $scope.getCurrentUser();
-      
+
         /**
         * Update event list.
         * Called when init controller and update button on click
@@ -99,7 +99,7 @@
         };
 
         $scope.inviteFriend = function(event, eventItem) {
-            event.stopPropagation();  
+            event.stopPropagation();
             userService.getAll().then(function (response) {
                 $scope.users = response;
             }, rejected);
@@ -120,16 +120,16 @@
                     $scope.getSelectedUser = function () {
                         $scope.newInvitation.userReceiver = $scope.selectedFriend;
                     };
-                   
+
                     $scope.invite = function (invitation) {
                         itemEventService.sendInvitation($scope.newInvitation).then(function (response) {
                             // TODO: add user notification about success
                             console.log(response);
                         }, rejected);
-                        
+
                         $uibModalInstance.close();
                     };
-                    
+
                     $scope.cancel = function () {
                         $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');

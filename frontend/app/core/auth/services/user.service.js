@@ -13,6 +13,7 @@
         service.getAll = getAll;
         service.getById = getById;
         service.getUserEvents = getUserEvents;
+        service.getUsersByEvent = getUsersByEvent;
         //  service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;
@@ -60,8 +61,12 @@
             return mainApiService.get('profile/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function getUserEvents (id) {
+        function getUserEvents(id) {
             return mainApiService.get("users-events/" + id)
+        }
+
+        function getUsersByEvent(id) {
+            return mainApiService.get("event-users/" + id)
         }
 
         function create(user) {
@@ -106,13 +111,13 @@
             };
         }
 
-        //set and get information about current loged user 
+        //set and get information about current loged user
 
-        function setUserInfo (user) {
+        function setUserInfo(user) {
             userInfo = user;
         }
 
-        function getUserInfo () {
+        function getUserInfo() {
             return userInfo;
         }
     }

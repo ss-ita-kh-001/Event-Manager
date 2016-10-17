@@ -9,6 +9,9 @@ var events = function() {
     this.getEventByUser = function(id) {
         return db.query("SELECT * FROM \"users_events\" INNER JOIN \"events\" ON \"users_events\".\"event\" = \"events\".\"id\" WHERE \"users_events\".\"user\" = " + id + ";");
     };
+    this.getUsersByEvent = function(id) {
+        return db.query("SELECT * FROM \"users_events\" INNER JOIN \"users\" ON \"users_events\".\"user\" = \"users\".\"id\" WHERE \"users_events\".\"event\" = " + id + ";");
+    };
     this.updateEvent = function(event) {
         return db.query("UPDATE \"events\" SET \"title\" = \'" + event.title +
             "\', \"desc\" = \'" + event.desc + "\', \"date\" = \'" + event.date +
