@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "start": "heroku local web",
+    "start": "node backend/index.js",
     "postinstall": "bower install && gulp"
   },
   "repository": {
