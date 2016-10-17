@@ -40,7 +40,7 @@ var path = {
         concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
             "frontend/app/config/run.js",
-            "frontend/app/features/navbar/navbarController.js",
+            "frontend/app/navbar.js",
             "frontend/app/core/auth/services/mainApiService.js",
             "frontend/app/core/auth/services/user.service.js",
             "frontend/app/core/auth/controllers/navbar-controller.js",
