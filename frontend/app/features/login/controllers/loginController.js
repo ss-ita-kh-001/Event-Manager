@@ -10,6 +10,7 @@
             $auth.login($scope.user)
                 .then(function(res) {
                     console.log('You have logged in');
+                    userService.setUserInfo(res.data.user);  //write information about current loged user to userService
                     localStorage.setItem('userId', res.data.user.id);
                     localStorage.setItem('fullName', res.data.user.full_name);
                     $scope.id = localStorage.getItem('userId');
