@@ -2,11 +2,31 @@
   var events = new(require("./features/database/events"));
   var games = new(require("./features/database/games"));
   var users = new(require("./features/database/users"));
+  var media = new(require("./features/database/media"));
   var subscribe = new(require("./features/database/subscribe"));
   var auth = new(require("./features/database/auth"));
   var config = require("./features/database/config");
   var jwt = require('jwt-simple');
   var moment = require('moment');
+  var mime = require("mime-types");
+  var multer = require("multer");
+  var eventStorage = multer.diskStorage({
+      destination: function(req, file, cb) {
+          cb(null, "./src/img/events");
+      },
+      filename: function(req, file, cb) {
+          var filename = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+          for (var i = 0; i < 20; i++) {
+              filename += possible.charAt(Math.floor(Math.random() * possible.length));
+          }
+          cb(null, filename + '.' + mime.extension(file.mimetype));
+          console.log(mime.extension(file.mimetype));
+      }
+  });
+  var uploadEvent = multer({
+      storage: eventStorage
+  });
   var apiPreff = "/api";
   var async = require("async");
   var crypto = require('crypto');
@@ -381,14 +401,18 @@
                   res.status(500).send(error);
               });
           });
-          app.post(apiPreff + "/events", function(req, res) {
+          app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
               events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
                   events.getLastId().then(function(data) {
+                      for (var i = 0; i < req.files.length; i++) {
+                          media.add(req.files[i].filename, "image", data[0].id).then(function() {}).catch(function(error) {
+                              console.log(error);
+                          });
+                      }
                       res.status(200).send(data);
                   }).catch(function(error) {
                       res.status(500).send(error);
                   });
-
               }).catch(function(error) {
                   res.status(500).send(error);
               });
@@ -398,6 +422,20 @@
                   res.status(200).end();
               }).catch(function(error) {
                   res.status(500).send(error);
+              });
+          });
+          app.get(apiPreff + "/media/:event", function(req, res) {
+              media.getByEvent(req.params.event).then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  console.log(error);
+              });
+          });
+          app.get(apiPreff + "/media", function(req, res) {
+              media.getAll().then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  console.log(error);
               });
           });
           app.get('*', function(req, res) {

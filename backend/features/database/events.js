@@ -10,13 +10,17 @@ var events = function() {
         return db.query("SELECT * FROM \"users_events\" INNER JOIN \"events\" ON \"users_events\".\"event\" = \"events\".\"id\" WHERE \"users_events\".\"user\" = " + id + ";");
     };
     this.updateEvent = function(event) {
+        var date = new Date(event.date);
+        var dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         return db.query("UPDATE \"events\" SET \"title\" = \'" + event.title +
-            "\', \"desc\" = \'" + event.desc + "\', \"date\" = \'" + event.date +
+            "\', \"desc\" = \'" + event.desc + "\', \"date\" = \'" + dateString +
             "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + (event.type === "game" ? true : false) + " WHERE \"id\" = " + event.id + ";");
     };
     this.addEvent = function(event) {
+        var date = new Date(event.date);
+        var dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         return db.query("INSERT INTO \"events\"(\"title\", \"desc\", \"date\", \"place\", \"isGame\") " +
-            "VALUES(\'" + event.title + "\', \'" + event.desc + "\', \'" + event.date +
+            "VALUES(\'" + event.title + "\', \'" + event.desc + "\', \'" + dateString +
             "\', \'" + event.place + "\', " + (event.type === "game" ? true : false) + ");");
     };
     this.deleteEventById = function(id) {
