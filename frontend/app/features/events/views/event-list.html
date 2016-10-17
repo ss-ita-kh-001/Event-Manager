@@ -40,7 +40,7 @@
                     <td>
                         <button ng-if = "currentUser.role === 'admin'" class="btn btn-primary full-width" ng-click="editEvent(eventItem.id)">Edit event</button>
                         <button ng-if = "currentUser.role === 'admin'" class="btn btn-danger full-width" ng-click="openDeleteModal($event, eventItem, $index)">Delete event</button>
-                        <button ng-if = "currentUser.role === 'user'" class="btn btn-warning full-width" ng-click="subscribeOnEvent($event)">Subscribe</button>
+                        <!-- <button ng-if = "currentUser.role === 'user'" class="btn btn-warning full-width" ng-click="subscribeOnEvent($event)">Subscribe</button> -->
                         <button ng-if = "currentUser.role === 'user'" class="btn btn-info full-width" ng-click="inviteFriend($event, eventItem)">Invite friend</button>
                     </td>
                 </tr>
