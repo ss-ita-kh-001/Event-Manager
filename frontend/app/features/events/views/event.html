@@ -23,8 +23,8 @@
                   <hr/>
                     <h4 ng-hide="userList[0].id == UserId">Will take part:</h4>
                     <h4 ng-show="userList[0].id == UserId">You are first, who will take part in event</h4>
-                    <ul ng-repeat="user in userList">
-                        <li ng-show="user.id != UserId">{{user.full_name}}</li>
+                    <ul>
+                        <li  ng-repeat="user in userList" ng-show="user.id != UserId">{{user.full_name}}</li>
                     </ul>
                 </div>
             </div>
