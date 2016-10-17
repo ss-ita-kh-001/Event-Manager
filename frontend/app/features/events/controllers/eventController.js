@@ -1,18 +1,64 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $routeParams, localStorageService) {
+    function eventController($scope, $routeParams, eventService, $rootScope, userService) {
 
-          $scope.path = $routeParams.id;
-          $scope.events = JSON.parse(localStorageService.get('events'))
-          $scope.eventNotFound = false;
+        $scope.isSubscribe;
+        $scope.id = $routeParams.id;
+        $scope.UserId = localStorage.getItem("userId");
 
-          angular.forEach($scope.events, function(event,  path ){
-           if(event.id == $scope.path){
-             $scope.event = event;
-           }
-         });
+        if (localStorage.getItem($scope.id)) {
+            $scope.isSubscribe = true;
+        }
+
+        var getEventPromise = eventService.getEvent($scope.id);
+        getEventPromise.then(function(res) {
+            $scope.event = res.data[0];
+            $scope.search()
+        }, function(error) {
+            console.log('Error: ' + error);
+        });
+
+        $scope.search = function() {
+            $scope.apiError = false;
+            $rootScope.search($scope.event.place)
+                .then(function(res) { // success
+                        $rootScope.addMarker(res);
+                    },
+                    function(status) { // error
+                        $scope.apiError = true;
+                        $scope.apiStatus = status;
+                    }
+                );
+        };
+
+        $scope.subscribe = function() {
+            eventService.subscribe(Object.assign({
+                    event: $scope.id,
+                    user: $scope.UserId
+                }))
+                .then(function(res) {
+                    $scope.isSubscribe = true;
+                    localStorage.setItem($scope.id, $scope.id);
+                }, function(error) {
+                    console.log('Error: ' + error);
+                });
+        }
+
+        $scope.unSubscribe = function() {
+            eventService.unsubscribe(Object.assign({
+                    event: $scope.id,
+                    user: $scope.UserId
+                }))
+                .then(function(res) {
+                    $scope.isSubscribe = false;
+                    localStorage.removeItem($scope.id);
+                }, function(error) {
+                    console.log('Error: ' + error);
+                });
+        }
+
 
     }
-    eventController.$inject = ["$scope","$routeParams", "localStorageService"]
+    eventController.$inject = ["$scope", "$routeParams", "em.events.eventService", "$rootScope", "userService"]
 })();

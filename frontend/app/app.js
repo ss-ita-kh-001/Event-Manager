@@ -1,14 +1,15 @@
 (function() {
     angular.module("em", [
         "ngRoute",
-        "LocalStorageModule",
         "em.main",
         "em.chat",
         "em.profile",
         "em.users",
         "em.register",
         "em.login",
-        'ngAnimate',
+        "em.forgot",
+        "em.reset",
+        "ngAnimate",
         "ui.bootstrap",
         "em.addEvent",
         "em.editEvent",
@@ -16,6 +17,8 @@
         "em.result-table",
         "ngCookies",
         "ngSanitize",
-        "luegg.directives"
+        "luegg.directives",
+        "satellizer",
+        "wt.responsive"
     ]);
 })();

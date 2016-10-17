@@ -7,9 +7,9 @@
         }
 
         this.deleteEvent = function (id) {
-            return mainApiService.delete('events/event/' + id)
+            return mainApiService.delete('events/' + id)
         }
     }
-
+    
     itemEventService.$inject = ["em.mainApiService"];
 })();

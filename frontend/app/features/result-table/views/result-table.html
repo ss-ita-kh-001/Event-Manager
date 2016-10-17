@@ -1,44 +1,126 @@
 <div class="container">
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <caption>Chess game score</caption>
-            <thead>
-            <tr>
-                <th ng-click="sortData('name')">Name
-                    <div class ='glyphicon static' ng-class="(sortColoumn==='name')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th ng-click="sortData('DateOfBirth')">Date of Birth
-                    <div class ='glyphicon static' ng-class="(sortColoumn==='DateOfBirth')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th ng-click="sortData('descr')">Description
-                    <div class ='glyphicon static' ng-class="(sortColoumn==='descr')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th ng-click="sortData('win')">Win
-                    <div class ='glyphicon static' ng-class="(sortColoumn==='win')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th ng-click="sortData('lose')">Lose
-                    <div class ='glyphicon static' ng-class="(sortColoumn==='lose')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th ng-click="sortData('draw')">Draw
-                    <div class ='glyphicon static' ng-class="(sortColoumn==='draw')? reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="player in players | orderBy:sortColoumn:reverseSort ">
-                <td>{{ player.name }}</td>
-                <td>{{ player.DateOfBirth | date }}</td>
-                <td>{{ player.descr }}</td>
-                <td>{{ player.win }}</td>
-                <td>{{ player.lose }}</td>
-                <td>{{ player.draw }}</td>
-            </tr>
-            </tbody>
-        </table>
+    <h2>Game results</h2>
+    <select ng-options="game as game.title for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
+    </select>
+    <div  class="panel panel-info">
+        <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
     </div>
-
-</div>
-</tr>
-</tbody>
-</table>
+    <table class="table table-hover responsive" wt-responsive-table>
+        <thead>
+            <tr>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('full_name',0)">Player full name
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'full_name')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('wins',0)">Wins
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'wins')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('loses',0)">Loses
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'loses')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',0)">Draws
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'draws')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="player in playersList | orderBy:sortState[0].sortColoumn:sortState[0].reverseSort">
+                <td>
+                    <div ng-show="{{player.id}} != upRes.id">
+                        {{ player.full_name}}
+                    </div>
+                    <select ng-show="{{player.id}} == upRes.id" ng-options="updatingParticipant as updatingParticipant.full_name for updatingParticipant in updatingParticipantsList track by updatingParticipant.id" ng-model="upRes.selectedParticipant" class="form-control input-lg" required>
+                    </select>
+                </td>
+                <td>
+                    <div ng-show="{{player.id}} != upRes.id">
+                        {{ player.wins }}
+                    </div>
+                    <input type="number" min="0" class="form-control" name="wins" required
+                       ng-model="upRes.wins"  ng-show="{{player.id}} == upRes.id"  placeholder="Number of wins" >
+                </td>
+                <td>
+                    <div ng-show="{{player.id}}!= upRes.id">
+                        {{ player.loses }}
+                    </div>
+                    <input type="number" min="0" class="form-control" name="loses" required
+                       ng-model="upRes.loses" ng-show="{{player.id}} == upRes.id" placeholder="Number of looses" >
+                </td>
+                <td>
+                    <div ng-show="{{player.id}} != upRes.id">
+                        {{ player.draws }}
+                    </div>
+                    <input type="number" min="0" class="form-control" name="draws" required
+                       ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" >
+                </td>
+                <td>
+                    <button ng-click="updateResult(player.id)" type="button" class="btn btn-info btn-xs glyphicon glyphicon-pencil"></button>
+                    <button ng-click="deleteGameResById(player.id)" ng-show="{{player.id}} != upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                    <button ng-click="cancelUpdate()" ng-show="{{player.id}} == upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
+                </td>
+            </tr>
+            <ng-form name="addGameResult" novalidate>
+            <tr>
+                <td>
+                    <select ng-options="participant as participant.full_name for participant in participantsList track by participant.id" ng-model="newGameRes.selectedParticipant" ng-disabled="participantsList.length == 0" class="form-control input-lg" required>
+                    </select>
+                </td>
+                <td>
+                    <input type="number"  min="0" class="form-control" name="wins" required
+                           ng-disabled="participantsList.length == 0"
+                           ng-model="newGameRes.wins"  placeholder="Number of wins" >
+                </td>
+                <td>
+                    <input type="number" min="0" class="form-control" name="loses" required
+                           ng-disabled="participantsList.length == 0"
+                           ng-model="newGameRes.loses"  placeholder="Number of looses" >
+                </td>
+                <td>
+                    <input type="number"  min="0" class="form-control" name="draws" required
+                           ng-disabled="participantsList.length == 0"
+                           ng-model="newGameRes.draws" placeholder="Number of draws" >
+                </td>
+                <td>
+                    <button ng-click="addGameRes()" ng-disabled="participantsList.length == 0" type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
+                </td>
+            </tr>
+             </ng-form>
+        </tbody>
+    </table>
+    <h2>User results</h2>
+    <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-disabled="allPlayers.length==0" ng-change="selectPlayer()" class="form-control input-lg">
+    </select>
+    <table class="table table-hover responsive" wt-responsive-table>
+        <thead>
+            <tr>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('date',1)">Game date
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'date')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('place',1)">Game location
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'place')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('title',1)">Event title
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'title')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('wins',1)">Wins
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'wins')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('loses',1)">Loses
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'loses')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',1)">Draws
+                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'draws')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="usersGame in usersGameList | orderBy:sortState[1].sortColoumn:sortState[1].reverseSort ">
+                <td>{{ usersGame.date | date : format : timezone}}</td>
+                <td>{{ usersGame.place}}</td>
+                <td>{{ usersGame.title }}</td>
+                <td>{{ usersGame.wins}}</td>
+                <td>{{ usersGame.loses }}</td>
+                <td>{{ usersGame.draws }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

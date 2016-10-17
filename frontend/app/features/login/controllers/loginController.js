@@ -2,26 +2,34 @@
 
     angular.module('em.login').controller('em.login.loginController', loginController);
 
-    function loginController($scope, $location, authenticationService, flashService) {
+    function loginController($scope, $location, authenticationService, flashService, userService, $auth, $rootScope) {
 
         $scope.login = function() {
             $scope.dataLoading = true;
-            authenticationService.logIn($scope.user.email, $scope.user.password, function(response) {
-                if (response.success) {
-                    authenticationService.setCredentials($scope.user.email, $scope.user.password);
-                    var users = JSON.parse(localStorage.users);
-                    var id;
-                    for (var i = 0; i < users.length; i++) {
-                        if (users[i].email == $scope.user.email) {
-                            id = users[i].id;
-                        }
-                    }
-                    $location.path('/profile/' + id);
-                } else {
-                    flashService.error(response.message);
+
+            $auth.login($scope.user)
+                .then(function(res) {
+                    console.log('You have logged in');
+                    localStorage.setItem('userId', res.data.user.id);
+                    localStorage.setItem('fullName', res.data.user.full_name);
+                    $scope.id = localStorage.getItem('userId');
+                    $location.path('/profile/' + $scope.id);
+
+                    var getUserEventsPromise = userService.getUserEvents($scope.id);
+                    getUserEventsPromise.then(function(res) {
+                        angular.forEach(res.data, function(value, key) {
+                            localStorage.setItem(value.event, value.event);
+                        });
+                    }, function(error) {
+                        console.log('Error: ' + error);
+                    });
+                })
+                .catch(function(error) {
+                    flashService.error('Wrong email or password', false);
                     $scope.dataLoading = false;
-                }
-            });
+                });
+
+
         };
         $scope.reset = function() {
             authenticationService.clearCredentials();
