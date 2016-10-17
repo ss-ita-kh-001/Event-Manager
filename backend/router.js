@@ -407,14 +407,7 @@ var router = {
             }).catch(function(error) {
                 res.status(500).send(error);
             });
-        });
-        app.get(apiPreff + "/users-events/:id", function(req, res) {
-            events.getEventByUser(req.params.id).then(function(data) {
-                res.status(200).send(data);
-            }).catch(function(error) {
-                res.status(500).send(error);
-            });
-        });
+        });s
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
