@@ -8,6 +8,9 @@
         this.getEventsGames = function(){
             return mainApiService.get('games');
         };
+        this.getGamesForUsers = function (){
+            return mainApiService.get('games/results');
+        };
         this.getAllPlayers = function () {
             return mainApiService.get('games/users');
         };

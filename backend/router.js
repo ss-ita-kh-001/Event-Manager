@@ -249,6 +249,14 @@
                   res.status(500).send(error);
               });
           });
+          app.get(apiPreff + "/games/results", function(req, res) {
+              games.getGamesForUserAcc().then(function(data) {
+                  res.status(200).send(data);
+              }).catch(function(error) {
+                  res.status(500).send(error);
+              });
+          });
+          
           app.get(apiPreff + "/games/users", function(req, res) {
               games.getPlayers().then(function(data) {
                   res.status(200).send(data);
