@@ -184,6 +184,7 @@ var router = {
         app.get(apiPreff + "/profile/:id", function(req, res) {
             users.getUserById(req.params.id).then(function(data) {
                 res.status(200).send(data);
+
               }).catch(function(error) {
                   res.status(500).send(error);
               });
@@ -198,11 +199,12 @@ var router = {
           app.get(apiPreff + "/participants/event/:event/game/:game", function(req, res) {
               games.getUpdatingParticipantsByGame(req.params.event,req.params.game).then(function(data) {
                   res.status(200).send(data);
+
               }).catch(function(error) {
                   res.status(500).send(error);
               });
           });
-          app.post(apiPreff + "/users", function(req, res) {
+        app.post(apiPreff + "/users", function(req, res) {
               // hash psw
             req.body.password = auth.hashData(req.body.password);
 
@@ -413,6 +415,7 @@ var router = {
                 subject: 'invite for ' + req.body.event.title,
                 text: 'Your friend ' + req.body.userSender.full_name + ' wants to invite you on ' + req.body.event.title + 
                     ' detailed information about it you can find:\n\n' + 'http://' + req.headers.host + '/events/' + req.body.event.id
+
             };
 
             smtpTransport.sendMail(mailOptions, function(error, info) {
