@@ -7,7 +7,7 @@ var events = function() {
         return db.query("SELECT * FROM \"events\" WHERE \"id\" = " + id + ";");
     };
     this.getEventByUser = function(id) {
-        return db.query("SELECT \"event\" FROM \"users_events\" WHERE \"user\" = " + id + ";");
+        return db.query("SELECT \"event\" FROM \"users_events\" INNER JOIN \"events\" ON users_events.id = events.id"  + ";");
     };
     this.updateEvent = function(event) {
         return db.query("UPDATE \"events\" SET \"title\" = \'" + event.title +
