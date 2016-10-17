@@ -76,9 +76,9 @@
         <!-- Small Chat -->
         <div ng-cloak ng-if="chatOnTop" class="chat-on-top" ng-controller="em.chat.chatController">
           <div class="">
-
+            <span class="collapse-area" ng-click="isCollapsed = !isCollapsed"></span>
             <a  href="" class="close-cross" ng-click="closeSmallChat()"></a>
-              <div class="chat-window">
+              <div class="chat-window collapse" uib-collapse="isCollapsed">
                   <div scroll-glue class="chat-body">
                       <ul class="messages">
                           <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">

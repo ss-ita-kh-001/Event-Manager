@@ -19,8 +19,8 @@
     }
 }
 
-.chat-header,
-.chat-footer {
+.chat-footer,
+.chat-header {
     border-top: 1px solid $borderColor;
     background-color: $bgLight;
     text-align: center;
@@ -40,6 +40,7 @@
 .chat-header__author {
     font-weight: 700;
     font-size: 18px;
+
     input {
         border: none;
         box-shadow: 0 0 10px -5px #000;
@@ -57,9 +58,11 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+
     div {
         padding: 2px;
     }
+
     textarea {
         width: 100%;
         padding: 10px;
@@ -102,7 +105,6 @@
     font-weight: 700;
     padding-left: 10px;
     margin-bottom: 5px;
-
 }
 
 .message__text {
@@ -142,13 +144,16 @@
 .message--mine {
     float: right;
     text-align: right;
+
     .message__author {
         display: none;
     }
+
     .message__text {
         background-color: $bgDeep;
-        border-color: lighten($borderColor, 15%)
+        border-color: lighten($borderColor, 15%);
     }
+
     .message__text::before {
         top: auto;
         bottom: 10px;
@@ -166,6 +171,7 @@
     border-radius: 8px;
     margin: 5px auto;
     box-shadow: 0 3px 15px -5px #000;
+
     &:active,
     &:focus {
         outline: none;
@@ -178,10 +184,11 @@
     height: 100%;
     line-height: 46px;
     text-align: center;
-    background: url(../img/send-icon.png) no-repeat center center;
+    background: url("../img/send-icon.png") no-repeat center center;
     border: none;
-    transition: all .3s;
+    transition: all 0.3s;
     position: relative;
+
     &:active,
     &:focus {
         outline: none;
@@ -190,35 +197,56 @@
 }
 
 .chat-on-top {
-  position: fixed;
-  bottom: 0;
-  right: 20px;
-  width: 300px;
-  z-index: 1;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 300px;
+    z-index: 1;
 }
 
 .close-cross {
-  position: absolute;
-  right: 0;
-  top: -32px;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
+    position: absolute;
+    right: 0;
+    top: -32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    background: #fff;
 }
+
 .close-cross:hover {
-  opacity: 1;
+    opacity: 1;
 }
-.close-cross:before, .close-cross:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: #333;
-}
+
+.close-cross:after,
 .close-cross:before {
-  transform: rotate(45deg);
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
 }
+
+.close-cross:before {
+    transform: rotate(45deg);
+}
+
 .close-cross:after {
-  transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.collapse-area {
+  position: absolute;
+  left: 0;
+  top: -32px;
+  width: 271px;
+  height: 32px;
+  cursor: pointer;
+  background: #E6C999;
+  border-radius: 7px;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
 }
