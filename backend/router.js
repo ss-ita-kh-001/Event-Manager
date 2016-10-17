@@ -412,7 +412,7 @@ var router = {
                 from: 'event.manager.notification@gmail.com',
                 subject: 'invite for ' + req.body.event.title,
                 text: 'Your friend ' + req.body.userSender.full_name + ' wants to invite you on ' + req.body.event.title + 
-                    ' detailed information about it you can find:'
+                    ' detailed information about it you can find:\n\n' + 'http://' + req.headers.host + '/events/' + req.body.event.id
             };
 
             smtpTransport.sendMail(mailOptions, function(error, info) {

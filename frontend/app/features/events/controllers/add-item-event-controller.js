@@ -18,6 +18,7 @@
                 } );
             };
         };
+        
         $scope.getCurrentUser();
       
         /**
@@ -95,34 +96,49 @@
         //opportunity to subscribe and invite friend to event
         $scope.subscribeOnEvent = function() {
             event.stopPropagation();
+        };
 
-        }
-
-        $scope.inviteFriend = function() {
+        $scope.inviteFriend = function(event, eventItem) {
             event.stopPropagation();  
-            $scope.users = userService.getAll();
-            console.log($scope.users);
+            userService.getAll().then(function (response) {
+                $scope.users = response;
+            }, rejected);
 
-            // $scope.currentEventTitle = eventItem.title;
+
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'inviteFriendForEvent.html',
                 scope: $scope,
                 controller: function ($uibModalInstance, $scope) {
-                    $scope.invite = function () {
-                        $uibModalInstance.close();
-                        // $scope.currentEventTitle = null;
-                        // $scope.deleteEventItem(eventItem.id, index);
+                    $scope.newInvitation = {
+                        userSender: userService.getUserInfo(),
+                        userReceiver: null,
+                        event: eventItem
+                    }
+
+                    $scope.getSelectedUser = function () {
+                        $scope.newInvitation.userReceiver = $scope.selectedFriend;
                     };
+                   
+                    $scope.invite = function (invitation) {
+                        itemEventService.sendInvitation($scope.newInvitation).then(function (response) {
+                            // TODO: add user notification about success
+                            console.log(response);
+                        }, rejected);
+                        
+                        $uibModalInstance.close();
+                    };
+                    
                     $scope.cancel = function () {
-                        $scope.currentEventTitle = null;
+                        $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');
                     };
                 }
             });
-
         }
+       
+
 
     }
 
