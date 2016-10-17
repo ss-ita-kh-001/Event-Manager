@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="em">
+<html ng-app="em" ng-controller="em.navnavbarController">
 
 <head>
     <meta charset="utf-8">
@@ -50,16 +50,16 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div ng-controller="em.navbarController" class="collapse navbar-collapse" uib-collapse="!isCollapsed">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="/">Main<span class="sr-only">(current)</span></a></li>
-                            <li><a href="events">Events</a></li>
-                            <li><a href="users">Users</a></li>
-                            <li><a href="results">Results</a></li>
+                            <li class="active"><a href="/" ng-click="activate($event);">Main<span class="sr-only">(current)</span></a></li>
+                            <li><a href="events" ng-click="activate($event);">Events</a></li>
+                            <li><a href="users" ng-click="activate($event);">Users</a></li>
+                            <li><a href="results" ng-click="activate($event);">Results</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ng-cloak ng-if="isAuthenticated()"><a href="chat">Chat</a></li>
-                            <li ng-cloak ng-if="isAuthenticated()"><a href="profile/{{id}}" ng-click="getId()">My Profile</a></li>
-                            <li ng-cloak ng-if="!isAuthenticated()"><a href="login">Login</a></li>
-                            <li ng-cloak ng-if="isAuthenticated()"><a href="logout">Logout</a></li>
+                            <li ng-cloak ng-if="isAuthenticated()" ng-click="activate($event);"><a href="chat">Chat</a></li>
+                            <li ng-cloak ng-if="isAuthenticated()" ng-click="activate($event);"><a href="profile/{{id}}" ng-click="getId()">My Profile</a></li>
+                            <li ng-cloak ng-if="!isAuthenticated()" ng-click="activate($event);"><a href="login">Login</a></li>
+                            <li ng-cloak ng-if="isAuthenticated()" ng-click="activate($event);"><a href="logout">Logout</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
