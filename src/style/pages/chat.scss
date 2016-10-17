@@ -76,6 +76,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 15px;
+    background: #fff;
 }
 
 .messages {
@@ -186,4 +187,12 @@
         outline: none;
         box-shadow: none;
     }
+}
+
+.chat-on-top {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 300px;
+  z-index: 1;
 }
