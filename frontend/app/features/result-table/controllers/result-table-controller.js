@@ -7,6 +7,7 @@
         $scope.getCurrentUser = function () {
             if (userService.getUserInfo()) {
                 $scope.currentUser = userService.getUserInfo();
+                console.log($scope.currentUser);
                 return;
             }
             if(localStorage.getItem("userId")){
@@ -173,6 +174,9 @@
         function rejected (error) {
             console.log('Error: ' + error.data.status);
         }
+
+        $scope.getCurrentUser();
+        console.log("current user");
         if($scope.currentUser  !== 'admin'){
             $scope.gamesList = gamesForUsers.data;
         }else{
@@ -204,6 +208,8 @@
             {sortColoumn: 'full_name',reverseSort: false},
             {sortColoumn: 'date', reverseSort: false}
         ];
+        console.log($scope.currentUser);
+
     }
 
     resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "userService", "gamesForUsers"];

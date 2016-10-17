@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Game results</h2>
-    <select ng-options="game as game.title for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
+    <select ng-options="game as (game.date | date : format : timezone) + ' ' + game.place + ' ' + game.title  for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
     </select>
     <div  class="panel panel-info">
         <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
@@ -56,37 +56,37 @@
                        ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" required>
                 </td>
                 <td>
-                    <button ng-if = "currentUser.role !== 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
+                    <button ng-if = "currentUser.role == 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
                             ng-disabled="({{player.id}} == upRes.id) && editForm{{player.id}}.$invalid"
                             ng-class="({{player.id}} != upRes.id) ? 'btn-info glyphicon-pencil' : 'btn-success glyphicon-ok'"></button>
-                    <button ng-if = "currentUser.role !== 'admin'" ng-click="deleteGameResById(player.id)" ng-show="{{player.id}} != upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
-                    <button ng-if = "currentUser.role !== 'admin'" ng-click="cancelUpdate()" ng-show="{{player.id}} == upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
+                    <button ng-if = "currentUser.role == 'admin'" ng-click="deleteGameResById(player.id)" ng-show="{{player.id}} != upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                    <button ng-if = "currentUser.role == 'admin'" ng-click="cancelUpdate()" ng-show="{{player.id}} == upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
                 </td>
             </tr>
             <tr ng-form="addGameResult">
                 <td>
-                    <select ng-if = "currentUser.role !== 'admin'"
+                    <select ng-if = "currentUser.role == 'admin'"
                             ng-options="participant as participant.full_name for participant in participantsList track by participant.id"
                             ng-model="newGameRes.selectedParticipant" ng-disabled="participantsList.length == 0" class="form-control input-lg">
                     </select>
                 </td>
                 <td>
-                    <input ng-if = "currentUser.role !== 'admin'" type="number"  min="0" class="form-control" name="wins" required
+                    <input ng-if = "currentUser.role == 'admin'" type="number"  min="0" class="form-control" name="wins" required
                            ng-disabled="participantsList.length == 0 " ng-minlength="1"
                            ng-model="newGameRes.wins"  placeholder="Number of wins">
                 </td>
                 <td>
-                    <input ng-if = "currentUser.role !== 'admin'" type="number" min="0" class="form-control" name="loses" required
+                    <input ng-if = "currentUser.role == 'admin'" type="number" min="0" class="form-control" name="loses" required
                            ng-disabled="participantsList.length == 0"
                            ng-model="newGameRes.loses"  placeholder="Number of looses" >
                 </td>
                 <td>
-                    <input ng-if = "currentUser.role !== 'admin'" type="number"  min="0" class="form-control" name="draws" required
+                    <input ng-if = "currentUser.role == 'admin'" type="number"  min="0" class="form-control" name="draws" required
                            ng-disabled="participantsList.length == 0"
                            ng-model="newGameRes.draws" placeholder="Number of draws" >
                 </td>
                 <td>
-                    <button ng-if = "currentUser.role !== 'admin'" ng-model="newGameRes.save"
+                    <button ng-if = "currentUser.role == 'admin'" ng-model="newGameRes.save"
                             ng-click="addGameRes()"
                             ng-disabled="participantsList.length == 0 || (addGameResult.$invalid)" type="submit"
                             class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
