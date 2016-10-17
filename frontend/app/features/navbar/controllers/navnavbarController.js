@@ -7,7 +7,6 @@
             $scope.prev.classList.remove("active");
             $scope.prev = event.target.parentNode;
             $scope.prev.classList.add("active");
-            $scope.isCollapsed = !$scope.isCollapsed
         }
     }
     navnavbarController.$inject = ["$scope"];
