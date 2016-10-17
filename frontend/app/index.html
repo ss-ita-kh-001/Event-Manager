@@ -74,9 +74,10 @@
             <div ng-view></div>
         </div>
         <!-- Small Chat -->
-        <div ng-if="chatOnTop" class="chat-on-top" ng-controller="em.chat.chatController">
+        <div ng-cloak ng-if="chatOnTop" class="chat-on-top" ng-controller="em.chat.chatController">
           <div class="">
-            <button type="button" name="button" class="btn" ng-click="closeSmallChat()">Close chat</button>
+
+            <a  href="" class="close-cross" ng-click="closeSmallChat()"></a>
               <div class="chat-window">
                   <div scroll-glue class="chat-body">
                       <ul class="messages">
