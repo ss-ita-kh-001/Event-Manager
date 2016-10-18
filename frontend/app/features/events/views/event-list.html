@@ -33,7 +33,7 @@
                     </span>
                 </div>
 
-                <tr ng-repeat="eventItem in events | filter: searchKeyword | orderBy:sortColoumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
+                <tr ng-repeat="eventItem in events | filter: searchKeyword | orderBy:sortColumn:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
                     <td>{{eventItem.title}}</td>
                     <td>{{eventItem.date | date:'dd.MM.yyyy'}}</td>
                     <td>{{eventItem.desc}}</td>
