@@ -34,6 +34,14 @@
                 flashService.error('Please, enter something', false);
             }
         };
+        $scope.isChatOnTop = function() {
+          $rootScope.chatOnTop = true;
+          $scope.id = localStorage.getItem('userId');
+          $location.path("/profile/" + $scope.id);
+        };
+        $scope.closeSmallChat = function() {
+          $rootScope.chatOnTop = false;
+        };
         // new messages
         $scope.live = chatService.live;
 

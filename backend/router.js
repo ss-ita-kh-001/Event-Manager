@@ -96,8 +96,8 @@ var router = {
                     var smtpTransport = nodemailer.createTransport({
                         service: 'Gmail',
                         auth: {
-                          user: 'event.manager.notification@gmail.com',
-                          pass: 'ss-ita-kh-001'
+                            user: 'event.manager.notification@gmail.com',
+                            pass: 'ss-ita-kh-001'
                         }
                     });
                     var mailOptions = {
@@ -185,27 +185,27 @@ var router = {
             users.getUserById(req.params.id).then(function(data) {
                 res.status(200).send(data);
 
-              }).catch(function(error) {
-                  res.status(500).send(error);
-              });
-          });
-          app.get(apiPreff + "/participants/game/:id", function(req, res) {
-              games.getParticipantsByGame(req.params.id).then(function(data) {
-                  res.status(200).send(data);
-              }).catch(function(error) {
-                  res.status(500).send(error);
-              });
-          });
-          app.get(apiPreff + "/participants/event/:event/game/:game", function(req, res) {
-              games.getUpdatingParticipantsByGame(req.params.event,req.params.game).then(function(data) {
-                  res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+        app.get(apiPreff + "/participants/game/:id", function(req, res) {
+            games.getParticipantsByGame(req.params.id).then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+        app.get(apiPreff + "/participants/event/:event/game/:game", function(req, res) {
+            games.getUpdatingParticipantsByGame(req.params.event, req.params.game).then(function(data) {
+                res.status(200).send(data);
 
-              }).catch(function(error) {
-                  res.status(500).send(error);
-              });
-          });
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.post(apiPreff + "/users", function(req, res) {
-              // hash psw
+            // hash psw
             req.body.password = auth.hashData(req.body.password);
 
             users.addUser(req.body).then(function() {
@@ -341,6 +341,13 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        app.get(apiPreff + "/users-events/:id", function(req, res) {
+            events.getEventByUser(req.params.id).then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.get(apiPreff + "/events/latest", function(req, res) {
             events.getLatest().then(function(data) {
                 res.status(200).send(data);
@@ -369,6 +376,13 @@ var router = {
                 res.status(500).send(error);
             })
         });
+        app.get(apiPreff + "/event-users/:id", function(req, res) {
+            events.getUsersByEvent(req.params.id).then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.put(apiPreff + "/events/:id/", function(req, res) {
             events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
                 res.status(200).end();
@@ -394,13 +408,6 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/users-events/:id", function(req, res) {
-            events.getEventByUser(req.params.id).then(function(data) {
-                res.status(200).send(data);
-            }).catch(function(error) {
-                res.status(500).send(error);
-            });
-        });
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
@@ -420,16 +427,18 @@ var router = {
                 to: req.body.userReceiver.email,
                 from: 'event.manager.notification@gmail.com',
                 subject: 'invite for ' + req.body.event.title,
-                text: 'Your friend ' + req.body.userSender.full_name + ' wants to invite you on ' + req.body.event.title + 
+                text: 'Your friend ' + req.body.userSender.full_name + ' wants to invite you on ' + req.body.event.title +
                     ' detailed information about it you can find:\n\n' + 'http://' + req.headers.host + '/events/' + req.body.event.id
 
             };
 
             smtpTransport.sendMail(mailOptions, function(error, info) {
-                if(error){
+                if (error) {
                     return console.log(error);
                 }
-                res.status(200).send({'message': 'Invitation was successfully sent!'});
+                res.status(200).send({
+                    'message': 'Invitation was successfully sent!'
+                });
             });
 
         });
