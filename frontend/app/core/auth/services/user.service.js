@@ -8,10 +8,12 @@
 
     function userService($http, mainApiService, $location, $rootScope, flashService) {
         var service = {};
+        var userInfo;
 
         service.getAll = getAll;
         service.getById = getById;
         service.getUserEvents = getUserEvents;
+        service.getUsersByEvent = getUsersByEvent;
         //  service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;
@@ -20,6 +22,8 @@
         service.forgotPassword = forgotPassword;
         service.getByUserToken = getByUserToken;
         service.updatePassword = updatePassword;
+        service.setUserInfo = setUserInfo;
+        service.getUserInfo = getUserInfo;
 
         return service;
 
@@ -57,8 +61,12 @@
             return mainApiService.get('profile/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function getUserEvents (id) {
+        function getUserEvents(id) {
             return mainApiService.get("users-events/" + id)
+        }
+
+        function getUsersByEvent(id) {
+            return mainApiService.get("event-users/" + id)
         }
 
         function create(user) {
@@ -101,6 +109,16 @@
                     message: error
                 };
             };
+        }
+
+        //set and get information about current loged user
+
+        function setUserInfo(user) {
+            userInfo = user;
+        }
+
+        function getUserInfo() {
+            return userInfo;
         }
     }
 

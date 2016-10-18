@@ -2,7 +2,23 @@
     'use strict';
     angular.module('em.result-table').controller('em.result-table.chessResultController', resultController);
 
-    function resultController($scope, resultService, games, players) {
+    function resultController($scope, resultService, games, players, userService, gamesForUsers) {
+
+        $scope.getCurrentUser = function () {
+            if (userService.getUserInfo()) {
+                $scope.currentUser = userService.getUserInfo();
+                return;
+            }
+            if(localStorage.getItem("userId")){
+                userService.getById(localStorage.getItem("userId"))
+                    .then(function (response) {
+                        if (Array.isArray(response) && response.length > 0) {
+                            userService.setUserInfo(response[0]);
+                            $scope.currentUser = userService.getUserInfo();
+                        }
+                    } );
+            }
+        };
 
         $scope.selectGame = function () {
             $scope.getPlayersList($scope.selectedGame);
@@ -158,7 +174,15 @@
             console.log('Error: ' + error.data.status);
         }
 
-        $scope.gamesList = games.data;
+        $scope.currentUser={};
+        $scope.currentUser.role = 'user';
+        $scope.getCurrentUser();
+        if($scope.currentUser.role  !== 'admin'){
+            $scope.gamesList = gamesForUsers.data;
+        }else{
+            $scope.gamesList = games.data;
+        }
+
         if($scope.gamesList.length == 0){
             $scope.playersList =[];
             $scope.participantsList = [];
@@ -184,7 +208,8 @@
             {sortColoumn: 'full_name',reverseSort: false},
             {sortColoumn: 'date', reverseSort: false}
         ];
+
     }
 
-    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players"];
+    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "userService", "gamesForUsers"];
 })();
