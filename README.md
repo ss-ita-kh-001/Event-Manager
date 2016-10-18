@@ -24,3 +24,6 @@ This project is designed to track events schedule.
 ## Application available online:
 
 * https://ita-event-manager.herokuapp.com/
+
+## CI & Heroku:
+http://www.mattmakai.com/source/static/img/presentations/heroku-deployments/local-to-github.jpg
