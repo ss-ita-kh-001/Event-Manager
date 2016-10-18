@@ -30,7 +30,6 @@
                 $scope.events = response.data;
             }, rejected);
         };
-
         $scope.updateEventList();
 
         //redirect to other page
@@ -63,7 +62,6 @@
             itemEventService.deleteEvent(id).then(function(response) {
                 $scope.events.splice(index, 1);
             }, rejected);
-            $scope.updateEventList();
         }
 
         //error handling
