@@ -3,8 +3,8 @@
 
     function usersController($scope, userService) {
 
-        var obj = userService.getAll().then(function (res) {
-        	$scope.users = res;
+        userService.getAll().then(function(res) {
+            $scope.users = res;
         });
     }
     usersController.$inject = ["$scope", "userService"];
