@@ -40,10 +40,7 @@
         }
 
         function getByUserToken(token) {
-            console.log('getByUserToken func');
-            console.log('token', token);
             return mainApiService.post('reset', token).then(function(res) {
-                console.log(res.data);
                 if (res.data == 'true') {
                     console.log('ok');
                 } else {
@@ -88,7 +85,6 @@
         }
 
         function update(user) {
-            console.log(user);
             return mainApiService.put('profile/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 

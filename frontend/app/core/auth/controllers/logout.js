@@ -8,11 +8,11 @@
         }
         $auth.logout()
             .then(function() {
-                console.log('you have logged out');
                 localStorage.clear();
                 $location.path('/login');
                 userService.setUserInfo(null); //clear user info obj in userService
             });
+
     }
 
 })();

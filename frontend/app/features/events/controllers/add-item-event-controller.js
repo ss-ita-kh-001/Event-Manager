@@ -3,42 +3,42 @@
 
     function itemEventController($scope, $location, itemEventService, mainApiService, $uibModal, userService) {
 
-        $scope.getCurrentUser = function () {
+        $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
                 $scope.currentUser = userService.getUserInfo();
                 return;
             }
-            if(localStorage.getItem("userId")){
+            if (localStorage.getItem("userId")) {
                 userService.getById(localStorage.getItem("userId"))
-                .then(function (response) {
-                    if (Array.isArray(response) && response.length > 0) {
-                        userService.setUserInfo(response[0]);
-                        $scope.currentUser = userService.getUserInfo();
-                    }
-                } );
+                    .then(function(response) {
+                        if (Array.isArray(response) && response.length > 0) {
+                            userService.setUserInfo(response[0]);
+                            $scope.currentUser = userService.getUserInfo();
+                        }
+                    });
             };
         };
 
         $scope.getCurrentUser();
 
         /**
-        * Update event list.
-        * Called when init controller and update button on click
-        */
-        $scope.updateEventList = function () {
-            itemEventService.getEvents().then(function (response) {
+         * Update event list.
+         * Called when init controller and update button on click
+         */
+        $scope.updateEventList = function() {
+            itemEventService.getEvents().then(function(response) {
                 $scope.events = response.data;
             }, rejected);
         };
         $scope.updateEventList();
 
         //redirect to other page
-        $scope.fullEvent = function (eventId) {
-           $location.path("/events/" + eventId);
+        $scope.fullEvent = function(eventId) {
+            $location.path("/events/" + eventId);
         };
 
-        $scope.editEvent = function (eventId) {
-           $location.path("/events/" + eventId + "/edit/");
+        $scope.editEvent = function(eventId) {
+            $location.path("/events/" + eventId + "/edit/");
         };
 
 
@@ -46,10 +46,10 @@
         $scope.sortColumn = "title";
         $scope.reverseSort = false;
 
-        $scope.sortData = function(column){
-            if ($scope.sortColumn == column){
+        $scope.sortData = function(column) {
+            if ($scope.sortColumn == column) {
                 $scope.reverseSort = !$scope.reverseSort;
-            }else{
+            } else {
                 $scope.reverseSort = false;
             }
             $scope.sortColumn = column;
@@ -58,20 +58,20 @@
 
 
         //add opportunity to delete event
-        $scope.deleteEventItem = function (id, index) {
-            itemEventService.deleteEvent(id).then(function (response) {
-                    $scope.events.splice(index, 1);
-                }, rejected);
+        $scope.deleteEventItem = function(id, index) {
+            itemEventService.deleteEvent(id).then(function(response) {
+                $scope.events.splice(index, 1);
+            }, rejected);
         }
 
         //error handling
-        function rejected (error) {
+        function rejected(error) {
             console.log('Error: ' + error.data.status);
         }
 
 
         //add modal window
-        $scope.openDeleteModal = function (event, eventItem, index) {
+        $scope.openDeleteModal = function(event, eventItem, index) {
             event.stopPropagation();
             $scope.currentEventTitle = eventItem.title;
             $uibModal.open({
@@ -79,13 +79,13 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'deleteModalContent.html',
                 scope: $scope,
-                controller: function ($uibModalInstance, $scope) {
-                    $scope.delete = function () {
+                controller: function($uibModalInstance, $scope) {
+                    $scope.delete = function() {
                         $uibModalInstance.close();
                         $scope.currentEventTitle = null;
                         $scope.deleteEventItem(eventItem.id, index);
                     };
-                    $scope.cancel = function () {
+                    $scope.cancel = function() {
                         $scope.currentEventTitle = null;
                         $uibModalInstance.dismiss('cancel');
                     };
@@ -100,7 +100,7 @@
 
         $scope.inviteFriend = function(event, eventItem) {
             event.stopPropagation();
-            userService.getAll().then(function (response) {
+            userService.getAll().then(function(response) {
                 $scope.users = response;
             }, rejected);
 
@@ -110,27 +110,26 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'inviteFriendForEvent.html',
                 scope: $scope,
-                controller: function ($uibModalInstance, $scope) {
+                controller: function($uibModalInstance, $scope) {
                     $scope.newInvitation = {
                         userSender: userService.getUserInfo(),
                         userReceiver: null,
                         event: eventItem
                     }
 
-                    $scope.getSelectedUser = function () {
+                    $scope.getSelectedUser = function() {
                         $scope.newInvitation.userReceiver = $scope.selectedFriend;
                     };
 
-                    $scope.invite = function (invitation) {
-                        itemEventService.sendInvitation($scope.newInvitation).then(function (response) {
+                    $scope.invite = function(invitation) {
+                        itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
                             // TODO: add user notification about success
-                            console.log(response);
                         }, rejected);
 
                         $uibModalInstance.close();
                     };
 
-                    $scope.cancel = function () {
+                    $scope.cancel = function() {
                         $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');
                     };
