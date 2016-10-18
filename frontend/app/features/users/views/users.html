@@ -1,28 +1,26 @@
 <div class="container">
-    <div ng-if="users">
-        <table class="table table-hover responsive" wt-responsive-table>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="user in users" class="row-item">
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.full_name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>
-                        <a href="/profile/{{user.id}}" class="glyphicon glyphicon-circle-arrow-right text-green"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-hover responsive" wt-responsive-table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users" class="row-item">
+                <td>{{ user.id }}</td>
+                <td>{{ user.full_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <a href="/profile/{{user.id}}" class="glyphicon glyphicon-circle-arrow-right text-green"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <!-- <p ng-if="!users" class="alert alert-danger text-center">
         No any users registered here!
     </p> -->
