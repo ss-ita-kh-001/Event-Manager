@@ -2,7 +2,7 @@
     angular.module("em.profile").controller("em.profile.profile-controller", profileController);
 
     function profileController($scope, userService, $routeParams, $location) {
-    
+
         userService.getById($routeParams.userID).then(function(res) {
             $scope.user = res[0];
         });
@@ -22,8 +22,8 @@
                 localStorage.clear();
             }
             userService.update(user);
-        }
-
+        };      
+        $scope.classHandler();
     }
     profileController.$inject = ["$scope", "userService", "$routeParams", "$location"]
 })();

@@ -35,5 +35,6 @@
         $scope.reset = function() {
             authenticationService.clearCredentials();
         };
+        $scope.classHandler();
     }
 })();
