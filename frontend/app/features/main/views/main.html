@@ -14,7 +14,7 @@
             <div class="upcoming-events col-sm-12 col-md-6">
                 <div ng-repeat="eventItem in nextEvents" class="upcoming-events-items">
                     <a><h4 class="cursor-pointer" ng-click=eventPage(eventItem.id)>{{eventItem.title}}</h4></a>
-                    <h6>{{eventItem.date | date:'MM.dd.yyyy'}}</h6>
+                    <h6>{{eventItem.date | date:'dd.MM.yyyy'}}</h6>
                     <p>{{eventItem.desc}}</p>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <article>
                 <time>
                     <div class="time-header">
-                        <em class="data">{{eventItem.date | date:'MM.dd.yyyy'}}</em>
+                        <em class="data">{{eventItem.date | date:'dd.MM.yyyy'}}</em>
                     </div>
                 </time>
                 <div class="inner-caption-item">
