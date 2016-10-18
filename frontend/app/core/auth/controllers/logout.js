@@ -12,6 +12,7 @@
                 $location.path('/login');
                 userService.setUserInfo(null); //clear user info obj in userService
             });
+
     }
 
 })();
