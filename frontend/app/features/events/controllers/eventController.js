@@ -27,7 +27,6 @@
             userService.getUsersByEvent($scope.id)
                 .then(function(res) {
                     $scope.userList = res.data;
-                    console.log($scope.userList)
                 }, function(error) {
                     console.log('Error: ' + error);
                 });
