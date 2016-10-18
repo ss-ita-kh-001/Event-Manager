@@ -41,7 +41,6 @@
             $location.path("/events/" + eventId + "/edit/");
         };
 
-
         //setting sort
         $scope.sortColumn = "title";
         $scope.reverseSort = false;
@@ -56,22 +55,20 @@
             return true;
         };
 
-
         //add opportunity to delete event
-        $scope.deleteEventItem = function(id, index) {
+        $scope.deleteEventItem = function(id) {
             itemEventService.deleteEvent(id).then(function(response) {
-                $scope.events.splice(index, 1);
+                var eventIndex = $scope.events
+                    .map(function(event) { return event.id; })
+                    .indexOf(id);
+                    console.log(eventIndex);
+
+                $scope.events.splice(eventIndex, 1);
             }, rejected);
         }
 
-        //error handling
-        function rejected(error) {
-            console.log('Error: ' + error.data.status);
-        }
-
-
         //add modal window
-        $scope.openDeleteModal = function(event, eventItem, index) {
+        $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();
             $scope.currentEventTitle = eventItem.title;
             $uibModal.open({
@@ -83,7 +80,7 @@
                     $scope.delete = function() {
                         $uibModalInstance.close();
                         $scope.currentEventTitle = null;
-                        $scope.deleteEventItem(eventItem.id, index);
+                        $scope.deleteEventItem(eventItem.id);
                     };
                     $scope.cancel = function() {
                         $scope.currentEventTitle = null;
@@ -137,6 +134,10 @@
             });
         }
 
+        //error handling
+        function rejected(error) {
+            console.log('Error: ' + error.data.status);
+        }
     }
 
     itemEventController.$inject = [
