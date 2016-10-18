@@ -23,7 +23,6 @@
             userService.update(user);
         };
         $scope.classHandler();
-        //    $location.path('/profile/' + user.id);
     }
     profileController.$inject = ["$scope", "userService", "$routeParams", "$location"]
 })();
