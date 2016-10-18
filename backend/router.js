@@ -408,6 +408,13 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        app.get(apiPreff + "/games/results", function(req, res) {
+            games.getGamesForUserAcc().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });

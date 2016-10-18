@@ -13,7 +13,6 @@
             $scope.search()
         }, rejected);
 
-        //  console.log('scope',$scope.event.place)
 
         function rejected(error) {
             console.log('Error: ' + error.data.status);
@@ -33,7 +32,6 @@
 
 
         $scope.update = function() {
-            console.log($scope.event)
             eventService.update(Object.assign({}, $scope.event));
         }
 

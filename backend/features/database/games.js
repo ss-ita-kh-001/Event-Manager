@@ -4,6 +4,9 @@
             return db.query("SELECT \"id\", \"date\", \"place\", \"title\", \"desc\"  FROM " +
                 "\"events\" WHERE \"isGame\" = true;");
         };
+        this.getGamesForUserAcc = function(){
+            return db.query ("SELECT DISTINCT  \"events\".\"id\", \"events\".\"date\", \"events\".\"place\", \"events\".\"title\", \"events\".\"desc\"  FROM \"game_result\" INNER JOIN \"events\" ON \"game_result\".\"event\" = \"events\".\"id\";");
+        };
         this.getPlayers = function () {
             return db.query("SELECT \"id\",\"full_name\" FROM \"users\"  WHERE \"id\" in (SELECT DISTINCT \"user\" FROM \"game_result\");");
         };

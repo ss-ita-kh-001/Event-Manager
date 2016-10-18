@@ -98,6 +98,9 @@
                     games:["em.result-table.result-table-service",function (resultService) {
                         return resultService.getEventsGames();
                     }],
+                    gamesForUsers:["em.result-table.result-table-service",function (resultService) {
+                        return resultService.getGamesForUsers();
+                    }],
                     players:["em.result-table.result-table-service",function (resultService) {
                         return resultService.getAllPlayers();
                     }]
