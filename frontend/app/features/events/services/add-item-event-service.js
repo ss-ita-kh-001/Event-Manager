@@ -14,6 +14,6 @@
             return mainApiService.post("invite", invitation)
         };
     }
-    
+
     itemEventService.$inject = ["em.mainApiService"];
 })();

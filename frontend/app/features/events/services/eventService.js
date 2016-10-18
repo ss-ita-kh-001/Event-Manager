@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.events").service("em.events.eventService", eventService);
 
-    function eventService(mainApiService, $location) {
+    function eventService(mainApiService, $location, flashService) {
 
         this.getEvent = function(id) {
             return mainApiService.get("events/" + id)
