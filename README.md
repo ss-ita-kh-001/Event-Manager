@@ -25,5 +25,5 @@ This project is designed to track events schedule.
 
 * https://ita-event-manager.herokuapp.com/
 
-## CI & Heroku:
+## CircleCI & Heroku:
 http://www.mattmakai.com/source/static/img/presentations/heroku-deployments/local-to-github.jpg
