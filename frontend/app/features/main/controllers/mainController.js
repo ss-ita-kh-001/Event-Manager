@@ -9,6 +9,11 @@
 
             eventNews.getNextEvents().then(function (response) {
                 $scope.nextEvents = response.data;
+                //TODO: remove this mock-data after setting field-src in database
+                $scope.nextEvents[0].src = './build/img/football.jpg';
+                $scope.nextEvents[1].src = './build/img/chess.jpg';
+                $scope.nextEvents[2].src = './build/img/picnic.jpg';
+                console.log($scope.nextEvents[0].date);
             }, rejected);
 
             eventNews.getLatestEvents().then(function (response) {
@@ -19,9 +24,10 @@
 
         $scope.getEventListNews();
 
+
         function rejected (error) {
             console.log('Error: ' + error.data.status);
-        }
+        };
 
         //redirect to event's page
         $scope.eventPage = function (eventId) {
