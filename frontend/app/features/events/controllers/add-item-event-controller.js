@@ -61,7 +61,6 @@
                 var eventIndex = $scope.events
                     .map(function(event) { return event.id; })
                     .indexOf(id);
-                    console.log(eventIndex);
 
                 $scope.events.splice(eventIndex, 1);
             }, rejected);
