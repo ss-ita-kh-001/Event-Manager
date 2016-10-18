@@ -28,9 +28,7 @@
                     flashService.error('Wrong email or password', false);
                     $scope.dataLoading = false;
                 });
-
-
         };
-
+        $scope.classHandler();
     }
 })();
