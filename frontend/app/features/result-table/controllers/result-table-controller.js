@@ -7,7 +7,6 @@
         $scope.getCurrentUser = function () {
             if (userService.getUserInfo()) {
                 $scope.currentUser = userService.getUserInfo();
-                console.log($scope.currentUser);
                 return;
             }
             if(localStorage.getItem("userId")){
@@ -175,9 +174,10 @@
             console.log('Error: ' + error.data.status);
         }
 
+        $scope.currentUser={};
+        $scope.currentUser.role = 'user';
         $scope.getCurrentUser();
-        console.log("current user");
-        if($scope.currentUser  !== 'admin'){
+        if($scope.currentUser.role  !== 'admin'){
             $scope.gamesList = gamesForUsers.data;
         }else{
             $scope.gamesList = games.data;
@@ -208,7 +208,6 @@
             {sortColoumn: 'full_name',reverseSort: false},
             {sortColoumn: 'date', reverseSort: false}
         ];
-        console.log($scope.currentUser);
 
     }
 
