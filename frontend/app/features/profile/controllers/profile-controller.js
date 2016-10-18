@@ -21,6 +21,7 @@
                 localStorage.clear();
             }
             userService.update(user);
+            $location.path('/profile/' + user.id);
         }
 
     }
