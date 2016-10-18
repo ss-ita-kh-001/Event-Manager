@@ -2,7 +2,7 @@
 
     angular.module('em.login').controller('em.login.loginController', loginController);
 
-    function loginController($scope, $location, authenticationService, flashService, userService, $auth, $rootScope) {
+    function loginController($scope, $location, flashService, userService, $auth, $rootScope) {
 
         $scope.login = function() {
             $scope.dataLoading = true;
@@ -31,8 +31,6 @@
 
 
         };
-        $scope.reset = function() {
-            authenticationService.clearCredentials();
-        };
+
     }
 })();
