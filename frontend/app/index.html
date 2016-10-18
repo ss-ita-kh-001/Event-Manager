@@ -57,7 +57,7 @@
                             <li ng-class="{'active': thisActive === 'results'}"><a href="results" ng-click="activate($event);">Results</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ng-cloak ng-if="isAuthenticated()" ng-click="activate($event);"ng-class="{'active': thisActive === 'chat'}"><a href="chat">Chat</a></li>
+                            <li ng-cloak ng-if="isAuthenticated() && !chatOnTop" ng-click="activate($event);"ng-class="{'active': thisActive === 'chat'}"><a href="chat">Chat</a></li>
                             <li ng-cloak ng-if="isAuthenticated()" ng-click="activate($event);" ng-class="{'active': thisActive === 'profile'}"><a href="profile/{{id}}" ng-click="getId()">My Profile</a></li>
                             <li ng-cloak ng-if="!isAuthenticated()" ng-click="activate($event);" ng-class="{'active': thisActive === 'login'}"><a href="login">Login</a></li>
                             <li ng-cloak ng-if="isAuthenticated()" ng-click="activate($event);" ng-class="{'active': thisActive === 'logout'}"><a href="logout">Logout</a></li>
