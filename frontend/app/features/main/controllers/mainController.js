@@ -13,7 +13,6 @@
                 $scope.nextEvents[0].src = './build/img/football.jpg';
                 $scope.nextEvents[1].src = './build/img/chess.jpg';
                 $scope.nextEvents[2].src = './build/img/picnic.jpg';
-                console.log($scope.nextEvents[0].date);
             }, rejected);
 
             eventNews.getLatestEvents().then(function (response) {
