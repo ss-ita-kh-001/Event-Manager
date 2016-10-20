@@ -117,7 +117,10 @@ var path = {
             'src/lib/angular-cookies/angular-cookies.js',
             'src/lib/angular-sanitize/angular-sanitize.js',
             'src/lib/angular-scroll-glue/src/scrollglue.js',
-            'src/lib/angular-responsive-tables/release/angular-responsive-tables.js'
+            'src/lib/angular-responsive-tables/release/angular-responsive-tables.js',
+            'src/lib/textAngular/dist/textAngular-rangy.min.js',
+            'src/lib/textAngular/dist/textAngular-sanitize.min.js',
+            'src/lib/textAngular/dist/textAngular.min.js'
         ]
     },
     watch: { //watch changes form those files

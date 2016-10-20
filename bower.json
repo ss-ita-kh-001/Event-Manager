@@ -24,6 +24,7 @@
     "angular-cookies": "^1.5.8",
     "angular-sanitize": "^1.3.8",
     "angular-scroll-glue": "^2.0.7",
-    "angular-responsive-tables": "^0.4.1"
+    "angular-responsive-tables": "^0.4.1",
+    "textAngular": "^1.5.12"
   }
 }
