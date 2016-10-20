@@ -53,7 +53,7 @@
                 templateUrl: "./app/features/login/views/login.html",
                 controller: "em.login.loginController",
                 resolve: {
-                  skipIfLoggedIn: skipIfLoggedIn
+                    skipIfLoggedIn: skipIfLoggedIn
                 }
             })
             .when("/logout", {
@@ -72,7 +72,7 @@
                 templateUrl: "./app/features/register/views/register.html",
                 controller: "em.register.registerController",
                 resolve: {
-                  skipIfLoggedIn: skipIfLoggedIn
+                    skipIfLoggedIn: skipIfLoggedIn
                 }
             })
             .when("/events", {
@@ -95,16 +95,20 @@
                 templateUrl: "./app/features/result-table/views/result-table.html",
                 controller: "em.result-table.chessResultController",
                 resolve: {
-                    games:["em.result-table.result-table-service",function (resultService) {
+                    games: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getEventsGames();
                     }],
-                    gamesForUsers:["em.result-table.result-table-service",function (resultService) {
+                    gamesForUsers: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getGamesForUsers();
                     }],
-                    players:["em.result-table.result-table-service",function (resultService) {
+                    players: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getAllPlayers();
                     }]
                 }
+            })
+            .when("/event/add/v02", {
+                templateUrl: "./app/features/addEventV02/views/addEvent.html",
+                controller: "em.addEvent.v02.addEventController"
             })
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"

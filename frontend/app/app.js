@@ -19,6 +19,7 @@
         "ngSanitize",
         "luegg.directives",
         "satellizer",
-        "wt.responsive"
+        "wt.responsive",
+        "em.addEvent.v02"
     ]);
 })();
