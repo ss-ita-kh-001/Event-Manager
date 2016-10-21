@@ -21,6 +21,11 @@ This project is designed to track events schedule.
 * add environment variable EM_PG_CONN with the following content:
 * postgres://postgres-user-name : password @127.0.0.1/ita-event-manager
 
+## Gulp using:
+
+* for production 'gulp'
+* for developing 'gulp dev'
+
 ## Application available online:
 
 * https://ita-event-manager.herokuapp.com/
