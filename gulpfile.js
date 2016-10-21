@@ -103,7 +103,8 @@ var path = {
             "frontend/app/features/result-table/const/usersarray.js",
             "frontend/app/features/result-table/services/result-table-service.js",
             "frontend/app/features/addEventV02/module.js",
-            "frontend/app/features/addEventV02/controllers/addEventController.js"
+            "frontend/app/features/addEventV02/controllers/addEventController.js",
+            "frontend/app/features/addEventV02/directives/datepicker.js"
         ]
     },
     lib: { //source files
