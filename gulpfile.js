@@ -27,7 +27,7 @@ var path = {
         js: 'frontend/build/js/',
         css: 'frontend/build/css/',
         img: 'frontend/build/img/',
-        font: 'frontend/build/font/'
+        font: 'frontend/build/fonts/'
     },
     copy: { //building files
         js: 'src/js/'
@@ -36,7 +36,7 @@ var path = {
         js: ['src/js/**/*.js'], //we need all js files
         style: 'src/style/main.scss', //we need only main.css
         img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
-        font: 'src/font/**/*.*', // fonts/**/*.* - get all files with all expansion from all nested folders
+        font: ['src/font/**/*.*', 'src/lib/font-awesome/fonts/*.*'], // fonts/**/*.* - get all files with all expansion from all nested folders
         concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
             "frontend/app/config/run.js",
