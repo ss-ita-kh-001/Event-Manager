@@ -1,3 +1,3 @@
 (function() {
-    angular.module("em.addEvent.v02", []);
+    angular.module("em.addEvent.v02", ["textAngular"]);
 })();
