@@ -105,7 +105,8 @@ var path = {
             "frontend/app/features/addEventV02/module.js",
             "frontend/app/features/addEventV02/controllers/addEventController.js",
             "frontend/app/features/addEventV02/directives/datepicker.js",
-            "frontend/app/features/addEventV02/directives/map.js"
+            "frontend/app/features/addEventV02/directives/map.js",
+            "frontend/app/features/addEventV02/directives/file-model.js"
         ]
     },
     lib: { //source files

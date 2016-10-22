@@ -2,8 +2,9 @@
     angular.module("em.addEvent.v02").controller("em.addEvent.v02.addEventController", addEventController);
 
     function addEventController($scope) {
-
-        $scope.event = {};
+        $scope.event = {
+          isGame: false
+        };
         $scope.place = {};
         $scope.lookFor = function() {
             $scope.apiError = false;
@@ -21,6 +22,7 @@
                     }
                 );
         }
+        console.log($scope.event);
     }
     addEventController.$inject = ["$scope"];
 })();
