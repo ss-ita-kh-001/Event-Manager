@@ -1,9 +1,9 @@
 (function() {
     angular.module("em.addEvent.v02").controller("em.addEvent.v02.addEventController", addEventController);
 
-    function addEventController($scope) {
+    function addEventController($scope, uploadService) {
         $scope.event = {
-          isGame: false
+            isGame: false
         };
         $scope.place = {};
         $scope.lookFor = function() {
@@ -22,7 +22,14 @@
                     }
                 );
         }
+        $scope.upload = function() {
+            uploadService.upload($scope.event.media).then(function(res) {
+                console.log(res);
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
         console.log($scope.event);
     }
-    addEventController.$inject = ["$scope"];
+    addEventController.$inject = ["$scope", "em.addEvent.v02.uploadService"];
 })();

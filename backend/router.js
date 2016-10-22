@@ -11,6 +11,8 @@ var apiPreff = "/api";
 var async = require("async");
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var multer = require("multer");
+var upload = multer({dest: "uploads/"});
 
 /*
  |--------------------------------------------------------------------------

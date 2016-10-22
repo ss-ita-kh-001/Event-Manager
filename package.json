@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ss-ita-kh-001/Event-Manager#readme",
   "dependencies": {
+    "async": "^2.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
@@ -49,14 +50,14 @@
     "jwt-simple": "^0.5.0",
     "minimist": "^1.2.0",
     "moment": "^2.15.1",
+    "multer": "^1.2.0",
+    "nodemailer": "^2.4.6",
     "pg-promise": "^5.3.3",
     "rimraf": "^2.5.4",
     "run-sequence": "^1.2.2",
     "serve-static": "^1.11.1",
     "ws": "^1.1.1",
-    "yargs": "^5.0.0",
-    "nodemailer": "^2.4.6",
-    "async": "^2.0.0"
+    "yargs": "^5.0.0"
   },
   "devDependencies": {
     "jasmine": "^2.5.1",
