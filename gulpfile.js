@@ -104,7 +104,8 @@ var path = {
             "frontend/app/features/result-table/services/result-table-service.js",
             "frontend/app/features/addEventV02/module.js",
             "frontend/app/features/addEventV02/controllers/addEventController.js",
-            "frontend/app/features/addEventV02/directives/datepicker.js"
+            "frontend/app/features/addEventV02/directives/datepicker.js",
+            "frontend/app/features/addEventV02/directives/map.js"
         ]
     },
     lib: { //source files
@@ -121,7 +122,8 @@ var path = {
             'src/lib/angular-responsive-tables/release/angular-responsive-tables.js',
             'src/lib/textAngular/dist/textAngular-rangy.min.js',
             'src/lib/textAngular/dist/textAngular-sanitize.min.js',
-            'src/lib/textAngular/dist/textAngular.min.js'
+            'src/lib/textAngular/dist/textAngular.min.js',
+            'src/lib/moment/moment.js'
         ]
     },
     watch: { //watch changes form those files

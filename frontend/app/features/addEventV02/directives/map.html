@@ -1,0 +1,21 @@
+<div ng-cloak class="input-group map">
+    <script type="text/ng-template" id="map.html">
+        <div ng-transclude></div>
+    </script>
+    <div class="alert alert-danger text-center" role="alert" ng-show="apiError">
+        <b>API Error : </b>
+        <span>{{ apiStatus }}</span>
+    </div>
+
+    <form name="searchForm" novalidate>
+        <div class="input-group">
+            <input name="place" type="text" class="form-control" ng-model="event.location" required autofocus />
+            <span class="input-group-btn">
+                <button class="btn btn-primary proper-btn"
+                ng-disabled="searchForm.$invalid" ng-click="lookFor()">Search</button>
+            </span>
+        </div>
+    </form>
+
+    <div id="map"></div>
+</div>
