@@ -1,14 +1,15 @@
 (function() {
     angular.module("em.addEvent.v02").controller("em.addEvent.v02.addEventController", addEventController);
 
-    function addEventController($scope, uploadService) {
+    function addEventController($scope, uploadService, addEventService) {
         $scope.event = {
-            isGame: false
+            isGame: false,
+            report: null
         };
         $scope.place = {};
         $scope.lookFor = function() {
             $scope.apiError = false;
-            $scope.search($scope.event.location)
+            $scope.search($scope.event.place)
                 .then(
                     function(res) { // success
                         $scope.addMarker(res);
@@ -21,14 +22,17 @@
                         $scope.apiStatus = status;
                     }
                 );
-        }
+        };
         $scope.upload = function() {
-            uploadService.upload($scope.event.media).then(function(res) {
+            uploadService.upload($scope.media).then(function(res) {
                 $scope.uploaded = res.data;
             }).catch(function(error) {
                 console.log(error);
             });
-        }
+        };
+        $scope.add = function() {
+            addEventService.addEvent($scope.event);
+        };
     }
-    addEventController.$inject = ["$scope", "em.addEvent.v02.uploadService"];
+    addEventController.$inject = ["$scope", "em.addEvent.v02.uploadService", "em.addEvent.v02.addEventService"];
 })();
