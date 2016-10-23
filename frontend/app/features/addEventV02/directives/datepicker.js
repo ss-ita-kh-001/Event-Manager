@@ -22,11 +22,17 @@
                 };
 
                 scope.dateOptions = {
+                    dateDisabled: disabled,
                     formatYear: 'yy',
                     maxDate: new Date(2050, 5, 22),
                     minDate: new Date(),
                     startingDay: 1
                 };
+
+                function disabled(data) {
+                    var date = data.date;
+                    return (date < moment().subtract(1, "days"));
+                }
 
                 scope.toggleMin = function() {
                     scope.inlineOptions.minDate = scope.inlineOptions.minDate ? null : new Date();
