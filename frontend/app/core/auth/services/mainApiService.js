@@ -5,7 +5,7 @@
 
     function mainApiService($http, baseUrl) {
         this.get = function(url) {
-          return $http.get(baseUrl + url + '/');
+            return $http.get(baseUrl + url + '/');
         }
 
         this.delete = function(url) {
@@ -18,6 +18,18 @@
 
         this.put = function(url, data) {
             return $http.put(baseUrl + url + '/', data);
+        }
+        this.upload = function(data) {
+            var fd = new FormData();
+            for (var key in data) {
+                fd.append(key, data[key]);
+            }
+            return $http.post(baseUrl + "upload/", fd, {
+                transformRequest: angular.indentity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            });
         }
     }
 
