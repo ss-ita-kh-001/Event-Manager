@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.addEvent").directive("fileModel", ["$parse", function($parse) {
+    angular.module("em").directive("fileModel", ["$parse", function($parse) {
         return {
             restrict: "A",
             link: function(scope, element, attrs) {

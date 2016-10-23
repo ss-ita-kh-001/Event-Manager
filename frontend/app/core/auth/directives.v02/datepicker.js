@@ -1,8 +1,8 @@
 (function() {
-    angular.module("em.addEvent").directive("datepickerNew", function() {
+    angular.module("em").directive("datepickerNew", function() {
         return {
             restrict: "A",
-            templateUrl: "./app/features/addEvent/directives/datepicker.html",
+            templateUrl: "./app/core/auth/directives.v02/datepicker.html",
             link: function(scope, element, attrs) {
                 scope.today = function() {
                     scope.dt = new Date();

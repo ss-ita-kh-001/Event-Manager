@@ -1,8 +1,8 @@
 (function() {
-    angular.module("em.addEvent").directive("mapNew", function($q) {
+    angular.module("em").directive("mapNew", function($q) {
         return {
             restrict: "A",
-            templateUrl: "./app/features/addEvent/directives/map.html",
+            templateUrl: "./app/core/auth/directives.v02/map.html",
             link: function(scope, element, attrs) {
                 var options = {
                     center: new google.maps.LatLng(40.7127837, -74.00594130000002),
