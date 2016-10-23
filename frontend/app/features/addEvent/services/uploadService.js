@@ -3,7 +3,7 @@
 
     function uploadService(mainApiService) {
         this.upload = function(data) {
-            mainApiService.upload(data);
+            return mainApiService.upload(data);
         }
     }
     uploadService.$inject = ["em.mainApiService"];
