@@ -100,9 +100,9 @@ var path = {
             "frontend/app/features/addEvent/services/uploadService.js",
             "frontend/app/features/addEvent/services/addEventService.js",
             "frontend/app/features/addEvent/controllers/addEventController.js",
-            "frontend/app/core/auth/directives.v02/datepicker.js",
-            "frontend/app/core/auth/directives.v02/map.js",
-            "frontend/app/core/auth/directives.v02/file-model.js"
+            "frontend/app/core/directives.v02/datepicker.js",
+            "frontend/app/core/directives.v02/map.js",
+            "frontend/app/core/directives.v02/file-model.js"
         ]
     },
     lib: { //source files

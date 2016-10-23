@@ -2,7 +2,7 @@
     angular.module("em").directive("mapNew", function($q) {
         return {
             restrict: "A",
-            templateUrl: "./app/core/auth/directives.v02/map.html",
+            templateUrl: "./app/core/directives.v02/map.html",
             link: function(scope, element, attrs) {
                 var options = {
                     center: new google.maps.LatLng(40.7127837, -74.00594130000002),

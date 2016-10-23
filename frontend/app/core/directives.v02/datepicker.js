@@ -2,7 +2,7 @@
     angular.module("em").directive("datepickerNew", function() {
         return {
             restrict: "A",
-            templateUrl: "./app/core/auth/directives.v02/datepicker.html",
+            templateUrl: "./app/core/directives.v02/datepicker.html",
             link: function(scope, element, attrs) {
                 scope.today = function() {
                     scope.dt = new Date();
