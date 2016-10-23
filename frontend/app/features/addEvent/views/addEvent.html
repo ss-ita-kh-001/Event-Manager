@@ -1,59 +1,51 @@
-<div class="container">
-    <div class="row form-group">
-        <div class="col-sm-offset-3 col-sm-2">Title</div>
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="title" class="col-sm-offset-3 col-sm-2">Title</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place title here.." ng-model="event.title">
+            <input type="text" placeholder="Place title here.." class="form-control" id="title" ng-model="event.title">
         </div>
     </div>
-    <div class="row form-group">
-        <div class="col-sm-offset-3 col-sm-2">Description</div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Place description here.." ng-model="event.desc">
-        </div>
+    <div class="form-group">
+        <label for="description" class="col-sm-offset-3 col-sm-2">Description</label>
     </div>
-    <div class="row form-group">
-        <div class="col-sm-offset-3 col-sm-2">Type</div>
-        <div class="col-sm-4">
-            <label for="game">Game</label>
-            <input type="radio" ng-model="event.type" value="game" id="game" checked>
-            <label for="event">Event</label>
-            <input type="radio" ng-model="event.type" value="event" id="event">
-        </div>
+    <div class="form-group">
+        <div text-angular="text-angular" id="description" class="col-sm-offset-3 col-sm-6" ng-model="event.desc"></div>
     </div>
-    <div class="row form-group">
-        <div class="col-sm-offset-3 col-sm-2">Date</div>
+    <div class="form-group">
+        <label for="media" class="col-sm-offset-3 col-sm-2">Media</label>
         <div class="col-sm-4">
-              <datepicker></datepicker>
-        </div>
-    </div>
-    <div class="row form-group">
-        <div class="col-sm-offset-3 col-sm-2">Location</div>
-        <div class="col-sm-4">
-            <div class="alert alert-danger text-center" role="alert" ng-show="apiError">
-                <b>API Error : </b>
-                <span>{{ apiStatus }}</span>
-            </div>
-            <form name="searchForm" novalidate ng-submit="search()">
-                <div class="input-group">
-                    <input name="place" type="text" class="form-control" ng-model="event.place" required autofocus />
-                    <span class="input-group-btn">
-                <button class="btn btn-primary"
-                ng-disabled="searchForm.$invalid">Search</button>
-            </span>
+            <div class="row">
+                <div class="col-sm-9">
+                    <input type="file" class="form-control" id="media" file-model="media" multiple>
                 </div>
-            </form>
-              <div id="map" map ></div>
-
-            <form name="resForm" class="form-horizontal" novalidate ng-submit="send()">
-            </form>
+                <div class="col-sm-3">
+                    <input type="button" value="Upload" ng-click="upload()">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row form-group">
-        <div class="col-sm-offset-6 col-sm-1">
-            <a class="btn btn-danger" href="/" ng-click="cancel()">Cancel</a>
-        </div>
+    <div class="form-group" ng-show="uploaded">
+        <div class="col-sm-offset-5 col-sm-4" ng-repeat="up in uploaded track by $index">{{up}}</div>
+    </div>
+    <div class="form-group">
+        <label for="datepicker" class="col-sm-offset-3 col-sm-2">Date</label>
+        <div datepicker-new class="col-sm-4" id="datepicker"></div>
+    </div>
+    <div class="form-group">
+        <label for="map_" class="col-sm-offset-3 col-sm-2">Location</label>
+    </div>
+    <div class="form-group">
+        <div map-new class="col-sm-offset-3 col-sm-6" id="map_"></div>
+    </div>
+    <div class="form-group">
+        <label for="is-game" class="col-sm-offset-5 col-sm-2">This is a game</label>
         <div class="col-sm-1">
-            <button type="button" class="btn btn-success" ng-click="add()">Add</button>
+            <input type="checkbox" class="form-control" id="is-game" ng-model="event.isGame">
         </div>
     </div>
-</div>
+    <div class="form-group">
+        <div class="col-sm-offset-6 col-sm-3">
+            <input type="button" class="btn btn-success" value="ADD" ng-click="add()">
+        </div>
+    </div>
+</form>

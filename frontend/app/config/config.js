@@ -83,10 +83,6 @@
                 templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController"
             })
-            .when("/event/add", {
-                templateUrl: "./app/features/addEvent/views/addEvent.html",
-                controller: "em.addEvent.addEventController"
-            })
             .when("/events/:id/edit", {
                 templateUrl: "./app/features/editEvent/views/editEvent.html",
                 controller: "em.editEvent.editEventController"
@@ -106,9 +102,9 @@
                     }]
                 }
             })
-            .when("/event/add/v02", {
-                templateUrl: "./app/features/addEventV02/views/addEvent.html",
-                controller: "em.addEvent.v02.addEventController"
+            .when("/event/add", {
+                templateUrl: "./app/features/addEvent/views/addEvent.html",
+                controller: "em.addEvent.addEventController"
             })
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"

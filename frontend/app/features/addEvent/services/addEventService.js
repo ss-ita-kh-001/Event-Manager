@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.addEvent.v02").service("em.addEvent.v02.addEventService", addEventService);
+    angular.module("em.addEvent").service("em.addEvent.addEventService", addEventService);
 
     function addEventService(mainApiService, $location) {
         this.addEvent = function(data) {

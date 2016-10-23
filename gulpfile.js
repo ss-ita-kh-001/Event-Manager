@@ -54,12 +54,6 @@ var path = {
             "frontend/app/features/main/const/mock-news.js",
             "frontend/app/features/main/services/event-service-news.js",
             "frontend/app/features/main/controllers/mainController.js",
-            "frontend/app/features/addEvent/module.js",
-            "frontend/app/features/addEvent/services/addEventAPIService.js",
-            "frontend/app/features/addEvent/controllers/addEventController.js",
-            "frontend/app/features/addEvent/directives/addEventDirective.js",
-            "frontend/app/features/addEvent/services/datePicker.js",
-            "frontend/app/features/addEvent/services/map.js",
             "frontend/app/features/editEvent/module.js",
             "frontend/app/features/editEvent/controllers/editEventController.js",
             "frontend/app/features/editEvent/directives/editEventDirective.js",
@@ -102,13 +96,13 @@ var path = {
             "frontend/app/features/result-table/controllers/result-table-controller.js",
             "frontend/app/features/result-table/const/usersarray.js",
             "frontend/app/features/result-table/services/result-table-service.js",
-            "frontend/app/features/addEventV02/module.js",
-            "frontend/app/features/addEventV02/services/uploadService.js",
-            "frontend/app/features/addEventV02/services/addEventService.js",
-            "frontend/app/features/addEventV02/controllers/addEventController.js",
-            "frontend/app/features/addEventV02/directives/datepicker.js",
-            "frontend/app/features/addEventV02/directives/map.js",
-            "frontend/app/features/addEventV02/directives/file-model.js"
+            "frontend/app/features/addEvent/module.js",
+            "frontend/app/features/addEvent/services/uploadService.js",
+            "frontend/app/features/addEvent/services/addEventService.js",
+            "frontend/app/features/addEvent/controllers/addEventController.js",
+            "frontend/app/features/addEvent/directives/datepicker.js",
+            "frontend/app/features/addEvent/directives/map.js",
+            "frontend/app/features/addEvent/directives/file-model.js"
         ]
     },
     lib: { //source files
