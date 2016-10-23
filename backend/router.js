@@ -435,7 +435,7 @@ var router = {
         app.post(apiPreff + "/upload", uploadEvent.any(), function(req, res) {
             var pics = [];
             for (var i = 0; i < req.files.length; i++) {
-              pics[i] =  req.files[i].filename;
+              pics[i] =  "http://" + req.headers.host + "/img/events/" + req.files[i].filename;
             }
             res.status(200).send(pics);
         });
