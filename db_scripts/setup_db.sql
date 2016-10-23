@@ -15,7 +15,8 @@ create table "users"(
   "role" status_type default 'user',
   "avatar" varchar default './build/img/avatar.png',
   "reset_password_token" varchar,
-  "reset_password_expires" varchar
+  "reset_password_expires" varchar,
+  "activated" boolean default false
 );
 create table "events"(
   "id" serial primary key,
