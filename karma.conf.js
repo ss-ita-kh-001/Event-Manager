@@ -23,7 +23,6 @@ module.exports = function(config) {
       './frontend/app/*/*/*.js',
       './frontend/app/*/*/*/*.js',
       './test.js',
-      './test-event-list.js',
       './spec/*spec.js'
     ],
 
