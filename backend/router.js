@@ -15,7 +15,7 @@ var multer = require("multer");
 var mime = require("mime-types");
 var eventStorage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "./src/img/events");
+        cb(null, "./frontend/img/events");
     },
     filename: function(req, file, cb) {
         var filename = "";
