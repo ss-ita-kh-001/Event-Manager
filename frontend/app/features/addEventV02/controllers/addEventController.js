@@ -24,12 +24,11 @@
         }
         $scope.upload = function() {
             uploadService.upload($scope.event.media).then(function(res) {
-                console.log(res);
+                $scope.uploaded = res.data;
             }).catch(function(error) {
                 console.log(error);
             });
         }
-        console.log($scope.event);
     }
     addEventController.$inject = ["$scope", "em.addEvent.v02.uploadService"];
 })();

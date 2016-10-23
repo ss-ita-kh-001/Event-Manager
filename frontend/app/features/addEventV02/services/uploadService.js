@@ -1,5 +1,5 @@
 (function() {
-    angular.model("em.addEvent.v02").service("em.addEvent.v02.uploadService", uploadService);
+    angular.module("em.addEvent.v02").service("em.addEvent.v02.uploadService", uploadService);
 
     function uploadService($http) {
         this.upload = function(data) {

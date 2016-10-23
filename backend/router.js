@@ -12,8 +12,23 @@ var async = require("async");
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var multer = require("multer");
-var upload = multer({dest: "uploads/"});
-
+var mime = require("mime-types");
+var eventStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, "./src/img/events");
+    },
+    filename: function(req, file, cb) {
+        var filename = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < 20; i++) {
+            filename += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        cb(null, filename + '.' + mime.extension(file.mimetype));
+    }
+});
+var uploadEvent = multer({
+    storage: eventStorage
+});
 /*
  |--------------------------------------------------------------------------
  | Login Required Middleware
@@ -416,6 +431,13 @@ var router = {
             }).catch(function(error) {
                 res.status(500).send(error);
             });
+        });
+        app.post(apiPreff + "/upload", uploadEvent.any(), function(req, res) {
+            var pics = [];
+            for (var i = 0; i < req.files.length; i++) {
+              pics[i] =  req.files[i].filename;
+            }
+            res.status(200).send(pics);
         });
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
