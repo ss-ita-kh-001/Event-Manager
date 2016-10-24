@@ -431,6 +431,10 @@ var router = {
             gen.games(req.params.amount);
             res.status(200).end();
         });
+        app.post(apiPreff + "/gen/chat/:amount", function(req, res) {
+            gen.chat(req.params.amount);
+            res.status(200).end();
+        });
 
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
