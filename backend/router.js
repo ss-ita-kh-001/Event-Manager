@@ -419,6 +419,11 @@ var router = {
             gen.events(req.params.amount, res);
             res.status(200).end();
         });
+        app.post(apiPreff + "/gen/users/:amount", function(req, res) {
+            gen.users(req.params.amount, res);
+            res.status(200).end();
+        });
+
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
