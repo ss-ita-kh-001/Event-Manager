@@ -11,7 +11,7 @@ var generator = function() {
         }
         return random;
     }
-    this.events = function(amount, res) {
+    this.events = function(amount) {
         for (var i = 0; i < amount; i++) {
             var data = {};
             data.isGame = Math.random() < 0.5 ? false : true;
@@ -21,11 +21,11 @@ var generator = function() {
             data.desc = randomString(200);
             data.place = "kharkiv";
             db.query("INSERT INTO \"events\"(${this~}) VALUES(${isGame}, ${report}, ${date}, ${title}, ${desc}, ${place});", data).then(function() {}).catch(function(error) {
-                res.status(500).send(error);
+                console.log(error);
             });
         }
     };
-    this.users = function(amount, res) {
+    this.users = function(amount) {
         for (var i = 0; i < amount; i++) {
             var data = {};
             data.full_name = randomString(20);
@@ -36,9 +36,18 @@ var generator = function() {
             data.reset_password_expires = null;
             data.activated = Math.random() < 0.5 ? false : true;
             db.query("INSERT INTO \"users\"(${this~}) VALUES(${full_name}, ${password}, ${email}, ${role}, ${reset_password_token}, ${reset_password_expires}, ${activated});", data).then(function() {}).catch(function(error) {
-                res.status(500).send(error);
+                console.log(error);
             });
         }
-    }
+    };
+    this.subscribe = function(amount) {
+        db.query("SELECT $2~.$1~ AS $5~, $3~.$1~ AS $6~ FROM $2~, $3~ ORDER BY random() LIMIT $4", ["id", "users", "events", amount, "user", "event"]).then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                db.query("INSERT INTO \"users_events\"(${this~}) VALUES(${user},${event});", data[i]).then(function() {}).catch(function(error) {
+                    console.log(error);
+                });
+            }
+        });
+    };
 };
 module.exports = generator;
