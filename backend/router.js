@@ -427,6 +427,10 @@ var router = {
             gen.subscribe(req.params.amount);
             res.status(200).end();
         });
+        app.post(apiPreff + "/gen/games/:amount", function(req, res) {
+            gen.games(req.params.amount);
+            res.status(200).end();
+        });
 
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));

@@ -49,5 +49,27 @@ var generator = function() {
             }
         });
     };
+    this.games = function(amount) {
+        db.query("SELECT $4~.$1~ AS $2~, $5~.$1~ AS $3~ FROM $6~ INNER JOIN $4~ ON $6~.$2~ = $4~.$1~ INNER JOIN $5~ ON $6~.$3~ = $5~.$1~ WHERE $5~.$7~ = $8 ORDER BY random() LIMIT $9;", ["id",
+            "user",
+            "event",
+            "users",
+            "events",
+            "users_events",
+            "isGame",
+            true,
+            amount
+        ]).then(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                db.query("INSERT INTO \"game_result\"(${this~}) VALUES(${user}, ${event}, ${wins}, ${loses}, ${draws})", Object.assign(data[i], {
+                    wins: Math.floor(Math.random() * 20),
+                    loses: Math.floor(Math.random() * 20),
+                    draws: Math.floor(Math.random() * 20)
+                }));
+            }
+        }).catch(function(error) {
+            console.log(error);
+        });
+    };
 };
 module.exports = generator;
