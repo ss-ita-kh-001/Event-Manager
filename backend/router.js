@@ -416,11 +416,15 @@ var router = {
             });
         });
         app.post(apiPreff + "/gen/events/:amount", function(req, res) {
-            gen.events(req.params.amount, res);
+            gen.events(req.params.amount);
             res.status(200).end();
         });
         app.post(apiPreff + "/gen/users/:amount", function(req, res) {
-            gen.users(req.params.amount, res);
+            gen.users(req.params.amount);
+            res.status(200).end();
+        });
+        app.post(apiPreff + "/gen/sub/:amount", function(req, res) {
+            gen.subscribe(req.params.amount);
             res.status(200).end();
         });
 
