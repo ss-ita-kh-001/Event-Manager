@@ -120,7 +120,8 @@ var path = {
             'src/lib/textAngular/dist/textAngular-rangy.min.js',
             'src/lib/textAngular/dist/textAngular-sanitize.min.js',
             'src/lib/textAngular/dist/textAngular.min.js',
-            'src/lib/moment/moment.js'
+            'src/lib/moment/moment.js',
+            'src/lib/angular-mocks/angular-mocks.js'
         ]
     },
     watch: { //watch changes form those files
