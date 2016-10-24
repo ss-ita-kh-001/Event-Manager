@@ -115,7 +115,8 @@ var path = {
             'src/lib/angular-cookies/angular-cookies.js',
             'src/lib/angular-sanitize/angular-sanitize.js',
             'src/lib/angular-scroll-glue/src/scrollglue.js',
-            'src/lib/angular-responsive-tables/release/angular-responsive-tables.js'
+            'src/lib/angular-responsive-tables/release/angular-responsive-tables.js',
+            'src/lib/angular-mocks/angular-mocks.js'
         ]
     },
     watch: { //watch changes form those files
