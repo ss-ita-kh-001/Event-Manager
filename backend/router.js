@@ -11,7 +11,7 @@ var apiPreff = "/api";
 var async = require("async");
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-
+var gen = new(require("./features/database/generator.js"));
 /*
  |--------------------------------------------------------------------------
  | Login Required Middleware
@@ -414,6 +414,10 @@ var router = {
             }).catch(function(error) {
                 res.status(500).send(error);
             });
+        });
+        app.post(apiPreff + "/gen/events/:amount", function(req, res) {
+            gen.events(req.params.amount, res);
+            res.status(200).end();
         });
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
