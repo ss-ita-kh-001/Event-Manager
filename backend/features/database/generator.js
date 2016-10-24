@@ -72,13 +72,19 @@ var generator = function() {
         });
     };
     this.chat = function() {
-        db.query("SELECT $1 AS $3 FROM $2;", ["id", "users", "user"]).then(function(data) {
+        db.query("SELECT $1~ AS $3~ FROM $2~;", ["id", "users", "user"]).then(function(data) {
             for (var i = 0; i < data.length; i++) {
-              db.query("INSERT INTO \"chat\"(${this~}) VALUES(${user}, ${date}, ${text}))", Object.assign(data[i], {
-                date: Math.floor((Math.random() * (2018 - 2014) + 2014)) + "-" + Math.floor((Math.random() * (12 - 1) + 1)) + "-" + Math.floor((Math.random() * (28 - 1) + 1)),
-                text: randomString(50)
-              }));
+                db.query("INSERT INTO \"chat\"(${this~}) VALUES(${user}, ${date}, ${text});", Object.assign(data[i], {
+                    date: Math.floor((Math.random() * (2018 - 2014) + 2014)) + "-" + Math.floor((Math.random() * (12 - 1) + 1)) + "-" + Math.floor((Math.random() * (28 - 1) + 1)),
+                    text: randomString(50)
+                })).then(function() {
+
+                }).catch(function(error) {
+                    console.log(error);
+                });
             }
+        }).catch(function(error) {
+            console.log(error);
         });
     };
 };
