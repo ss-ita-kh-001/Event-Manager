@@ -8,6 +8,9 @@ var chat = function() {
             "VALUES(\'" + user.id + "\', \'" + user.user + "\', \'" + user.date +
             "\', \'" + user.text + "\');");
     };
+    this.getLastId = function() {
+        return db.query("SELECT \"id\" FROM \"chat\" ORDER BY \"id\" DESC LIMIT 1;");
+    };
 
 }
 

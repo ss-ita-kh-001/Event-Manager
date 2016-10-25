@@ -33,7 +33,13 @@ var chat = {
                 console.log(obj);
 
                 chatDb.addMessage(obj).then(function() {
-                    console.log('added');
+                    chatDb.getLastId().then(function(data) {
+                        console.log('added');
+                        res.status(200).send(data);
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    });
+                    
                     // for (var key in clients) {
                     //     clients[key].send(obj);
                     //     console.log('sent' + key);
