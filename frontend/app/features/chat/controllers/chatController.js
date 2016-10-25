@@ -3,19 +3,11 @@
 
     function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location) {
         var obj = {
-            author: '',
-            msg: '',
-            time: ''
+            id: localStorage.getItem("userId"),
+            user: localStorage.getItem("fullName"),
+            date: '',
+            text: ''
         }
-        $scope.formData = {};
-
-        obj.author = localStorage.getItem("fullName");
-
-        $scope.chatLogin = function() {
-            localStorage.setItem("chatLogin", $scope.formData.username);
-            obj.author = $scope.formData.username;
-            $scope.login = true;
-        };
 
         $scope.isMine = function($index) {
             return obj.author == $scope.live[$index].author;

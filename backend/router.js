@@ -2,6 +2,7 @@ var path = require('path');
 var events = new(require("./features/database/events"));
 var games = new(require("./features/database/games"));
 var users = new(require("./features/database/users"));
+var chatDb = new(require("./features/database/chat"));
 var subscribe = new(require("./features/database/subscribe"));
 var auth = new(require("./features/database/auth"));
 var config = require("./features/database/config");
@@ -12,35 +13,7 @@ var async = require("async");
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var gen = new(require("./features/database/generator.js"));
-/*
- |--------------------------------------------------------------------------
- | Login Required Middleware
- |--------------------------------------------------------------------------
- */
-function ensureAuthenticated(req, res, next) {
 
-    var token = req.body.token;
-    var payload = null;
-
-    try {
-        payload = jwt.decode(token, config.TOKEN_SECRET);
-    } catch (err) {
-        return res.status(401).send({
-            message: err.message
-        });
-    }
-
-    if (payload.exp <= moment().unix()) {
-        return res.status(401).send({
-            message: 'Token has expired'
-        });
-    }
-    req.body.sub = payload.sub;
-    console.log(payload.sub);
-    next();
-
-
-}
 
 var router = {
     init: function init(app) {
@@ -218,7 +191,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/profile/:id", ensureAuthenticated, function(req, res) {
+        app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
             users.getUserByEmail(req.body.sub).then(function(data) {
                 users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
                     console.log(req.body);
@@ -434,6 +407,13 @@ var router = {
         app.post(apiPreff + "/gen/chat/:amount", function(req, res) {
             gen.chat(req.params.amount);
             res.status(200).end();
+        });
+        app.get(apiPreff + "/chat", function(req, res) {
+            chatDb.getHistory().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
         });
 
         app.get('*', function(req, res) {

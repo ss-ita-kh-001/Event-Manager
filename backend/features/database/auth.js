@@ -26,6 +26,27 @@ var auth = function() {
 
         return hash;
     }
+    this.ensureAuthenticated = function(req, res, next) {
+        var token = req.body.token;
+        var payload = null;
+
+        try {
+            payload = jwt.decode(token, config.TOKEN_SECRET);
+        } catch (err) {
+            return res.status(401).send({
+                message: err.message
+            });
+        }
+
+        if (payload.exp <= moment().unix()) {
+            return res.status(401).send({
+                message: 'Token has expired'
+            });
+        }
+        req.body.sub = payload.sub;
+        console.log(payload.sub);
+        next();
+    };
 };
 
 
@@ -38,4 +59,6 @@ function createJWT(user) {
 
     return jwt.encode(payload, config.TOKEN_SECRET);
 }
+
+
 module.exports = auth;
