@@ -16,10 +16,8 @@
         }
 
         socket.onmessage = function(obj) {
-            console.log('onmessage');
-            var response = JSON.parse(obj.data);
 
-            console.log(obj);
+            var response = JSON.parse(obj.data);
 
             // if no saved local history and have history from server
             if (self.live.length == 0 && response.length > 0) {

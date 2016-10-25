@@ -26,13 +26,13 @@
             }
         };
         $scope.isChatOnTop = function() {
-          $rootScope.chatOnTop = true;
-          $scope.id = localStorage.getItem('userId');
-          $location.path("/profile/" + $scope.id);
-          $scope.classHandler();
+            $rootScope.chatOnTop = true;
+            $scope.id = localStorage.getItem('userId');
+            $location.path("/profile/" + $scope.id);
+            $scope.classHandler();
         };
         $scope.closeSmallChat = function() {
-          $rootScope.chatOnTop = false;
+            $rootScope.chatOnTop = false;
         };
         // new messages
         $scope.live = chatService.live;

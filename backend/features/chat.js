@@ -4,7 +4,9 @@ var chatDb = new(require("./database/chat"));
 var chat = {
     init: function init(server) {
         var WebSocketServer = require("ws").Server;
-        var webSocketServer = new WebSocketServer({ server: server });
+        var webSocketServer = new WebSocketServer({
+            server: server
+        });
 
         // connected users
         var clients = {};
@@ -18,17 +20,14 @@ var chat = {
             console.log('client connected', id);
 
             chatDb.getHistory().then(function(data) {
-                // console.log(data);
-                // problem, don't send data to frontend
-                //res.status(200).send(data);
+                clients[id].send(JSON.stringify(data));
             }).catch(function(error) {
-                //res.status(500).send(error);
+                console.log(error);
             });
 
             // console.log(JSON.stringify(history));
 
             // clients[id].send(history);
-
 
             socket.on('message', function(obj) {
                 console.log(obj);
@@ -36,21 +35,18 @@ var chat = {
                 chatDb.addMessage(obj).then(function() {
                     chatDb.getLastId().then(function(data) {
                         console.log('added');
-                        //res.status(200).send(data);
                     }).catch(function(error) {
                         //res.status(500).send(error);
-                        console.log(error + "\n#1");
+                        console.log(error);
                     });
 
-                    // for (var key in clients) {
-                    //     clients[key].send(obj);
-                    //     console.log('sent' + key);
-                    // }
+                    for (var key in clients) {
+                        clients[key].send(obj);
+                        console.log('sent' + key);
+                    }
                 }).catch(function(error) {
-                    //res.status(500).send(error);
-                    console.log(error + "\n#0");
+                    console.log(error);
                 });
-
 
             });
 
