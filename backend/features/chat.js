@@ -18,15 +18,7 @@ var chat = {
 
             chatDb.getHistory().then(function(data) {
                 // console.log(data);
-                try {
-                    console.log('try');
-                    clients[id].send(data);
-
-                } catch (err) {
-                    console.log(err);
-
-                }
-
+                // problem, don't send data to frontend
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -38,12 +30,14 @@ var chat = {
 
 
             socket.on('message', function(obj) {
+                console.log(obj);
 
                 chatDb.addMessage(obj).then(function() {
-                    for (var key in clients) {
-                        clients[key].send(obj);
-                        console.log('sent' + key);
-                    }
+                    console.log('added');
+                    // for (var key in clients) {
+                    //     clients[key].send(obj);
+                    //     console.log('sent' + key);
+                    // }
                 }).catch(function(error) {
                     res.status(500).send(error);
                 });

@@ -5,7 +5,7 @@ var chat = function() {
     };
     this.addMessage = function(user) {
         return db.query("INSERT INTO \"chat\"(\"id\",\"user\",\"date\", \"text\") " +
-            "VALUES(\'" + user.id + "\', \'" + user.username + "\', \'" + user.date +
+            "VALUES(\'" + user.id + "\', \'" + user.user + "\', \'" + user.date +
             "\', \'" + user.text + "\');");
     };
 
