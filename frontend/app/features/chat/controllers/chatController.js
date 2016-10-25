@@ -3,8 +3,7 @@
 
     function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location) {
         var obj = {
-            id: localStorage.getItem("userId"),
-            user: localStorage.getItem("fullName"),
+            user: localStorage.getItem("userId"),
             date: '',
             text: ''
         }
@@ -18,8 +17,8 @@
             var currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
             flashService.clearFlashMessage();
             if ($scope.textMsg) {
-                obj.msg = $scope.textMsg.replace(/\r?\n/g, '<br />');
-                obj.time = currentTime;
+                obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
+                obj.date = moment().format("YYYY-MM-DD HH:mm:ss");;
                 chatService.msgSend(obj);
                 $scope.textMsg = '';
             } else {

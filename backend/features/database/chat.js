@@ -4,9 +4,7 @@ var chat = function() {
         return db.query("SELECT * FROM \"chat\" LIMIT 20;");
     };
     this.addMessage = function(user) {
-        return db.query("INSERT INTO \"chat\"(\"id\",\"user\",\"date\", \"text\") " +
-            "VALUES(\'" + user.id + "\', \'" + user.user + "\', \'" + user.date +
-            "\', \'" + user.text + "\');");
+        return db.query("INSERT INTO \"chat\"(${this~}) VALUES(${user}, ${date}, ${text});", JSON.parse(user));
     };
     this.getLastId = function() {
         return db.query("SELECT \"id\" FROM \"chat\" ORDER BY \"id\" DESC LIMIT 1;");
