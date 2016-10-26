@@ -3,20 +3,16 @@
         <thead>
             <tr>
                 <th table-sorting="id">id
-                  <div class="glyphicon" ng-if="predicate === 'id'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
-                  </div>
+                  <arrow-sorting ng-if="predicate === 'id'"></arrow-sorting>
                 </th>
                 <th table-sorting="full_name">Name
-                  <div class="glyphicon" ng-if="predicate === 'full_name'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
-                  </div>
+                  <arrow-sorting ng-if="predicate === 'full_name'"></arrow-sorting>
                 </th>
                 <th table-sorting="email">Email
-                  <div class="glyphicon" ng-if="predicate === 'email'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
-                  </div>
+                  <arrow-sorting ng-if="predicate === 'email'"></arrow-sorting>
                 </th>
                 <th table-sorting="role">Role
-                  <div class="glyphicon" ng-if="predicate === 'role'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
-                  </div>
+                  <arrow-sorting ng-if="predicate === 'role'"></arrow-sorting>
                 </th>
                 <th></th>
             </tr>
