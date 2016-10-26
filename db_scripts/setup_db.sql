@@ -24,9 +24,9 @@ create table "events"(
   "desc" text,
   "date" timestamp,
   "place" varchar,
-  "photos" varchar,
   "report" text,
-  "isGame" boolean
+  "isGame" boolean,
+  "avatar" varchar default './img/events/default.png'
 );
 create table "users_events"(
   "user" integer not null,
@@ -44,13 +44,7 @@ create table "game_result"(
   "loses" integer not null,
   "draws" integer not null
 );
-create table "media"(
-  "id" serial primary key,
-  "path" varchar not null,
-  "kind" media_type not null,
-  "event" integer not null,
-  foreign key("event") references "events"("id") on delete cascade
-);
+
 create table "chat"(
   "id" serial primary key,
   "user" integer not null,
