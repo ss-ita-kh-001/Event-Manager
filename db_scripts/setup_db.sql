@@ -4,7 +4,6 @@ create database "ita-event-manager";
 
 --types
 create type "status_type" as enum('admin','user');
-create type "media_type" as enum('image', 'video');
 
 --tables
 create table "users"(
