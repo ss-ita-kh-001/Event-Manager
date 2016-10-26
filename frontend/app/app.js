@@ -11,7 +11,6 @@
         "em.reset",
         "ngAnimate",
         "ui.bootstrap",
-        "em.addEvent",
         "em.editEvent",
         "em.events",
         "em.result-table",
@@ -19,6 +18,7 @@
         "ngSanitize",
         "luegg.directives",
         "satellizer",
-        "wt.responsive"
+        "wt.responsive",
+        "em.addEvent"
     ]);
 })();

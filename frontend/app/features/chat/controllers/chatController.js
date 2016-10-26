@@ -13,7 +13,7 @@
         $scope.msgSend = function() {
             // for example, tmp is empty object, why???
             var tmp = $sce.trustAsHtml('My name is <div style = "color:red; width: 500px; height: 500px; background: red;"><b>Mudassar Khan</b></div>');         
-            console.log(tmp);
+            console.log('tmp',tmp);
             console.log($sce);
 
             if (!$scope.isError()) {

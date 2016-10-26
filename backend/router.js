@@ -12,6 +12,24 @@ var apiPreff = "/api";
 var async = require("async");
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var multer = require("multer");
+var mime = require("mime-types");
+var eventStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, "./frontend/img/events");
+    },
+    filename: function(req, file, cb) {
+        var filename = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < 20; i++) {
+            filename += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        cb(null, filename + '.' + mime.extension(file.mimetype));
+    }
+});
+var uploadEvent = multer({
+    storage: eventStorage
+});
 var gen = new(require("./features/database/generator.js"));
 
 
@@ -358,8 +376,10 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events", function(req, res) {
-            events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
+        app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
+            events.addEvent(Object.assign({
+                avatar: req.files[0].filename
+            }, req.body, req.params)).then(function() {
                 events.getLastId().then(function(data) {
                     res.status(200).send(data);
                 }).catch(function(error) {
@@ -383,6 +403,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        
         app.post(apiPreff + "/gen/events/:amount", function(req, res) {
             gen.events(req.params.amount);
             res.status(200).end();
