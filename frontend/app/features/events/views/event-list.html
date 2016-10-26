@@ -11,12 +11,10 @@
             <thead>
                 <tr class="text-center">
                     <th class="col-sm-2 cursor-pointer" table-sorting="title">Event
-                        <div class="glyphicon" ng-if="predicate === 'title'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
-                        </div>
+                      <arrow-sorting ng-if="predicate === 'title'"></arrow-sorting>
                     </th>
                     <th class="col-sm-2 cursor-pointer" table-sorting="date">Date
-                        <div class="glyphicon" ng-if="predicate === 'date'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
-                        </div>
+                      <arrow-sorting ng-if="predicate === 'date'"></arrow-sorting>
                     </th>
                     <th class="col-sm-7">Description</th>
                     <th class="col-sm-1"></th>
