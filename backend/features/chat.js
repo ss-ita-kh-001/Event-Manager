@@ -1,5 +1,9 @@
-// !!!                 Object res is not defined                     !!!
+var jwt = require('jwt-simple');
+var moment = require('moment');
+var config = require("./database/config");
+var auth = new(require("./database/auth"));
 var chatDb = new(require("./database/chat"));
+var users = new(require("./database/users"));
 
 var chat = {
     init: function init(server) {
@@ -10,43 +14,67 @@ var chat = {
 
         // connected users
         var clients = {};
-        // all messages
-        // var history = chatDb.getHistory();
+
+        var response = {
+            data: '',
+            error: false,
+            errorMessage: ''
+        };
 
         webSocketServer.on('connection', function(socket) {
 
             var id = Math.random();
             clients[id] = socket;
-            console.log('client connected', id);
 
-            chatDb.getHistory().then(function(data) {
-                clients[id].send(JSON.stringify(data));
+            chatDb.getHistory().then(function(data, res) {
+                response.data = data;
+                clients[id].send(JSON.stringify(response));
             }).catch(function(error) {
-                console.log(error);
+                response.error = true;
+                response.errorMessage = error;
             });
 
-            // console.log(JSON.stringify(history));
-
-            // clients[id].send(history);
-
             socket.on('message', function(obj) {
-                console.log(obj);
+                // if token can be decoded and isn't expired
+                var requestObj = isAuth(obj);
 
-                chatDb.addMessage(obj).then(function() {
-                    chatDb.getLastId().then(function(data) {
-                        console.log('added');
+                if (!requestObj.error) {
+                    // if user from decoded token is presented in db
+                    users.getUserByEmail(requestObj.sub).then(function(data, res) {
+                        // why undefined ?
+                        // console.log('res', res);
+
+                        if (requestObj.data.user == data[0].id) {
+                            chatDb.addMessage(requestObj.data).then(function() {
+                                for (var key in clients) {
+                                    clients[id].send(JSON.stringify(requestObj));
+                                    // console.log('sent' + key);
+                                }
+                            }).catch(function(error) {
+                                requestObj.error = true;
+                                requestObj.errorMessage = error;
+                                clients[id].send(JSON.stringify(requestObj));
+                            });
+                        } else {
+                            // console.log('else');
+                            requestObj.error = true;
+                            requestObj.errorMessage = 'Incorrect data. Try to login again';
+                            clients[id].send(JSON.stringify(requestObj));
+                        }
+
+
                     }).catch(function(error) {
-                        //res.status(500).send(error);
-                        console.log(error);
+                        requestObj.error = true;
+                        requestObj.errorMessage = error;
+                        clients[id].send(JSON.stringify(requestObj));
+
                     });
 
-                    for (var key in clients) {
-                        clients[key].send(obj);
-                        console.log('sent' + key);
-                    }
-                }).catch(function(error) {
-                    console.log(error);
-                });
+                } else {
+                    requestObj.error = true;
+                    requestObj.errorMessage = 'Incorrect token. Try to login again';
+                    clients[id].send(JSON.stringify(requestObj));
+                }
 
             });
 
@@ -57,4 +85,35 @@ var chat = {
     }
 };
 
+function isAuth(req) {
+
+    var data = JSON.parse(req);
+
+    var payload = null;
+
+    var obj = {
+        data: data,
+        sub: '',
+        error: false,
+        errorMessage: ''
+    }
+
+    var token = data.token;
+    try {
+        payload = jwt.decode(token, config.TOKEN_SECRET);
+    } catch (err) {
+        obj.errorMessage = err.message;
+        obj.error = true;
+        return obj;
+    }
+
+    if (payload.exp <= moment().unix()) {
+        obj.errorMessage = 'Token has expired';
+        obj.error = true;
+        return obj;
+    }
+    obj.sub = payload.sub;
+    return obj;
+
+}
 module.exports = chat;
