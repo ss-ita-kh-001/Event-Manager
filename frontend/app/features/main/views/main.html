@@ -15,7 +15,9 @@
                 <div ng-repeat="eventItem in nextEvents" class="upcoming-events-items">
                     <a><h4 class="cursor-pointer" ng-click=eventPage(eventItem.id)>{{eventItem.title}}</h4></a>
                     <h6>{{eventItem.date | date:'dd.MM.yyyy'}}</h6>
-                    <p>{{eventItem.desc}}</p>
+                    <p>{{eventItem.desc | limitTo:descriptionLimit}}
+                        <a><h4 class="cursor-pointer" ng-click=eventPage(eventItem.id)>more</h4></a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -30,7 +32,7 @@
                 </time>
                 <div class="inner-caption-item">
                     <a><h4 class="cursor-pointer header-link" ng-click=eventPage(eventItem.id)>{{eventItem.title}}</h4></a>
-                    <p>{{eventItem.desc}}</p>
+                    <p>{{eventItem.desc | limitTo:letterLimit}}</p>
                 </div>
             </article>
         </div>
