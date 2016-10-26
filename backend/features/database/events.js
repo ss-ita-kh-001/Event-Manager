@@ -18,7 +18,8 @@ var events = function() {
             "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + (event.type === "game" ? true : false) + " WHERE \"id\" = " + event.id + ";");
     };
     this.addEvent = function(data) {
-        return db.query("INSERT INTO \"events\"(${this~}) VALUES(${isGame}, ${report}, ${date}, ${title}, ${desc}, ${place});", data);
+      console.log(data);
+        return db.query("INSERT INTO \"events\"(${this~}) VALUES(${avatar}, ${isGame}, ${report}, ${date}, ${title}, ${desc}, ${place});", data);
     };
     this.deleteEventById = function(id) {
         return db.query("DELETE FROM \"events\"  WHERE \"id\"  = " + id + ";");

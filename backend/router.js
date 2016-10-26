@@ -408,8 +408,10 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events", function(req, res) {
-            events.addEvent(Object.assign({}, req.body, req.params)).then(function() {
+        app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
+            events.addEvent(Object.assign({
+                avatar: req.files[0].filename
+            }, req.body, req.params)).then(function() {
                 events.getLastId().then(function(data) {
                     res.status(200).send(data);
                 }).catch(function(error) {
@@ -436,7 +438,7 @@ var router = {
         app.post(apiPreff + "/upload", uploadEvent.any(), function(req, res) {
             var pics = [];
             for (var i = 0; i < req.files.length; i++) {
-              pics[i] =  "http://" + req.headers.host + "/img/events/" + req.files[i].filename;
+                pics[i] = "http://" + req.headers.host + "/img/events/" + req.files[i].filename;
             }
             res.status(200).send(pics);
         });
