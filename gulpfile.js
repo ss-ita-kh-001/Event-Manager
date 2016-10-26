@@ -27,7 +27,7 @@ var path = {
         js: 'frontend/build/js/',
         css: 'frontend/build/css/',
         img: 'frontend/build/img/',
-        font: 'frontend/build/font/'
+        font: 'frontend/build/fonts/'
     },
     copy: { //building files
         js: 'src/js/'
@@ -36,7 +36,7 @@ var path = {
         js: ['src/js/**/*.js'], //we need all js files
         style: 'src/style/main.scss', //we need only main.css
         img: 'src/img/**/*.*', // img/**/*.* - get all files with all expansion from all nested folders
-        font: 'src/font/**/*.*', // fonts/**/*.* - get all files with all expansion from all nested folders
+        font: ['src/font/**/*.*', 'src/lib/font-awesome/fonts/*.*'], // fonts/**/*.* - get all files with all expansion from all nested folders
         concatJS: ["frontend/app/app.js",
             "frontend/app/config/config.js",
             "frontend/app/config/run.js",
@@ -54,12 +54,6 @@ var path = {
             "frontend/app/features/main/const/mock-news.js",
             "frontend/app/features/main/services/event-service-news.js",
             "frontend/app/features/main/controllers/mainController.js",
-            "frontend/app/features/addEvent/module.js",
-            "frontend/app/features/addEvent/services/addEventAPIService.js",
-            "frontend/app/features/addEvent/controllers/addEventController.js",
-            "frontend/app/features/addEvent/directives/addEventDirective.js",
-            "frontend/app/features/addEvent/services/datePicker.js",
-            "frontend/app/features/addEvent/services/map.js",
             "frontend/app/features/editEvent/module.js",
             "frontend/app/features/editEvent/controllers/editEventController.js",
             "frontend/app/features/editEvent/directives/editEventDirective.js",
@@ -101,7 +95,14 @@ var path = {
             "frontend/app/features/result-table/module.js",
             "frontend/app/features/result-table/controllers/result-table-controller.js",
             "frontend/app/features/result-table/const/usersarray.js",
-            "frontend/app/features/result-table/services/result-table-service.js"
+            "frontend/app/features/result-table/services/result-table-service.js",
+            "frontend/app/features/addEvent/module.js",
+            "frontend/app/features/addEvent/services/uploadService.js",
+            "frontend/app/features/addEvent/services/addEventService.js",
+            "frontend/app/features/addEvent/controllers/addEventController.js",
+            "frontend/app/core/directives.v02/datepicker.js",
+            "frontend/app/core/directives.v02/map.js",
+            "frontend/app/core/directives.v02/file-model.js"
         ]
     },
     lib: { //source files
@@ -116,6 +117,10 @@ var path = {
             'src/lib/angular-sanitize/angular-sanitize.js',
             'src/lib/angular-scroll-glue/src/scrollglue.js',
             'src/lib/angular-responsive-tables/release/angular-responsive-tables.js',
+            'src/lib/textAngular/dist/textAngular-rangy.min.js',
+            'src/lib/textAngular/dist/textAngular-sanitize.min.js',
+            'src/lib/textAngular/dist/textAngular.min.js',
+            'src/lib/moment/moment.js',
             'src/lib/angular-mocks/angular-mocks.js'
         ]
     },
