@@ -11,7 +11,7 @@ var apiPreff = "/api";
 var async = require("async");
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-
+var gen = new(require("./features/database/generator.js"));
 /*
  |--------------------------------------------------------------------------
  | Login Required Middleware
@@ -415,6 +415,27 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        app.post(apiPreff + "/gen/events/:amount", function(req, res) {
+            gen.events(req.params.amount);
+            res.status(200).end();
+        });
+        app.post(apiPreff + "/gen/users/:amount", function(req, res) {
+            gen.users(req.params.amount);
+            res.status(200).end();
+        });
+        app.post(apiPreff + "/gen/sub/:amount", function(req, res) {
+            gen.subscribe(req.params.amount);
+            res.status(200).end();
+        });
+        app.post(apiPreff + "/gen/games/:amount", function(req, res) {
+            gen.games(req.params.amount);
+            res.status(200).end();
+        });
+        app.post(apiPreff + "/gen/chat/:amount", function(req, res) {
+            gen.chat(req.params.amount);
+            res.status(200).end();
+        });
+
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
