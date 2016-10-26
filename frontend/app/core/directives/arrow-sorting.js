@@ -4,9 +4,18 @@
             return {
                 restrict: 'E',
                 scope: {
-                  column: '='
+                  sorting: '='
                 },
-                templateUrl: './app/core/directives/arrow-sorting.html'
+                templateUrl: './app/core/directives/arrow-sorting.html',
+                link: function(scope, element, attrs) {
+                  
+                  element.on('click', function() {
+                      console.log(scope.sorting);
+
+                      scope.$apply();
+
+                  });
+                }
             }
         })
 })();

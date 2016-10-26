@@ -1,21 +1,25 @@
 describe('table sorting directive', function() {
+    var $compile,
+        element,
+        scope,
+        attrs,
+        $rootScope;
+      //load the module which contains the directive
 
     beforeEach(angular.mock.module("em"));
 
-    var mockEvents = [
-      {
-        title: 'football',
-        date: '20-10-2016'
-      },
-      {
-        title: 'chess',
-        date: '20-08-2016'
-      }
-    ];
-    //critical
-    it('sorts by name', function() {
 
+    beforeEach(inject(function(_$compile_, _$rootScope_) {
+      $compile = _$compile_;
+      $rootScope = _$rootScope_;
+    }));
+    //critical
+    it('sorts by name in events table', function() {
+      var element = $compile("<th class='col-sm-2 cursor-pointer' table-sorting='title'></th>")($rootScope);
     });
+    $rootScope.$digest();
+
+
     it('sorts by number', function() {});
     it('sorts by date', function() {});
 
