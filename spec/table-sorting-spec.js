@@ -24,14 +24,14 @@ describe('table sorting directive', function() {
         expect($rootScope.reverseSort).toBeTruthy();
     });
 
-    it("heck for a new value in reverseSort on 2 clicks", function () {
+    it("check for a new value in reverseSort on 2 clicks", function () {
         var element = $compile("<th class='col-sm-2 cursor-pointer' table-sorting='title'></th>")($rootScope);
         element.triggerHandler('click');
         element.triggerHandler('click');
         expect($rootScope.reverseSort).toBeFalsy();
     });
 
-    it("heck for a new value in reverseSort on 3 clicks", function () {
+    it("check for a new value in reverseSort on 3 clicks", function () {
         var element = $compile("<th class='col-sm-2 cursor-pointer' table-sorting='title'></th>")($rootScope);
         element.triggerHandler('click');
         element.triggerHandler('click');

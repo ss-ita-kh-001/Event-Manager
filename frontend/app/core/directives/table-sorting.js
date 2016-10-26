@@ -3,7 +3,7 @@
         .directive('tableSorting', function() {
             return {
                 restrict: 'A',
-                link: function(scope, element, attrs, rootScope) {
+                link: function(scope, element, attrs) {
 
                   scope.predicate = 'title';
                   scope.reverseSort = false;
