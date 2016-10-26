@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location) {
+    function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location, $sce) {
         var obj = {
             user: localStorage.getItem("userId")
         }
@@ -11,12 +11,17 @@
         }
 
         $scope.msgSend = function() {
+            // for example, tmp is empty object, why???
+            var tmp = $sce.trustAsHtml('My name is <div style = "color:red; width: 500px; height: 500px; background: red;"><b>Mudassar Khan</b></div>');         
+            console.log(tmp);
+            console.log($sce);
 
             if (!$scope.isError()) {
                 if ($scope.textMsg) {
                     flashService.clearFlashMessage();
                     obj.user = localStorage.getItem("userId");
                     obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
+                    // obj.text = $sce.trustAsHtml($scope.textMsg);
                     obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                     obj.token = localStorage.getItem("satellizer_token");
                     chatService.msgSend(obj);
@@ -49,6 +54,6 @@
 
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "$timeout", "flashService", "$rootScope", "$anchorScroll", "$location"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "$timeout", "flashService", "$rootScope", "$anchorScroll", "$location", "$sce"];
 
 })();
