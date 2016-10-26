@@ -3,7 +3,6 @@ var moment = require('moment');
 var config = require("./database/config");
 var auth = new(require("./database/auth"));
 var chatDb = new(require("./database/chat"));
-var users = new(require("./database/users"));
 
 var chat = {
     init: function init(server) {
@@ -22,7 +21,6 @@ var chat = {
         };
 
         webSocketServer.on('connection', function(socket) {
-
             var id = Math.random();
             clients[id] = socket;
 
@@ -39,35 +37,15 @@ var chat = {
                 var requestObj = isAuth(obj);
 
                 if (!requestObj.error) {
-                    // if user from decoded token is presented in db
-                    users.getUserByEmail(requestObj.sub).then(function(data, res) {
-                        // why undefined ?
-                        // console.log('res', res);
-
-                        if (requestObj.data.user == data[0].id) {
-                            chatDb.addMessage(requestObj.data).then(function() {
-                                for (var key in clients) {
-                                    clients[id].send(JSON.stringify(requestObj));
-                                    // console.log('sent' + key);
-                                }
-                            }).catch(function(error) {
-                                requestObj.error = true;
-                                requestObj.errorMessage = error;
-                                clients[id].send(JSON.stringify(requestObj));
-                            });
-                        } else {
-                            // console.log('else');
-                            requestObj.error = true;
-                            requestObj.errorMessage = 'Incorrect data. Try to login again';
+                    // console.log(requestObj.data);
+                    chatDb.addMessage(requestObj.data).then(function() {
+                        for (var key in clients) {
                             clients[id].send(JSON.stringify(requestObj));
                         }
-
-
                     }).catch(function(error) {
                         requestObj.error = true;
                         requestObj.errorMessage = error;
                         clients[id].send(JSON.stringify(requestObj));
-
                     });
 
                 } else {
@@ -93,7 +71,6 @@ function isAuth(req) {
 
     var obj = {
         data: data,
-        sub: '',
         error: false,
         errorMessage: ''
     }
@@ -112,7 +89,7 @@ function isAuth(req) {
         obj.error = true;
         return obj;
     }
-    obj.sub = payload.sub;
+    obj.data.decodedId = payload.sub;
     return obj;
 
 }

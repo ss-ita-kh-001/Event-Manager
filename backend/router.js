@@ -192,16 +192,11 @@ var router = {
             });
         });
         app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
-            users.getUserByEmail(req.body.sub).then(function(data) {
-                users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
-                    console.log(req.body);
-                    res.status(200).end();
-                }).catch(function(error) {
-                    res.status(500).send(error);
-                });
+            users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+                console.log(req.body);
+                res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
-                console.log(error);
             });
         });
         app.delete(apiPreff + "/profile/:id", function(req, res) {

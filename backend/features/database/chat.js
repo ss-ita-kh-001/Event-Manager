@@ -5,7 +5,7 @@ var chat = function() {
     };
     this.addMessage = function(user) {
         // console.log(data);
-        return db.query("INSERT INTO \"chat\"(\"user\",\"date\", \"text\") " + "VALUES(\'" + user.user + "\', \'" + user.date + "\', \'" + user.text + "\');");
+        return db.query("INSERT INTO \"chat\"(\"user\",\"date\", \"text\") " + "VALUES(\'" + user.decodedId + "\', \'" + user.date + "\', \'" + user.text + "\');");
     };
     this.getLastId = function() {
         return db.query("SELECT \"id\" FROM \"chat\" ORDER BY \"id\" DESC LIMIT 1;");

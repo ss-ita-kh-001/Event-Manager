@@ -12,17 +12,20 @@
 
         $scope.msgSend = function() {
 
-            flashService.clearFlashMessage();
-            if ($scope.textMsg) {
-                obj.user = localStorage.getItem("userId");
-                obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
-                obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
-                obj.token = localStorage.getItem("satellizer_token");
-                chatService.msgSend(obj);
-                $scope.textMsg = '';
-            } else {
-                flashService.error('Please, enter something', false);
+            if (!$scope.isError()) {
+                if ($scope.textMsg) {
+                    flashService.clearFlashMessage();
+                    obj.user = localStorage.getItem("userId");
+                    obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
+                    obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
+                    obj.token = localStorage.getItem("satellizer_token");
+                    chatService.msgSend(obj);
+                    $scope.textMsg = '';
+                } else {
+                    flashService.error('Please, enter something', false);
+                }
             }
+
         };
 
         $scope.isChatOnTop = function() {
@@ -35,25 +38,13 @@
         $scope.closeSmallChat = function() {
             $rootScope.chatOnTop = false;
         };
-        
 
+        $scope.isError = function() {
+            return chatService.error;
+        }
 
         // new messages
-        $scope.error = chatService.error;
-        // console.log($scope.error);
-
-        if ($scope.error) {
-            // console.log($scope.live);
-            $scope.live = chatService.errorMessage;
-        }
-        else {
-            // console.log($scope.live);
-            $scope.live = chatService.live;
-        }
-        $scope.isError = function() {
-            console.log($scope.error);
-            return $scope.error;
-        }
+        $scope.live = chatService.live;
 
 
     }
