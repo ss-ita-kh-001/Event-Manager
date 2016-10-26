@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.addEvent").controller("em.addEvent.addEventController", addEventController);
 
-    function addEventController($scope, uploadService, addEventService) {
+    function addEventController($scope, addEventService) {
         $scope.event = {
             isGame: false,
             report: null
@@ -27,5 +27,5 @@
             addEventService.addEvent($scope.event);
         };
     }
-    addEventController.$inject = ["$scope", "em.addEvent.uploadService", "em.addEvent.addEventService"];
+    addEventController.$inject = ["$scope", "em.addEvent.addEventService"];
 })();
