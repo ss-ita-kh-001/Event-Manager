@@ -23,13 +23,6 @@
                     }
                 );
         };
-        $scope.upload = function() {
-            uploadService.upload($scope.media).then(function(res) {
-                $scope.uploaded = res.data;
-            }).catch(function(error) {
-                console.log(error);
-            });
-        };
         $scope.add = function() {
             addEventService.addEvent($scope.event);
         };
