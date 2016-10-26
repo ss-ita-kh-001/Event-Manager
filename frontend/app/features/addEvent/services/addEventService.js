@@ -3,7 +3,12 @@
 
     function addEventService(mainApiService, $location) {
         this.addEvent = function(data) {
-            mainApiService.post("events", data).then(function(res) {
+            mainApiService.post("events", data, {
+                transformRequest: angular.indentity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function(res) {
                 $location.path("/events/" + res.data[0].id);
             }).catch(function(error) {
                 console.log(error);
