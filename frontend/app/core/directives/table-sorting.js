@@ -9,7 +9,7 @@
                   scope.reverseSort = false;
 
                   element.on('click', function() {
-          
+
                       scope.predicate = attrs.tableSorting;
                       scope.reverseSort = !scope.reverseSort;
                       scope.$apply();
