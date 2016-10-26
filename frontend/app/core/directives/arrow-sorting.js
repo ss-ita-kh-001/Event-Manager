@@ -8,9 +8,9 @@
                 },
                 templateUrl: './app/core/directives/arrow-sorting.html',
                 link: function(scope, element, attrs) {
-                  
+
                   element.on('click', function() {
-                      console.log(scope.sorting);
+                      console.log(attrs.sorting);
 
                       scope.$apply();
 

@@ -2,12 +2,22 @@
     <table class="table table-hover responsive" wt-responsive-table>
         <thead>
             <tr>
-                <th table-sorting="id">id</th>
-                <th table-sorting="full_name">Name
-                  <arrow-sorting></arrow-sorting>
+                <th table-sorting="id">id
+                  <div class="glyphicon" ng-if="predicate === 'id'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
+                  </div>
                 </th>
-                <th table-sorting="email">Email</th>
-                <th table-sorting="role">Role</th>
+                <th table-sorting="full_name">Name
+                  <div class="glyphicon" ng-if="predicate === 'full_name'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
+                  </div>
+                </th>
+                <th table-sorting="email">Email
+                  <div class="glyphicon" ng-if="predicate === 'email'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
+                  </div>
+                </th>
+                <th table-sorting="role">Role
+                  <div class="glyphicon" ng-if="predicate === 'role'" ng-class="{'glyphicon-arrow-up':  reverseSort, 'glyphicon-arrow-down': !reverseSort}">
+                  </div>
+                </th>
                 <th></th>
             </tr>
         </thead>
