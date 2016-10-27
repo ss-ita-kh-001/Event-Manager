@@ -17,10 +17,8 @@ var events = function() {
             "\', \"desc\" = \'" + event.desc + "\', \"date\" = \'" + event.date +
             "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + (event.type === "game" ? true : false) + " WHERE \"id\" = " + event.id + ";");
     };
-    this.addEvent = function(event) {
-        return db.query("INSERT INTO \"events\"(\"title\", \"desc\", \"date\", \"place\", \"isGame\") " +
-            "VALUES(\'" + event.title + "\', \'" + event.desc + "\', \'" + event.date +
-            "\', \'" + event.place + "\', " + (event.type === "game" ? true : false) + ");");
+    this.addEvent = function(data) {
+        return db.query("INSERT INTO \"events\"(${this~}) VALUES(${avatar}, ${isGame}, ${report}, ${date}, ${title}, ${desc}, ${place});", data);
     };
     this.deleteEventById = function(id) {
         return db.query("DELETE FROM \"events\"  WHERE \"id\"  = " + id + ";");

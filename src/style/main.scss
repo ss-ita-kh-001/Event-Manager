@@ -1,4 +1,6 @@
 @import "../lib/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../lib/font-awesome/scss/font-awesome.scss";
+@import "../lib/textAngular/dist/textAngular";
 @import "fonts.scss";
 @import "variables.scss";
 @import "_variables.scss";
@@ -20,3 +22,4 @@
 @import "pages/res.scss";
 @import "pages/chat.scss";
 @import "pages/login.scss";
+@import "pages/addEvent.scss"

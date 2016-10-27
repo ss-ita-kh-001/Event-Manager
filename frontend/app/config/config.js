@@ -53,7 +53,7 @@
                 templateUrl: "./app/features/login/views/login.html",
                 controller: "em.login.loginController",
                 resolve: {
-                  skipIfLoggedIn: skipIfLoggedIn
+                    skipIfLoggedIn: skipIfLoggedIn
                 }
             })
             .when("/logout", {
@@ -72,7 +72,7 @@
                 templateUrl: "./app/features/register/views/register.html",
                 controller: "em.register.registerController",
                 resolve: {
-                  skipIfLoggedIn: skipIfLoggedIn
+                    skipIfLoggedIn: skipIfLoggedIn
                 }
             })
             .when("/events", {
@@ -83,10 +83,6 @@
                 templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController"
             })
-            .when("/event/add", {
-                templateUrl: "./app/features/addEvent/views/addEvent.html",
-                controller: "em.addEvent.addEventController"
-            })
             .when("/events/:id/edit", {
                 templateUrl: "./app/features/editEvent/views/editEvent.html",
                 controller: "em.editEvent.editEventController"
@@ -95,16 +91,20 @@
                 templateUrl: "./app/features/result-table/views/result-table.html",
                 controller: "em.result-table.chessResultController",
                 resolve: {
-                    games:["em.result-table.result-table-service",function (resultService) {
+                    games: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getEventsGames();
                     }],
-                    gamesForUsers:["em.result-table.result-table-service",function (resultService) {
+                    gamesForUsers: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getGamesForUsers();
                     }],
-                    players:["em.result-table.result-table-service",function (resultService) {
+                    players: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getAllPlayers();
                     }]
                 }
+            })
+            .when("/event/add", {
+                templateUrl: "./app/features/addEvent/views/addEvent.html",
+                controller: "em.addEvent.addEventController"
             })
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
