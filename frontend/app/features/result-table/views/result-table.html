@@ -60,8 +60,11 @@
                        ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" required>
                 </td>
                 <td>
-                    <div>
+                    <div ng-show="{{player.id}} != upRes.id">
                         {{player.wins + player.loses + player.draws}}
+                    </div>
+                    <div ng-show="{{player.id}} == upRes.id">
+                        {{upRes.wins + upRes.loses + upRes.draws}}
                     </div>
                 </td>
                 <td>
