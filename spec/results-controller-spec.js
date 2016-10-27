@@ -40,7 +40,24 @@ describe("Result Controller Test", function () {
     }));
     it('Current user exist on controller initialisation', function(){
         expect(mockScope.currentUser).toBeDefined();
-    })
-
+    });
+    it('Get players array on controller initialization', function(){
+        expect(mockScope.allPlayers).toBeDefined();
+    });
+    it('New game result on controller initialization', function () {
+        expect(mockScope.newGameRes).toBeDefined();
+    });
+    it('Define selected player on controller initialization', function () {
+        expect(mockScope.selectedPlayer).toBeDefined();
+    });
+    it('Define participants list on controller initialization',function () {
+        expect(mockScope.participantsList).toBeDefined();
+    });
+    it('Define players list on controller initialization',function () {
+        expect(mockScope.playersList).toBeDefined();
+    });
+    it('Define list of games on controller initialization',function () {
+        expect(mockScope.gamesList).toBeDefined();
+    });
     
 });
