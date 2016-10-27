@@ -2,6 +2,7 @@
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
     function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location, $sce) {
+        var maxSymbols = 300;
         var obj = {
             user: localStorage.getItem("userId")
         }
@@ -12,23 +13,19 @@
 
         $scope.msgSend = function() {
             // for example, tmp is empty object, why???
-            var tmp = $sce.trustAsHtml('My name is <div style = "color:red; width: 500px; height: 500px; background: red;"><b>Mudassar Khan</b></div>');         
-            console.log('tmp',tmp);
+            // var tmp = $sce.trustAsHtml('ss');         
+            // console.log('tmp',tmp);
             console.log($sce);
 
             if (!$scope.isError()) {
-                if ($scope.textMsg) {
-                    flashService.clearFlashMessage();
-                    obj.user = localStorage.getItem("userId");
-                    obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
-                    // obj.text = $sce.trustAsHtml($scope.textMsg);
-                    obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
-                    obj.token = localStorage.getItem("satellizer_token");
-                    chatService.msgSend(obj);
-                    $scope.textMsg = '';
-                } else {
-                    flashService.error('Please, enter something', false);
-                }
+                flashService.clearFlashMessage();
+                obj.user = localStorage.getItem("userId");
+                obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
+                // obj.text = $sce.trustAsHtml($scope.textMsg);
+                obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
+                obj.token = localStorage.getItem("satellizer_token");
+                chatService.msgSend(obj);
+                $scope.textMsg = '';
             }
 
         };
@@ -45,12 +42,27 @@
         };
 
         $scope.isError = function() {
-            return chatService.error;
+            if (chatService.error || !$scope.textMsg || $scope.textMsg.length > maxSymbols) {
+                return true;
+            }
+        }
+
+        $scope.$watch('textMsg', function(newValue) {
+            if (newValue !== undefined) {
+                $scope.symbols = leftSymbols(newValue);
+            } 
+        });
+
+        function leftSymbols(message) {
+            if (message.length < maxSymbols) {
+                return 'Left symbols ' + (maxSymbols - message.length);
+            } else {
+                return 'Too much symbols!';
+            }
         }
 
         // new messages
         $scope.live = chatService.live;
-
 
     }
 
