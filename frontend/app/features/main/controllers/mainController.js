@@ -9,7 +9,7 @@
 
             eventNews.getNextEvents().then(function (response) {
                 $scope.nextEvents = response.data;
-                $scope.descriptionLimit = 120;
+                $scope.descriptionLimit = 130;
                 //TODO: remove this mock-data after setting field-src in database
                 $scope.nextEvents[0].src = './build/img/football.jpg';
                 $scope.nextEvents[1].src = './build/img/chess.jpg';
