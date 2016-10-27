@@ -4,9 +4,13 @@
     function profileController($scope, userService, $routeParams, $location) {
 
         userService.getById($routeParams.userID).then(function(res) {
-            $scope.user = res[0];
-            localStorage.setItem('userId', res[0].id);
-            localStorage.setItem('fullName', res[0].full_name);
+            if (res.success) {
+                $scope.user = res[0];
+                localStorage.setItem('userId', res[0].id);
+                localStorage.setItem('fullName', res[0].full_name);
+            } else {
+                $location.path('/');
+            }
         });
         userService.getUserEvents($routeParams.userID).then(function(res) {
             $scope.events = res.data;
