@@ -27,6 +27,9 @@ var auth = function() {
         return hash;
     }
     this.ensureAuthenticated = function(req, res, next) {
+        if (req.header('count')) {
+            req.body.count = req.header('count');
+        }
         if (!req.header('Authorization')) {
             return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
         }

@@ -165,6 +165,7 @@ var router = {
             });
         });
         app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
+            console.log(req.body);
             users.getAll().then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
