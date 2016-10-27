@@ -50,14 +50,14 @@
         $scope.$watch('textMsg', function(newValue) {
             if (newValue !== undefined) {
                 $scope.symbols = leftSymbols(newValue);
-            } 
+            }
         });
 
         function leftSymbols(message) {
             if (message.length < maxSymbols) {
+                flashService.clearFlashMessage();
                 return 'Left symbols ' + (maxSymbols - message.length);
             } else {
-                return 'Too much symbols!';
             }
         }
 
