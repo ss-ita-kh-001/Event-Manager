@@ -58,6 +58,7 @@
                 flashService.clearFlashMessage();
                 return 'Left symbols ' + (maxSymbols - message.length);
             } else {
+                flashService.error('Too much symbols!', false);
             }
         }
 
