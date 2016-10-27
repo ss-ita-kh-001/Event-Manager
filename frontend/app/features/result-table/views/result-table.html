@@ -20,6 +20,10 @@
                 <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',0)">Draws
                     <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'draws')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
                 </th>
+                <th class="col-sm-2 cursor-pointer" ng-click="sortData('Total games',0)">Total games
+                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'Total games')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
+                </th>
+
             </tr>
         </thead>
         <tbody>
@@ -54,6 +58,11 @@
                     </div>
                     <input type="number" min="0" class="form-control" name="draws"
                        ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" required>
+                </td>
+                <td>
+                    <div>
+                        {{player.wins + player.loses + player.draws}}
+                    </div>
                 </td>
                 <td>
                     <button ng-if = "currentUser.role === 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
