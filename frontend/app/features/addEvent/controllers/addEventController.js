@@ -27,7 +27,5 @@
             addEventService.addEvent($scope.event);
         };
     }
-
     addEventController.$inject = ["$scope", "em.addEvent.addEventService"];
-
 })();
