@@ -435,13 +435,6 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/upload", uploadEvent.any(), function(req, res) {
-            var pics = [];
-            for (var i = 0; i < req.files.length; i++) {
-                pics[i] = "http://" + req.headers.host + "/img/events/" + req.files[i].filename;
-            }
-            res.status(200).send(pics);
-        });
         app.post(apiPreff + "/gen/events/:amount", function(req, res) {
             gen.events(req.params.amount);
             res.status(200).end();
