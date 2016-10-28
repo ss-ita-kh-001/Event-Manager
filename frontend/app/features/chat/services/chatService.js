@@ -30,21 +30,21 @@
                 angular.forEach(response.data, function(value, key) {
                     response.data[key].date = moment(response.data.date).format("HH:mm:ss");
                 });
-                $rootScope.$apply(function() {
-                    // console.log('type local before', typeof(self.live)); // why not array?
-                    // console.log('type from server', typeof(response.data));
-                    console.log('length local before', self.live.length);
-                    console.log('length from server', response.data.length);
-                    // self.live doesn't extend 
-                    angular.extend(self.live, response.data);
-                    console.log('length local after', self.live.length);
-                });
+                // if single msg
+                if (response.data.length == 1) {
+                    $rootScope.$apply(function() {
+                        self.live.push(response.data[0]);
+                    });
+                } else {
+                    $rootScope.$apply(function() {
+                        angular.extend(self.live, response.data);
+                    });
+                }
             } else {
                 $rootScope.$apply(function() {
                     self.error = true;
                     flashService.error(response.errorMessage, false);
                 });
-
             }
         }
     }
