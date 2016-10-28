@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in users" class="row-item">
+            <tr ng-repeat="user in users track by $index" class="row-item">
                 <td>{{ user.id }}</td>
                 <td>{{ user.full_name }}</td>
                 <td>{{ user.email }}</td>

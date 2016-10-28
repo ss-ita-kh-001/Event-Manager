@@ -1,13 +1,14 @@
 (function() {
-    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", chatService]);
+    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", "flashService", chatService]);
 
-    function chatService($rootScope, $location) {
+    function chatService($rootScope, $location, flashService) {
 
-        var host = location.origin.replace(/^http/, 'ws')
+        var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
 
         var self = this;
         self.live = [];
+        self.error = false;
 
         self.msgSend = function(msg) {
             if (socket.readyState == 1) {
@@ -16,19 +17,31 @@
         }
 
         socket.onmessage = function(obj) {
+
             var response = JSON.parse(obj.data);
+            // console.log(response);
 
-            // if no saved local history and have history from server
-            if (self.live.length == 0 && response.length > 0) {
+            // check error flag on every message in response object 
+            if (response.error) {
                 $rootScope.$apply(function() {
-                    angular.extend(self.live, response);
+                    self.error = true;
+                    flashService.error(response.errorMessage, false);
                 });
-
             } else {
-                $rootScope.$apply(function() {
-                    self.live.push(response);
-                });
+                // refactoring
+                // if no saved local history and have history from server
+                if (self.live.length == 0 && response.data.length > 0) {
+                    $rootScope.$apply(function() {
+                        angular.extend(self.live, response.data);
+                    });
+
+                } else {
+                    $rootScope.$apply(function() {
+                        self.live.push(response.data);
+                    });
+                }
             }
+
         }
     }
 })();

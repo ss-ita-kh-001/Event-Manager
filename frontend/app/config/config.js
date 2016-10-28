@@ -30,24 +30,32 @@
                 controller: "em.main.mainController"
             })
             .when("/profile/:userID", {
-                templateUrl: function($routeParams) {
-                    return "./app/features/profile/views/profile.html";
-                },
-                controller: "em.profile.profile-controller"
+                templateUrl: "./app/features/profile/views/profile.html",
+                controller: "em.profile.profile-controller",
+                resolve: {
+                    loginRequired: loginRequired
+                }
             })
             .when("/users", {
                 templateUrl: "./app/features/users/views/users.html",
-                controller: "em.users.users-controller"
+                controller: "em.users.users-controller",
+                resolve: {
+                    loginRequired: loginRequired
+                }
             })
             .when("/profile/:userID/settings", {
-                templateUrl: function($routeParams) {
-                    return "./app/features/profile/views/settings.html";
-                },
-                controller: "em.profile.profile-controller"
+                templateUrl: "./app/features/profile/views/settings.html",
+                controller: "em.profile.profile-controller",
+                resolve: {
+                    loginRequired: loginRequired
+                }
             })
             .when("/chat", {
                 templateUrl: "./app/features/chat/views/chat.html",
-                controller: "em.chat.chatController"
+                controller: "em.chat.chatController",
+                resolve: {
+                    loginRequired: loginRequired
+                }
             })
             .when("/login", {
                 templateUrl: "./app/features/login/views/login.html",
@@ -85,7 +93,10 @@
             })
             .when("/events/:id/edit", {
                 templateUrl: "./app/features/editEvent/views/editEvent.html",
-                controller: "em.editEvent.editEventController"
+                controller: "em.editEvent.editEventController",
+                resolve: {
+                    loginRequired: loginRequired
+                }
             })
             .when("/results", {
                 templateUrl: "./app/features/result-table/views/result-table.html",
@@ -104,7 +115,10 @@
             })
             .when("/event/add", {
                 templateUrl: "./app/features/addEvent/views/addEvent.html",
-                controller: "em.addEvent.addEventController"
+                controller: "em.addEvent.addEventController",
+                resolve: {
+                    loginRequired: loginRequired
+                }
             })
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
