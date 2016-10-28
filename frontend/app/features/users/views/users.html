@@ -2,9 +2,6 @@
     <table class="table table-hover responsive" wt-responsive-table>
         <thead>
             <tr>
-                <th table-sorting="id">id
-                  <arrow-sorting ng-if="predicate === 'id'"></arrow-sorting>
-                </th>
                 <th table-sorting="full_name">Name
                   <arrow-sorting ng-if="predicate === 'full_name'"></arrow-sorting>
                 </th>
@@ -19,7 +16,6 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users | orderBy:predicate:reverseSort track by $index" class="row-item">
-                <td>{{ user.id }}</td>
                 <td>{{ user.full_name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
