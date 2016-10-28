@@ -26,9 +26,9 @@
         }
 
         socket.onmessage = function(obj) {
-            console.log(obj);
+            // console.log(obj);
             var response = JSON.parse(obj.data);
-            // console.log(response);
+            console.log(response);
             // check error flag on every message in response object
             if (response.error) {
                 $rootScope.$apply(function() {

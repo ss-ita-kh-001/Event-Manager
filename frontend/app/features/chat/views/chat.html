@@ -6,7 +6,7 @@
         <div scroll-glue class="chat-body">
             <ul class="messages">
                 <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
-                    <div class="message__author">{{live.user}}</div>
+                    <div class="message__author">{{live.full_name}}</div>
                     <div class="message__text">
                         <div ng-bind-html="live.text">
                         </div>

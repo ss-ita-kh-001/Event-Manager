@@ -1,7 +1,7 @@
 var db = require("./connection");
 var chat = function() {
     this.getHistory = function() {
-        return db.query("SELECT * FROM \"chat\" ;");
+        return db.query("SELECT * FROM \"chat\" INNER JOIN \"users\" ON \"chat\".\"user\" = \"users\".\"id\" ;");
     };
     this.addMessage = function(user) {
         // console.log(user);
