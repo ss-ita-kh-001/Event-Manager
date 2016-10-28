@@ -55,7 +55,6 @@
                 flashService.error('Too much symbols!', false);
             }
         }
-
         // new messages
         $scope.live = chatService.live;
 
