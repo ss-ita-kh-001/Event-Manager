@@ -133,6 +133,9 @@
                     <th class="col-sm-2 cursor-pointer" table-sorting="draws">Draws
                         <arrow-sorting ng-if="predicate === 'draws'" ></arrow-sorting>
                     </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="Total games">Total games
+                        <arrow-sorting ng-if="predicate === 'Total games'" ></arrow-sorting>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -143,6 +146,7 @@
                     <td>{{ usersGame.wins}}</td>
                     <td>{{ usersGame.loses }}</td>
                     <td>{{ usersGame.draws }}</td>
+                    <td>{{usersGame.wins + usersGame.loses + usersGame.draws }}</td>
                 </tr>
                 </tbody>
             </table>
