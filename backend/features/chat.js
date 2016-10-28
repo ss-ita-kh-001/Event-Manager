@@ -24,6 +24,9 @@ var chat = {
         webSocketServer.on('connection', function(socket) {
             var id = Math.random();
             clients[id] = socket;
+            console.log('connected', id);
+            // console.log(socket);
+            // var requestObj = isAuth(obj);
 
             chatDb.getHistory().then(function(data, res) {
                 response.data = data;
@@ -40,7 +43,8 @@ var chat = {
                 if (!requestObj.error) {
                     chatDb.addMessage(requestObj.data).then(function() {
                         for (var key in clients) {
-                            clients[id].send(JSON.stringify(requestObj));
+                            clients[key].send(JSON.stringify(requestObj));
+                            console.log('sent to', id);
                         }
                     }).catch(function(error) {
                         console.log(error);
@@ -58,6 +62,7 @@ var chat = {
             });
 
             socket.on('close', function() {
+                console.log('disconnected', id);
                 delete clients[id];
             });
         });

@@ -6,6 +6,11 @@
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
 
+        // socket.onmessage = function(obj) {
+        //   console.log(obj.data);
+        // }
+        // console.log('sss');
+
         var self = this;
         self.live = [];
         self.error = false;
@@ -17,11 +22,9 @@
         }
 
         socket.onmessage = function(obj) {
-
             var response = JSON.parse(obj.data);
             // console.log(response);
-
-            // check error flag on every message in response object 
+            // check error flag on every message in response object
             if (response.error) {
                 $rootScope.$apply(function() {
                     self.error = true;
@@ -34,14 +37,12 @@
                     $rootScope.$apply(function() {
                         angular.extend(self.live, response.data);
                     });
-
                 } else {
                     $rootScope.$apply(function() {
                         self.live.push(response.data);
                     });
                 }
             }
-
         }
     }
 })();
