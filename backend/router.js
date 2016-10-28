@@ -2,6 +2,7 @@ var path = require('path');
 var events = new(require("./features/database/events"));
 var games = new(require("./features/database/games"));
 var users = new(require("./features/database/users"));
+var chatDb = new(require("./features/database/chat"));
 var subscribe = new(require("./features/database/subscribe"));
 var auth = new(require("./features/database/auth"));
 var config = require("./features/database/config");
@@ -30,35 +31,7 @@ var uploadEvent = multer({
     storage: eventStorage
 });
 var gen = new(require("./features/database/generator.js"));
-/*
- |--------------------------------------------------------------------------
- | Login Required Middleware
- |--------------------------------------------------------------------------
- */
-function ensureAuthenticated(req, res, next) {
 
-    var token = req.body.token;
-    var payload = null;
-
-    try {
-        payload = jwt.decode(token, config.TOKEN_SECRET);
-    } catch (err) {
-        return res.status(401).send({
-            message: err.message
-        });
-    }
-
-    if (payload.exp <= moment().unix()) {
-        return res.status(401).send({
-            message: 'Token has expired'
-        });
-    }
-    req.body.sub = payload.sub;
-    console.log(payload.sub);
-    next();
-
-
-}
 
 var router = {
     init: function init(app) {
@@ -191,7 +164,8 @@ var router = {
                 res.redirect('/forgot');
             });
         });
-        app.get(apiPreff + "/users", function(req, res) {
+        app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
+            console.log(req.body);
             users.getAll().then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
@@ -199,7 +173,7 @@ var router = {
                 console.log(error);
             });
         });
-        app.get(apiPreff + "/profile/:id", function(req, res) {
+        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
             users.getUserById(req.params.id).then(function(data) {
                 res.status(200).send(data);
 
@@ -236,27 +210,22 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/profile/:id", ensureAuthenticated, function(req, res) {
-            users.getUserByEmail(req.body.sub).then(function(data) {
-                users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
-                    console.log(req.body);
-                    res.status(200).end();
-                }).catch(function(error) {
-                    res.status(500).send(error);
-                });
+        app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
+            users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+                console.log(req.body);
+                res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
-                console.log(error);
             });
         });
-        app.delete(apiPreff + "/profile/:id", function(req, res) {
+        app.delete(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
             users.deleteUser(req.params).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/games/user/:user", function(req, res) {
+        app.get(apiPreff + "/games/user/:user", auth.ensureAuthenticated, function(req, res) {
             games.getByUser(req.params.user).then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
@@ -284,7 +253,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/games/event/:event", function(req, res) {
+        app.post(apiPreff + "/games/event/:event", auth.ensureAuthenticated, function(req, res) {
             games.addGame(Object.assign({}, req.body, req.params)).then(function() {
                 games.getLastId().then(function(data) {
                     res.status(200).send(data);
@@ -295,7 +264,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/games/user/:user", function(req, res) {
+        app.post(apiPreff + "/games/user/:user", auth.ensureAuthenticated, function(req, res) {
             games.addGame(Object.assign({}, req.body, req.params)).then(function() {
                 games.getLastId().then(function(data) {
                     res.status(200).send(data);
@@ -306,7 +275,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/games/:user/:event", function(req, res) {
+        app.post(apiPreff + "/games/:user/:event", auth.ensureAuthenticated, function(req, res) {
             games.addGame(Object.assign({}, req.body, req.params)).then(function() {
                 games.getLastId().then(function(data) {
                     res.status(200).send(data);
@@ -317,42 +286,42 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/games/:id", function(req, res) {
+        app.put(apiPreff + "/games/:id", auth.ensureAuthenticated, function(req, res) {
             games.updateGame(Object.assign({}, req.params, req.body)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/games/:id", function(req, res) {
+        app.delete(apiPreff + "/games/:id", auth.ensureAuthenticated, function(req, res) {
             games.deleteById(req.params.id).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/games/user/:user", function(req, res) {
+        app.delete(apiPreff + "/games/user/:user", auth.ensureAuthenticated, function(req, res) {
             games.deleteByUser(req.params.user).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/games/event/:event", function(req, res) {
+        app.delete(apiPreff + "/games/event/:event", auth.ensureAuthenticated, function(req, res) {
             games.deleteByEvent(req.params.event).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/subscribe/:user/:event", function(req, res) {
+        app.post(apiPreff + "/subscribe/:user/:event", auth.ensureAuthenticated, function(req, res) {
             subscribe.subscribe(req.params).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/unsubscribe/:user/:event", function(req, res) {
+        app.delete(apiPreff + "/unsubscribe/:user/:event", auth.ensureAuthenticated, function(req, res) {
             subscribe.unsubscribe(req.params).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
@@ -401,7 +370,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/events/:id/", function(req, res) {
+        app.put(apiPreff + "/events/:id/", auth.ensureAuthenticated, function(req, res) {
             events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
@@ -421,7 +390,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/events/:id", function(req, res) {
+        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, function(req, res) {
             events.deleteEventById(req.params.id).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
@@ -435,6 +404,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
+
         app.post(apiPreff + "/gen/events/:amount", function(req, res) {
             gen.events(req.params.amount);
             res.status(200).end();
@@ -454,6 +424,13 @@ var router = {
         app.post(apiPreff + "/gen/chat/:amount", function(req, res) {
             gen.chat(req.params.amount);
             res.status(200).end();
+        });
+        app.get(apiPreff + "/chat", auth.ensureAuthenticated, function(req, res) {
+            chatDb.getHistory().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
         });
 
         app.get('*', function(req, res) {
