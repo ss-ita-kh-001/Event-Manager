@@ -28,51 +28,51 @@
         </thead>
         <tbody>
             <tr ng-repeat="player in playersList | orderBy:sortState[0].sortColoumn:sortState[0].reverseSort"
-                ng-form="editForm{{player.id}}">
+                ng-form="editForm(player.id)">
                 <td>
-                    <div ng-show="{{player.id}} != upRes.id">
+                    <div ng-show="player.id !== upRes.id">
                         {{ player.full_name}}
                     </div>
-                    <select ng-show="{{player.id}} == upRes.id"
+                    <select ng-show="player.id === upRes.id"
                             ng-options="updatingParticipant as updatingParticipant.full_name for updatingParticipant in updatingParticipantsList track by updatingParticipant.id"
                             ng-model="upRes.selectedParticipant" class="form-control input-lg">
                     </select>
                 </td>
                 <td>
-                    <div ng-show="{{player.id}} != upRes.id">
+                    <div ng-show="player.id !== upRes.id">
                         {{ player.wins }}
                     </div>
                     <input type="number" min="0" class="form-control" name="wins"
-                       ng-model="upRes.wins"  ng-show="{{player.id}} == upRes.id"  placeholder="Number of wins" required>
+                       ng-model="upRes.wins"  ng-show="player.id === upRes.id"  placeholder="Number of wins" required>
                 </td>
                 <td>
-                    <div ng-show="{{player.id}}!= upRes.id">
+                    <div ng-show="player.id!== upRes.id">
                         {{ player.loses }}
                     </div>
                     <input type="number" min="0" class="form-control" name="loses"
-                       ng-model="upRes.loses" ng-show="{{player.id}} == upRes.id" placeholder="Number of looses" required>
+                       ng-model="upRes.loses" ng-show="player.id === upRes.id" placeholder="Number of looses" required>
                 </td>
                 <td>
-                    <div ng-show="{{player.id}} != upRes.id">
+                    <div ng-show="player.id !== upRes.id">
                         {{ player.draws }}
                     </div>
                     <input type="number" min="0" class="form-control" name="draws"
-                       ng-model="upRes.draws" ng-show="{{player.id}} == upRes.id" placeholder="Number of draws" required>
+                       ng-model="upRes.draws" ng-show="player.id === upRes.id" placeholder="Number of draws" required>
                 </td>
                 <td>
-                    <div ng-show="{{player.id}} != upRes.id">
+                    <div ng-show="player.id !== upRes.id">
                         {{player.wins + player.loses + player.draws}}
                     </div>
-                    <div ng-show="{{player.id}} == upRes.id">
+                    <div ng-show="player.id === upRes.id">
                         {{upRes.wins + upRes.loses + upRes.draws}}
                     </div>
                 </td>
                 <td>
                     <button ng-if = "currentUser.role === 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
-                            ng-disabled="({{player.id}} == upRes.id) && editForm{{player.id}}.$invalid"
-                            ng-class="({{player.id}} != upRes.id) ? 'btn-info glyphicon-pencil' : 'btn-success glyphicon-ok'"></button>
-                    <button ng-if = "currentUser.role === 'admin'" ng-click="deleteGameResById(player.id)" ng-show="{{player.id}} != upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
-                    <button ng-if = "currentUser.role === 'admin'" ng-click="cancelUpdate()" ng-show="{{player.id}} == upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
+                            ng-disabled="(player.id === upRes.id) && editForm(player.id).$invalid"
+                            ng-class="(player.id !== upRes.id) ? 'btn-info glyphicon-pencil' : 'btn-success glyphicon-ok'"></button>
+                    <button ng-if = "currentUser.role === 'admin'" ng-click="deleteGameResById(player.id)" ng-show="player.id !== upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                    <button ng-if = "currentUser.role === 'admin'" ng-click="cancelUpdate()" ng-show="player.id === upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
                 </td>
             </tr>
             <tr ng-form="addGameResult">
