@@ -1,146 +1,151 @@
 <div class="container">
-    <h2>Game results</h2>
-    <select ng-options="game as (game.date | date : format : timezone) + ' ' + game.place + ' ' + game.title  for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
-    </select>
-    <div  class="panel panel-info">
-        <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
-    </div>
-    <table class="table table-hover responsive" wt-responsive-table>
-        <thead>
-            <tr>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('full_name',0)">Player full name
-                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'full_name')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('wins',0)">Wins
-                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'wins')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('loses',0)">Loses
-                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'loses')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',0)">Draws
-                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'draws')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('Total games',0)">Total games
-                    <div class='glyphicon' ng-class="(sortState[0].sortColoumn === 'Total games')? sortState[0].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="player in playersList | orderBy:sortState[0].sortColoumn:sortState[0].reverseSort"
-                ng-form="editForm(player.id)">
-                <td>
-                    <div ng-show="player.id !== upRes.id">
-                        {{ player.full_name}}
-                    </div>
-                    <select ng-show="player.id === upRes.id"
-                            ng-options="updatingParticipant as updatingParticipant.full_name for updatingParticipant in updatingParticipantsList track by updatingParticipant.id"
-                            ng-model="upRes.selectedParticipant" class="form-control input-lg">
-                    </select>
-                </td>
-                <td>
-                    <div ng-show="player.id !== upRes.id">
-                        {{ player.wins }}
-                    </div>
-                    <input type="number" min="0" class="form-control" name="wins"
-                       ng-model="upRes.wins"  ng-show="player.id === upRes.id"  placeholder="Number of wins" required>
-                </td>
-                <td>
-                    <div ng-show="player.id!== upRes.id">
-                        {{ player.loses }}
-                    </div>
-                    <input type="number" min="0" class="form-control" name="loses"
-                       ng-model="upRes.loses" ng-show="player.id === upRes.id" placeholder="Number of looses" required>
-                </td>
-                <td>
-                    <div ng-show="player.id !== upRes.id">
-                        {{ player.draws }}
-                    </div>
-                    <input type="number" min="0" class="form-control" name="draws"
-                       ng-model="upRes.draws" ng-show="player.id === upRes.id" placeholder="Number of draws" required>
-                </td>
-                <td>
-                    <div ng-show="player.id !== upRes.id">
-                        {{player.wins + player.loses + player.draws}}
-                    </div>
-                    <div ng-show="player.id === upRes.id">
-                        {{upRes.wins + upRes.loses + upRes.draws}}
-                    </div>
-                </td>
-                <td>
-                    <button ng-if = "currentUser.role === 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
-                            ng-disabled="(player.id === upRes.id) && editForm(player.id).$invalid"
-                            ng-class="(player.id !== upRes.id) ? 'btn-info glyphicon-pencil' : 'btn-success glyphicon-ok'"></button>
-                    <button ng-if = "currentUser.role === 'admin'" ng-click="deleteGameResById(player.id)" ng-show="player.id !== upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
-                    <button ng-if = "currentUser.role === 'admin'" ng-click="cancelUpdate()" ng-show="player.id === upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
-                </td>
-            </tr>
-            <tr ng-form="addGameResult">
-                <td>
-                    <select ng-if = "currentUser.role === 'admin'"
-                            ng-options="participant as participant.full_name for participant in participantsList track by participant.id"
-                            ng-model="newGameRes.selectedParticipant" ng-disabled="participantsList.length == 0" class="form-control input-lg">
-                    </select>
-                </td>
-                <td>
-                    <input ng-if = "currentUser.role === 'admin'" type="number"  min="0" class="form-control" name="wins" required
-                           ng-disabled="participantsList.length == 0 " ng-minlength="1"
-                           ng-model="newGameRes.wins"  placeholder="Number of wins">
-                </td>
-                <td>
-                    <input ng-if = "currentUser.role === 'admin'" type="number" min="0" class="form-control" name="loses" required
-                           ng-disabled="participantsList.length == 0"
-                           ng-model="newGameRes.loses"  placeholder="Number of looses" >
-                </td>
-                <td>
-                    <input ng-if = "currentUser.role === 'admin'" type="number"  min="0" class="form-control" name="draws" required
-                           ng-disabled="participantsList.length == 0"
-                           ng-model="newGameRes.draws" placeholder="Number of draws" >
-                </td>
-                <td>
-                    <button ng-if = "currentUser.role === 'admin'" ng-model="newGameRes.save"
-                            ng-click="addGameRes()"
-                            ng-disabled="participantsList.length == 0 || (addGameResult.$invalid)" type="submit"
-                            class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>User results</h2>
-    <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-disabled="allPlayers.length==0" ng-change="selectPlayer()" class="form-control input-lg">
-    </select>
-    <table class="table table-hover responsive" wt-responsive-table>
-        <thead>
-            <tr>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('date',1)">Game date
-                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'date')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('place',1)">Game location
-                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'place')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('title',1)">Event title
-                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'title')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('wins',1)">Wins
-                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'wins')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('loses',1)">Loses
-                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'loses')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-                <th class="col-sm-2 cursor-pointer" ng-click="sortData('draws',1)">Draws
-                    <div class='glyphicon' ng-class="(sortState[1].sortColoumn === 'draws')? sortState[1].reverseSort ? 'glyphicon-arrow-up' : 'glyphicon-arrow-down': '' "></div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="usersGame in usersGameList | orderBy:sortState[1].sortColoumn:sortState[1].reverseSort ">
-                <td>{{ usersGame.date | date : format : timezone}}</td>
-                <td>{{ usersGame.place}}</td>
-                <td>{{ usersGame.title }}</td>
-                <td>{{ usersGame.wins}}</td>
-                <td>{{ usersGame.loses }}</td>
-                <td>{{ usersGame.draws }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <uib-tabset active="activeJustified" justified="true" >
+        <uib-tab index="0" heading="Game results">
+            <h2 ng-if = "currentUser.role === 'admin'">Game results</h2>
+            <select ng-options="game as (game.date | date : format : timezone) + ' ' + game.place + ' ' + game.title  for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
+            </select>
+            <div  class="panel panel-info">
+                <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
+            </div>
+            <table class="table table-hover responsive" wt-responsive-table>
+                <thead>
+                <tr>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="full_name">Player full name
+                        <arrow-sorting ng-if="predicate === 'full_name'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="wins">Wins
+                        <arrow-sorting ng-if="predicate === 'wins'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="loses">Loses
+                        <arrow-sorting ng-if="predicate === 'loses'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="draws">Draws
+                        <arrow-sorting ng-if="predicate === 'draws'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="Total games">Total games
+                        <arrow-sorting ng-if="predicate === 'Total games'" ></arrow-sorting>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="player in playersList | orderBy:predicate:reverseSort track by $index"
+                    ng-form="editForm(player.id)">
+                    <td>
+                        <div ng-show="player.id !== upRes.id">
+                            {{ player.full_name}}
+                        </div>
+                        <select ng-show="player.id === upRes.id"
+                                ng-options="updatingParticipant as updatingParticipant.full_name for updatingParticipant in updatingParticipantsList track by updatingParticipant.id"
+                                ng-model="upRes.selectedParticipant" class="form-control input-lg">
+                        </select>
+                    </td>
+                    <td>
+                        <div ng-show="player.id !== upRes.id">
+                            {{ player.wins }}
+                        </div>
+                        <input type="number" min="0" class="form-control" name="wins"
+                               ng-model="upRes.wins"  ng-show="player.id === upRes.id"  placeholder="Number of wins" required>
+                    </td>
+                    <td>
+                        <div ng-show="player.id!== upRes.id">
+                            {{ player.loses }}
+                        </div>
+                        <input type="number" min="0" class="form-control" name="loses"
+                               ng-model="upRes.loses" ng-show="player.id === upRes.id" placeholder="Number of looses" required>
+                    </td>
+                    <td>
+                        <div ng-show="player.id !== upRes.id">
+                            {{ player.draws }}
+                        </div>
+                        <input type="number" min="0" class="form-control" name="draws"
+                               ng-model="upRes.draws" ng-show="player.id === upRes.id" placeholder="Number of draws" required>
+                    </td>
+                    <td>
+                        <div ng-show="player.id !== upRes.id">
+                            {{player.wins + player.loses + player.draws}}
+                        </div>
+                        <div ng-show="player.id === upRes.id">
+                            {{upRes.wins + upRes.loses + upRes.draws}}
+                        </div>
+                    </td>
+                    <td>
+                        <button ng-if = "currentUser.role === 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
+                                ng-disabled="(player.id === upRes.id) && editForm(player.id).$invalid"
+                                ng-class="(player.id !== upRes.id) ? 'btn-info glyphicon-pencil' : 'btn-success glyphicon-ok'"></button>
+                        <button ng-if = "currentUser.role === 'admin'" ng-click="deleteGameResById(player.id)" ng-show="player.id !== upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
+                        <button ng-if = "currentUser.role === 'admin'" ng-click="cancelUpdate()" ng-show="player.id === upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
+                    </td>
+                </tr>
+                <tr ng-form="addGameResult">
+                    <td>
+                        <select ng-if = "currentUser.role === 'admin'"
+                                ng-options="participant as participant.full_name for participant in participantsList track by participant.id"
+                                ng-model="newGameRes.selectedParticipant" ng-disabled="participantsList.length == 0" class="form-control input-lg">
+                        </select>
+                    </td>
+                    <td>
+                        <input ng-if = "currentUser.role === 'admin'" type="number"  min="0" class="form-control" name="wins" required
+                               ng-disabled="participantsList.length == 0 " ng-minlength="1"
+                               ng-model="newGameRes.wins"  placeholder="Number of wins">
+                    </td>
+                    <td>
+                        <input ng-if = "currentUser.role === 'admin'" type="number" min="0" class="form-control" name="loses" required
+                               ng-disabled="participantsList.length == 0"
+                               ng-model="newGameRes.loses"  placeholder="Number of looses" >
+                    </td>
+                    <td>
+                        <input ng-if = "currentUser.role === 'admin'" type="number"  min="0" class="form-control" name="draws" required
+                               ng-disabled="participantsList.length == 0"
+                               ng-model="newGameRes.draws" placeholder="Number of draws" >
+                    </td>
+                    <td>
+                        <button ng-if = "currentUser.role === 'admin'" ng-model="newGameRes.save"
+                                ng-click="addGameRes()"
+                                ng-disabled="participantsList.length == 0 || addGameResult.$invalid" type="submit"
+                                class="btn btn-success btn-xs glyphicon glyphicon-ok"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab index="1" heading="User results" ng-if = "currentUser.role === 'admin'">
+            <h2>User results</h2>
+            <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-disabled="allPlayers.length==0" ng-change="selectPlayer()" class="form-control input-lg">
+            </select>
+            <table class="table table-hover responsive" wt-responsive-table>
+                <thead>
+                <tr>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="date">Game date
+                        <arrow-sorting ng-if="predicate === 'date'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="place">Game location
+                        <arrow-sorting ng-if="predicate === 'place'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="title">Event title
+                        <arrow-sorting ng-if="predicate === 'title'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="wins">Wins
+                        <arrow-sorting ng-if="predicate === 'wins'"></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="loses">Loses
+                        <arrow-sorting ng-if="predicate === 'loses'" ></arrow-sorting>
+                    </th>
+                    <th class="col-sm-2 cursor-pointer" table-sorting="draws">Draws
+                        <arrow-sorting ng-if="predicate === 'draws'" ></arrow-sorting>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="usersGame in usersGameList |orderBy:predicate:reverseSort track by $index">
+                    <td>{{ usersGame.date | date : format : timezone}}</td>
+                    <td>{{ usersGame.place}}</td>
+                    <td>{{ usersGame.title }}</td>
+                    <td>{{ usersGame.wins}}</td>
+                    <td>{{ usersGame.loses }}</td>
+                    <td>{{ usersGame.draws }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+    </uib-tabset>
 </div>
