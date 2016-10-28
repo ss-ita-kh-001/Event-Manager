@@ -11,6 +11,10 @@
         // }
         // console.log('sss');
 
+        // socket.onopen = function(obj) {
+        //     console.log(obj);
+        // };
+
         var self = this;
         self.live = [];
         self.error = false;
@@ -22,6 +26,7 @@
         }
 
         socket.onmessage = function(obj) {
+            console.log(obj);
             var response = JSON.parse(obj.data);
             // console.log(response);
             // check error flag on every message in response object
