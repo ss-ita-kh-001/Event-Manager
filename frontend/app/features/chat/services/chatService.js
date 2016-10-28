@@ -5,10 +5,6 @@
 
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
-        // socket.onmessage = function(obj) {
-        //     console.log(obj.data);
-        // }
-
 
         var initialization = {
             token: localStorage.getItem("satellizer_token"),
@@ -17,10 +13,6 @@
         socket.onopen = function(obj) {
             socket.send(JSON.stringify(initialization));
         };
-
-
-
-
 
         var self = this;
         self.live = [];
@@ -31,6 +23,7 @@
                 socket.send(JSON.stringify(msg));
             }
         }
+
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
             console.log(response);
