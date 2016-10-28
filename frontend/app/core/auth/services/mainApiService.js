@@ -4,9 +4,7 @@
         .service("em.mainApiService", mainApiService);
 
     function mainApiService($http, baseUrl) {
-        this.get = function(url, config) {
-            // config.headers['count'] = localStorage.getItem('count');
-            console.log(config);
+        this.get = function(url) {
             return $http.get(baseUrl + url + '/');
         }
 

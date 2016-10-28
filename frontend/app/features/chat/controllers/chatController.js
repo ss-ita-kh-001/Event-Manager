@@ -7,8 +7,6 @@
             user: localStorage.getItem("userId")
         }
 
-        // $scope.msgSend();
-
         $scope.isMine = function($index) {
             return obj.user == $scope.live[$index].user;
         }
@@ -18,7 +16,6 @@
                 flashService.clearFlashMessage();
                 obj.user = localStorage.getItem("userId");
                 obj.text = $scope.textMsg;
-                // obj.text = $sce.getTrustedHtml($scope.textMsg);
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
                 chatService.msgSend(obj);

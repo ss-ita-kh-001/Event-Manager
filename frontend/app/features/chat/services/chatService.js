@@ -5,15 +5,22 @@
 
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
-
         // socket.onmessage = function(obj) {
-        //   console.log(obj.data);
+        //     console.log(obj.data);
         // }
-        // console.log('sss');
 
-        // socket.onopen = function(obj) {
-        //     console.log(obj);
-        // };
+
+        var initialization = {
+            token: localStorage.getItem("satellizer_token"),
+            getHistory: true
+        }
+        socket.onopen = function(obj) {
+            socket.send(JSON.stringify(initialization));
+        };
+
+
+
+
 
         var self = this;
         self.live = [];
@@ -26,6 +33,7 @@
         }
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
+            console.log(response);
             if (!response.error) {
                 angular.forEach(response.data, function(value, key) {
                     response.data[key].date = moment(response.data.date).format("HH:mm:ss");
