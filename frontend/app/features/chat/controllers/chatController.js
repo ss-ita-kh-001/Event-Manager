@@ -12,22 +12,16 @@
         }
 
         $scope.msgSend = function() {
-            // for example, tmp is empty object, why???
-            // var tmp = $sce.trustAsHtml('ss');         
-            // console.log('tmp',tmp);
-            console.log($sce);
-
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
                 obj.user = localStorage.getItem("userId");
-                obj.text = $scope.textMsg.replace(/\r?\n/g, '<br />');
-                // obj.text = $sce.trustAsHtml($scope.textMsg);
+                obj.text = $scope.textMsg;  
+                // obj.text = $sce.getTrustedHtml($scope.textMsg);
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
                 chatService.msgSend(obj);
                 $scope.textMsg = '';
             }
-
         };
 
         $scope.isChatOnTop = function() {

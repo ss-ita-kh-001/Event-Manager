@@ -3,6 +3,7 @@ var moment = require('moment');
 var config = require("./database/config");
 var auth = new(require("./database/auth"));
 var chatDb = new(require("./database/chat"));
+var escape = new(require("./escape"));
 
 var chat = {
     init: function init(server) {
@@ -37,12 +38,12 @@ var chat = {
                 var requestObj = isAuth(obj);
 
                 if (!requestObj.error) {
-                    // console.log(requestObj.data);
                     chatDb.addMessage(requestObj.data).then(function() {
                         for (var key in clients) {
                             clients[id].send(JSON.stringify(requestObj));
                         }
                     }).catch(function(error) {
+                        console.log(error);
                         requestObj.error = true;
                         requestObj.errorMessage = error;
                         clients[id].send(JSON.stringify(requestObj));
@@ -64,17 +65,14 @@ var chat = {
 };
 
 function isAuth(req) {
-
     var data = JSON.parse(req);
-
     var payload = null;
-
     var obj = {
         data: data,
         error: false,
         errorMessage: ''
     }
-
+    obj.data.text = escape.makeTrusted(data.text);
     var token = data.token;
     try {
         payload = jwt.decode(token, config.TOKEN_SECRET);
@@ -83,7 +81,6 @@ function isAuth(req) {
         obj.error = true;
         return obj;
     }
-
     if (payload.exp <= moment().unix()) {
         obj.errorMessage = 'Token has expired';
         obj.error = true;
@@ -91,6 +88,6 @@ function isAuth(req) {
     }
     obj.data.decodedId = payload.sub;
     return obj;
-
 }
+
 module.exports = chat;

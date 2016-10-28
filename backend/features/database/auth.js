@@ -48,7 +48,7 @@ var auth = function() {
             });
         }
         req.body.sub = payload.sub;
-        console.log(payload.sub);
+        // console.log(payload.sub);
         next();
     };
 };
