@@ -3,7 +3,7 @@
         return {
             restrict: "A",
             templateUrl: "./app/core/directives.v02/datepicker.html",
-            link: function(scope, element, attrs) {
+            link: function(scope) {
                 scope.today = function() {
                     scope.dt = new Date();
                     scope.event.date = moment(scope.dt).format("YYYY-MM-DD");

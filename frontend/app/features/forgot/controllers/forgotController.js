@@ -2,9 +2,9 @@
 
     angular.module('em.forgot').controller('em.forgot.forgotController', forgotController);
 
-    forgotController.$inject = ['$scope', 'userService', '$location', '$rootScope', 'flashService'];
+    forgotController.$inject = ['$scope', 'userService'];
 
-    function forgotController($scope, userService, $location, $rootScope, flashService) {
+    function forgotController($scope, userService) {
         $scope.user = {};
         $scope.forgot = function() {
             $scope.dataLoading = true;

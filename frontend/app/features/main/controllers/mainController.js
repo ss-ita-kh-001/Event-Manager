@@ -3,7 +3,7 @@
 
     angular.module('em.main').controller('em.main.mainController', mainController);
 
-    function mainController($scope, $location, eventNews, mainApiService) {
+    function mainController($scope, $location, eventNews) {
 
         $scope.getEventListNews = function () {
 
@@ -37,5 +37,5 @@
 
     }
 
-    mainController.$inject = ["$scope", "$location", "em.main.event.service.news", "em.mainApiService"];
+    mainController.$inject = ["$scope", "$location", "em.main.event.service.news"];
 })();

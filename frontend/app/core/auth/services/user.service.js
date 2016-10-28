@@ -4,9 +4,9 @@
 
     angular.module('em').factory('userService', userService);
 
-    userService.$inject = ['$http', 'em.mainApiService', '$location', '$rootScope', 'flashService'];
+    userService.$inject = ['em.mainApiService', '$location', 'flashService'];
 
-    function userService($http, mainApiService, $location, $rootScope, flashService) {
+    function userService(mainApiService, $location, flashService) {
         var service = {};
         var userInfo;
 

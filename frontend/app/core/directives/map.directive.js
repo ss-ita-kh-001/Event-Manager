@@ -3,7 +3,7 @@
         .directive('map', function($rootScope, $q) {
             return {
                 restrict: 'A',
-                link: function(scope, element, attrs) {
+                link: function(scope, element) {
                     var options = {
                         center: new google.maps.LatLng(40.7127837, -74.00594130000002),
                         zoom: 13,

@@ -2,7 +2,7 @@
 
     angular.module('em').controller('em.logoutController', logoutController);
 
-    function logoutController($location, $auth, flashService, userService) {
+    function logoutController($location, $auth, userService) {
         if (!$auth.isAuthenticated()) {
             return;
         }
