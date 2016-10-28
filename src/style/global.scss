@@ -54,7 +54,10 @@ datepicker{
         }
     }
 }
-
+button[disabled], html input[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
 .input-group {
     .form-control {
         padding-top: 19px;

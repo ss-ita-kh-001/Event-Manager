@@ -2,16 +2,20 @@
     <table class="table table-hover responsive" wt-responsive-table>
         <thead>
             <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th table-sorting="full_name">Name
+                  <arrow-sorting ng-if="predicate === 'full_name'"></arrow-sorting>
+                </th>
+                <th table-sorting="email">Email
+                  <arrow-sorting ng-if="predicate === 'email'"></arrow-sorting>
+                </th>
+                <th table-sorting="role">Role
+                  <arrow-sorting ng-if="predicate === 'role'"></arrow-sorting>
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in users" class="row-item">
-                <td>{{ user.id }}</td>
+            <tr ng-repeat="user in users | orderBy:predicate:reverseSort track by $index" class="row-item">
                 <td>{{ user.full_name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>

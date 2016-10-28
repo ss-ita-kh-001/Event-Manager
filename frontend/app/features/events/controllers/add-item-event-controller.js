@@ -41,20 +41,6 @@
             $location.path("/events/" + eventId + "/edit/");
         };
 
-        //setting sort
-        $scope.sortColumn = "title";
-        $scope.reverseSort = false;
-
-        $scope.sortData = function(column) {
-            if ($scope.sortColumn == column) {
-                $scope.reverseSort = !$scope.reverseSort;
-            } else {
-                $scope.reverseSort = false;
-            }
-            $scope.sortColumn = column;
-            return true;
-        };
-
         //add opportunity to delete event
         $scope.deleteEventItem = function(id) {
             itemEventService.deleteEvent(id).then(function(response) {
