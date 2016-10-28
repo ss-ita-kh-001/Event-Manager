@@ -26,10 +26,13 @@
         }
 
         socket.onmessage = function(obj) {
-            // console.log(obj);
             var response = JSON.parse(obj.data);
-            console.log(response);
-            // check error flag on every message in response object
+
+            // format date in every msg
+            angular.forEach(response.data, function(value, key) {
+                response.data[key].date = moment(response.data.date).format("HH:mm:ss");
+            });
+
             if (response.error) {
                 $rootScope.$apply(function() {
                     self.error = true;
@@ -42,6 +45,7 @@
                     $rootScope.$apply(function() {
                         angular.extend(self.live, response.data);
                     });
+
                 } else {
                     $rootScope.$apply(function() {
                         self.live.push(response.data);
