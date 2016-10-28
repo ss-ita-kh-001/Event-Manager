@@ -24,33 +24,27 @@
                 socket.send(JSON.stringify(msg));
             }
         }
-
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
-
-            // format date in every msg
-            angular.forEach(response.data, function(value, key) {
-                response.data[key].date = moment(response.data.date).format("HH:mm:ss");
-            });
-
-            if (response.error) {
+            if (!response.error) {
+                angular.forEach(response.data, function(value, key) {
+                    response.data[key].date = moment(response.data.date).format("HH:mm:ss");
+                });
+                $rootScope.$apply(function() {
+                    // console.log('type local before', typeof(self.live)); // why not array?
+                    // console.log('type from server', typeof(response.data));
+                    console.log('length local before', self.live.length);
+                    console.log('length from server', response.data.length);
+                    // self.live doesn't extend 
+                    angular.extend(self.live, response.data);
+                    console.log('length local after', self.live.length);
+                });
+            } else {
                 $rootScope.$apply(function() {
                     self.error = true;
                     flashService.error(response.errorMessage, false);
                 });
-            } else {
-                // refactoring
-                // if no saved local history and have history from server
-                if (self.live.length == 0 && response.data.length > 0) {
-                    $rootScope.$apply(function() {
-                        angular.extend(self.live, response.data);
-                    });
 
-                } else {
-                    $rootScope.$apply(function() {
-                        self.live.push(response.data);
-                    });
-                }
             }
         }
     }

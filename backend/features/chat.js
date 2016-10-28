@@ -30,6 +30,7 @@ var chat = {
 
             chatDb.getHistory().then(function(data, res) {
                 response.data = data;
+                 // console.log(response);
                 clients[id].send(JSON.stringify(response));
             }).catch(function(error) {
                 response.error = true;
@@ -41,11 +42,20 @@ var chat = {
                 var requestObj = isAuth(obj);
 
                 if (!requestObj.error) {
-                    chatDb.addMessage(requestObj.data).then(function() {
-                        for (var key in clients) {
-                            clients[key].send(JSON.stringify(requestObj));
-                            // console.log('sent to', id);
-                        }
+                    chatDb.addMessage(requestObj.data).then(function(res) {
+                        chatDb.getMessage().then(function(data, res) {
+                            response.data = data;
+                            // console.log(typeof(data));
+                            for (var key in clients) {
+                                clients[key].send(JSON.stringify(response));
+                            }
+                        }).catch(function(error) {
+                            console.log(error);
+                            requestObj.error = true;
+                            requestObj.errorMessage = error;
+                            clients[id].send(JSON.stringify(requestObj));
+                        })
+
                     }).catch(function(error) {
                         console.log(error);
                         requestObj.error = true;
