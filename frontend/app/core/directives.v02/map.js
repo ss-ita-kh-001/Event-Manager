@@ -3,7 +3,7 @@
         return {
             restrict: "A",
             templateUrl: "./app/core/directives.v02/map.html",
-            link: function(scope, element, attrs) {
+            link: function(scope, element) {
                 var options = {
                     center: new google.maps.LatLng(40.7127837, -74.00594130000002),
                     zoom: 13,

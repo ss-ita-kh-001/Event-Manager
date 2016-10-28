@@ -2,7 +2,7 @@
 
     angular.module('em.login').controller('em.login.loginController', loginController);
 
-    function loginController($scope, $location, flashService, userService, $auth, $rootScope) {
+    function loginController($scope, $location, flashService, userService, $auth) {
 
         $scope.login = function() {
             $scope.dataLoading = true;

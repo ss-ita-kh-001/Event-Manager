@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
 
-    function itemEventController($scope, $location, itemEventService, mainApiService, $uibModal, userService) {
+    function itemEventController($scope, $location, itemEventService, $uibModal, userService) {
 
         $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
@@ -129,7 +129,6 @@
         "$scope",
         "$location",
         "em.events.add-item-event-service",
-        "em.mainApiService",
         "$uibModal",
         "userService"
     ];

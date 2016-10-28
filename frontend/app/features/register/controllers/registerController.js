@@ -1,9 +1,9 @@
 (function() {
 
     angular.module('em.register').controller('em.register.registerController', registerController);
-    registerController.$inject = ['$scope', 'userService', '$location', '$rootScope', 'flashService'];
+    registerController.$inject = ['$scope', 'userService', 'flashService'];
 
-    function registerController($scope, userService, $location, $rootScope, flashService) {
+    function registerController($scope, userService, flashService) {
         $scope.range = '.{6,16}';
         $scope.register = function() {
             $scope.dataLoading = true;
