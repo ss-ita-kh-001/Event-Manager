@@ -8,10 +8,10 @@
                 </div>
                 <form method="post" name="signupForm" ng-submit="register()" role="form">
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
-                        <input ng-pattern="username" class="form-control input-lg" type="text" name="displayName" ng-model="user.fullName" placeholder="Full Name" required autofocus>
+                        <input ng-pattern="username" watch-change="checkName()" class="form-control input-lg" type="text" name="displayName" ng-model="user.fullName" placeholder="Full Name" required autofocus>
                     </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
-                        <input class="form-control input-lg" type="email" id="email" name="email" ng-model="user.email" placeholder="Email" required>
+                        <input ng-pattern="email" watch-change="checkEmail()" class="form-control input-lg" type="email" id="email" name="email" ng-model="user.email" placeholder="Email" required>
                     </div>
                     <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
                         <input ng-pattern="range" ng-model="user.password" watch-change="checkPass()" class="form-control input-lg" type="password" name="password" placeholder="Password" required>
