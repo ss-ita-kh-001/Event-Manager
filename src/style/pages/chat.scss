@@ -55,6 +55,7 @@
 }
 
 .chat-footer__message {
+    padding: 5px 15px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -185,7 +186,9 @@
     height: 100%;
     line-height: 46px;
     text-align: center;
-    background: url("../img/send-icon.png") no-repeat center center;
+    background-image: url("../img/send-icon.png");
+    background-repeat: no-repeat;
+    background-position: center center;
     border: none;
     transition: all 0.3s;
     position: relative;
@@ -250,4 +253,10 @@
   &:hover {
     opacity: 1;
   }
+}
+.count-characters {
+    font-style: italic;
+    font-size: 14px;
+    text-align: left;
+    color: #ccc;
 }

@@ -1,10 +1,10 @@
 (function() {
     angular.module("em")
-        .directive('datepicker', function($rootScope) {
+        .directive('datepicker', function() {
             return {
                 restrict: 'E',
                 templateUrl: './app/core/directives/datepicker.html',
-                link: function(scope, element, attrs) {
+                link: function(scope) {
                     scope.today = function() {
                         scope.dt = new Date();
                     };

@@ -86,3 +86,4 @@ crashlytics-build.properties
 fabric.properties
 /src/lib
 frontend/build
+frontend/img/events/*.jpeg
