@@ -29,6 +29,8 @@
             console.log(response);
             if (!response.error) {
                 angular.forEach(response.data, function(value, key) {
+                    // console.log(response.data[key].date);
+                    response.data[key].date = response.data[key].date.substring(11, 19);
                 });
                 // if single msg
                 if (response.data.length == 1) {
