@@ -205,7 +205,7 @@
         }
 
         $scope.sortState = [
-            {sortColoumn: 'full_name',reverseSort: false},
+            {sortColoumn: 'wins',reverseSort: true},
             {sortColoumn: 'date', reverseSort: false}
         ];
 

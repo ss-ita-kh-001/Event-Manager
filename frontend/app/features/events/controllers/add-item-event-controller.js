@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
 
-    function itemEventController($scope, $location, itemEventService, mainApiService, $uibModal, userService) {
+    function itemEventController($scope, $location, itemEventService, $uibModal, userService) {
 
         $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
@@ -39,20 +39,6 @@
 
         $scope.editEvent = function(eventId) {
             $location.path("/events/" + eventId + "/edit/");
-        };
-
-        //setting sort
-        $scope.sortColumn = "title";
-        $scope.reverseSort = false;
-
-        $scope.sortData = function(column) {
-            if ($scope.sortColumn == column) {
-                $scope.reverseSort = !$scope.reverseSort;
-            } else {
-                $scope.reverseSort = false;
-            }
-            $scope.sortColumn = column;
-            return true;
         };
 
         //add opportunity to delete event
@@ -143,7 +129,6 @@
         "$scope",
         "$location",
         "em.events.add-item-event-service",
-        "em.mainApiService",
         "$uibModal",
         "userService"
     ];

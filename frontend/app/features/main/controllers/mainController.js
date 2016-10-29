@@ -3,12 +3,13 @@
 
     angular.module('em.main').controller('em.main.mainController', mainController);
 
-    function mainController($scope, $location, eventNews, mainApiService) {
+    function mainController($scope, $location, eventNews) {
 
         $scope.getEventListNews = function () {
 
             eventNews.getNextEvents().then(function (response) {
                 $scope.nextEvents = response.data;
+                $scope.descriptionLimit = 130;
                 //TODO: remove this mock-data after setting field-src in database
                 $scope.nextEvents[0].src = './build/img/football.jpg';
                 $scope.nextEvents[1].src = './build/img/chess.jpg';
@@ -17,8 +18,9 @@
 
             eventNews.getLatestEvents().then(function (response) {
                 $scope.latestEvents = response.data;
+                $scope.letterLimit = 100;
             }, rejected);
-         
+
         };
 
         $scope.getEventListNews();
@@ -35,5 +37,5 @@
 
     }
 
-    mainController.$inject = ["$scope", "$location", "em.main.event.service.news", "em.mainApiService"];
+    mainController.$inject = ["$scope", "$location", "em.main.event.service.news"];
 })();

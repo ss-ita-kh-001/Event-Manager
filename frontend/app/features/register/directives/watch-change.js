@@ -4,7 +4,7 @@
             scope: {
                 onchange: '&watchChange'
             },
-            link: function(scope, element, attrs) {
+            link: function(scope, element) {
                 element.on('input', function() {
                     scope.$apply(function() {
                         scope.onchange();

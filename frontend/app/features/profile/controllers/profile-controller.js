@@ -5,6 +5,8 @@
 
         userService.getById($routeParams.userID).then(function(res) {
             $scope.user = res[0];
+            localStorage.setItem('userId', res[0].id);
+            localStorage.setItem('fullName', res[0].full_name);
         });
         userService.getUserEvents($routeParams.userID).then(function(res) {
             $scope.events = res.data;
