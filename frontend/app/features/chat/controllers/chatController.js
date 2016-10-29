@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location, $sce) {
+    function chatController($scope, chatService, flashService, $rootScope, $location) {
         var maxSymbols = 300;
         var obj = {
             user: localStorage.getItem("userId")
@@ -59,6 +59,6 @@
 
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "$timeout", "flashService", "$rootScope", "$anchorScroll", "$location", "$sce"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];
 
 })();
