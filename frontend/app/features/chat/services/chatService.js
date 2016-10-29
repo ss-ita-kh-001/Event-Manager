@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", "flashService", chatService]);
+    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "flashService", chatService]);
 
     function chatService($rootScope, flashService) {
 
