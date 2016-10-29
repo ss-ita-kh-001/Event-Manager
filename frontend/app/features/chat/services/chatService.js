@@ -29,7 +29,6 @@
             console.log(response);
             if (!response.error) {
                 angular.forEach(response.data, function(value, key) {
-                    response.data[key].date = moment(response.data.date).format("HH:mm:ss");
                 });
                 // if single msg
                 if (response.data.length == 1) {
