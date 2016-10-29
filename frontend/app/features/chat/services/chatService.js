@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", "flashService", chatService]);
 
-    function chatService($rootScope, flashService) {
+    function chatService($rootScope, $location, flashService) {
 
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
