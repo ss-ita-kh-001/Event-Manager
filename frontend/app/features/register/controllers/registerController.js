@@ -5,6 +5,7 @@
 
     function registerController($scope, userService, flashService) {
         $scope.range = '.{6,16}';
+        $scope.username = /^[^"?!@#$%^&*()>_<,.\\/|{}\[\];=`~+\-\d]{3,50}$/;
         $scope.register = function() {
             $scope.dataLoading = true;
             userService.create($scope.user);
