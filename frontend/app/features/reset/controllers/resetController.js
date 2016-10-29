@@ -1,9 +1,9 @@
 (function() {
 
     angular.module('em.reset').controller('em.reset.resetController', resetController);
-    resetController.$inject = ['$scope', 'userService', '$location', '$rootScope', 'flashService'];
+    resetController.$inject = ['$scope', 'userService', '$location', 'flashService'];
 
-    function resetController($scope, userService, $location, $rootScope, flashService) {
+    function resetController($scope, userService, $location, flashService) {
         $scope.range = '.{6,16}';
         $scope.user = {};
         $scope.checkPass = function() {
