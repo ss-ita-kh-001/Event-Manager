@@ -9,6 +9,7 @@ describe("Register Controller Test", function () {
         $provide.service('FlashService', function () {
             this.error = jasmine.createSpy('error');
             this.clearFlashMessage = jasmine.createSpy('clearFlashMessage');
+            this.success = jasmine.createSpy('success');
         });
     }));
 
@@ -32,6 +33,12 @@ describe("Register Controller Test", function () {
     it("check password validation. flashService.clearFlashMessage with params", function() {
         mockScope.signupForm = {password : {$invalid : false}};
         mockScope.checkPass();
-        expect(mockFlashService.clearFlashMessage).toHaveBeenCalled();
+        expect(mockFlashService.clearFlashMessage).toHaveBeenCalledWith();
     });
+    it("check confirm password validation. flashService.clearFlashMessage with params", function(){
+        mockScope.user = {password: 'somePassword',
+                          confirmPassword: 'somePassword'};
+        mockScope.confirmPass();
+        expect(mockFlashService.success).toHaveBeenCalledWith('Great!', false);
+    })
 });
