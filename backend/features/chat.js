@@ -24,30 +24,50 @@ var chat = {
         webSocketServer.on('connection', function(socket) {
             var id = Math.random();
             clients[id] = socket;
-
-            chatDb.getHistory().then(function(data, res) {
-                response.data = data;
-                clients[id].send(JSON.stringify(response));
-            }).catch(function(error) {
-                response.error = true;
-                response.errorMessage = error;
-            });
+            // console.log('connected', id);
+            // console.log(socket);
+            // var requestObj = isAuth(obj);
 
             socket.on('message', function(obj) {
+                // console.log(obj);
                 // if token can be decoded and isn't expired
                 var requestObj = isAuth(obj);
 
                 if (!requestObj.error) {
-                    chatDb.addMessage(requestObj.data).then(function() {
-                        for (var key in clients) {
+                    // console.log(requestObj);
+                    if (!requestObj.data.getHistory) {
+                        console.log('single message');
+                        requestObj.data.text = escape.makeTrusted(requestObj.data.text);
+                        chatDb.addMessage(requestObj.data).then(function(res) {
+                            chatDb.getMessage().then(function(data, res) {
+                                response.data = data;
+                                for (var key in clients) {
+                                    clients[key].send(JSON.stringify(response));
+                                }
+                            }).catch(function(error) {
+                                console.log(error);
+                                requestObj.error = true;
+                                requestObj.errorMessage = error;
+                                clients[id].send(JSON.stringify(requestObj));
+                            })
+
+                        }).catch(function(error) {
+                            console.log(error);
+                            requestObj.error = true;
+                            requestObj.errorMessage = error;
                             clients[id].send(JSON.stringify(requestObj));
-                        }
-                    }).catch(function(error) {
-                        console.log(error);
-                        requestObj.error = true;
-                        requestObj.errorMessage = error;
-                        clients[id].send(JSON.stringify(requestObj));
-                    });
+                        });
+                    } else {
+                        console.log('sent history');
+                        requestObj.data.getHistory = false;
+                        chatDb.getHistory().then(function(data, res) {
+                            response.data = data;
+                            clients[id].send(JSON.stringify(response));
+                        }).catch(function(error) {
+                            response.error = true;
+                            response.errorMessage = error;
+                        });
+                    }
 
                 } else {
                     requestObj.error = true;
@@ -58,6 +78,7 @@ var chat = {
             });
 
             socket.on('close', function() {
+                // console.log('disconnected', id);
                 delete clients[id];
             });
         });
@@ -72,7 +93,7 @@ function isAuth(req) {
         error: false,
         errorMessage: ''
     }
-    obj.data.text = escape.makeTrusted(data.text);
+
     var token = data.token;
     try {
         payload = jwt.decode(token, config.TOKEN_SECRET);
