@@ -19,6 +19,7 @@ var validate = function() {
             next();
         } else {
             return res.status(406).send({
+                message: 'Error 406 (Not Acceptable)'
             });
         }
     }
