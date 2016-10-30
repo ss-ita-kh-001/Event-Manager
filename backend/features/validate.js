@@ -9,11 +9,9 @@ var validate = function() {
             .replace(/\r?\n/g, '<br />');
     }
     this.checkPattern = function(req, res, next) {
-        console.log(req.body);
-
         var patternName = /^[a-zA-Z\s]{3,50}$/;
         var patternPsw = /^.{6,16}$/;
-        var patternEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/;
+        var patternEmail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
         if (patternName.test(req.body.fullName) && patternPsw.test(req.body.password) && patternEmail.test(req.body.email)) {
             next();
