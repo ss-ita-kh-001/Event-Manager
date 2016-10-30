@@ -1,12 +1,12 @@
 <div class="text-right">
-    <button type="button" name="button" class="btn btn-primary" ng-click="isChatOnTop()">Chat on top</button>
+    <button type="button" name="button" class="btn btn-primary hidden-xs" ng-click="isChatOnTop()">Chat on top</button>
 </div>
 <div class="aligner">
     <div class="chat-window">
         <div scroll-glue class="chat-body">
             <ul class="messages">
                 <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
-                    <div class="message__author">{{live.user}}</div>
+                    <div class="message__author">{{live.full_name}}</div>
                     <div class="message__text">
                         <div ng-bind-html="live.text">
                         </div>
@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-8 col-sm-offset-2 flash-block">
-    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+<div ng-if="flash" class="col-sm-8 col-sm-offset-2 flash-block">
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"  ng-bind="flash.message"></div>
 </div>
 <!-- <script>alert("ss")</script> -->

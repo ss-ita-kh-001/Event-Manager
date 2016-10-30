@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, $timeout, flashService, $rootScope, $anchorScroll, $location, $sce) {
+    function chatController($scope, chatService, flashService, $rootScope, $location) {
         var maxSymbols = 300;
         var obj = {
             user: localStorage.getItem("userId")
@@ -15,8 +15,7 @@
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
                 obj.user = localStorage.getItem("userId");
-                obj.text = $scope.textMsg;  
-                // obj.text = $sce.getTrustedHtml($scope.textMsg);
+                obj.text = $scope.textMsg;
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
                 chatService.msgSend(obj);
@@ -60,6 +59,6 @@
 
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "$timeout", "flashService", "$rootScope", "$anchorScroll", "$location", "$sce"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];
 
 })();

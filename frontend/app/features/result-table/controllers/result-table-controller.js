@@ -20,9 +20,9 @@
             }
         };
 
-        $scope.selectGame = function () {
-            $scope.getPlayersList($scope.selectedGame);
-            $scope.getParticipantsByGame($scope.selectedGame);
+        $scope.selectGame = function (selectedGame) {
+            $scope.getPlayersList(selectedGame);
+            $scope.getParticipantsByGame(selectedGame);
         };
 
         $scope.getPlayersList = function (selectedGame) {
@@ -63,7 +63,7 @@
         };
         
         $scope.deleteGameResById = function(id){
-            resultService.deleteGameResult(id).then(function (response) {
+            resultService.deleteGameResult(id).then(function () {
                 resultService.getAllPlayers().then(function (response) {
                     $scope.allPlayers = response.data;
                     if($scope.allPlayers.length == 0){
