@@ -40,6 +40,12 @@ describe("Register Controller Test", function () {
     it ('check password length value', function(){
         expect(mockScope.range).toEqual('.{6,16}');
     });
+    it('check email length value', function(){
+        expect(mockScope.email).toEqual('.{5,50}');
+    });
+    it('check username value', function(){
+        expect(mockScope.username).toEqual(/^[a-zA-Z\s]{3,50}$/);
+    });
     it('check registration. userService.create with params',function () {
        mockScope.register();
        expect(mockUserService.create).toHaveBeenCalledWith(mockScope.user);
@@ -47,6 +53,26 @@ describe("Register Controller Test", function () {
     it('check data loading in register', function(){
         mockScope.register();
         expect(mockScope.dataLoading).toBeTruthy();
+    });
+    it ('check name validation.flashService.error with params', function () {
+        mockScope.signupForm = {displayName: {$invalid : true}};
+        mockScope.checkName();
+        expect(mockFlashService.error).toHaveBeenCalledWith('Only latin symbols and length between 3 and 50', false);
+    });
+    it ('check name validation.flashService.error with params', function () {
+        mockScope.signupForm = {displayName: {$invalid : false}};
+        mockScope.checkName();
+        expect(mockFlashService.clearFlashMessage).toHaveBeenCalledWith();
+    });
+    it('check email validation.flashService.error with params', function () {
+        mockScope.signupForm = {email: {$invalid : true}};
+        mockScope.checkEmail();
+        expect(mockFlashService.error).toHaveBeenCalledWith('The email must be correct and shorter than 50 characters', false);
+    });
+    it('check email validation.flashService.error with params', function () {
+        mockScope.signupForm = {email: {$invalid : false}};
+        mockScope.checkEmail();
+        expect(mockFlashService.clearFlashMessage).toHaveBeenCalledWith();
     });
     it('check password validation. flashService.error with params', function() {
         mockScope.signupForm = {password : {$invalid : true}};
