@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "$location", "flashService", chatService]);
+    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "flashService", chatService]);
 
     function chatService($rootScope, flashService) {
 
@@ -29,7 +29,8 @@
             console.log(response);
             if (!response.error) {
                 angular.forEach(response.data, function(value, key) {
-                    response.data[key].date = moment(response.data.date).format("HH:mm:ss");
+                    // console.log(response.data[key].date);
+                    response.data[key].date = response.data[key].date.substring(11, 19);
                 });
                 // if single msg
                 if (response.data.length == 1) {

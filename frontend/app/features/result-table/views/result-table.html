@@ -2,11 +2,14 @@
     <uib-tabset active="activeJustified" justified="true" >
         <uib-tab index="0" heading="Game results">
             <h2 ng-if = "currentUser.role === 'admin'">Game results</h2>
-            <select ng-options="game as (game.date | date : format : timezone) + ' ' + game.place + ' ' + game.title  for game in gamesList track by game.id " ng-model="selectedGame" ng-disabled="gamesList.length == 0" ng-change="selectGame()" class="form-control input-lg">
+            <select ng-options="game as (game.date | date : format : timezone) + ' ' + game.place + ' '
+                    + game.title  for game in gamesList track by game.id "
+                    ng-model="selectedGame" ng-disabled="gamesList.length === 0"
+                    ng-change="selectGame(selectedGame)" class="form-control input-lg">
             </select>
             <div  class="panel panel-info">
                 <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
-            </div>
+</div>
             <table class="table table-hover responsive" wt-responsive-table>
                 <thead>
                 <tr>
@@ -29,7 +32,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="player in playersList | orderBy:predicate:reverseSort track by $index"
-                    ng-form="editForm(player.id)">
+                    ng-form="editForm{{player.id}}">
                     <td>
                         <div ng-show="player.id !== upRes.id">
                             {{ player.full_name}}
@@ -70,7 +73,7 @@
                     </td>
                     <td>
                         <button ng-if = "currentUser.role === 'admin'" ng-click="updateResult(player.id)" class="btn btn-xs glyphicon" type="button"
-                                ng-disabled="(player.id === upRes.id) && editForm(player.id).$invalid"
+                                ng-disabled="(player.id === upRes.id) && editForm{{player.id}}.$invalid"
                                 ng-class="(player.id !== upRes.id) ? 'btn-info glyphicon-pencil' : 'btn-success glyphicon-ok'"></button>
                         <button ng-if = "currentUser.role === 'admin'" ng-click="deleteGameResById(player.id)" ng-show="player.id !== upRes.id" type="button" class="btn btn-danger btn-xs glyphicon glyphicon-trash"></button>
                         <button ng-if = "currentUser.role === 'admin'" ng-click="cancelUpdate()" ng-show="player.id === upRes.id" type="button" class="btn btn-warning btn-xs glyphicon glyphicon-remove"></button>
