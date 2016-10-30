@@ -8,7 +8,7 @@ var validate = function() {
             .replace(/'/g, "&#039;")
             .replace(/\r?\n/g, '<br />');
     }
-    this.checkData = function(req, res, next) {
+    this.checkPattern = function(req, res, next) {
 
         var patternName = /^[a-zA-Z\s]{3,50}$/;
         var patternPsw = /^.{6,16}$/;

@@ -197,7 +197,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/users", validate.checkData, function(req, res) {
+        app.post(apiPreff + "/users", validate.checkPattern, function(req, res) {
             // hash psw
             req.body.password = auth.hashData(req.body.password);
 
