@@ -5,22 +5,25 @@
 
         switch ($route.current.mode) {
             case 'add':
+
                 $scope.event = {
                     isGame: false,
                     report: null
+
                 };
+
                 $scope.save = function() {
-                    console.log($scope.event)
                     addEventService.addEvent($scope.event);
                 };
+
                 break;
             case 'edit':
+                $scope.angular = angular;
                 $scope.id = $routeParams.id;
                 $scope.getEventPromise = eventService.getEvent($scope.id);
                 $scope.getEventPromise.then(function(response) {
                     $scope.event = response.data[0];
-                    $scope.event.date = new Date($scope.event.date);
-                    $scope.lookFor()
+                    $scope.lookFor();
                 }, rejected);
 
                 function rejected(error) {
@@ -28,9 +31,12 @@
                 }
 
                 $scope.save = function() {
-                    $scope.event.date = "2016-10-29";
                     console.log($scope.event)
-                    eventService.update($scope.event);
+                    if (angular.isObject($scope.event.avatar)) {
+                        addEventService.updateWithImage($scope.event);
+                    } else {
+                        addEventService.update($scope.event);
+                    }
                 }
 
                 break;
