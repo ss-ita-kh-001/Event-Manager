@@ -21,8 +21,7 @@ var users = function() {
         return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.full_name +
             "\', \"avatar\" = \'" + user.avatar + "\', \"reset_password_token\" = \'" + user.reset_password_token +
             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
-            "\', \"email\" = \'" + user.email + "\'" + (typeof user.role === "undefined" ? "" : ", \"role\" = \'" + user.role + "\'") +
-            " WHERE \"id\" = " + user.id + ";");
+            "\', \"email\" = \'" + user.email + "\'" + " WHERE \"id\" = " + user.id + ";");
     };
     this.deleteUser = function(user) {
         return db.query("DELETE FROM \"users\" WHERE \"id\" = " + user.id + ";");
