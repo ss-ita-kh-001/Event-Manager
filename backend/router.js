@@ -370,8 +370,10 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/events/:id/", auth.ensureAuthenticated, function(req, res) {
-            events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
+        app.post(apiPreff + "/events/:id/", uploadEvent.any(), function(req, res) {
+            events.updateEvent(Object.assign({
+                avatar: req.files[0].filename
+            }, req.body, req.params)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);

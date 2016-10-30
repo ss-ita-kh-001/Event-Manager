@@ -36,11 +36,12 @@
 
         var getEventPromise = eventService.getEvent($scope.id);
         getEventPromise.then(function(res) {
-            $scope.event = res.data[0];
-            $scope.search()
-        }, function(error) {
-            console.log('Error: ' + error);
-        });
+                $scope.event = res.data[0];
+                $scope.search()
+            },
+            function(error) {
+                console.log('Error: ' + error);
+            });
 
 
         $scope.search = function() {

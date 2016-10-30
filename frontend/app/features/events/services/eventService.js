@@ -8,7 +8,12 @@
         }
 
         this.update = function(event) {
-            mainApiService.put("events/" + event.id, event).then(function(res) {
+            mainApiService.post("events/" + event.id, event, {
+                transformRequest: angular.indentity,
+                headers: {
+                    'Content-Type': undefined
+                }
+              }).then(function(res) {
                 $location.path("/events/" + event.id);
             }).catch(function(error) {
                 console.log(error);
