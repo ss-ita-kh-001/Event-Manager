@@ -4,8 +4,9 @@
     registerController.$inject = ['$scope', 'userService', 'flashService'];
 
     function registerController($scope, userService, flashService) {
+
         $scope.range = '.{6,16}';
-        $scope.email = '.{5,50}';
+        $scope.email = '.{5,30}';
         $scope.username = /^[a-zA-Z\s]{3,50}$/;
         $scope.register = function() {
             $scope.dataLoading = true;
@@ -21,13 +22,13 @@
 
         $scope.checkEmail = function() {
             if ($scope.signupForm.email.$invalid) {
-                flashService.error('The email must be between 3 and 50 characters long', false);
+                flashService.error('The email must be between 5 and 30 characters long', false);
             } else {
                 flashService.clearFlashMessage();
             }
         };
 
-        $scope.checkInput = function() {
+        $scope.checkPass = function() {
             if ($scope.signupForm.password.$invalid) {
                 flashService.error('The password must be between 6 and 16 characters long', false);
             } else {
