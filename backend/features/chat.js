@@ -14,6 +14,7 @@ var chat = {
 
         // connected users
         var clients = {};
+        var currentIndex;
 
         var response = {
             data: '',
@@ -24,21 +25,27 @@ var chat = {
         webSocketServer.on('connection', function(socket) {
             var id = Math.random();
             clients[id] = socket;
-            // console.log('connected', id);
-            // console.log(socket);
-            // var requestObj = isAuth(obj);
+
+            chatDb.getLastId().then(function(data, res) {
+                // console.log('get id');
+                currentIndex = data[0].id;
+            }).catch(function(error) {
+                response.error = true;
+                response.errorMessage = error;
+            });
 
             socket.on('message', function(obj) {
-                // console.log(obj);
-                // if token can be decoded and isn't expired
-                var requestObj = isAuth(obj);
 
-                if (!requestObj.error) {
-                    // console.log(requestObj);
-                    if (!requestObj.data.getHistory) {
+                // if token can be decoded and isn't expired
+                var requestExt = isAuth(obj);
+                // console.log(requestExt);
+
+                if (!requestExt.error) {
+                    // console.log(requestExt);
+                    if (!requestExt.data.getHistory) {
                         console.log('single message');
-                        requestObj.data.text = validate.makeTrusted(requestObj.data.text);
-                        chatDb.addMessage(requestObj.data).then(function(res) {
+                        requestExt.data.text = validate.makeTrusted(requestExt.data.text);
+                        chatDb.addMessage(requestExt.data).then(function(res) {
                             chatDb.getMessage().then(function(data, res) {
                                 response.data = data;
                                 for (var key in clients) {
@@ -46,22 +53,29 @@ var chat = {
                                 }
                             }).catch(function(error) {
                                 console.log(error);
-                                requestObj.error = true;
-                                requestObj.errorMessage = error;
-                                clients[id].send(JSON.stringify(requestObj));
-                            })
+                                requestExt.error = true;
+                                requestExt.errorMessage = error;
+                                clients[id].send(JSON.stringify(requestExt));
+                            });
 
                         }).catch(function(error) {
                             console.log(error);
-                            requestObj.error = true;
-                            requestObj.errorMessage = error;
-                            clients[id].send(JSON.stringify(requestObj));
+                            requestExt.error = true;
+                            requestExt.errorMessage = error;
+                            clients[id].send(JSON.stringify(requestExt));
                         });
                     } else {
-                        console.log('sent history');
-                        requestObj.data.getHistory = false;
-                        chatDb.getHistory().then(function(data, res) {
+
+                        if (requestExt.data.index) {
+                            console.log(requestExt.data.index);
+                            currentIndex = requestExt.data.index;
+                        }
+
+                        requestExt.data.getHistory = false;
+                        chatDb.getHistory(currentIndex).then(function(data, res) {
+                            console.log('sent history');
                             response.data = data;
+                            response.index = currentIndex;
                             clients[id].send(JSON.stringify(response));
                         }).catch(function(error) {
                             response.error = true;
@@ -70,9 +84,9 @@ var chat = {
                     }
 
                 } else {
-                    requestObj.error = true;
-                    requestObj.errorMessage = 'Incorrect token. Try to login again';
-                    clients[id].send(JSON.stringify(requestObj));
+                    requestExt.error = true;
+                    requestExt.errorMessage = 'Incorrect token. Try to login again';
+                    clients[id].send(JSON.stringify(requestExt));
                 }
 
             });

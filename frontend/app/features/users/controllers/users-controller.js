@@ -2,8 +2,8 @@
     angular.module("em.users").controller("em.users.users-controller", usersController);
 
     function usersController($scope, $rootScope, userService, getUsers) {
-        // default upload
-        // if (true) {}
+        // getUsers - default first load users
+        // if no saved users in rootScope
         if ($rootScope.allUsers < getUsers) {
             $rootScope.allUsers = getUsers;
         }
@@ -11,7 +11,6 @@
 
         // run on click button 'Load more users'
         $scope.getUsers = function() {
-
             userService.getUsers($rootScope.usersIndex).then(function(res) {
                 // check available users
                 if (res.length < 10) {
@@ -21,7 +20,7 @@
                 $rootScope.allUsers = $rootScope.allUsers.concat(res);
                 $scope.users = $rootScope.allUsers;
                 // increase index for future requests
-                $rootScope.usersIndex += +$rootScope.itemsPerPage + 1;
+                $rootScope.usersIndex += $rootScope.itemsPerPage + 1;
             });
         }
     }

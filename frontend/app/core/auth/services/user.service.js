@@ -31,7 +31,6 @@
         return service;
 
         function getUsers(index) {
-            console.log('getUsers');
             return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
         }
 

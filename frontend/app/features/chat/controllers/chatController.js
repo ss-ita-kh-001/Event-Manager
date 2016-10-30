@@ -38,6 +38,10 @@
             if (chatService.error || !$scope.textMsg || $scope.textMsg.length > maxSymbols) {
                 return true;
             }
+        };
+
+        $scope.getHistory = function () {
+            chatService.getHistory();
         }
 
         $scope.$watch('textMsg', function(newValue) {

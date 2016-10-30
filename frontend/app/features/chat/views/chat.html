@@ -5,6 +5,7 @@
     <div class="chat-window">
         <div scroll-glue class="chat-body">
             <ul class="messages">
+                <button ng-click="getHistory()">Load more messages</button>
                 <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
                     <div class="message__author">{{live.full_name}}</div>
                     <div class="message__text">
@@ -31,6 +32,6 @@
     </div>
 </div>
 <div ng-if="flash" class="col-sm-8 col-sm-offset-2 flash-block">
-    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }"  ng-bind="flash.message"></div>
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-bind="flash.message"></div>
 </div>
 <!-- <script>alert("ss")</script> -->

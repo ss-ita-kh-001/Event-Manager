@@ -6,28 +6,26 @@
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
 
-        var initialization = {
-            token: localStorage.getItem("satellizer_token"),
-            getHistory: true
-        }
-        socket.onopen = function(obj) {
-            socket.send(JSON.stringify(initialization));
-        };
-
         var self = this;
         self.live = [];
         self.error = false;
 
-        self.msgSend = function(msg) {
-            if (socket.readyState == 1) {
-                socket.send(JSON.stringify(msg));
-            }
+        var initialization = {
+            token: localStorage.getItem("satellizer_token"),
+            getHistory: true,
+            index: $rootScope.chatIndex
         }
+
+        socket.onopen = function(obj) {
+            socket.send(JSON.stringify(initialization));
+        };
 
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
-            console.log(response);
+            // console.log(response);
+
             if (!response.error) {
+                $rootScope.chatIndex = response.index;
                 angular.forEach(response.data, function(value, key) {
                     // console.log(response.data[key].date);
                     response.data[key].date = response.data[key].date.substring(11, 19);
@@ -39,7 +37,9 @@
                     });
                 } else {
                     $rootScope.$apply(function() {
-                        angular.extend(self.live, response.data);
+
+                        self.live = self.live.concat(response.data);
+                        console.log(self.live.length);
                     });
                 }
             } else {
@@ -48,6 +48,18 @@
                     flashService.error(response.errorMessage, false);
                 });
             }
+        }
+
+        self.msgSend = function(msg) {
+            if (socket.readyState == 1) {
+                socket.send(JSON.stringify(msg));
+            }
+        }
+        self.getHistory = function() {
+            $rootScope.chatIndex -= 10;
+            initialization.index = $rootScope.chatIndex;
+            console.log(initialization);
+            socket.send(JSON.stringify(initialization));
         }
     }
 })();
