@@ -13,13 +13,12 @@ var validate = function() {
 
         var patternName = /^[a-zA-Z\s]{3,50}$/;
         var patternPsw = /^.{6,16}$/;
-        var patternEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+){5,50}$/;
+        var patternEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/;
 
         if (patternName.test(req.body.fullName) && patternPsw.test(req.body.password) && patternEmail.test(req.body.email)) {
             next();
         } else {
             return res.status(406).send({
-                message: 'Invalid data'
             });
         }
     }
