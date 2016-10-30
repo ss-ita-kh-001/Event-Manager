@@ -40,7 +40,11 @@
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getUsers: ["userService", function(userService) {
+                        localStorage.setItem("usersIndex", 1);
+                        return userService.getUsers(localStorage.getItem("usersIndex"));
+                    }]
                 }
             })
             .when("/profile/:userID/settings", {

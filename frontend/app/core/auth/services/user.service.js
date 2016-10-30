@@ -6,10 +6,10 @@
     userService.$inject = ['em.mainApiService', '$location', 'flashService', '$rootScope'];
 
     function userService(mainApiService, $location, flashService, $rootScope) {
-        $rootScope.usersIndex = 1;
+        $rootScope.usersIndex = 12;
         $rootScope.itemsPerPage = 10;
         $rootScope.allUsers = [];
-        
+
         var service = {};
         var userInfo;
 
@@ -30,8 +30,9 @@
 
         return service;
 
-        function getUsers(data) {
-            return mainApiService.get('users', data).then(handleSuccess, handleError('Error getting all users'));
+        function getUsers(index) {
+            console.log('getUsers');
+            return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function forgotPassword(email, callback) {
