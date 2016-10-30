@@ -166,8 +166,6 @@ var router = {
             });
         });
         app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
-            console.log(req.body);
-            users.getAll().then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -213,7 +211,6 @@ var router = {
         });
         app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
             users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
-                console.log(req.body);
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
