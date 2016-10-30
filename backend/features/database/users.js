@@ -14,16 +14,14 @@ var users = function() {
         return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");
     };
     this.addUser = function(user) {
-        return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"avatar\", \"role\") " +
-            "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password +
-            "\', \'" + user.avatar + "\', \'" + (typeof user.role === "undefined" ? "user" : user.role) + "\');");
+        return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\") " +
+            "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password + "\');");
     };
     this.updateUser = function(user) {
         return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.full_name +
             "\', \"avatar\" = \'" + user.avatar + "\', \"reset_password_token\" = \'" + user.reset_password_token +
-             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
-            "\', \"email\" = \'" + user.email + "\'" + (typeof user.role === "undefined" ? "" : ", \"role\" = \'" + user.role + "\'") +
-            " WHERE \"id\" = " + user.id + ";");
+            "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
+            "\', \"email\" = \'" + user.email + "\'" + " WHERE \"id\" = " + user.id + ";");
     };
     this.deleteUser = function(user) {
         return db.query("DELETE FROM \"users\" WHERE \"id\" = " + user.id + ";");
