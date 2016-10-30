@@ -3,7 +3,7 @@ var moment = require('moment');
 var config = require("./database/config");
 var auth = new(require("./database/auth"));
 var chatDb = new(require("./database/chat"));
-var escape = new(require("./escape"));
+var validate = new(require("./validate"));
 
 var chat = {
     init: function init(server) {
@@ -37,7 +37,7 @@ var chat = {
                     // console.log(requestObj);
                     if (!requestObj.data.getHistory) {
                         console.log('single message');
-                        requestObj.data.text = escape.makeTrusted(requestObj.data.text);
+                        requestObj.data.text = validate.makeTrusted(requestObj.data.text);
                         chatDb.addMessage(requestObj.data).then(function(res) {
                             chatDb.getMessage().then(function(data, res) {
                                 response.data = data;

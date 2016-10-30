@@ -11,6 +11,7 @@ var moment = require('moment');
 var apiPreff = "/api";
 var async = require("async");
 var crypto = require('crypto');
+var validate = new(require("./features/validate"));
 var nodemailer = require('nodemailer');
 var multer = require("multer");
 var mime = require("mime-types");
@@ -196,7 +197,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/users", function(req, res) {
+        app.post(apiPreff + "/users", validate.checkPattern, function(req, res) {
             // hash psw
             req.body.password = auth.hashData(req.body.password);
 
