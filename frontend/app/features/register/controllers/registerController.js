@@ -22,6 +22,7 @@
 
         $scope.checkEmail = function() {
             if ($scope.signupForm.email.$invalid) {
+                flashService.error('The email must be correct and shorter than 50 characters', false);
             } else {
                 flashService.clearFlashMessage();
             }
