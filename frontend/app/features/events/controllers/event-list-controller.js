@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
+    angular.module("em.events").controller("em.events.event-list-controller", itemEventController);
 
     function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents) {
         // by default button 'load more events' is visible
@@ -158,7 +158,7 @@
         "$scope",
         "$rootScope",
         "$location",
-        "em.events.add-item-event-service",
+        "em.events.event-list-service",
         "$uibModal",
         "userService",
         "getEvents"

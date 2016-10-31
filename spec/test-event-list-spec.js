@@ -8,7 +8,7 @@ describe("Controller Test", function () {
     beforeEach(angular.mock.inject(function ($controller, $rootScope) {
         mockScope = $rootScope.$new();
 
-        controller = $controller("em.events.add-item-event-controller", {
+        controller = $controller("em.events.event-list-controller", {
             $scope: mockScope
         });
     }));
@@ -46,7 +46,7 @@ describe("Controller Test", function () {
 
         beforeEach(angular.mock.inject(function ($controller, $rootScope, $http) {
             mockScope = $rootScope.$new();
-            $controller("em.events.add-item-event-controller", {
+            $controller("em.events.event-list", {
                 $scope: mockScope,
                 $http: $http
             });
