@@ -27,11 +27,9 @@
                 $scope.getEventPromise.then(function(response) {
                     $scope.event = response.data[0];
                     $scope.$watch("event.date", function(value) {
-                        console.log("#1");
                         $scope.dt = new Date(moment(value).year(), moment(value).month(), moment(value).date());
                     });
                     $scope.$watch("dt", function(value) {
-                        console.log("#0");
                         $scope.event.date = moment(value).format("YYYY-MM-DD");
                     });
                     $scope.lookFor();
