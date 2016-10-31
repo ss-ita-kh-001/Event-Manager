@@ -376,6 +376,15 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        app.post(apiPreff + "/events/:id/i", uploadEvent.any(), function(req, res) {
+            events.updateEvent(Object.assign({
+                avatar: req.files[0].filename
+            }, req.body, req.params)).then(function() {
+                res.status(200).end();
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
             events.addEvent(Object.assign({
                 avatar: req.files[0].filename
@@ -454,6 +463,64 @@ var router = {
                 text: 'Your friend ' + req.body.userSender.full_name + ' wants to invite you on ' + req.body.event.title +
                     ' detailed information about it you can find:\n\n' + 'http://' + req.headers.host + '/events/' + req.body.event.id
 
+            };
+
+            smtpTransport.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+                res.status(200).send({
+                    'message': 'Invitation was successfully sent!'
+                });
+            });
+
+        });
+
+
+        app.post(apiPreff + "/message/subscribe", function(req, res) {
+
+            var smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'event.manager.notification@gmail.com',
+                    pass: 'ss-ita-kh-001'
+                }
+            });
+            var mailOptions = {
+                to: req.body.user.email,
+                from: 'event.manager.notification@gmail.com',
+                subject: 'You have '+ req.body.status+' to event',
+                text: 'Hello,\n\n' +
+                    'This is a confirmation that you have unsubscribed to ' + req.body.event.title + ' event ' + req.body.link + '.'
+            };
+
+            smtpTransport.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+                res.status(200).send({
+                    'message': 'Invitation was successfully sent!'
+                });
+            });
+
+        });
+
+        app.post(apiPreff + "/message/unsubscribe", function(req, res) {
+
+            var smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'event.manager.notification@gmail.com',
+                    pass: 'ss-ita-kh-001'
+                }
+            });
+            var mailOptions = {
+                to: req.body.user.email,
+                from: 'event.manager.notification@gmail.com',
+                subject: 'You have subscribed to event',
+                text: 'Hello,\n\n' +
+                    'This is a confirmation that you have subscribed to ' + req.body.event.title + ' event ' + req.body.link + '.\n\n' +
+                    ' Event will take in ' + req.body.event.place + ' on ' + req.body.event.date + '.\n'
             };
 
             smtpTransport.sendMail(mailOptions, function(error, info) {

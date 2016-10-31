@@ -1,12 +1,14 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $routeParams, eventService, $rootScope, userService, flashService) {
+    function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce) {
 
         $scope.isSubscribe;
+        $scope.report;
         $scope.id = $routeParams.id;
         $scope.UserId = localStorage.getItem("userId");
         $scope.SubscribeMessage = 'Subscribe';
+
 
         if (localStorage.getItem($scope.id)) {
             $scope.SubscribeMessage = 'Unsubscribe'
@@ -21,15 +23,15 @@
                 });
         };
 
-        $scope.getCurrentUser();
+        if ($scope.UserId) {
+            $scope.getCurrentUser();
+        }
 
         $scope.getUsersByEvent = function() {
             userService.getUsersByEvent($scope.id)
                 .then(function(res) {
                     $scope.userList = res.data;
-                }, function(error) {
-                    console.log('Error: ' + error);
-                });
+                }, rejected);
         }
 
         $scope.getUsersByEvent();
@@ -38,9 +40,7 @@
         getEventPromise.then(function(res) {
             $scope.event = res.data[0];
             $scope.search()
-        }, function(error) {
-            console.log('Error: ' + error);
-        });
+        }, rejected);
 
 
         $scope.search = function() {
@@ -76,9 +76,8 @@
                 .then(function(res) {
                     flashService.success(' You have successfully Subscribed to event', true);
                     localStorage.setItem($scope.id, $scope.id);
-                }, function(error) {
-                    console.log('Error: ' + error);
-                });
+                }, rejected);
+            $scope.sendMessage();
         }
 
         $scope.unSubscribe = function() {
@@ -89,12 +88,49 @@
                 .then(function(res) {
                     flashService.success('You have Unsubscribed to event', true);
                     localStorage.removeItem($scope.id);
-                }, function(error) {
-                    console.log('Error: ' + error);
-                });
+                }, rejected);
+            $scope.sendMessage();
         }
 
+        $scope.sendMessage = function(event) {
+            userService.getById(localStorage.getItem("userId"))
+                .then(function(response) {
+                    userService.setUserInfo(response[0]);
+                    $scope.message = {
+                        user: userService.getUserInfo(),
+                        event: {
+                            title: $scope.event.title,
+                            status: $scope.SubscribeMessage,
+                            date: moment($scope.event.date).format("YYYY-MM-DD"),
+                            place: $scope.event.place
+                        },
+                        link: $location.absUrl()
+                    }
+                    if (!$scope.isSubscribe) {
+                        $scope.sendMessageToSubscribe()
+                    } else {
+                        $scope.sendMessageToUnSubscribe()
+                    }
+                }, rejected);
+
+        };
+
+        $scope.sendMessageToSubscribe = function() {
+            eventService.sendInvitationToSubscribe($scope.message).then(function(response) {
+                // TODO: add user notification about success
+            }, rejected);
+        }
+
+        $scope.sendMessageToUnSubscribe = function() {
+            eventService.sendInvitationToUnSubscribe($scope.message).then(function(response) {
+                // TODO: add user notification about success
+            }, rejected);
+        }
+
+        function rejected(error) {
+            console.log('Error: ' + error.data.status);
+        }
 
     }
-    eventController.$inject = ["$scope", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService"]
+    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"]
 })();

@@ -96,8 +96,9 @@
                 controller: "em.events.eventController"
             })
             .when("/events/:id/edit", {
-                templateUrl: "./app/features/editEvent/views/editEvent.html",
-                controller: "em.editEvent.editEventController",
+              templateUrl: "./app/features/addEvent/views/addEvent.html",
+              controller: "em.addEvent.addEventController",
+              mode: 'edit',
                 resolve: {
                     loginRequired: loginRequired
                 }
@@ -120,6 +121,7 @@
             .when("/event/add", {
                 templateUrl: "./app/features/addEvent/views/addEvent.html",
                 controller: "em.addEvent.addEventController",
+                mode: 'add',
                 resolve: {
                     loginRequired: loginRequired
                 }
