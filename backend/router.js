@@ -15,6 +15,8 @@ var validate = new(require("./features/validate"));
 var nodemailer = require('nodemailer');
 var multer = require("multer");
 var mime = require("mime-types");
+var request = require('request');
+var qs = require('querystring');
 var eventStorage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "./frontend/img/events");
@@ -171,6 +173,7 @@ var router = {
  |--------------------------------------------------------------------------
  */
         app.post('/auth/github', function(req, res) {
+            console.log('baaack');
             var accessTokenUrl = 'https://github.com/login/oauth/access_token';
             var userApiUrl = 'https://api.github.com/user';
             var params = {
@@ -179,14 +182,16 @@ var router = {
                 client_secret: config.GITHUB_SECRET,
                 redirect_uri: req.body.redirectUri
             };
-            console.log(params);
+            console.log('params: ', params);
 
             // Step 1. Exchange authorization code for access token.
             request.get({
                 url: accessTokenUrl,
                 qs: params
             }, function(err, response, accessToken) {
+                console.log('step 1');
                 accessToken = qs.parse(accessToken);
+                console.log('accessToken: ', accessToken);
                 var headers = {
                     'User-Agent': 'Satellizer'
                 };
@@ -198,9 +203,11 @@ var router = {
                     headers: headers,
                     json: true
                 }, function(err, response, profile) {
-
+                    console.log('step 3');
+                    console.log('req.header("Authorization"): ', req.header('Authorization'));
                     // Step 3a. Link user accounts.
                     if (req.header('Authorization')) {
+                        console.log('step 3a');
                         User.findOne({
                             github: profile.id
                         }, function(err, existingUser) {
@@ -229,6 +236,7 @@ var router = {
                             });
                         });
                     } else {
+                        console.log('step 3b');
                         // Step 3b. Create a new user account or return an existing one.
                         User.findOne({
                             github: profile.id

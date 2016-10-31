@@ -125,7 +125,7 @@
             });
 
             $authProvider.github({
-              clientId: 'YOUR_GITHUB_CLIENT_ID'
+              clientId: '828661239229842212f2'
             });
 
     })
