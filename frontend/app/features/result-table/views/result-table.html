@@ -9,7 +9,7 @@
             </select>
             <div  class="panel panel-info">
                 <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
-</div>
+            </div>
             <table class="table table-hover responsive" wt-responsive-table>
                 <thead>
                 <tr>
@@ -113,7 +113,9 @@
         </uib-tab>
         <uib-tab index="1" heading="User results" ng-if = "currentUser.role === 'admin'">
             <h2>User results</h2>
-            <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id" ng-model="selectedPlayer" ng-disabled="allPlayers.length==0" ng-change="selectPlayer()" class="form-control input-lg">
+            <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id"
+                    ng-model="selectedPlayer" ng-disabled="allPlayers.length === 0"
+                    ng-change="selectPlayer(selectedPlayer)" class="form-control input-lg">
             </select>
             <table class="table table-hover responsive" wt-responsive-table>
                 <thead>

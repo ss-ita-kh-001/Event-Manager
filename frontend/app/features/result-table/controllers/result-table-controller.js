@@ -21,8 +21,9 @@
         };
 
         $scope.selectGame = function (selectedGame) {
-            $scope.getPlayersList(selectedGame);
-            $scope.getParticipantsByGame(selectedGame);
+            $scope.selectedGame = selectedGame;
+            $scope.getPlayersList($scope.selectedGame);
+            $scope.getParticipantsByGame($scope.selectedGame);
         };
 
         $scope.getPlayersList = function (selectedGame) {
@@ -48,8 +49,9 @@
             }, rejected);
         };
 
-        $scope.selectPlayer = function () {
-             $scope.getGameListByUser($scope.selectedPlayer);
+        $scope.selectPlayer = function (selectedPlayer) {
+            $scope.selectedPlayer = selectedPlayer;
+            $scope.getGameListByUser($scope.selectedPlayer);
         };
 
         $scope.getGameListByUser = function (selectedPlayer) {
@@ -61,7 +63,7 @@
                 }, rejected);
             }
         };
-        
+
         $scope.deleteGameResById = function(id){
             resultService.deleteGameResult(id).then(function () {
                 resultService.getAllPlayers().then(function (response) {
@@ -156,16 +158,6 @@
             }
         };
 
-        $scope.sortData = function(coloumnName,index){
-            if ($scope.sortState[index].sortColoumn == coloumnName){
-                $scope.sortState[index].reverseSort = !$scope.sortState[index].reverseSort;
-            }else{
-                $scope.sortState[index].reverseSort = false;
-            }
-            $scope.sortState[index].sortColoumn = coloumnName;
-            return true;
-        };
-        
         $scope.cancelUpdate = function(){
             $scope.upRes={id: -1};
         };
@@ -176,6 +168,8 @@
 
         $scope.currentUser={};
         $scope.currentUser.role = 'user';
+        $scope.selectedGame={};
+        $scope.selectedPlayer={};
         $scope.getCurrentUser();
         if($scope.currentUser.role  !== 'admin'){
             $scope.gamesList = gamesForUsers.data;
@@ -183,7 +177,7 @@
             $scope.gamesList = games.data;
         }
 
-        if($scope.gamesList.length == 0){
+        if($scope.gamesList.length === 0){
             $scope.playersList =[];
             $scope.participantsList = [];
         }else{
@@ -203,12 +197,6 @@
             $scope.selectedPlayer = $scope.allPlayers[0];
             $scope.getGameListByUser($scope.selectedPlayer);
         }
-
-        $scope.sortState = [
-            {sortColoumn: 'wins',reverseSort: true},
-            {sortColoumn: 'date', reverseSort: false}
-        ];
-
     }
 
     resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "userService", "gamesForUsers"];
