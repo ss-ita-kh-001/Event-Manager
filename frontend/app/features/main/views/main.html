@@ -3,7 +3,7 @@
         <div class="carousel-content col-sm-12 col-md-6">
             <div uib-carousel active="0" interval="3000">
                 <div uib-slide ng-repeat="eventItem in nextEvents" index="$index">
-                    <img src="{{eventItem.src}}" alt="{{eventItem.title}}">
+                    <img src="img/events/{{eventItem.avatar}}" alt="{{eventItem.title}}">
                     <div class="carousel-caption caption-event">
                         <h4>{{eventItem.title}}</h4>
                     </div>
@@ -15,8 +15,9 @@
                 <div ng-repeat="eventItem in nextEvents" class="upcoming-events-items">
                     <a><h4 class="cursor-pointer" ng-click=eventPage(eventItem.id)>{{eventItem.title}}</h4></a>
                     <h6>{{eventItem.date | date:'dd.MM.yyyy'}}</h6>
-                    <p>{{eventItem.desc | limitTo:descriptionLimit}}...
-                        <!-- <a><h4 class="cursor-pointer" ng-click=eventPage(eventItem.id)>more</h4></a> -->
+                    <p>
+                        {{eventItem.desc | limitTo:descriptionLimit}}
+                        <span ng-if="eventItem.desc.length > 130">...</span>
                     </p>
                 </div>
             </div>
@@ -32,7 +33,10 @@
                 </time>
                 <div class="inner-caption-item">
                     <a><h4 class="cursor-pointer header-link" ng-click=eventPage(eventItem.id)>{{eventItem.title}}</h4></a>
-                    <p>{{eventItem.desc | limitTo:letterLimit}}...</p>
+                    <p>
+                        {{eventItem.desc | limitTo:letterLimit}}
+                        <span ng-if="eventItem.desc.length > 100">...</span>
+                    </p>
                 </div>
             </article>
         </div>
