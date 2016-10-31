@@ -14,7 +14,8 @@ var chat = {
 
         // connected users
         var clients = {};
-        var currentIndex;
+        // last index, equal to the last id by default
+        var lastIndex;
 
         var response = {
             data: '',
@@ -27,14 +28,15 @@ var chat = {
             clients[id] = socket;
 
             chatDb.getLastId().then(function(data, res) {
-                // console.log('get id');
-                currentIndex = data[0].id;
+                lastIndex = data[0].id;
+                console.log('get Last id', lastIndex);
             }).catch(function(error) {
                 response.error = true;
                 response.errorMessage = error;
             });
 
             socket.on('message', function(obj) {
+                var index = lastIndex;
 
                 // if token can be decoded and isn't expired
                 var requestExt = isAuth(obj);
@@ -65,18 +67,22 @@ var chat = {
                             clients[id].send(JSON.stringify(requestExt));
                         });
                     } else {
+                        console.log('index from client', requestExt.data.index);
 
+                        // if get index from client
                         if (requestExt.data.index) {
-                            console.log(requestExt.data.index);
-                            currentIndex = requestExt.data.index;
+                            index = requestExt.data.index;
+                        } else {
+
                         }
 
                         requestExt.data.getHistory = false;
-                        chatDb.getHistory(currentIndex).then(function(data, res) {
-                            console.log('sent history');
+                        chatDb.getHistory(index).then(function(data, res) {
+
                             response.data = data;
-                            response.index = currentIndex;
+                            response.index = lastIndex;
                             clients[id].send(JSON.stringify(response));
+                            console.log('sent history', response);
                         }).catch(function(error) {
                             response.error = true;
                             response.errorMessage = error;

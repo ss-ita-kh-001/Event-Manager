@@ -42,8 +42,7 @@
                 resolve: {
                     loginRequired: loginRequired,
                     getUsers: ["userService", function(userService) {
-                        localStorage.setItem("usersIndex", 1);
-                        return userService.getUsers(localStorage.getItem("usersIndex"));
+                        return userService.getUsers(1);
                     }]
                 }
             })

@@ -2,16 +2,16 @@
     <table class="table table-hover responsive" wt-responsive-table>
         <thead>
             <tr>
-                <th table-sorting="id">id
+                <th table-sorting="id" class="cursor-pointer">id
                     <arrow-sorting ng-if="predicate === 'id'"></arrow-sorting>
                 </th>
-                <th default-sorting="full_name" default-sorting="full_name" table-sorting="full_name">Name
+                <th default-sorting="full_name" table-sorting="full_name" class="cursor-pointer">Name
                     <arrow-sorting ng-if="predicate === 'full_name'"></arrow-sorting>
                 </th>
-                <th table-sorting="email">Email
+                <th table-sorting="email" class="cursor-pointer">Email
                     <arrow-sorting ng-if="predicate === 'email'"></arrow-sorting>
                 </th>
-                <th table-sorting="role">Role
+                <th table-sorting="role" class="cursor-pointer">Role
                     <arrow-sorting ng-if="predicate === 'role'"></arrow-sorting>
                 </th>
                 <th></th>

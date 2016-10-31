@@ -13,10 +13,11 @@
         var initialization = {
             token: localStorage.getItem("satellizer_token"),
             getHistory: true,
-            index: $rootScope.chatIndex
+            index: $rootScope.chatIndex //index defined first time on server
         }
 
         socket.onopen = function(obj) {
+            console.log('initialization', initialization);
             socket.send(JSON.stringify(initialization));
         };
 
@@ -34,12 +35,14 @@
                 if (response.data.length == 1) {
                     $rootScope.$apply(function() {
                         self.live.push(response.data[0]);
+                        // $rootScope.live = self.live;
+                        console.log('single message from server', response.data[0]);
                     });
                 } else {
                     $rootScope.$apply(function() {
-
                         self.live = self.live.concat(response.data);
-                        console.log(self.live.length);
+                        // $rootScope.live = self.live;
+                        console.log('history from server', response.data);
                     });
                 }
             } else {

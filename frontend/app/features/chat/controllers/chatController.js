@@ -40,7 +40,7 @@
             }
         };
 
-        $scope.getHistory = function () {
+        $scope.getHistory = function() {
             chatService.getHistory();
         }
 
@@ -60,6 +60,8 @@
         }
         // new messages
         $scope.live = chatService.live;
+        // $scope.live =  $rootScope.live;
+        console.log('live in controller', chatService.live);
 
     }
 
