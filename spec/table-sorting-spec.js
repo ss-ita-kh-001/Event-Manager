@@ -8,7 +8,7 @@ describe('table sorting directive', function() {
     beforeEach(inject(function(_$compile_, _$rootScope_) {
       $compile = _$compile_;
       $rootScope = _$rootScope_;
-      element = $compile("<th class='col-sm-2 cursor-pointer' table-sorting='title'></th>")($rootScope);
+      element = $compile("<th class='col-sm-2 cursor-pointer' default-sorting='title' table-sorting='title'></th>")($rootScope);
     }));
 
     it('check for initil values in reverseSort and predicate', function() {

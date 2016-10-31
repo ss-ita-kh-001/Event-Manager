@@ -54,6 +54,7 @@
     "multer": "^1.2.0",
     "nodemailer": "^2.4.6",
     "pg-promise": "^5.3.3",
+    "protractor": "^4.0.10",
     "rimraf": "^2.5.4",
     "run-sequence": "^1.2.2",
     "serve-static": "^1.11.1",
