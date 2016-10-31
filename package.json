@@ -4,7 +4,7 @@
   "description": "Events tracking project",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js",
+    "test": "./node_modules/karma/bin/karma start",
     "start": "node backend/index.js",
     "postinstall": "bower install && gulp"
   },
