@@ -87,3 +87,5 @@ fabric.properties
 /src/lib
 frontend/build
 frontend/img/events/*.jpeg
+/src/js
+/src/js
