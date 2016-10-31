@@ -6,7 +6,6 @@
             link: function(scope) {
                 scope.today = function() {
                     scope.dt = new Date();
-                    scope.event.date = moment(scope.dt).format("YYYY-MM-DD");
                 };
                 scope.today();
 
@@ -88,6 +87,10 @@
 
                 scope.$watch("dt", function(value) {
                     scope.event.date = moment(value).format("YYYY-MM-DD");
+                });
+
+                scope.$watch("event.date", function(value) {
+                    //scope.dt = moment(value, "YYYY-MM-DD");
                 });
             }
         };
