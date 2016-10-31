@@ -28,6 +28,9 @@
         $scope.updateEventList = function() {
             itemEventService.getEvents().then(function(response) {
                 $scope.events = response.data;
+                for(var i = 0; i < $scope.events.length; i++){
+                  $scope.events[i].desc = $scope.events[i].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[i].desc.length > 100? "...": "");
+                }
             }, rejected);
         };
         $scope.updateEventList();

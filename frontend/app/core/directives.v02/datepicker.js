@@ -6,7 +6,6 @@
             link: function(scope) {
                 scope.today = function() {
                     scope.dt = new Date();
-                    scope.event.date = moment(scope.dt).format("YYYY-MM-DD");
                 };
                 scope.today();
 
@@ -47,7 +46,6 @@
 
                 scope.setDate = function(year, month, day) {
                     scope.dt = new Date(year, month, day);
-                    scope.event.date = moment(scope.dt).format("YYYY-MM-DD");
                 };
 
                 scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -57,6 +55,18 @@
                 scope.popup1 = {
                     opened: false
                 };
+
+                var tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                var afterTomorrow = new Date();
+                afterTomorrow.setDate(tomorrow.getDate() + 1);
+                scope.events = [{
+                    date: tomorrow,
+                    status: 'full'
+                }, {
+                    date: afterTomorrow,
+                    status: 'partially'
+                }];
 
                 function getDayClass(data) {
                     var date = data.date,
