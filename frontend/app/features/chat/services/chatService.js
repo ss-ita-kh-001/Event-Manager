@@ -26,6 +26,7 @@
             // console.log(response);
 
             if (!response.error) {
+
                 $rootScope.chatIndex = response.index;
                 angular.forEach(response.data, function(value, key) {
                     // console.log(response.data[key].date);
@@ -59,8 +60,8 @@
             }
         }
         self.getHistory = function() {
-            $rootScope.chatIndex -= 10;
             initialization.index = $rootScope.chatIndex;
+            initialization.getHistory = true;
             console.log(initialization);
             socket.send(JSON.stringify(initialization));
         }
