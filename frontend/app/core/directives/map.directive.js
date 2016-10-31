@@ -31,7 +31,7 @@
                     });
 
 
-                    scope.addMarker = function(res) {
+                    $rootScope.addMarker = function(res) {
                         if (scope.marker) scope.marker.setMap(null);
                         scope.marker = new google.maps.Marker({
                             position: res.geometry.location,
@@ -42,7 +42,7 @@
                         scope.map.setCenter(res.geometry.location);
                     }
 
-                    scope.search = function(str) {
+                    $rootScope.search = function(str) {
                         var d = $q.defer();
                         scope.places.textSearch({
                             query: str
