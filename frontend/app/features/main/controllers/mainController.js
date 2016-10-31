@@ -10,7 +10,6 @@
             eventNews.getNextEvents().then(function (response) {
                 $scope.nextEvents = response.data;
                 $scope.descriptionLimit = 130;
-                console.log($scope.nextEvents[0].avatar);
             }, rejected);
 
             eventNews.getLatestEvents().then(function (response) {
