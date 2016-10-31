@@ -13,11 +13,13 @@ var events = function() {
         return db.query("SELECT * FROM \"users_events\" INNER JOIN \"users\" ON \"users_events\".\"user\" = \"users\".\"id\" WHERE \"users_events\".\"event\" = " + id + ";");
     };
     this.updateEvent = function(event) {
+      console.log(event.avatar)
         return db.query("UPDATE \"events\" SET \"title\" = \'" + event.title +
             "\', \"desc\" = \'" + event.desc + "\', \"date\" = \'" + event.date +
-            "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + (event.type === "game" ? true : false) + " WHERE \"id\" = " + event.id + ";");
-    };
+            "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + event.isGame + ", avatar = '" + event.avatar + "' WHERE \"id\"  = " + event.id + ";");
+     };
     this.addEvent = function(data) {
+      console.log(data)
         return db.query("INSERT INTO \"events\"(${this~}) VALUES(${avatar}, ${isGame}, ${report}, ${date}, ${title}, ${desc}, ${place});", data);
     };
     this.deleteEventById = function(id) {

@@ -11,7 +11,6 @@
         "em.reset",
         "ngAnimate",
         "ui.bootstrap",
-        "em.editEvent",
         "em.events",
         "em.result-table",
         "ngCookies",

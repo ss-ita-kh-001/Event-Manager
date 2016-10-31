@@ -26,6 +26,8 @@
     "angular-scroll-glue": "^2.0.7",
     "angular-responsive-tables": "^0.4.1",
     "textAngular": "^1.5.12",
-    "moment": "^2.15.1"
+    "moment": "^2.15.1",
+    "angular-local-storage": "^0.5.2",
+    "angular-mocks": "^1.5.8"
   }
 }
