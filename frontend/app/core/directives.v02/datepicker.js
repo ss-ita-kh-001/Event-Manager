@@ -84,14 +84,6 @@
                     }
                     return '';
                 }
-
-                scope.$watch("dt", function(value) {
-                    scope.event.date = moment(value).format("YYYY-MM-DD");
-                });
-
-                scope.$watch("event.date", function(value) {
-                    //scope.dt = moment(value, "YYYY-MM-DD");
-                });
             }
         };
     });

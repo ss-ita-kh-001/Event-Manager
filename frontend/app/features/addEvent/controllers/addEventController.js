@@ -15,6 +15,9 @@
                 $scope.save = function() {
                     addEventService.addEvent($scope.event);
                 };
+                $scope.$watch("dt", function(value) {
+                    $scope.event.date = moment(value).format("YYYY-MM-DD");
+                });
 
                 break;
             case 'edit':
@@ -23,6 +26,14 @@
                 $scope.getEventPromise = eventService.getEvent($scope.id);
                 $scope.getEventPromise.then(function(response) {
                     $scope.event = response.data[0];
+                    $scope.$watch("event.date", function(value) {
+                        console.log("#1");
+                        $scope.dt = new Date(moment(value).year(), moment(value).month(), moment(value).date());
+                    });
+                    $scope.$watch("dt", function(value) {
+                        console.log("#0");
+                        $scope.event.date = moment(value).format("YYYY-MM-DD");
+                    });
                     $scope.lookFor();
                 }, rejected);
 
@@ -31,7 +42,6 @@
                 }
 
                 $scope.save = function() {
-                    console.log($scope.event)
                     if (angular.isObject($scope.event.avatar)) {
                         addEventService.updateWithImage($scope.event);
                     } else {
