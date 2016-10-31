@@ -179,6 +179,7 @@ var router = {
                 client_secret: config.GITHUB_SECRET,
                 redirect_uri: req.body.redirectUri
             };
+            console.log(params);
 
             // Step 1. Exchange authorization code for access token.
             request.get({

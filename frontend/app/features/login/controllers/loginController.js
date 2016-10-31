@@ -30,12 +30,15 @@
                 });
         };
         $scope.authenticate = function(provider) {
+            console.log('start auth');
             $auth.authenticate(provider)
                 .then(function() {
+                    console.log('sucessssss');
                     flashService.success('You have successfully signed in with ' + provider + '!');
                     $location.path('/');
                 })
                 .catch(function(error) {
+                    console.log('failure');
                     if (error.message) {
                         // Satellizer promise reject error.
                         flashService.error(error.message);

@@ -124,5 +124,9 @@
                 templateUrl: "./app/features/main/views/main.html"
             });
 
+            $authProvider.github({
+              clientId: 'YOUR_GITHUB_CLIENT_ID'
+            });
+
     })
 })();
