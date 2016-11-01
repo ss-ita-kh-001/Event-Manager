@@ -14,9 +14,6 @@ var chat = {
 
         // connected users
         var clients = {};
-        // last index, equal to the last id by default
-
-
 
         var response = {
             data: '',
@@ -32,7 +29,7 @@ var chat = {
 
             chatDb.getLastId().then(function(data, res) {
                 currentIndex = data[0].id;
-                console.log('get Last id', currentIndex);
+                // console.log('get Last id', currentIndex);
             }).catch(function(error) {
                 response.error = true;
                 response.errorMessage = error;
@@ -69,11 +66,10 @@ var chat = {
                             clients[id].send(JSON.stringify(requestExt));
                         });
                     } else {
-                        console.log('index from client', requestExt.data.index);
-
+                        // console.log('index from client', requestExt.data.index);
                         // if index is defined on client
                         if (requestExt.data.index) {
-                            console.log('requestExt.data.index true', requestExt.data.index);
+                            // console.log('requestExt.data.index true', requestExt.data.index);
                             currentIndex = requestExt.data.index;
                         }
 
@@ -83,7 +79,6 @@ var chat = {
                             response.data = data;
                             response.index = (currentIndex - 10);
                             clients[id].send(JSON.stringify(response));
-                            console.log('sent history', response);
                         }).catch(function(error) {
                             response.error = true;
                             response.errorMessage = error;
