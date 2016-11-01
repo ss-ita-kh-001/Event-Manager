@@ -6,7 +6,6 @@
     userService.$inject = ['em.mainApiService', '$location', 'flashService', '$rootScope'];
 
     function userService(mainApiService, $location, flashService, $rootScope) {
-        $rootScope.itemsPerPage = 10;
         $rootScope.allUsers = [];
 
         var service = {};
@@ -30,6 +29,7 @@
         return service;
 
         function getUsers(index) {
+            console.log('getUsers index', index);
             return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
         }
 
