@@ -36,14 +36,12 @@
         }];
         $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
-                console.log('first if');
                 $scope.currentUser = userService.getUserInfo();
                 return;
             }
             if (localStorage.getItem("userId")) {
                 userService.getById(localStorage.getItem("userId"))
                     .then(function(response) {
-                      console.log('second if');
                         if (Array.isArray(response) && response.length > 0) {
                             userService.setUserInfo(response[0]);
                             $scope.currentUser = userService.getUserInfo();
