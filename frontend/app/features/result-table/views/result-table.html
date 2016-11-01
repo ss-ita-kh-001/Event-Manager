@@ -8,7 +8,7 @@
                     ng-change="selectGame(selectedGame)" class="form-control input-lg">
             </select>
             <div  class="panel panel-info">
-                <div ng-model="selectedGame" class="panel-body">{{selectedGame.desc}}</div>
+                <div ng-model="selectedGame" class="panel-body" ng-bind-html="selectedGame.desc"></div>
             </div>
             <table class="table table-hover responsive" wt-responsive-table>
                 <thead>
