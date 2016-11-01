@@ -14,7 +14,7 @@
         <div class="col-md-6 col-md-offset-1">
 
             <div class="row" ng-bind-html="event.desc"></div>
-            <div class="row" ng-show="reportButton();">
+            <div class="row" ng-show="reportButton() && (!reportDone);">
               <button type="button" class="btn btn-primary" ng-click="showReportTextArea = !showReportTextArea">Make a report</button>
             </div>
             <div class="row" ng-show="showReportTextArea">

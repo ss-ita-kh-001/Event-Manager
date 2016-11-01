@@ -443,6 +443,16 @@ var router = {
             });
         });
 
+        app.put(apiPreff + "/event/report/:id", function(req, res) {
+            events.makeReport(Object.assign({
+                id: req.params.id
+            }, req.body)).then(function() {
+                res.status(200).end();
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
@@ -491,7 +501,7 @@ var router = {
             var mailOptions = {
                 to: req.body.user.email,
                 from: 'event.manager.notification@gmail.com',
-                subject: 'You have '+ req.body.status+' to event',
+                subject: 'You have ' + req.body.status + ' to event',
                 text: 'Hello,\n\n' +
                     'This is a confirmation that you have unsubscribed to ' + req.body.event.title + ' event ' + req.body.link + '.'
             };

@@ -9,6 +9,7 @@
         $scope.id = $routeParams.id;
         $scope.UserId = localStorage.getItem("userId");
         $scope.SubscribeMessage = 'Subscribe';
+        $scope.reportDone = false;
 
 
         if (localStorage.getItem($scope.id)) {
@@ -136,9 +137,16 @@
             return $scope.event ? ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < new Date()) && ($scope.event.report === "null")) : false;
         };
         $scope.submitReport = function() {
-            console.log($scope.makeReport);
+            $scope.showReportTextArea = false;
+            $scope.reportDone = true;
+            eventService.sendReport({
+                makeReport: $scope.makeReport,
+                id: $scope.id
+            }).then(function(response) {
+                // TODO: add user notification about success
+            }, rejected);
         };
 
     }
-    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"]
+    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"];
 })();
