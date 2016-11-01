@@ -38,6 +38,10 @@
             if (chatService.error || !$scope.textMsg || $scope.textMsg.length > maxSymbols) {
                 return true;
             }
+        };
+
+        $scope.getHistory = function() {
+            chatService.getHistory();
         }
 
         $scope.$watch('textMsg', function(newValue) {
@@ -55,8 +59,15 @@
             }
         }
         // new messages
+        $scope.history = chatService.history;
         $scope.live = chatService.live;
-
+        // new array for listening new messages from service
+        $scope.newArray = chatService.history;
+        $scope.$watchCollection('newArray', function(newValue) {
+            var tmp = [];
+            tmp = tmp.concat(newValue);
+            $scope.history = tmp.concat($scope.history);
+        });
     }
 
     chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];

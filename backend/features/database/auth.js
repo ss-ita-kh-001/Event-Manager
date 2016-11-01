@@ -23,7 +23,6 @@ var auth = function() {
     this.hashData = function(data) {
         var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hashSync(data, salt);
-
         return hash;
     }
     this.ensureAuthenticated = function(req, res, next) {
@@ -48,7 +47,6 @@ var auth = function() {
             });
         }
         req.body.sub = payload.sub;
-        // console.log(payload.sub);
         next();
     };
 };
