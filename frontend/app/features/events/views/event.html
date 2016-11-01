@@ -14,6 +14,9 @@
         <div class="col-md-6 col-md-offset-1">
 
             <div class="row" ng-bind-html="event.desc"></div>
+            <div class="row" ng-if="reportButton();">
+              REPORT BUTTON
+            </div>
             <div class="row" ng-hide="report">
                 <div class="flash-block">
                     <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>

@@ -131,6 +131,10 @@
             console.log('Error: ' + error.data.status);
         }
 
+        $scope.reportButton = function() {
+            return ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < new Date()) && ($scope.event.report === "null"));
+        }
+
     }
     eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"]
 })();
