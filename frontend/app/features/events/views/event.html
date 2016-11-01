@@ -34,13 +34,21 @@
                 <div class="btn-group" ng-if="UserId">
                     <button ng-cloak type="button" ng-class="isSubscribe ? '' : 'btn-success'" class="btn btn-lg" ng-click="goEvent()" ng-if="(!passed())">{{SubscribeMessage}}</button>
                 </div>
-                <div class="row" ng-show="userList.length > 0">
+                <div class="row" ng-show="(userList.length > 0) && (!passed())">
                     <hr/>
                     <h4 ng-hide="userList[0].id == UserId">Will take part:</h4>
                     <h4 ng-show="userList[0].id == UserId">You are first, who will take part in event</h4>
                     <ul>
                         <li ng-repeat="user in userList" ng-show="user.id != UserId">{{user.full_name}}</li>
                     </ul>
+                </div>
+                <div class="row" ng-show="(userList.length > 0) && (passed())">
+                    <div class="col-xs-6">
+                        <h4>This event had {{userList.length}} participant{{userList.length == 1? "": "s"}}</h4>
+                    </div>
+                    <div class="col-xs-6" ng-show="(event.isGame)">
+                        <a href="/results" class="btn btn-primary pull-right">View results</a>
+                    </div>
                 </div>
             </div>
         </div>
