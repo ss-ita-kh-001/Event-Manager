@@ -12,7 +12,10 @@
 
                 };
 
+                $scope.en = true;
+
                 $scope.save = function() {
+                    $scope.en = false;
                     addEventService.addEvent($scope.event);
                 };
                 $scope.$watch("dt", function(value) {
