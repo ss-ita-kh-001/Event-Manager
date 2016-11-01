@@ -23,6 +23,7 @@ var chat = {
 
         webSocketServer.on('connection', function(socket) {
             var id = Math.random();
+            console.log('connected', id);
             clients[id] = socket;
 
             var currentIndex;
@@ -38,6 +39,7 @@ var chat = {
                     // console.log(requestExt);
                     if (!requestExt.data.getHistory) {
                         console.log('single message');
+                        // console.log('requestExt', requestExt);
                         requestExt.data.text = validate.makeTrusted(requestExt.data.text);
                         chatDb.addMessage(requestExt.data).then(function(res) {
                             chatDb.getMessage().then(function(data, res) {
@@ -68,7 +70,7 @@ var chat = {
                             console.log('get Last id', currentIndex);
 
                             if (requestExt.data.index) {
-                                console.log('requestExt.data.index true', requestExt.data.index);
+                                // console.log('requestExt.data.index true', requestExt.data.index);
                                 currentIndex = requestExt.data.index;
                             }
                             console.log('index from client', requestExt.data.index);
@@ -77,6 +79,7 @@ var chat = {
                                 // console.log('getHistory with currentIndex', currentIndex);
                                 response.data = data;
                                 response.index = (currentIndex - 10);
+                                console.log('send index to client', id, response.index);
                                 clients[id].send(JSON.stringify(response));
                             }).catch(function(error) {
                                 response.error = true;
@@ -98,7 +101,7 @@ var chat = {
             });
 
             socket.on('close', function() {
-                // console.log('disconnected', id);
+                console.log('disconnected', id);
                 delete clients[id];
             });
         });
