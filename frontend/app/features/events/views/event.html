@@ -2,7 +2,7 @@
     <div class="row">
         <h1 ng-bind-html="event.title"></h1>
         <span class="date pull-right">{{event.date | date : "dd.MM.yyyy"}}</span>
-        <a href="/events/{{event.id}}/edit" ng-if="currentUser.role === 'admin'" ng-hide="report" class="btn btn-primary pull-right">Edit event</a>
+        <a href="/events/{{event.id}}/edit" ng-if="(currentUser.role === 'admin') && (!passed())" ng-hide="report" class="btn btn-primary pull-right">Edit event</a>
     </div>
     <div class="row">
         <div class="col-md-5">
@@ -14,20 +14,41 @@
         <div class="col-md-6 col-md-offset-1">
 
             <div class="row" ng-bind-html="event.desc"></div>
+            <div class="row" ng-show="reportButton() && (!reportDone);">
+                <button type="button" class="btn btn-primary" ng-click="showReportTextArea = !showReportTextArea">Make a report</button>
+            </div>
+            <div class="row" ng-show="showReportTextArea">
+                <textarea rows="5" cols="50" ng-model="makeReport"></textarea>
+            </div>
+            <div class="row" ng-show="showReportTextArea">
+                <button type="button" class="btn btn-success" ng-click="submitReport();">Submit</button>
+            </div>
+            <div ng-show="content !== ''">
+                <hr/>
+                <div class="row" ng-bind-html="content"></div>
+            </div>
             <div class="row" ng-hide="report">
                 <div class="flash-block">
                     <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
                 </div>
                 <div class="btn-group" ng-if="UserId">
-                    <button ng-cloak type="button" ng-class="isSubscribe ? '' : 'btn-success'" class="btn btn-lg" ng-click="goEvent()">{{SubscribeMessage}}</button>
+                    <button ng-cloak type="button" ng-class="isSubscribe ? '' : 'btn-success'" class="btn btn-lg" ng-click="goEvent()" ng-if="(!passed())">{{SubscribeMessage}}</button>
                 </div>
-                <div class="row" ng-show="userList.length > 0">
+                <div class="row" ng-show="(userList.length > 0) && (!passed())">
                     <hr/>
                     <h4 ng-hide="userList[0].id == UserId">Will take part:</h4>
                     <h4 ng-show="userList[0].id == UserId">You are first, who will take part in event</h4>
                     <ul>
                         <li ng-repeat="user in userList" ng-show="user.id != UserId">{{user.full_name}}</li>
                     </ul>
+                </div>
+                <div class="row" ng-show="(userList.length > 0) && (passed())">
+                    <div class="col-xs-6">
+                        <h4>This event had {{userList.length}} participant{{userList.length == 1? "": "s"}}</h4>
+                    </div>
+                    <div class="col-xs-6" ng-show="(event.isGame)">
+                        <a href="/results" class="btn btn-primary pull-right">View results</a>
+                    </div>
                 </div>
             </div>
         </div>
