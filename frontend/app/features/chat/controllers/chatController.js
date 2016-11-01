@@ -61,7 +61,7 @@
         // new messages
         $scope.history = chatService.history;
         $scope.live = chatService.live;
-        // new array for listening new messages from service
+        // new array for listening new history from service
         $scope.newArray = chatService.history;
         $scope.$watchCollection('newArray', function(newValue) {
             var tmp = [];

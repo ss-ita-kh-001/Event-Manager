@@ -1,7 +1,8 @@
 var db = require("./connection");
 var events = function() {
-    this.getAll = function() {
-        return db.query("SELECT * FROM \"events\";");
+    this.getEvents = function(index) {
+        console.log('SELECT events WHERE id >= ', index);
+        return db.query("SELECT * FROM \"events\" WHERE \"id\" >= " + Number(index) + "ORDER BY \"id\" LIMIT 10;");
     };
     this.getByEvent = function(id) {
         return db.query("SELECT * FROM \"events\" WHERE \"id\" = " + id + ";");
