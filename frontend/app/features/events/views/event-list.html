@@ -11,10 +11,10 @@
             <thead>
                 <tr class="text-center">
                     <th class="col-sm-2 cursor-pointer" default-sorting="title" table-sorting="title">Event
-                      <arrow-sorting ng-if="predicate === 'title'"></arrow-sorting>
+                        <arrow-sorting ng-if="predicate === 'title'"></arrow-sorting>
                     </th>
                     <th class="col-sm-2 cursor-pointer" table-sorting="date">Date
-                      <arrow-sorting ng-if="predicate === 'date'"></arrow-sorting>
+                        <arrow-sorting ng-if="predicate === 'date'"></arrow-sorting>
                     </th>
                     <th class="col-sm-7">Description</th>
                     <th class="col-sm-1"></th>
@@ -28,7 +28,6 @@
                         <input type="text" placeholder="search" class="form-control ng-valid ng-dirty" ng-model="searchKeyword" />
                     </span>
                     </div>
-
                     <tr ng-repeat="eventItem in events | filter: searchKeyword | orderBy:predicate:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
                         <td>{{eventItem.title}}</td>
                         <td>{{eventItem.date | date:'dd.MM.yyyy'}}</td>
@@ -54,17 +53,14 @@
                 <button class="btn btn-danger no-margin" type="button" ng-click="delete()">OK</button>
             </div>
         </script>
-
         <script type="text/ng-template" id="inviteFriendForEvent.html">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title">Find your friend in dropdown</h3>
             </div>
-
             <div>
                 <select name="invitation" ng-model="selectedFriend" ng-options="user as user.full_name for user in users" ng-change="getSelectedUser()" class="form-control input-lg" required>
-                    <option  option-value="{{user.full_name}}" class="form-control input-lg">{{user[0].full_name}}</option>
+                    <option option-value="{{user.full_name}}" class="form-control input-lg">{{user[0].full_name}}</option>
                 </select>
-
                 <div class="modal-body" id="modal-body">
                     Do you want to invite your friend?
                 </div>

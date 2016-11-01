@@ -8,38 +8,43 @@
 
         var initialization = {
             token: localStorage.getItem("satellizer_token"),
-            getHistory: true
+            getHistory: true,
+            index: $rootScope.chatIndex //index defined first time on server
         }
+
         socket.onopen = function(obj) {
             socket.send(JSON.stringify(initialization));
         };
 
         var self = this;
+        self.history = [];
         self.live = [];
         self.error = false;
 
-        self.msgSend = function(msg) {
-            if (socket.readyState == 1) {
-                socket.send(JSON.stringify(msg));
-            }
-        }
-
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
-            console.log(response);
+
             if (!response.error) {
+                $rootScope.chatIndex = response.index;
                 angular.forEach(response.data, function(value, key) {
-                    // console.log(response.data[key].date);
                     response.data[key].date = response.data[key].date.substring(11, 19);
                 });
+                // $rootScope.$apply(function() {
+                //     self.live.push(response.data[0]);
+                // });
                 // if single msg
                 if (response.data.length == 1) {
                     $rootScope.$apply(function() {
+                        // angular.extend(self.live, []);
                         self.live.push(response.data[0]);
                     });
                 } else {
+                    // console.log(self.live.length);
                     $rootScope.$apply(function() {
-                        angular.extend(self.live, response.data);
+                        // angular.extend(self.live, []);
+                        // console.log(self.history);
+
+                        angular.extend(self.history, response.data.reverse());
                     });
                 }
             } else {
@@ -48,6 +53,18 @@
                     flashService.error(response.errorMessage, false);
                 });
             }
+        }
+        self.msgSend = function(msg) {
+            // self.live = [];
+            if (socket.readyState == 1) {
+                socket.send(JSON.stringify(msg));
+            }
+        }
+        self.getHistory = function() {
+            // self.live = [];
+            initialization.index = $rootScope.chatIndex;
+            initialization.getHistory = true;
+            socket.send(JSON.stringify(initialization));
         }
     }
 })();
