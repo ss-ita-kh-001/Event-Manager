@@ -135,7 +135,7 @@
         }
 
         $scope.reportButton = function() {
-            return $scope.event ? ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < new Date()) && ($scope.event.report === "null")) : false;
+            return $scope.event ? ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < moment().subtract(1, "days")) && ($scope.event.report === "null")) : false;
         };
         $scope.submitReport = function() {
             $scope.showReportTextArea = false;
