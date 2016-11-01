@@ -204,7 +204,7 @@ var router = {
                     json: true
                 }, function(err, response, profile) {
                     console.log('step 3');
-                    console.log('req.header("Authorization"): ', req.header('Authorization'));
+                    console.log('profile.id: ', profile.id);
                     // Step 3a. Link user accounts.
                     if (req.header('Authorization')) {
                         console.log('step 3a');
@@ -237,6 +237,7 @@ var router = {
                         });
                     } else {
                         console.log('step 3b');
+                        console.log('profile.id: ', profile.id);
                         // Step 3b. Create a new user account or return an existing one.
                         User.findOne({
                             github: profile.id
