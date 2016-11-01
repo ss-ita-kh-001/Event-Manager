@@ -41,7 +41,7 @@
         var getEventPromise = eventService.getEvent($scope.id);
         getEventPromise.then(function(res) {
             $scope.event = res.data[0];
-            $scope.content = $scope.event.report !== 'null' ? $scope.event.report : $scope.event.desc;
+            $scope.content = $scope.event.report !== 'null' ? $scope.event.report : "";
             $scope.search()
         }, rejected);
 
