@@ -3,6 +3,7 @@
 
     function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce) {
 
+        $scope.showReportTextArea = false;
         $scope.isSubscribe;
         $scope.report;
         $scope.id = $routeParams.id;
@@ -32,7 +33,7 @@
                 .then(function(res) {
                     $scope.userList = res.data;
                 }, rejected);
-        }
+        };
 
         $scope.getUsersByEvent();
 
@@ -66,7 +67,7 @@
                 $scope.SubscribeMessage = 'Subscribe'
                 $scope.unSubscribe();
             }
-        }
+        };
 
         $scope.subscribe = function() {
             eventService.subscribe(Object.assign({
@@ -78,7 +79,7 @@
                     localStorage.setItem($scope.id, $scope.id);
                 }, rejected);
             $scope.sendMessage();
-        }
+        };
 
         $scope.unSubscribe = function() {
             eventService.unsubscribe(Object.assign({
@@ -90,7 +91,7 @@
                     localStorage.removeItem($scope.id);
                 }, rejected);
             $scope.sendMessage();
-        }
+        };
 
         $scope.sendMessage = function(event) {
             userService.getById(localStorage.getItem("userId"))
@@ -119,21 +120,24 @@
             eventService.sendInvitationToSubscribe($scope.message).then(function(response) {
                 // TODO: add user notification about success
             }, rejected);
-        }
+        };
 
         $scope.sendMessageToUnSubscribe = function() {
             eventService.sendInvitationToUnSubscribe($scope.message).then(function(response) {
                 // TODO: add user notification about success
             }, rejected);
-        }
+        };
 
         function rejected(error) {
             console.log('Error: ' + error.data.status);
         }
 
         $scope.reportButton = function() {
-            return ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < new Date()) && ($scope.event.report === "null"));
-        }
+            return $scope.event ? ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < new Date()) && ($scope.event.report === "null")) : false;
+        };
+        $scope.submitReport = function() {
+            console.log($scope.makeReport);
+        };
 
     }
     eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"]
