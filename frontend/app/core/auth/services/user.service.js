@@ -24,8 +24,6 @@
         service.updatePassword = updatePassword;
         service.setUserInfo = setUserInfo;
         service.getUserInfo = getUserInfo;
-        service.initUserInfo = initUserInfo;
-        service.isAdmin = isAdmin;
 
 
         return service;
@@ -119,34 +117,7 @@
         function getUserInfo() {
             return userInfo;
         }
-        function initUserInfo() {
-          localStorage.getItem("userId");
-          console.log('second if');
-          var currentUser;
-          getById(localStorage.getItem("userId"))
-              .then(function(response) {
-                  if (Array.isArray(response) && response.length > 0) {
-                      setUserInfo(response[0]);
-                      currentUser = getUserInfo();
-                      console.log(currentUser);
-                  }
-              });
-        };
-        function isAdmin() {
-            console.log('servicecece');
-            initUserInfo();
-            console.log(getUserInfo());
-            if (getUserInfo()) {
-                console.log('first if');
-                var currentUser = getUserInfo();
-                if (currentUser.role === 'user') {
-                    return true;
-                } else {
-                    return false;
-                };
-            }
 
-        };
     }
 
 })();

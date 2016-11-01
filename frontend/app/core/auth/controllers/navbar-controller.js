@@ -31,28 +31,29 @@
             href: '/profile/' + localStorage.getItem("userId"),
             name: 'profile'
         }];
-        $scope.isAdmin = userService.isAdmin();
-
-    /*    $scope.getCurrentUser = function() {
+        $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
+                console.log('first if');
                 $scope.currentUser = userService.getUserInfo();
                 return;
             }
             if (localStorage.getItem("userId")) {
                 userService.getById(localStorage.getItem("userId"))
                     .then(function(response) {
+                      console.log('second if');
                         if (Array.isArray(response) && response.length > 0) {
                             userService.setUserInfo(response[0]);
                             $scope.currentUser = userService.getUserInfo();
                         }
                     });
             };
-        };*/
+        };
+        $scope.getCurrentUser();
         $scope.idInit = function() {
             $scope.menuItems[6].href = '/profile/' + localStorage.getItem("userId");
         };
         $scope.setActiveClass = function() {
-            $scope.isAdmin = userService.isAdmin();
+            $scope.getCurrentUser();
             var path = $location.path();
             $scope.idInit();
             for (var i = 0; i < $scope.menuItems.length; i++) {
