@@ -29,7 +29,9 @@
             </tr>
         </tbody>
     </table>
-    <button ng-click="getUsers()" ng-if="!noUsers">Load more users</button>
+    <div class="text-center">
+        <button ng-click="getUsers()" ng-if="!noUsers" class="btn btn-lg btn-primary">Load more users</button>
+    </div>
     <!-- <p ng-if="!users" class="alert alert-danger text-center">
         No any users registered here!
     </p> -->
