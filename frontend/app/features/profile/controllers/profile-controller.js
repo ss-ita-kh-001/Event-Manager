@@ -10,6 +10,9 @@
         });
         userService.getUserEvents($routeParams.userID).then(function(res) {
             $scope.events = res.data;
+            for (var i = 0; i < $scope.events.length; i++) {
+                $scope.events[i].desc = $scope.events[i].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[i].desc.length > 100 ? "..." : "");
+            }
         });
         $scope.updateUserSend = function() {
             var user = $scope.user;
