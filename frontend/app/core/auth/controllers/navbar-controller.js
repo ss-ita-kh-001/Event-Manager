@@ -30,6 +30,9 @@
         }, {
             href: '/profile/' + localStorage.getItem("userId"),
             name: 'profile'
+        }, {
+            href: '/register',
+            name: 'register'
         }];
         $scope.idInit = function() {
             $scope.menuItems[6].href = '/profile/' + localStorage.getItem("userId");
