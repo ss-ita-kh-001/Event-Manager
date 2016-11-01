@@ -464,6 +464,16 @@ var router = {
             });
         });
 
+        app.put(apiPreff + "/event/report/:id", function(req, res) {
+            events.makeReport(Object.assign({
+                id: req.params.id
+            }, req.body)).then(function() {
+                res.status(200).end();
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });

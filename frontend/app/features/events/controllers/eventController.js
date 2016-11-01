@@ -3,11 +3,13 @@
 
     function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce) {
 
+        $scope.showReportTextArea = false;
         $scope.isSubscribe;
         $scope.report;
         $scope.id = $routeParams.id;
         $scope.UserId = localStorage.getItem("userId");
         $scope.SubscribeMessage = 'Subscribe';
+        $scope.reportDone = false;
 
 
         if (localStorage.getItem($scope.id)) {
@@ -32,13 +34,14 @@
                 .then(function(res) {
                     $scope.userList = res.data;
                 }, rejected);
-        }
+        };
 
         $scope.getUsersByEvent();
 
         var getEventPromise = eventService.getEvent($scope.id);
         getEventPromise.then(function(res) {
             $scope.event = res.data[0];
+            $scope.content = $scope.event.report !== 'null' ? $scope.event.report : "";
             $scope.search()
         }, rejected);
 
@@ -66,7 +69,7 @@
                 $scope.SubscribeMessage = 'Subscribe'
                 $scope.unSubscribe();
             }
-        }
+        };
 
         $scope.subscribe = function() {
             eventService.subscribe(Object.assign({
@@ -78,7 +81,7 @@
                     localStorage.setItem($scope.id, $scope.id);
                 }, rejected);
             $scope.sendMessage();
-        }
+        };
 
         $scope.unSubscribe = function() {
             eventService.unsubscribe(Object.assign({
@@ -90,7 +93,7 @@
                     localStorage.removeItem($scope.id);
                 }, rejected);
             $scope.sendMessage();
-        }
+        };
 
         $scope.sendMessage = function(event) {
             userService.getById(localStorage.getItem("userId"))
@@ -119,18 +122,36 @@
             eventService.sendInvitationToSubscribe($scope.message).then(function(response) {
                 // TODO: add user notification about success
             }, rejected);
-        }
+        };
 
         $scope.sendMessageToUnSubscribe = function() {
             eventService.sendInvitationToUnSubscribe($scope.message).then(function(response) {
                 // TODO: add user notification about success
             }, rejected);
-        }
+        };
 
         function rejected(error) {
             console.log('Error: ' + error.data.status);
         }
 
+        $scope.reportButton = function() {
+            return $scope.event ? ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < moment().subtract(1, "days")) && ($scope.event.report === "null")) : false;
+        };
+        $scope.passed = function() {
+            return $scope.event ? (new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < moment().subtract(1, "days")): false;
+        };
+        $scope.submitReport = function() {
+            $scope.showReportTextArea = false;
+            $scope.reportDone = true;
+            eventService.sendReport({
+                makeReport: $scope.makeReport,
+                id: $scope.id
+            }).then(function(response) {
+                // TODO: add user notification about success
+                $scope.content = $scope.makeReport;
+            }, rejected);
+        };
+
     }
-    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"]
+    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"];
 })();

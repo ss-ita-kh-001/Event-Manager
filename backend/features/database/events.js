@@ -41,5 +41,8 @@ var events = function() {
             " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         return db.query("SELECT * FROM \"events\" WHERE \"date\" > \'" + todayString + "\' ORDER BY \"date\" LIMIT 3;");
     };
+    this.makeReport = function(data) {
+        return db.query("UPDATE \"events\" SET \"report\" = ${report} WHERE \"id\" = ${id}", data);
+    };
 };
 module.exports = events;
