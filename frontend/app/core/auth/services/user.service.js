@@ -1,16 +1,19 @@
-﻿
-(function() {
+﻿(function() {
     'use strict';
 
     angular.module('em').factory('userService', userService);
 
-    userService.$inject = ['em.mainApiService', '$location', 'flashService'];
+    userService.$inject = ['em.mainApiService', '$location', 'flashService', '$rootScope'];
 
-    function userService(mainApiService, $location, flashService) {
+    function userService(mainApiService, $location, flashService, $rootScope) {
+        $rootScope.usersIndex = 12;
+        $rootScope.itemsPerPage = 10;
+        $rootScope.allUsers = [];
+
         var service = {};
         var userInfo;
 
-        service.getAll = getAll;
+        service.getUsers = getUsers;
         service.getById = getById;
         service.getUserEvents = getUserEvents;
         service.getUsersByEvent = getUsersByEvent;
@@ -28,8 +31,8 @@
 
         return service;
 
-        function getAll() {
-            return mainApiService.get('users').then(handleSuccess, handleError('Error getting all users'));
+        function getUsers(index) {
+            return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function forgotPassword(email, callback) {

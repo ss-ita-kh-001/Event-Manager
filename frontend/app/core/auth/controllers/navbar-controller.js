@@ -30,6 +30,9 @@
         }, {
             href: '/profile/' + localStorage.getItem("userId"),
             name: 'profile'
+        }, {
+            href: '/register',
+            name: 'register'
         }];
         $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
