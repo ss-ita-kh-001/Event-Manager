@@ -33,6 +33,10 @@ var uploadEvent = multer({
 });
 var gen = new(require("./features/database/generator.js"));
 
+var responseExt = {
+    data: '',
+    haveHistory: true
+}
 
 var router = {
     init: function init(app) {
@@ -167,7 +171,17 @@ var router = {
         });
         app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
             users.getUsers(req.query.index).then(function(data) {
-                res.status(200).send(data);
+                // if no more users
+                if (data.length < 10) {
+                    responseExt.haveHistory = false;
+                } else {
+                    responseExt.haveHistory = true;
+                }
+                responseExt.index = Number(req.query.index) + data.length;
+                responseExt.data = data;
+                // console.log(responseExt);
+
+                res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
                 console.log(error);
@@ -349,8 +363,17 @@ var router = {
             });
         });
         app.get(apiPreff + "/events", function(req, res) {
-            events.getAll().then(function(data) {
-                res.status(200).send(data);
+            events.getEvents(req.query.index).then(function(data) {
+                console.log(req.query.index);
+                if (data.length < 10) {
+                    responseExt.haveHistory = false;
+                } else {
+                    responseExt.haveHistory = true;
+                }
+                responseExt.data = data;
+                responseExt.index = Number(req.query.index) + data.length;
+                console.log('responseExt.haveHistory',responseExt.haveHistory);
+                res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
@@ -489,7 +512,7 @@ var router = {
             var mailOptions = {
                 to: req.body.user.email,
                 from: 'event.manager.notification@gmail.com',
-                subject: 'You have '+ req.body.status+' to event',
+                subject: 'You have ' + req.body.status + ' to event',
                 text: 'Hello,\n\n' +
                     'This is a confirmation that you have unsubscribed to ' + req.body.event.title + ' event ' + req.body.link + '.'
             };
