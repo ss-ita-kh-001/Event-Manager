@@ -2,7 +2,7 @@
     <div class="row">
         <h1 ng-bind-html="event.title"></h1>
         <span class="date pull-right">{{event.date | date : "dd.MM.yyyy"}}</span>
-        <a href="/events/{{event.id}}/edit" ng-if="currentUser.role === 'admin'" ng-hide="report" class="btn btn-primary pull-right">Edit event</a>
+        <a href="/events/{{event.id}}/edit" ng-if="(currentUser.role === 'admin') && (!passed())" ng-hide="report" class="btn btn-primary pull-right">Edit event</a>
     </div>
     <div class="row">
         <div class="col-md-5">
@@ -32,7 +32,7 @@
                     <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
                 </div>
                 <div class="btn-group" ng-if="UserId">
-                    <button ng-cloak type="button" ng-class="isSubscribe ? '' : 'btn-success'" class="btn btn-lg" ng-click="goEvent()">{{SubscribeMessage}}</button>
+                    <button ng-cloak type="button" ng-class="isSubscribe ? '' : 'btn-success'" class="btn btn-lg" ng-click="goEvent()" ng-if="(!passed())">{{SubscribeMessage}}</button>
                 </div>
                 <div class="row" ng-show="userList.length > 0">
                     <hr/>
