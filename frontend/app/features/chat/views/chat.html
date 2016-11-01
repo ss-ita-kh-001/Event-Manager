@@ -5,7 +5,9 @@
     <div class="chat-window">
         <div scroll-glue class="chat-body">
             <ul class="messages">
-                <button ng-click="getHistory()">Load more messages</button>
+                <div class="text-center">
+                    <button ng-click="getHistory()" class="btn btn-lg btn-primary">Load more messages</button>
+                </div>
                 <!-- History -->
                 <li class="message" ng-repeat="history in history track by $index">
                     <div class="message__author">{{history.full_name}}</div>

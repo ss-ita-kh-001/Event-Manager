@@ -27,15 +27,8 @@ var chat = {
 
             var currentIndex;
 
-            chatDb.getLastId().then(function(data, res) {
-                currentIndex = data[0].id;
-                // console.log('get Last id', currentIndex);
-            }).catch(function(error) {
-                response.error = true;
-                response.errorMessage = error;
-            });
-
             socket.on('message', function(obj) {
+                console.log('-----------------------------------------------------');
 
                 // if token can be decoded and isn't expired
                 var requestExt = isAuth(obj);
@@ -68,21 +61,32 @@ var chat = {
                     } else {
                         // console.log('index from client', requestExt.data.index);
                         // if index is defined on client
-                        if (requestExt.data.index) {
-                            // console.log('requestExt.data.index true', requestExt.data.index);
-                            currentIndex = requestExt.data.index;
-                        }
 
                         requestExt.data.getHistory = false;
-                        chatDb.getHistory(currentIndex).then(function(data, res) {
+                        chatDb.getLastId().then(function(data, res) {
+                            currentIndex = data[0].id;
+                            console.log('get Last id', currentIndex);
 
-                            response.data = data;
-                            response.index = (currentIndex - 10);
-                            clients[id].send(JSON.stringify(response));
+                            if (requestExt.data.index) {
+                                console.log('requestExt.data.index true', requestExt.data.index);
+                                currentIndex = requestExt.data.index;
+                            }
+                            console.log('index from client', requestExt.data.index);
+
+                            chatDb.getHistory(currentIndex).then(function(data, res) {
+                                // console.log('getHistory with currentIndex', currentIndex);
+                                response.data = data;
+                                response.index = (currentIndex - 10);
+                                clients[id].send(JSON.stringify(response));
+                            }).catch(function(error) {
+                                response.error = true;
+                                response.errorMessage = error;
+                            });
                         }).catch(function(error) {
                             response.error = true;
                             response.errorMessage = error;
                         });
+
                     }
 
                 } else {
@@ -127,4 +131,4 @@ function isAuth(req) {
     return obj;
 }
 
-module.exports = chat;
+module.exports = chat;;

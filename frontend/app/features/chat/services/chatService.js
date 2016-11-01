@@ -42,8 +42,9 @@
                     // console.log(self.live.length);
                     $rootScope.$apply(function() {
                         // angular.extend(self.live, []);
-                        console.log(self.history);
-                        angular.extend(self.history, response.data);
+                        // console.log(self.history);
+
+                        angular.extend(self.history, response.data.reverse());
                     });
                 }
             } else {
