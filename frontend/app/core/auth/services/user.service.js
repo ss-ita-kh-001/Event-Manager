@@ -28,7 +28,6 @@
         service.setUserInfo = setUserInfo;
         service.getUserInfo = getUserInfo;
 
-
         return service;
 
         function getUsers(index) {
@@ -120,7 +119,5 @@
         function getUserInfo() {
             return userInfo;
         }
-
     }
-
 })();

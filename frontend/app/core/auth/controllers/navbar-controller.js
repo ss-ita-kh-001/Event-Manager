@@ -68,7 +68,6 @@
         $scope.classHandler = function() {
             $timeout($scope.setActiveClass, 10);
         };
-      //  $scope.getCurrentUser();
         $scope.setActiveClass();
     }
     navbarController.$inject = ['$scope', '$auth', '$location', '$timeout', 'userService'];
