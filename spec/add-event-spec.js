@@ -3,6 +3,9 @@ describe("Add event", function() {
     var controller;
 
     beforeEach(angular.mock.module("em"));
+    beforeEach(angular.mock.module(function($provide) {
+
+    }));
     beforeEach(angular.mock.inject(function($controller) {
         controller = $controller("em.addEvent.addEventController", {
             $scope: scope
