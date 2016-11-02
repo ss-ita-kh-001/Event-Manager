@@ -2,7 +2,7 @@
 
     angular.module('em').controller('em.navbarController', navbarController);
 
-    function navbarController($scope, $auth, $location, $timeout) {
+    function navbarController($scope, $auth, $location, $timeout, userService) {
         $scope.isAuthenticated = function() {
             return $auth.isAuthenticated();
         };
@@ -34,10 +34,27 @@
             href: '/register',
             name: 'register'
         }];
+        $scope.getCurrentUser = function() {
+            if (userService.getUserInfo()) {
+                $scope.currentUser = userService.getUserInfo();
+                return;
+            }
+            if (localStorage.getItem("userId")) {
+                userService.getById(localStorage.getItem("userId"))
+                    .then(function(response) {
+                        if (Array.isArray(response) && response.length > 0) {
+                            userService.setUserInfo(response[0]);
+                            $scope.currentUser = userService.getUserInfo();
+                        }
+                    });
+            };
+        };
+        $scope.getCurrentUser();
         $scope.idInit = function() {
             $scope.menuItems[6].href = '/profile/' + localStorage.getItem("userId");
         };
         $scope.setActiveClass = function() {
+            $scope.getCurrentUser();
             var path = $location.path();
             $scope.idInit();
             angular.forEach($scope.menuItems, function(value, key) {
@@ -52,4 +69,5 @@
         };
         $scope.setActiveClass();
     }
+    navbarController.$inject = ['$scope', '$auth', '$location', '$timeout', 'userService'];
 })();
