@@ -9,11 +9,13 @@ describe("Add event", function() {
         });
     }));
 
-    it("should pass values to the controller", function () {
-        scope.title = "TEST EVENT: title";
-        scope.desc = "TEST EVENT: title";
-        scope.date = "2016-01-01";
-        scope.plase = "London";
-        scope.avatar = null;
+    it("should pass values to the controller", function() {
+        Object.assign(scope.event, {
+            title: "TEST EVENT: title",
+            desc: "TEST EVENT: title",
+            date: "2016-01-01",
+            place: "London",
+            avatar: null;
+        });
     });
 });
