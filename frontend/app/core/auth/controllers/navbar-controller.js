@@ -40,14 +40,15 @@
         $scope.setActiveClass = function() {
             var path = $location.path();
             $scope.idInit();
-            for (var i = 0; i < $scope.menuItems.length; i++) {
-                if ($scope.menuItems[i].href == path) {
-                    $scope.thisActive = $scope.menuItems[i].name;
+            angular.forEach($scope.menuItems, function(value, key) {
+                if ($scope.menuItems[key].href == path) {
+                    $scope.thisActive = $scope.menuItems[key].name;
                 }
-            };
+            });
         };
         $scope.classHandler = function() {
             $timeout($scope.setActiveClass, 10);
+            $scope.isCollapsed = false;
         };
         $scope.setActiveClass();
     }
