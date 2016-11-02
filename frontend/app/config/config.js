@@ -99,7 +99,7 @@
               controller: "em.addEvent.addEventController",
               mode: 'edit',
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
                 }
             })
             .when("/results", {

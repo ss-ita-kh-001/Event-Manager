@@ -18,13 +18,13 @@ describe("AddEditEventController Test", function() {
             this.update = jasmine.createSpy('update');
         });
         $provide.service('eventService', function() {
-            this.create = jasmine.createSpy('getEvent');
+            this.getEvent = jasmine.createSpy('getEvent');
         });
     }));
     beforeEach(angular.mock.inject(function($controller, $rootScope, $route, $location, eventService, addEventService) {
         mockScope = $rootScope.$new();
         mockRoute = $route;
-        mockRoute.current = {params: {  mode: 'add' } };
+        mockRoute.current = { params: {  mode: 'add'}};
         mockRootScope = $rootScope;
         mockLocation = $location;
         mockAddEventService = addEventService;
@@ -34,43 +34,62 @@ describe("AddEditEventController Test", function() {
             $scope: mockScope,
             $route: mockRoute,
             $rootScope: mockRootScope,
-            addEventService: mockAddEventService,
-            eventService: mockEventService
+            eventService: mockEventService,
+            addEventService: mockAddEventService
 
         });
     }));
 
     describe('Add/Edit mode', function() {
-      it('add mode', function() {
-        mockRoute.current = { mode: 'add' };
-        mockScope.state = mockRoute.current.mode;
-        expect(mockScope.state).toEqual('add');
-      });
+        it('add mode', function() {
+            mockRoute.current = {
+                mode: 'add'
+            };
+            mockScope.state = mockRoute.current.mode;
+            expect(mockScope.state).toEqual('add');
+        });
 
-      it('edit mode', function() {
-        mockRoute.current = { mode: 'edit' };
-        mockScope.state = mockRoute.current.mode
-        expect(mockScope.state).toEqual('edit');
-      });
-
-     it('edit mode', function() {
-        mockScope.getMode('add')
-        expect(mockScope.test).toEqual('add')
-      });
-
-
-        // beforeEach(inject(
-        //     function($httpBackend) {
-        //         $httpBackend.expectGET('/events/2/edit')
-        //             .respond(200);
-        //     }));
-        //
-        // it('should load the login page on successful load of /login', function() {
-        //     mockLocation.path('/events/2/edit');
-        //     mockRootScope.$digest();
-        //     expect(mockRoute.current.mode).toBe('edit')
-        // });
+        it('edit mode', function() {
+            mockRoute.current = {
+                mode: 'edit'
+            };
+            mockScope.state = mockRoute.current.mode
+            expect(mockScope.state).toEqual('edit');
+        });
     });
+
+
+    it('getEventPromise function exist on controller initialisation', function() {
+        expect(mockScope.getEventPromise).toBeDefined();
+    });
+
+    it('save event function exist on controller initialisation', function() {
+        expect(mockScope.save).toBeDefined();
+    });
+
+    it('lookFor function exist on controller initialisation', function() {
+        expect(mockScope.lookFor).toBeDefined();
+    });
+
+    it('check registration. userService.create with params',function () {
+      //  mockRoute.current = { mode: 'edit'};
+      //  mockScope.event = {avatar : '{image/img.jpeg}'}
+    //  mockScope.id = 1;
+      // mockScope.event = {
+      //   "id": 23,
+      //   "title": "Picnic",
+      //   "desc": "description about picnic",
+      //   "date": "2016-10-28T18:00:00.000Z",
+      //   "place": "Kharkiv",
+      //   "photos": null,
+      //   "report": null,
+      //   "isGame": true
+      // }
+       mockScope.save();
+       expect(mockAddEventService.update).toHaveBeenCalledWith();
+    });
+
+
 
     // it('add mode', function() {
     //   mockRoute.current = {params: {  mode: 'add' } };
