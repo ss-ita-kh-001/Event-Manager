@@ -2,21 +2,20 @@
     angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
 
     function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents) {
+        // by default button 'load more events' is visible
+        $scope.haveHistory = true;
+        // if rootscope is empty, save there response data
         if ($rootScope.allEvents.length === 0) {
             $rootScope.allEvents = getEvents.data;
-            $rootScope.eventsIndex = getEvents.index;
-
+            $rootScope.eventsIndex = getEvents.index; //save last event index from server
         }
-
 
         $scope.events = $rootScope.allEvents;
 
-        for (var i = 0; i < $scope.events.length; i++) {
-            $scope.events[i].desc = $scope.events[i].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[i].desc.length > 100 ? "..." : "");
-        }
-
-        // by default
-        $scope.haveHistory = true;
+        // cut off tags
+        angular.forEach($scope.events, function(value, key) {
+            $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+        });
 
         $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
@@ -37,13 +36,14 @@
         $scope.getCurrentUser();
 
         /**
-         * Update event list.
-         * Called when init controller and update button on click
+         * Pagination
+         * Called on click 'Load more users'
          */
         $scope.updateEventList = function() {
+            // save 
             console.log($rootScope.eventsIndex);
+
             itemEventService.getEvents($rootScope.eventsIndex).then(function(response) {
-                console.log(response.haveHistory);
                 $scope.haveHistory = response.haveHistory;
                 $rootScope.eventsIndex = response.index;
 
@@ -52,12 +52,12 @@
                 }
                 $scope.events = $rootScope.allEvents;
 
-                for (var i = 0; i < $scope.events.length; i++) {
-                    $scope.events[i].desc = $scope.events[i].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[i].desc.length > 100 ? "..." : "");
-                }
+                // cut off tags
+                angular.forEach($scope.events, function(value, key) {
+                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                });
             }, rejected);
         };
-        // $scope.updateEventList();
 
         //redirect to other page
         $scope.fullEvent = function(eventId) {
