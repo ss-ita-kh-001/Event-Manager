@@ -13,7 +13,7 @@
             href: '/',
             name: 'main'
         }, {
-            href: '/events',
+            href: '/event',
             name: 'events'
         }, {
             href: '/users',
@@ -56,6 +56,10 @@
         $scope.setActiveClass = function() {
             $scope.getCurrentUser();
             var path = $location.path();
+            var eventCheck = path.split('').slice(0, 6).join('');
+            if  (eventCheck === '/event') {
+                path = eventCheck;
+            }
             $scope.idInit();
             angular.forEach($scope.menuItems, function(value, key) {
                 if ($scope.menuItems[key].href == path) {
