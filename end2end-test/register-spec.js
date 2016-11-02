@@ -1,12 +1,7 @@
-describe('register page', function() {
-    var ptor;
-    beforeEach(function() {
-        browser.get('http://127.0.0.1:9000/');
-        ptor = protractor.getInstance();
-    });
+describe('main page', function() {
+    it('should have a title', function() {
+        browser.get('https://ita-event-manager.herokuapp.com/');
 
-    it('should load the  page', function() {
-        var ele = by.model('selectedGame');
-        expect
+        expect(browser.getTitle()).toEqual('Event Manager');
     });
 });

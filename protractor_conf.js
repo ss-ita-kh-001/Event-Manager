@@ -10,14 +10,13 @@ exports.config = {
     framework: 'jasmine',
     seleniumAddress: 'http://localhost:4444/wd/hub',
 
-    chromeOnly: true,
-
-    chromeDriver: './node_modules/protractor/node_modules/selenium-webdriver/chrome.js',
+    //chromeOnly: true,
+    //chromeDriver: './node_modules/protractor/node_modules/selenium-webdriver/chrome.js',
 
     // Spec patterns are relative to the current working directory when
     // protractor is called.
     specs: ['end2end-test/*spec.js'],
-    baseUrl: 'http://127.0.0.1:9000/',
+    baseUrl: 'https://ita-event-manager.herokuapp.com/',
 
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {
