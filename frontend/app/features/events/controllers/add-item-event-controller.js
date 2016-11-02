@@ -1,7 +1,21 @@
 (function() {
     angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
 
-    function itemEventController($scope, $location, itemEventService, $uibModal, userService) {
+    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents) {
+        // by default button 'load more events' is visible
+        $scope.haveHistory = true;
+        // if rootscope is empty, save there response data
+        if ($rootScope.allEvents.length === 0) {
+            $rootScope.allEvents = getEvents.data;
+            $rootScope.eventsIndex = getEvents.index; //save last event index from server
+        }
+
+        $scope.events = $rootScope.allEvents;
+
+        // cut off tags
+        angular.forEach($scope.events, function(value, key) {
+            $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+        });
 
         $scope.getCurrentUser = function() {
             if (userService.getUserInfo()) {
@@ -22,18 +36,28 @@
         $scope.getCurrentUser();
 
         /**
-         * Update event list.
-         * Called when init controller and update button on click
+         * Pagination
+         * Called on click 'Load more users'
          */
         $scope.updateEventList = function() {
-            itemEventService.getEvents().then(function(response) {
-                $scope.events = response.data;
-                for(var i = 0; i < $scope.events.length; i++){
-                  $scope.events[i].desc = $scope.events[i].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[i].desc.length > 100? "...": "");
+            // save 
+            console.log($rootScope.eventsIndex);
+
+            itemEventService.getEvents($rootScope.eventsIndex).then(function(response) {
+                $scope.haveHistory = response.haveHistory;
+                $rootScope.eventsIndex = response.index;
+
+                if (response.data.length > 0) {
+                    $rootScope.allEvents = $rootScope.allEvents.concat(response.data);
                 }
+                $scope.events = $rootScope.allEvents;
+
+                // cut off tags
+                angular.forEach($scope.events, function(value, key) {
+                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                });
             }, rejected);
         };
-        $scope.updateEventList();
 
         //redirect to other page
         $scope.fullEvent = function(eventId) {
@@ -48,7 +72,9 @@
         $scope.deleteEventItem = function(id) {
             itemEventService.deleteEvent(id).then(function(response) {
                 var eventIndex = $scope.events
-                    .map(function(event) { return event.id; })
+                    .map(function(event) {
+                        return event.id;
+                    })
                     .indexOf(id);
 
                 $scope.events.splice(eventIndex, 1);
@@ -130,10 +156,12 @@
 
     itemEventController.$inject = [
         "$scope",
+        "$rootScope",
         "$location",
         "em.events.add-item-event-service",
         "$uibModal",
-        "userService"
+        "userService",
+        "getEvents"
     ];
 
 })();

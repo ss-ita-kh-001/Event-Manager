@@ -1,10 +1,9 @@
 var db = require("./connection");
 var users = function() {
     self = this;
-    self.itemsPerPage = 10;
-
     self.getUsers = function(index) {
-        return db.query("SELECT * FROM \"users\" WHERE \"id\" BETWEEN " + Number(index) + " AND " + (Number(index) + self.itemsPerPage) + " ORDER BY \"id\";");
+        console.log('SELECT users WHERE id >= ', index);
+        return db.query("SELECT * FROM \"users\" WHERE \"id\" >= " + Number(index) + " ORDER BY \"id\" LIMIT 10 ;");
     };
     self.getUserById = function(id) {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
