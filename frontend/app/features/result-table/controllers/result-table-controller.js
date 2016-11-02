@@ -20,10 +20,9 @@
             }
         };
 
-        $scope.selectGame = function (selectedGame) {
-            $scope.selectedGame = selectedGame;
-            $scope.getPlayersList($scope.selectedGame);
-            $scope.getParticipantsByGame($scope.selectedGame);
+        $scope.selectGame = function () {
+            $scope.getPlayersList($scope.gameResults.selectedGame);
+            $scope.getParticipantsByGame($scope.gameResults.selectedGame);
         };
 
         $scope.getPlayersList = function (selectedGame) {
@@ -49,9 +48,8 @@
             }, rejected);
         };
 
-        $scope.selectPlayer = function (selectedPlayer) {
-            $scope.selectedPlayer = selectedPlayer;
-            $scope.getGameListByUser($scope.selectedPlayer);
+        $scope.selectPlayer = function () {
+            $scope.getGameListByUser($scope.userResults.selectedPlayer);
         };
 
         $scope.getGameListByUser = function (selectedPlayer) {
@@ -72,17 +70,17 @@
                         $scope.usersGameList =[];
                     }else{
                         var i=0;
-                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.selectedPlayer.id){
+                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.userResults.selectedPlayer.id){
                             i++;
                         }
                         if (i>=$scope.allPlayers.length){
-                            $scope.selectedPlayer = $scope.allPlayers[0];
+                            $scope.userResults.selectedPlayer = $scope.allPlayers[0];
                         }
-                        $scope.getGameListByUser($scope.selectedPlayer);
+                        $scope.getGameListByUser($scope.userResults.selectedPlayer);
                     }
                 }, rejected);
-                $scope.getPlayersList($scope.selectedGame);
-                $scope.getParticipantsByGame($scope.selectedGame);
+                $scope.getPlayersList($scope.gameResults.selectedGame);
+                $scope.getParticipantsByGame($scope.gameResults.selectedGame);
             }, rejected);
         };
 
@@ -93,20 +91,20 @@
                 loses:$scope.newGameRes.loses,
                 draws:$scope.newGameRes.draws
             };
-            resultService.addNewRes($scope.selectedGame.id,gameResult).then(function (response) {
-                $scope.getPlayersList($scope.selectedGame);
+            resultService.addNewRes($scope.gameResults.selectedGame.id,gameResult).then(function () {
+                $scope.getPlayersList($scope.gameResults.selectedGame);
                 $scope.newGameRes = {};
-                $scope.getParticipantsByGame($scope.selectedGame);
+                $scope.getParticipantsByGame($scope.gameResults.selectedGame);
                 resultService.getAllPlayers().then(function (response) {
                     $scope.allPlayers = response.data;
                     var i=0;
-                    while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.selectedPlayer.id){
+                    while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.userResults.selectedPlayer.id){
                         i++;
                     }
                     if (i>=$scope.allPlayers.length){
-                        $scope.selectedPlayer = $scope.allPlayers[0];
+                        $scope.userResults.selectedPlayer = $scope.allPlayers[0];
                     }
-                    $scope.getGameListByUser($scope.selectedPlayer);
+                    $scope.getGameListByUser($scope.userResults.selectedPlayer);
                 }, rejected);
             }, rejected);
         };
@@ -118,11 +116,11 @@
                 while(i < $scope.playersList.length && $scope.playersList[i].id != id){
                     i++;
                 }
-                $scope.upRes.event = $scope.selectedGame.id;
+                $scope.upRes.event = $scope.gameResults.selectedGame.id;
                 $scope.upRes.wins = $scope.playersList[i].wins;
                 $scope.upRes.loses = $scope.playersList[i].loses;
                 $scope.upRes.draws = $scope.playersList[i].draws;
-                resultService.getUpdatingParticipants($scope.selectedGame.id, id).then(function (response) {
+                resultService.getUpdatingParticipants($scope.gameResults.selectedGame.id, id).then(function (response) {
                     $scope.updatingParticipantsList = response.data;
                     var j=0;
                     while(j < $scope.updatingParticipantsList.length && $scope.updatingParticipantsList[j].id != $scope.playersList[i].user){
@@ -140,18 +138,18 @@
                     draws:$scope.upRes.draws
                 };
                 resultService.updateRes(id,gameResult).then(function (response) {
-                    $scope.getPlayersList($scope.selectedGame);
-                    $scope.getParticipantsByGame($scope.selectedGame);
+                    $scope.getPlayersList($scope.gameResults.selectedGame);
+                    $scope.getParticipantsByGame($scope.gameResults.selectedGame);
                     resultService.getAllPlayers().then(function (response) {
                         $scope.allPlayers = response.data;
                         var i=0;
-                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.selectedPlayer.id){
+                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.userResults.selectedPlayer.id){
                             i++;
                         }
                         if (i>=$scope.allPlayers.length){
-                            $scope.selectedPlayer = $scope.allPlayers[0];
+                            $scope.userResults.selectedPlayer = $scope.allPlayers[0];
                         }
-                        $scope.getGameListByUser($scope.selectedPlayer);
+                        $scope.getGameListByUser($scope.userResults.selectedPlayer);
                     }, rejected);
                 }, rejected);
                 $scope.upRes={id: -1};
@@ -168,8 +166,6 @@
 
         $scope.currentUser={};
         $scope.currentUser.role = 'user';
-        $scope.selectedGame={};
-        $scope.selectedPlayer={};
         $scope.getCurrentUser();
         if($scope.currentUser.role  !== 'admin'){
             $scope.gamesList = gamesForUsers.data;
@@ -181,21 +177,27 @@
             $scope.playersList =[];
             $scope.participantsList = [];
         }else{
-            $scope.selectedGame = $scope.gamesList[0];
-            $scope.getPlayersList($scope.selectedGame);
-            $scope.getParticipantsByGame($scope.selectedGame);
+            $scope.gameResults = {
+                selectedGame : $scope.gamesList[0]
+            };
+            $scope.getPlayersList($scope.gameResults.selectedGame);
+            $scope.getParticipantsByGame($scope.gameResults.selectedGame);
         }
         $scope.newGameRes = {};
         $scope.upRes = {id: -1};
 
         $scope.allPlayers = players.data;
         if ($scope.allPlayers.length == 0){
-            $scope.selectedPlayer = {};
-            $scope.selectedPlayer.id = -2;
-            $scope.selectedPlayer.full_name = "No game results"
+            $scope.userResults = {
+                selectedPlayer: {
+                    id: -2
+                }
+            };
         }else{
-            $scope.selectedPlayer = $scope.allPlayers[0];
-            $scope.getGameListByUser($scope.selectedPlayer);
+            $scope.userResults = {
+                selectedPlayer: $scope.allPlayers[0]
+            };
+            $scope.getGameListByUser($scope.userResults.selectedPlayer);
         }
     }
 

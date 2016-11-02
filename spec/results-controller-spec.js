@@ -48,7 +48,7 @@ describe("Result Controller Test", function () {
         expect(mockScope.newGameRes).toBeDefined();
     });
     it('Define selected player on controller initialization', function () {
-        expect(mockScope.selectedPlayer).toBeDefined();
+        expect(mockScope.userResults.selectedPlayer).toBeDefined();
     });
     it('Define participants list on controller initialization',function () {
         expect(mockScope.participantsList).toBeDefined();
