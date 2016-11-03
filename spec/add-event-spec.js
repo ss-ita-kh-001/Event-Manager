@@ -29,7 +29,7 @@ describe("Add event", function() {
         });
     }));
 
-    it("should pass values to the controller", function() {
+    it("should add event", function() {
         Object.assign(scope.event, {
             title: "TEST EVENT: title",
             desc: "TEST EVENT: title",
@@ -37,6 +37,6 @@ describe("Add event", function() {
             place: "London",
             avatar: null
         });
-        console.log(angular.mock.dump(scope));
+        scope.save();
     });
 });
