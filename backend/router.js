@@ -38,7 +38,16 @@ var gen = new(require("./features/database/generator.js"));
 var responseExt = {
     data: '',
     haveHistory: true
-}
+};
+function createJWT(user) {
+    var payload = {
+        sub: user[0].id,
+        iat: moment().unix(),
+        exp: moment().add(14, 'days').unix()
+    };
+
+    return jwt.encode(payload, config.TOKEN_SECRET);
+};
 
 var router = {
     init: function init(app) {
@@ -243,6 +252,7 @@ var router = {
                     } else {
                         console.log('step 3b');
                         console.log('profile.id: ', profile.id);
+
                         // Step 3b. Create a new user account or return an existing one.
                   /*      User.findOne({
                             github: profile.id
@@ -255,14 +265,16 @@ var router = {
                             }*/
                             //create a new user
                           //  var user = new User();
-                            var user = {};
-                            user.password = profile.id;
-                            user.fullName = profile.name;
-                            user.email = profile.email;
-                            console.log('profile: ', profile);
+                            var user = [{}];
+                            user[0].github = profile.id;
+                            user[0].fullName = profile.name;
+                            user[0].email = profile.email;
+                          //  console.log('profile: ', profile);
                             console.log('user: ', user);
                             users.addUser(user).then(function() {
-                                users.getLastId().then(function(data) {
+                                users.getLastId().then(function(data, user) {
+
+                                    user[0].id = data;
                                     res.status(200).send(data);
                                 }).catch(function(error) {
                                     res.status(500).send(error);
@@ -270,6 +282,16 @@ var router = {
                             }).catch(function(error) {
                                 res.status(500).send(error);
                             });
+                            console.log('test');
+                            var response = {
+                                user: {},
+                                token: ''
+                            };
+                          
+                            var token = createJWT(user);
+                            res.send({ token: token });
+                          //  console.log('response.token: ', response.token);
+
                         /*
                         });*/
                     };

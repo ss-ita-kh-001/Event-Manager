@@ -34,19 +34,23 @@
             $auth.authenticate(provider)
                 .then(function() {
                     console.log('sucessssss');
-                    flashService.success('You have successfully signed in with ' + provider + '!');
-                    $location.path('/');
+                    flashService.success('You have successfully signed in with ' + provider + '!', true);
+                  //  localStorage.setItem('userId', res.data.user.id);
+                    console.log(data);
+                    $scope.id = localStorage.getItem('userId');
+                    $scope.id = 60;
+                    $location.path('/profile/' + $scope.id);
                 })
                 .catch(function(error) {
                     console.log('failure');
                     if (error.message) {
                         // Satellizer promise reject error.
-                        flashService.error(error.message);
+                        flashService.error('Satellizer promise reject error', false);
                     } else if (error.data) {
                         // HTTP response error from server
-                        flashService.error(error.data.message, error.status);
+                        flashService.error('HTTP response error from server', false);
                     } else {
-                        flashService.error(error);
+                        flashService.error('Error');
                     }
                 });
         };

@@ -15,8 +15,8 @@ var users = function() {
         return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");
     };
     self.addUser = function(user) {
-        return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\") " +
-            "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password + "\');");
+        return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"github\") " +
+            "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password + "\', \'" + user.github + "\');");
     };
     self.updateUser = function(user) {
         return db.query("UPDATE \"users\" SET \"full_name\" = \'" + user.full_name +
