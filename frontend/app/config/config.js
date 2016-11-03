@@ -40,7 +40,10 @@
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getUsers: ["userService", function(userService) {
+                        return userService.getUsers(1);
+                    }]
                 }
             })
             .when("/profile/:userID/settings", {
@@ -85,15 +88,21 @@
             })
             .when("/events", {
                 templateUrl: "./app/features/events/views/event-list.html",
-                controller: "em.events.add-item-event-controller"
+                controller: "em.events.add-item-event-controller",
+                resolve: {
+                    getEvents: ["em.events.add-item-event-service", function(itemEventService) {
+                        return itemEventService.getEvents(1);
+                    }]
+                }
             })
             .when('/events/:id', {
                 templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController"
             })
             .when("/events/:id/edit", {
-                templateUrl: "./app/features/editEvent/views/editEvent.html",
-                controller: "em.editEvent.editEventController",
+                templateUrl: "./app/features/addEvent/views/addEvent.html",
+                controller: "em.addEvent.addEventController",
+                mode: 'edit',
                 resolve: {
                     loginRequired: loginRequired
                 }
@@ -116,6 +125,7 @@
             .when("/event/add", {
                 templateUrl: "./app/features/addEvent/views/addEvent.html",
                 controller: "em.addEvent.addEventController",
+                mode: 'add',
                 resolve: {
                     loginRequired: loginRequired
                 }

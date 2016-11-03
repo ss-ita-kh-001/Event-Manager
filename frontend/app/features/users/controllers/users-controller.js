@@ -2,25 +2,26 @@
     angular.module("em.users").controller("em.users.users-controller", usersController);
 
     function usersController($scope, $rootScope, userService, getUsers) {
-        // getUsers - default first load users
-        // if no saved users in rootScope
-        if ($rootScope.allUsers < getUsers) {
-            $rootScope.allUsers = getUsers;
+        if ($rootScope.allUsers.length === 0) {
+            $rootScope.allUsers = getUsers.data;
+            $rootScope.usersIndex = getUsers.index;
         }
+
         $scope.users = $rootScope.allUsers;
+
+        // by default
+        $scope.haveHistory = true;
 
         // run on click button 'Load more users'
         $scope.getUsers = function() {
-            userService.getUsers($rootScope.usersIndex).then(function(res) {
-                // check available users
-                if (res.length < 10) {
-                    $scope.noUsers = true
+            userService.getUsers($rootScope.usersIndex).then(function(response) {
+                $scope.haveHistory = response.haveHistory;
+                $rootScope.usersIndex = response.index;
+
+                if (response.data.length > 0) {
+                    $rootScope.allUsers = $rootScope.allUsers.concat(response.data);
                 }
-                // concat response from server with local data
-                $rootScope.allUsers = $rootScope.allUsers.concat(res);
                 $scope.users = $rootScope.allUsers;
-                // increase index for future requests
-                $rootScope.usersIndex += $rootScope.itemsPerPage + 1;
             });
         }
     }

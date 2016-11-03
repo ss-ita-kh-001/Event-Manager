@@ -35,6 +35,10 @@ var uploadEvent = multer({
 });
 var gen = new(require("./features/database/generator.js"));
 
+var responseExt = {
+    data: '',
+    haveHistory: true
+}
 
 var router = {
     init: function init(app) {
@@ -266,9 +270,18 @@ var router = {
             });
         });
         app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
-            console.log(req.body);
-            users.getAll().then(function(data) {
-                res.status(200).send(data);
+            users.getUsers(req.query.index).then(function(data) {
+                // if no more users
+                if (data.length < 10) {
+                    responseExt.haveHistory = false;
+                } else {
+                    responseExt.haveHistory = true;
+                }
+                responseExt.index = Number(req.query.index) + data.length;
+                responseExt.data = data;
+                // console.log(responseExt);
+
+                res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
                 console.log(error);
@@ -313,7 +326,6 @@ var router = {
         });
         app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
             users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
-                console.log(req.body);
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -451,8 +463,17 @@ var router = {
             });
         });
         app.get(apiPreff + "/events", function(req, res) {
-            events.getAll().then(function(data) {
-                res.status(200).send(data);
+            events.getEvents(req.query.index).then(function(data) {
+                console.log(req.query.index);
+                if (data.length < 10) {
+                    responseExt.haveHistory = false;
+                } else {
+                    responseExt.haveHistory = true;
+                }
+                responseExt.data = data;
+                responseExt.index = Number(req.query.index) + data.length;
+                console.log('responseExt.haveHistory',responseExt.haveHistory);
+                res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
@@ -473,6 +494,15 @@ var router = {
         });
         app.put(apiPreff + "/events/:id/", auth.ensureAuthenticated, function(req, res) {
             events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
+                res.status(200).end();
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+        app.post(apiPreff + "/events/:id/i", uploadEvent.any(), function(req, res) {
+            events.updateEvent(Object.assign({
+                avatar: req.files[0].filename
+            }, req.body, req.params)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -534,6 +564,16 @@ var router = {
             });
         });
 
+        app.put(apiPreff + "/event/report/:id", function(req, res) {
+            events.makeReport(Object.assign({
+                id: req.params.id
+            }, req.body)).then(function() {
+                res.status(200).end();
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+
         app.get('*', function(req, res) {
             res.status(200).sendFile(path.resolve('frontend/app/index.html'));
         });
@@ -556,6 +596,64 @@ var router = {
                 text: 'Your friend ' + req.body.userSender.full_name + ' wants to invite you on ' + req.body.event.title +
                     ' detailed information about it you can find:\n\n' + 'http://' + req.headers.host + '/events/' + req.body.event.id
 
+            };
+
+            smtpTransport.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+                res.status(200).send({
+                    'message': 'Invitation was successfully sent!'
+                });
+            });
+
+        });
+
+
+        app.post(apiPreff + "/message/subscribe", function(req, res) {
+
+            var smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'event.manager.notification@gmail.com',
+                    pass: 'ss-ita-kh-001'
+                }
+            });
+            var mailOptions = {
+                to: req.body.user.email,
+                from: 'event.manager.notification@gmail.com',
+                subject: 'You have ' + req.body.status + ' to event',
+                text: 'Hello,\n\n' +
+                    'This is a confirmation that you have unsubscribed to ' + req.body.event.title + ' event ' + req.body.link + '.'
+            };
+
+            smtpTransport.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+                res.status(200).send({
+                    'message': 'Invitation was successfully sent!'
+                });
+            });
+
+        });
+
+        app.post(apiPreff + "/message/unsubscribe", function(req, res) {
+
+            var smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'event.manager.notification@gmail.com',
+                    pass: 'ss-ita-kh-001'
+                }
+            });
+            var mailOptions = {
+                to: req.body.user.email,
+                from: 'event.manager.notification@gmail.com',
+                subject: 'You have subscribed to event',
+                text: 'Hello,\n\n' +
+                    'This is a confirmation that you have subscribed to ' + req.body.event.title + ' event ' + req.body.link + '.\n\n' +
+                    ' Event will take in ' + req.body.event.place + ' on ' + req.body.event.date + '.\n'
             };
 
             smtpTransport.sendMail(mailOptions, function(error, info) {

@@ -1,0 +1,27 @@
+.event-page{
+  position: relative;
+  h1{
+    text-transform: capitalize;;
+  }
+  .date{
+    font-size: 1.5em;
+    position: absolute;
+    top:20px;
+    right: 0;
+  }
+  .btn-group{
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    .btn{
+      float: none;
+      width: 50%;
+    }
+
+  }
+  .alert-danger{
+    text-align: center;
+    padding: 10% 0;
+  }
+
+}
