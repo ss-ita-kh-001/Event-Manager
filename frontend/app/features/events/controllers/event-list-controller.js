@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.events").controller("em.events.add-item-event-controller", itemEventController);
+    angular.module("em.events").controller("em.events.event-list-controller", itemEventController);
 
     function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents) {
         // by default button 'load more events' is visible
@@ -40,7 +40,7 @@
          * Called on click 'Load more users'
          */
         $scope.updateEventList = function() {
-            // save 
+            // save
             console.log($rootScope.eventsIndex);
 
             itemEventService.getEvents($rootScope.eventsIndex).then(function(response) {
@@ -80,7 +80,7 @@
                 $scope.events.splice(eventIndex, 1);
             }, rejected);
         }
-
+        
         //add modal window
         $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();
@@ -95,6 +95,7 @@
                         $uibModalInstance.close();
                         $scope.currentEventTitle = null;
                         $scope.deleteEventItem(eventItem.id);
+                        // $scope.getUsersByEvent(eventItem.id);
                     };
                     $scope.cancel = function() {
                         $scope.currentEventTitle = null;
@@ -107,6 +108,15 @@
         //opportunity to subscribe and invite friend to event
         $scope.subscribeOnEvent = function() {
             event.stopPropagation();
+            $scope.isSubscribe = !$scope.isSubscribe;
+            $scope.getUsersByEvent()
+            if ($scope.isSubscribe) {
+                $scope.SubscribeMessage = 'Unsubscribe';
+                $scope.subscribe();
+            } else {
+                $scope.SubscribeMessage = 'Subscribe'
+                $scope.unSubscribe();
+            }
         };
 
         $scope.inviteFriend = function(event, eventItem) {
@@ -158,7 +168,7 @@
         "$scope",
         "$rootScope",
         "$location",
-        "em.events.add-item-event-service",
+        "em.events.event-list-service",
         "$uibModal",
         "userService",
         "getEvents"
