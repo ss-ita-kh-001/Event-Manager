@@ -422,11 +422,49 @@ var router = {
             });
         });
         app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, function(req, res) {
-            events.deleteEventById(req.params.id).then(function() {
-                res.status(200).end();
+            var titleOfDeletedEvent;
+            events.getByEvent(req.params.id).then(function(data) {
+                titleOfDeletedEvent = data[0].title;
+            })
+            events.getUsersByEvent(req.params.id).then(function(data) {
+                events.deleteEventById(req.params.id).then(function() {
+                    res.status(200).end();
+                    if(data.length>0){
+                        sendEmailAboutDeletingEvent(data);
+                    }
+                }).catch(function(error) {
+                    res.status(500).send(error);
+                });
             }).catch(function(error) {
                 res.status(500).send(error);
             });
+
+            function sendEmailAboutDeletingEvent (users) {
+                var emails = users.map(function (user) {
+                    return user.email;
+                });
+
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'event.manager.notification@gmail.com',
+                        pass: 'ss-ita-kh-001'
+                    }
+                });
+
+                var mailOptions = {
+                    to: emails,
+                    from: 'event.manager.notification@gmail.com',
+                    subject: 'Administrator has deleted event ' + titleOfDeletedEvent + ', which you was following on ',
+                    text: ' The details about this you can ask in event-manager chat:\n\n' +'http://' + req.headers.host + '/chat/'
+                };
+
+                smtpTransport.sendMail(mailOptions, function(error, info) {
+                    if (error) {
+                        return console.log(error);
+                    }
+                });
+            }
         });
         app.get(apiPreff + "/games/results", function(req, res) {
             games.getGamesForUserAcc().then(function(data) {

@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var cookieParser = require('cookie-parser');
 var nodemailer = require('nodemailer');
 var async = require("async");
 var http = require("http");
@@ -11,12 +12,20 @@ var chat = require("./features/chat.js");
 
 var server = http.createServer(app);
 
+var csrf = require('csurf');
 
+app.use(cookieParser('secretPassword'));
+app.use(csrf({ cookie: true }));
+app.use(function(req, res, next) {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    return next();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 
 
 server.listen(port, function(req, res) {

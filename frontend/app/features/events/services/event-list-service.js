@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em.events").service("em.events.add-item-event-service", itemEventService);
+    angular.module("em.events").service("em.events.event-list-service", itemEventService);
 
 
     function itemEventService($rootScope, mainApiService) {
