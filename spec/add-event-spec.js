@@ -6,14 +6,16 @@ describe("Add event", function() {
 
     beforeEach(angular.mock.module("em"));
     beforeEach(angular.mock.module(function($provide) {
-        $provide.service("em.addEvent.addEventService", function() {
+        $provide.service("addEventService", function() {
             this.addEvent = jasmine.createSpy("addEvent");
             this.updateWithImage = jasmine.createSpy("updateWithImage");
             this.update = jasmine.createSpy("update");
         });
-        $provide.service("$route");
+        $provide.service("$route", function() {
+
+        });
     }));
-    beforeEach(angular.mock.inject(function($controller, addEventService, $route) {
+    beforeEach(angular.mock.inject(function($controller, $rootScope, addEventService, $route) {
         scope = $rootScope.$new();
         mockAddEventService = addEventService;
         mock$Route = $route;
