@@ -8,6 +8,7 @@ var events = function() {
         return db.query("SELECT * FROM \"events\" WHERE \"id\" = " + id + ";");
     };
     this.getEventByUser = function(id) {
+        console.log('getEventByUser', id);
         return db.query("SELECT * FROM \"users_events\" INNER JOIN \"events\" ON \"users_events\".\"event\" = \"events\".\"id\" WHERE \"users_events\".\"user\" = " + id + ";");
     };
     this.getUsersByEvent = function(id) {
