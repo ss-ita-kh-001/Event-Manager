@@ -210,6 +210,7 @@ var router = {
                     console.log('step 3');
                     console.log('profile.id: ', profile.id);
                     // Step 3a. Link user accounts.
+
                     if (req.header('Authorization')) {
                         console.log('step 3a');
                         User.findOne({
@@ -243,7 +244,7 @@ var router = {
                         console.log('step 3b');
                         console.log('profile.id: ', profile.id);
                         // Step 3b. Create a new user account or return an existing one.
-                        User.findOne({
+                  /*      User.findOne({
                             github: profile.id
                         }, function(err, existingUser) {
                             if (existingUser) {
@@ -251,21 +252,27 @@ var router = {
                                 return res.send({
                                     token: token
                                 });
-                            }
-                            var user = new User();
-                            user.github = profile.id;
-                            user.picture = profile.avatar_url;
-                            user.displayName = profile.name;
+                            }*/
+                            //create a new user
+                          //  var user = new User();
+                            var user = {};
+                            user.password = profile.id;
+                            user.fullName = profile.name;
                             user.email = profile.email;
-
-                            user.save(function() {
-                                var token = createJWT(user);
-                                res.send({
-                                    token: token
+                            console.log('profile: ', profile);
+                            console.log('user: ', user);
+                            users.addUser(user).then(function() {
+                                users.getLastId().then(function(data) {
+                                    res.status(200).send(data);
+                                }).catch(function(error) {
+                                    res.status(500).send(error);
                                 });
+                            }).catch(function(error) {
+                                res.status(500).send(error);
                             });
-                        });
-                    }
+                        /*
+                        });*/
+                    };
                 });
             });
         });
