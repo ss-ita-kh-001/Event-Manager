@@ -81,6 +81,18 @@
             }, rejected);
         }
 
+        // $scope.getUsersByEvent = function(id) {
+        //     userService.getUsersByEvent(id)
+        //         .then(function(res) {
+        //             $scope.userList = res.data;
+        //             console.log($scope.userList);
+        //             // console.log($scope.userList[0].email);
+        //
+        //         }, function(error) {
+        //             console.log('Error: ' + error);
+        //         });
+        // }
+
         //add modal window
         $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();
@@ -95,6 +107,7 @@
                         $uibModalInstance.close();
                         $scope.currentEventTitle = null;
                         $scope.deleteEventItem(eventItem.id);
+                        // $scope.getUsersByEvent(eventItem.id);
                     };
                     $scope.cancel = function() {
                         $scope.currentEventTitle = null;
@@ -107,6 +120,15 @@
         //opportunity to subscribe and invite friend to event
         $scope.subscribeOnEvent = function() {
             event.stopPropagation();
+            $scope.isSubscribe = !$scope.isSubscribe;
+            $scope.getUsersByEvent()
+            if ($scope.isSubscribe) {
+                $scope.SubscribeMessage = 'Unsubscribe';
+                $scope.subscribe();
+            } else {
+                $scope.SubscribeMessage = 'Subscribe'
+                $scope.unSubscribe();
+            }
         };
 
         $scope.inviteFriend = function(event, eventItem) {
