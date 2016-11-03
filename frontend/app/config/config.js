@@ -29,11 +29,16 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/profile/:userID", {
+            .when("/me", {
                 templateUrl: "./app/features/profile/views/profile.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }]
                 }
             })
             .when("/users", {
@@ -46,11 +51,17 @@
                     }]
                 }
             })
-            .when("/profile/:userID/settings", {
+            .when("/me/settings", {
                 templateUrl: "./app/features/profile/views/settings.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+
+                    }]
                 }
             })
             .when("/chat", {

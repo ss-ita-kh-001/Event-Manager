@@ -187,8 +187,8 @@ var router = {
                 console.log(error);
             });
         });
-        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
-            users.getUserById(req.params.id).then(function(data) {
+        app.get(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
+            users.getUserById(req.body.userID).then(function(data) {
                 res.status(200).send(data);
 
             }).catch(function(error) {
@@ -224,8 +224,8 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
-            users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+        app.put(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
+            users.updateUser(Object.assign({}, req.body, req.body.userID)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);

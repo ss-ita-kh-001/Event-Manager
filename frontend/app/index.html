@@ -59,7 +59,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li ng-cloak ng-if="isAuthenticated() && !chatOnTop" ng-class="{'active': thisActive === 'chat'}"><a href="chat">Chat</a></li>
-                            <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'profile'}"><a href="profile/{{id}}" ng-click="getId()">My Profile</a></li>
+                            <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'profile'}"><a href="me" ng-click="getId()">My Profile</a></li>
                             <li ng-cloak ng-if="!isAuthenticated()" ng-class="{'active': thisActive === 'register'}"><a href="register">Register</a></li>
                             <li ng-cloak ng-if="!isAuthenticated()" ng-class="{'active': thisActive === 'login'}"><a href="login">Login</a></li>
                             <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'logout'}"><a href="logout">Logout</a></li>

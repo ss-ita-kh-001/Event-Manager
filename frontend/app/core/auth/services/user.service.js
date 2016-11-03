@@ -12,11 +12,12 @@
         var service = {};
         var userInfo;
 
+        service.getCurrentUser = getCurrentUser;
+
         service.getUsers = getUsers;
         service.getById = getById;
         service.getUserEvents = getUserEvents;
         service.getUsersByEvent = getUsersByEvent;
-        //  service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;
         service.remove = remove;
@@ -31,6 +32,9 @@
 
         function getUsers(index) {
             return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
+        }
+        function getCurrentUser() {
+            return mainApiService.get('me').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function forgotPassword(email, callback) {
@@ -87,7 +91,7 @@
         }
 
         function update(user) {
-            return mainApiService.put('profile/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return mainApiService.put('me', user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function remove(id) {

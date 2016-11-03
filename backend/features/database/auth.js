@@ -46,7 +46,7 @@ var auth = function() {
                 message: 'Token has expired'
             });
         }
-        req.body.sub = payload.sub;
+        req.body.userID = payload.sub;
         next();
     };
 };
