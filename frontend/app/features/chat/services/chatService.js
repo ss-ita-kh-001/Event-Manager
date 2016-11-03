@@ -23,9 +23,11 @@
 
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
+            console.log('------------------------');
+            console.log('index from server', response.index);
 
             if (!response.error) {
-                $rootScope.chatIndex = response.index;
+
                 angular.forEach(response.data, function(value, key) {
                     response.data[key].date = response.data[key].date.substring(11, 19);
                 });
@@ -39,6 +41,13 @@
                         self.live.push(response.data[0]);
                     });
                 } else {
+                    console.log('get history from server');
+                    console.log('rootScope.chatIndex local', $rootScope.chatIndex);
+                    if (!$rootScope.chatIndex) {
+                        $rootScope.chatIndex = response.index;
+                    } else {
+                        $rootScope.chatIndex -= 10;
+                    }
                     // console.log(self.live.length);
                     $rootScope.$apply(function() {
                         // angular.extend(self.live, []);
@@ -53,6 +62,7 @@
                     flashService.error(response.errorMessage, false);
                 });
             }
+            console.log('rootScope.chatIndex at the end', $rootScope.chatIndex);
         }
         self.msgSend = function(msg) {
             // self.live = [];

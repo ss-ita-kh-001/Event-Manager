@@ -41,6 +41,9 @@
                     </tr>
                 </tbody>
         </table>
+        <div class="text-center">
+            <button ng-click="updateEventList()" ng-if="haveHistory" class="btn btn-lg btn-primary">Load more events</button>
+        </div>
         <script type="text/ng-template" id="deleteModalContent.html">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title">Delete event "{{currentEventTitle}}"</h3>
