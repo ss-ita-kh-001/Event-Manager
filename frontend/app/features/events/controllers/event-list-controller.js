@@ -40,7 +40,7 @@
          * Called on click 'Load more users'
          */
         $scope.updateEventList = function() {
-            // save 
+            // save
             console.log($rootScope.eventsIndex);
 
             itemEventService.getEvents($rootScope.eventsIndex).then(function(response) {
@@ -80,19 +80,7 @@
                 $scope.events.splice(eventIndex, 1);
             }, rejected);
         }
-
-        // $scope.getUsersByEvent = function(id) {
-        //     userService.getUsersByEvent(id)
-        //         .then(function(res) {
-        //             $scope.userList = res.data;
-        //             console.log($scope.userList);
-        //             // console.log($scope.userList[0].email);
-        //
-        //         }, function(error) {
-        //             console.log('Error: ' + error);
-        //         });
-        // }
-
+        
         //add modal window
         $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();

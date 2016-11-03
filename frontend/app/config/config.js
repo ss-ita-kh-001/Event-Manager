@@ -90,7 +90,7 @@
                 templateUrl: "./app/features/events/views/event-list.html",
                 controller: "em.events.event-list-controller",
                 resolve: {
-                    getEvents: ["em.events.event-list-controller", function(itemEventService) {
+                    getEvents: ["em.events.event-list-service", function(itemEventService) {
                         return itemEventService.getEvents(1);
                     }]
                 }
