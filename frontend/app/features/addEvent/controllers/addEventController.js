@@ -2,14 +2,11 @@
     angular.module("em.addEvent").controller("em.addEvent.addEventController", addEventController);
 
     function addEventController($scope, $route, $rootScope, $routeParams, eventService, addEventService) {
-
         switch ($route.current.mode) {
             case 'add':
-
                 $scope.event = {
                     isGame: false,
                     report: null
-
                 };
 
                 $scope.en = true;
@@ -53,8 +50,6 @@
                 }
 
                 break;
-            default:
-                $state.go('404Error');
         }
 
 

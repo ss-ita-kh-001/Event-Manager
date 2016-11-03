@@ -19,6 +19,9 @@ describe("Add event", function() {
         scope = $rootScope.$new();
         mockAddEventService = addEventService;
         mock$Route = $route;
+        mock$Route.current = {
+            mode: 'add'
+        };
         controller = $controller("em.addEvent.addEventController", {
             $scope: scope,
             addEventService: mockAddEventService,
@@ -34,5 +37,6 @@ describe("Add event", function() {
             place: "London",
             avatar: null
         });
+        console.log(angular.mock.dump(scope));
     });
 });
