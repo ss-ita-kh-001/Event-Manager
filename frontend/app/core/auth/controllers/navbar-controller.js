@@ -31,12 +31,6 @@
             href: '/register',
             name: 'register'
         }];
-        $scope.getCurrentUser = function() {
-            if (userService.getUserInfo()) {
-                $scope.currentUser = userService.getUserInfo();
-                return;
-            }
-        };
 
         $scope.setActiveClass = function() {
             var path = $location.path();
