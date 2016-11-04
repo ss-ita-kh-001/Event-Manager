@@ -3,7 +3,7 @@ dependencies:
     - node ./package.json
 database:
   override:
-    — psql -u ubuntu circle_test < db_scripts/setup_db.sql
+    - psql -u ubuntu circle_test < db_scripts/setup_db.sql
 test:
   override:
     - npm test
