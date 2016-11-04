@@ -220,15 +220,19 @@ var router = {
                     }).catch(function(error) {
                         res.status(500).send(error);
                     }); */
+                    console.log('profile.id: ', profile.id);
                     if (profile.id) {
                     users.getUserByGithub(profile.id).then(function(data) {
                       console.log('There is already a GitHub account that belongs to you!');
+                      console.log('data: ', data);
                       var token = createJWT(data);
+                      console.log('token: ', token);
                       res.status(200).send({ token: token });
                     }).catch(function(error) {
                         res.status(500).send(error);
                     });
                   } else {
+                    console.log('elsee');
                             var user = [{}];
                             user[0].github = profile.id;
                             user[0].fullName = profile.name;

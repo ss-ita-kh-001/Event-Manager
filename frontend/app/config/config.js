@@ -46,13 +46,6 @@
                     }]
                 }
             })
-            .when("/me", {
-                templateUrl: "./app/features/profile/views/profile.html",
-                controller: "em.profile.profile-controller",
-                resolve: {
-                    loginRequired: loginRequired
-                }
-            })
             .when("/users", {
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller",
@@ -84,13 +77,6 @@
                             return userService.getUserEvents();
                         }
                     }]
-                }
-            })
-            .when("/me/settings", {
-                templateUrl: "./app/features/profile/views/settings.html",
-                controller: "em.profile.profile-controller",
-                resolve: {
-                    loginRequired: loginRequired
                 }
             })
             .when("/chat", {
