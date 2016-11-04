@@ -15,5 +15,5 @@
             });
 
     }
-
+    logoutController.$inject = ["$location", "$auth", "userService"];
 })();

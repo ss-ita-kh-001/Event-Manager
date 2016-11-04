@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em").config(function($routeProvider, $locationProvider, $authProvider) {
+    angular.module("em").config(["$routeProvider", "$locationProvider", "$authProvider", function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);
         /**
          * Helper auth functions
@@ -177,5 +177,5 @@
                 templateUrl: "./app/features/main/views/main.html"
             });
 
-    })
+    }]);
 })();
