@@ -20,8 +20,8 @@ var events = function() {
             "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + event.isGame + ", avatar = '" + event.avatar + "' WHERE \"id\"  = " + event.id + ";");
     };
     this.addEvent = function(data) {
-        console.log(data)
-        return db.query("INSERT INTO \"events\"(${this~}) VALUES(${avatar}, ${isGame}, ${report}, ${date}, ${title}, ${desc}, ${place});", data);
+        return db.query("INSERT INTO \"events\"(\"avatar\", \"isGame\", \"report\", \"date\",  \"desc\", \"title\", \"place\") " +
+            "VALUES(${avatar}, ${isGame}, ${report}, ${date},  ${desc}, ${title}, ${place});", data);
     };
     this.deleteEventById = function(id) {
         return db.query("DELETE FROM \"events\"  WHERE \"id\"  = " + id + ";");

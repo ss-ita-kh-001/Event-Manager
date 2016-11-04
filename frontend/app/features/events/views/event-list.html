@@ -23,10 +23,9 @@
             <div class="container">
                 <tbody>
                     <!-- search field -->
-                    <div class="input-group text-right">
-                        <span class="input-group-btn form-group">
+                    <div class="form-group has-feedback">
                         <input type="text" placeholder="search" class="form-control ng-valid ng-dirty" ng-model="searchKeyword" />
-                    </span>
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
                     <tr ng-repeat="eventItem in events | filter: searchKeyword | orderBy:predicate:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
                         <td>{{eventItem.title}}</td>
