@@ -306,8 +306,7 @@ gulp.task('default', ['dev']);
 gulp.task('dev', ['set-dev-node-env'], function() {
     return runSequence(
         'build',
-        'concat',
-        'watch'
+        'concat'
     );
 });
 
