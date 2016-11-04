@@ -274,17 +274,6 @@ gulp.task('watch', function() {
     });
 });
 
-gulp.task('ugly', function() {
-    gulp.src(path.src.concatJS)
-        .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
-        .pipe(uglify())
-        .pipe(concat('all.js'))
-        .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
-        .pipe(gulp.dest(path.build.js))
-        .pipe(reload({
-            stream: true
-        }));
-});
 /*Run task*/
 
 gulp.task('build', [
