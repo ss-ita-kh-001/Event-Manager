@@ -237,6 +237,7 @@ gulp.task('font:build', function() {
 gulp.task('concat', function() {
     gulp.src(path.src.concatJS)
         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+        .pipe(uglify())
         .pipe(concat('all.js'))
         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
         .pipe(gulp.dest(path.build.js))
@@ -293,6 +294,7 @@ gulp.task('build', [
     'image:build',
     'lib:copy',
     'font:build',
+    'concat'
 ]);
 
 gulp.task('clean', function(cb) {
@@ -300,20 +302,18 @@ gulp.task('clean', function(cb) {
 });
 
 //development is default
-gulp.task('default', ['dev']);
+gulp.task('default', ['prod']);
 
 
 gulp.task('dev', ['set-dev-node-env'], function() {
     return runSequence(
         'build',
-        'concat',
         'watch'
     );
 });
 
 gulp.task('prod', ['set-prod-node-env'], function() {
     return runSequence(
-        'build',
-        'ugly'
+        'build'
     );
 });
