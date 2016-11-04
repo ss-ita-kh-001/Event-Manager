@@ -39,12 +39,6 @@
                     </tr>
                 </tbody>
         </table>
-        <md-content class="md-padding">
-            <p>
-              Click the button below to open the dialog with an autocomplete.
-            </p>
-        <md-button ng-click="ctrl.openDialog($event)" class="md-raised">Open Dialog</md-button>
-  </md-content>
         <div class="text-center">
             <button ng-click="updateEventList()" ng-if="haveHistory" class="btn btn-lg btn-primary">Load more events</button>
         </div>
@@ -62,14 +56,21 @@
         </script>
         <script type="text/ng-template" id="inviteFriendForEvent.html">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Find your friend in dropdown</h3>
+                <h3 class="modal-title" id="modal-title">Do you want to invite your friend?</h3>
             </div>
             <div>
-                <select name="invitation" ng-model="selectedFriend" ng-options="user as user.full_name for user in users | filter: searchKeyword" ng-change="getSelectedUser()" class="form-control input-lg" required>
-                    <option option-value="{{user.full_name}}| filter: searchKeyword" class="form-control input-lg">{{user[0].full_name}}</option>
-                </select>
-                <div class="modal-body" id="modal-body">
-                    Do you want to invite your friend?
+                <div class='invitation-input-wrapper'>
+                    <input
+                        type="text"
+                        name="invitation"
+                        ng-model="newInvitation.userReceiver"
+                        uib-typeahead="user as user.full_name for user in users | filter:{full_name:$viewValue}"
+                        class="form-control input-lg typeahead-demo"
+                        typeahead-show-hint="true"
+                        typeahead-min-length="0"
+                        aria-autocomplete="list"
+                        placeholder="Write your friend's name here"
+                        />
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary no-margin" type="button" ng-click="cancel()">Cancel</button>
