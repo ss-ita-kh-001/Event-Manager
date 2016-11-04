@@ -3,6 +3,10 @@ body {
     word-wrap: break-word;
 }
 
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
 .no-pad {
     padding: 0 !important;
 }
@@ -24,10 +28,10 @@ body {
 .btn {
     border: none;
     border-radius: 4px;
-    padding: 10px 30px;
-    margin: 5px 0 10px 0;
+    padding: 6px 12px;
+    margin: 5px 0;
     box-shadow: 0 5px 10px -4px #000;
-    transition: all 0.4s;
+    transition: all 0.4s;    
     &:hover {
         box-shadow: 0 0 10px -4px #000;
     }
@@ -36,15 +40,17 @@ body {
     }
     &.btn-lg {
         min-width: 200px;
+        margin-bottom: 10px;
     }
 }
-datepicker{
-  .btn-sm{
-    padding: 5px 10px;
-    margin: 0;
-    border: 1px solid #ccc;
-    box-shadow: none;
-  }
+
+datepicker {
+    .btn-sm {
+        padding: 5px 10px;
+        margin: 0;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
 }
 
 .table {
@@ -54,10 +60,13 @@ datepicker{
         }
     }
 }
-button[disabled], html input[disabled] {
+
+button[disabled],
+html input[disabled] {
     opacity: 0.65;
     cursor: not-allowed;
 }
+
 .input-group {
     .form-control {
         padding-top: 19px;
@@ -68,6 +77,11 @@ button[disabled], html input[disabled] {
 .panel {
     margin-top: 15px;
 }
+
 .map {
-  width: 100%;
+    width: 100%;
+}
+
+.avatar-small {
+    max-width: 50px;
 }

@@ -7,13 +7,14 @@
                 <p>
                     {{user.email}}
                 </p>
-                <a href="/profile/{{user.id}}/settings" class="btn btn-primary btn-lg">Settings</a>
+                <a href="/me/settings" class="btn btn-primary btn-lg">Settings</a>
             </div>
         </div>
         <div class="col-sm-8">
-            <div ng-repeat="event in events" class="upcoming-events-item">
+            <p class="h3" ng-if="events.length">Events coming soon</p>
+            <div ng-repeat="event in events track by event.date" class="upcoming-events-item">
                 <div>
-                    <a href="/events/{{event.event}}">{{event.title}}</a>
+                    <a href="/events/{{event.event}}">{{event.title}}</a><span class="pull-right event-date">{{event.date}}</span>
                     <p>
                         {{event.desc}}
                     </p>

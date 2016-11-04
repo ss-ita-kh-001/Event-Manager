@@ -1,13 +1,18 @@
 (function() {
     angular.module("em.users").controller("em.users.users-controller", usersController);
 
-    function usersController($scope, $rootScope, userService, getUsers) {
+    function usersController($scope, $rootScope, userService, getUsers, getCurrentUser) {
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        $scope.user = userService.getUserInfo();
         if ($rootScope.allUsers.length === 0) {
             $rootScope.allUsers = getUsers.data;
             $rootScope.usersIndex = getUsers.index;
         }
-        
+
         $scope.users = $rootScope.allUsers;
+        console.log($scope.users);
 
         // by default
         $scope.haveHistory = true;
@@ -25,6 +30,6 @@
             });
         }
     }
-    usersController.$inject = ["$scope", "$rootScope", "userService", "getUsers"];
+    usersController.$inject = ["$scope", "$rootScope", "userService", "getUsers", "getCurrentUser"];
 
 })();
