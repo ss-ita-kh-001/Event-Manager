@@ -9,6 +9,7 @@ create type "status_type" as enum('admin','user');
 create table "users"(
   "id" serial primary key,
   "full_name" varchar not null,
+  "github" varchar,
   "password" varchar not null,
   "email" varchar unique not null,
   "role" status_type default 'user',
