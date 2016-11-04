@@ -106,6 +106,8 @@ var path = {
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-bootstrap/ui-bootstrap.js',
             'src/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+            'src/lib/angular-aria/angular-aria.js',
+            'src/lib/angular-material/angular-material.js',
             'src/lib/angular-route/angular-route.js',
             'src/lib/satellizer/dist/satellizer.js',
             'src/lib/angular-cookies/angular-cookies.js',

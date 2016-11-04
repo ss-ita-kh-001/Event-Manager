@@ -11,6 +11,7 @@
         "em.reset",
         "ngAnimate",
         "ui.bootstrap",
+        "ngMaterial",
         "em.events",
         "em.result-table",
         "ngCookies",
