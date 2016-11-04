@@ -7,5 +7,4 @@ describe('results page', function() {
         var playersList = element.all(by.repeater('player in playersList'));
         expect(playersList.isDisplayed()).toBeTruthy();
     });
-
 });

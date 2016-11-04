@@ -1,4 +1,7 @@
-test:
+ database:
+   override:
+     — psql -u ubuntu circle_test < db_scripts/setup_db.sql
+ test:
   override:
     - npm test
     - end2end-test/*spec.js
