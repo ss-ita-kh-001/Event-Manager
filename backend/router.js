@@ -226,7 +226,6 @@ var router = {
                     }).catch(function(error) {
                         res.status(500).send(error);
                     }); */
-
                     if (profile.id) {
                     users.getUserByGithub(profile.id).then(function(data) {
                       console.log('There is already a GitHub account that belongs to you!');
@@ -237,97 +236,35 @@ var router = {
                     }).catch(function(error) {
                         res.status(500).send(error);
                     });
-
-                  /*  if (req.header('Authorization')) {
-                        console.log('step 3a');
-                        User.findOne({
-                            github: profile.id
-                        }, function(err, existingUser) {
-                            if (existingUser) {
-                                return res.status(409).send({
-                                    message: 'There is already a GitHub account that belongs to you'
-                                });
-                            }
-                            var token = req.header('Authorization').split(' ')[1];
-                            var payload = jwt.decode(token, config.TOKEN_SECRET);
-                            User.findById(payload.sub, function(err, user) {
-                                if (!user) {
-                                    return res.status(400).send({
-                                        message: 'User not found'
-                                    });
-                                }
-                                user.github = profile.id;
-
-                                user.fullName = user.displayName || profile.name;
-                                user.save(function() {
-                                    var token = createJWT(user);
-                                    res.send({
-                                        token: token
-                                    });
-                                });
-                            });
-                        });
-                    } */  } else {
+                  } else {
                         console.log('step 3b');
                         console.log('profile.id: ', profile.id);
-
-                        // Step 3b. Create a new user account or return an existing one.
-                  /*      User.findOne({
-                            github: profile.id
-                        }, function(err, existingUser) {
-                            if (existingUser) {
-                                var token = createJWT(existingUser);
-                                return res.send({
-                                    token: token
-                                });
-                            }*/
-                            //create a new user
-                          //  var user = new User();
                             var user = [{}];
                             user[0].github = profile.id;
                             user[0].fullName = profile.name;
                             user[0].email = profile.email;
                             user[0].role = 'user';
-                          //  console.log('profile: ', profile);
                             console.log('user: ', user);
                             users.addUser(user[0]).then(function() {
-                                console.log('I am here 2');
                                 users.getLastId().then(function(data) {
-                                  console.log(data[0].id);
                                   users.getUserById(data[0].id).then(function(data) {
-                                      console.log('I am here');
                                       var token = createJWT(user);
-                                    //  res.send({ token: token });
                                       res.status(200).send({ token: token });
-
                                   }).catch(function(error) {
                                       res.status(500).send(error);
                                   });
-                                  //  res.status(200).send(data);
                                 }).catch(function(error) {
-                              //    console.log('errror');
                                     res.status(500).send(error);
                                 });
                             }).catch(function(error) {
-                                console.log('errror');
                                 res.status(500).send(error);
                             });
-                            console.log('test');
-                            var response = {
-                                user: {},
-                                token: ''
-                            };
-
-                            var token = createJWT(user);
-                            res.send({ token: token });
-                            console.log('test 2');
-                          //  console.log('req.params.id: ', req.params.id);
 
 
-                          //  console.log('response.token: ', response.token);
+                          //  var token = createJWT(user);
+                        //    res.send({ token: token });
+                        //    console.log('test 2');
 
-                        /*
-                        });*/
                     };
                 });
             });
