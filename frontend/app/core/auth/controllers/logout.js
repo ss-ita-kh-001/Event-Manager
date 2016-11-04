@@ -9,11 +9,12 @@
         $auth.logout()
             .then(function() {
                 localStorage.clear();
+                $rootScope.$resetScope();
                 $location.path('/login');
                 userService.setUserInfo(null); //clear user info obj in userService
                 userService.setCurrentUserEvents(null);
             });
 
     }
-
+    logoutController.$inject = ["$location", "$auth", "userService"];
 })();

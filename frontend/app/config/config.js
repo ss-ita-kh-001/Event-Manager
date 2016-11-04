@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em").config(function($routeProvider, $locationProvider, $authProvider) {
+    angular.module("em").configы(["$routeProvider", "$locationProvider", "$authProvider", function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);
         /**
          * Helper auth functions
@@ -176,10 +176,8 @@
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
             });
-
             $authProvider.github({
               clientId: '828661239229842212f2'
             });
-
-    })
+    }]);
 })();

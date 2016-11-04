@@ -6,8 +6,13 @@
         $scope.isAuthenticated = function() {
             return $auth.isAuthenticated();
         };
-        $scope.currentUser = userService.getUserInfo();
-        console.log($scope.currentUser);
+        if ($auth.isAuthenticated()) {
+            userService.getCurrentUser().then(function (data) {
+                console.log(data[0]);
+                $scope.currentUser = data[0];
+            });
+        }
+
         $scope.menuItems = [{
             href: '/',
             name: 'main'
@@ -36,7 +41,7 @@
         $scope.setActiveClass = function() {
             var path = $location.path();
             var eventCheck = path.split('').slice(0, 6).join('');
-            if  (eventCheck === '/event') {
+            if (eventCheck === '/event') {
                 path = eventCheck;
             }
             angular.forEach($scope.menuItems, function(value, key) {
