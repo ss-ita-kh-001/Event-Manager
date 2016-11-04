@@ -120,7 +120,7 @@ function isAuth(req) {
         obj.error = true;
         return obj;
     }
-    obj.data.decodedId = payload.sub;
+    obj.data.userID = payload.id;
     return obj;
 }
 

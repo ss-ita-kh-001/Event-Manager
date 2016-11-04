@@ -67,6 +67,7 @@
         self.msgSend = function(msg) {
             // self.live = [];
             if (socket.readyState == 1) {
+                console.log(msg);
                 socket.send(JSON.stringify(msg));
             }
         }
