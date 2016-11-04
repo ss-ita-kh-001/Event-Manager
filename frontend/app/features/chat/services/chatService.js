@@ -46,7 +46,7 @@
                     if (!$rootScope.chatIndex) {
                         $rootScope.chatIndex = response.index;
                     } else {
-                        $rootScope.chatIndex -= 10;
+                        $rootScope.chatIndex -= response.data.length;
                     }
                     // console.log(self.live.length);
                     $rootScope.$apply(function() {
