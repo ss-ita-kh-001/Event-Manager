@@ -9,12 +9,15 @@
             $rootScope.allEvents = getEvents.data;
             $rootScope.eventsIndex = getEvents.index; //save last event index from server
         }
+        // reset current user info when controller init
+        $scope.currentUser = null;
 
         $scope.events = $rootScope.allEvents;
 
         // cut off tags
         angular.forEach($scope.events, function(value, key) {
-            $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+            $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
+            .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
         });
 
         $scope.getCurrentUser = function() {
@@ -34,15 +37,13 @@
         };
 
         $scope.getCurrentUser();
-
+        
         /**
          * Pagination
-         * Called on click 'Load more users'
+         * Called on click 'Load more events'
          */
         $scope.updateEventList = function() {
             // save
-            console.log($rootScope.eventsIndex);
-
             itemEventService.getEvents($rootScope.eventsIndex).then(function(response) {
                 $scope.haveHistory = response.haveHistory;
                 $rootScope.eventsIndex = response.index;
@@ -54,7 +55,8 @@
 
                 // cut off tags
                 angular.forEach($scope.events, function(value, key) {
-                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
+                    .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
                 });
             }, rejected);
         };
@@ -80,7 +82,7 @@
                 $scope.events.splice(eventIndex, 1);
             }, rejected);
         }
-        
+
         //add modal window
         $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();
@@ -95,7 +97,6 @@
                         $uibModalInstance.close();
                         $scope.currentEventTitle = null;
                         $scope.deleteEventItem(eventItem.id);
-                        // $scope.getUsersByEvent(eventItem.id);
                     };
                     $scope.cancel = function() {
                         $scope.currentEventTitle = null;
@@ -105,20 +106,7 @@
             });
         };
 
-        //opportunity to subscribe and invite friend to event
-        $scope.subscribeOnEvent = function() {
-            event.stopPropagation();
-            $scope.isSubscribe = !$scope.isSubscribe;
-            $scope.getUsersByEvent()
-            if ($scope.isSubscribe) {
-                $scope.SubscribeMessage = 'Unsubscribe';
-                $scope.subscribe();
-            } else {
-                $scope.SubscribeMessage = 'Subscribe'
-                $scope.unSubscribe();
-            }
-        };
-
+        //opportunity to  invite friend to event
         $scope.inviteFriend = function(event, eventItem) {
             event.stopPropagation();
             userService.getAll().then(function(response) {
