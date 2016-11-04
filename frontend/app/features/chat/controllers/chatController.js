@@ -59,10 +59,15 @@
             }
         }
         // new messages
+        $scope.history = chatService.history;
         $scope.live = chatService.live;
-        // $scope.live =  $rootScope.live;
-        console.log('live in controller', chatService.live);
-
+        // new array for listening new history from service
+        $scope.newArray = chatService.history;
+        $scope.$watchCollection('newArray', function(newValue) {
+            var tmp = [];
+            tmp = tmp.concat(newValue);
+            $scope.history = tmp.concat($scope.history);
+        });
     }
 
     chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];

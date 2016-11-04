@@ -88,16 +88,21 @@
             })
             .when("/events", {
                 templateUrl: "./app/features/events/views/event-list.html",
-                controller: "em.events.add-item-event-controller"
+                controller: "em.events.event-list-controller",
+                resolve: {
+                    getEvents: ["em.events.event-list-service", function(itemEventService) {
+                        return itemEventService.getEvents(1);
+                    }]
+                }
             })
             .when('/events/:id', {
                 templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController"
             })
             .when("/events/:id/edit", {
-              templateUrl: "./app/features/addEvent/views/addEvent.html",
-              controller: "em.addEvent.addEventController",
-              mode: 'edit',
+                templateUrl: "./app/features/addEvent/views/addEvent.html",
+                controller: "em.addEvent.addEventController",
+                mode: 'edit',
                 resolve: {
                     loginRequired: loginRequired
                 }

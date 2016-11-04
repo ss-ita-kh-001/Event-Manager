@@ -15,12 +15,17 @@
             return mainApiService.delete("unsubscribe/" + Object.user + "/" + Object.event)
         };
 
-        this.sendInvitationToSubscribe = function (invitation) {
+        this.sendInvitationToSubscribe = function(invitation) {
             return mainApiService.post("message/subscribe", invitation)
         };
 
-        this.sendInvitationToUnSubscribe = function (invitation) {
+        this.sendInvitationToUnSubscribe = function(invitation) {
             return mainApiService.post("message/unsubscribe", invitation)
+        };
+        this.sendReport = function(report) {
+            return mainApiService.put("event/report/" + report.id, {
+                report: report.makeReport
+            });
         };
     }
 

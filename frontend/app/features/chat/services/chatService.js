@@ -6,10 +6,6 @@
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
 
-        var self = this;
-        self.live = [];
-        self.error = false;
-
         var initialization = {
             token: localStorage.getItem("satellizer_token"),
             getHistory: true,
@@ -17,33 +13,47 @@
         }
 
         socket.onopen = function(obj) {
-            console.log('initialization', initialization);
             socket.send(JSON.stringify(initialization));
         };
 
+        var self = this;
+        self.history = [];
+        self.live = [];
+        self.error = false;
+
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
-            // console.log(response);
+            console.log('------------------------');
+            console.log('index from server', response.index);
 
             if (!response.error) {
 
-                $rootScope.chatIndex = response.index;
                 angular.forEach(response.data, function(value, key) {
-                    // console.log(response.data[key].date);
                     response.data[key].date = response.data[key].date.substring(11, 19);
                 });
+                // $rootScope.$apply(function() {
+                //     self.live.push(response.data[0]);
+                // });
                 // if single msg
                 if (response.data.length == 1) {
                     $rootScope.$apply(function() {
+                        // angular.extend(self.live, []);
                         self.live.push(response.data[0]);
-                        // $rootScope.live = self.live;
-                        console.log('single message from server', response.data[0]);
                     });
                 } else {
+                    console.log('get history from server');
+                    console.log('rootScope.chatIndex local', $rootScope.chatIndex);
+                    if (!$rootScope.chatIndex) {
+                        $rootScope.chatIndex = response.index;
+                    } else {
+                        $rootScope.chatIndex -= 10;
+                    }
+                    // console.log(self.live.length);
                     $rootScope.$apply(function() {
-                        self.live = self.live.concat(response.data);
-                        // $rootScope.live = self.live;
-                        console.log('history from server', response.data);
+                        // angular.extend(self.live, []);
+                        // console.log(self.history);
+
+                        angular.extend(self.history, response.data.reverse());
                     });
                 }
             } else {
@@ -52,17 +62,18 @@
                     flashService.error(response.errorMessage, false);
                 });
             }
+            console.log('rootScope.chatIndex at the end', $rootScope.chatIndex);
         }
-
         self.msgSend = function(msg) {
+            // self.live = [];
             if (socket.readyState == 1) {
                 socket.send(JSON.stringify(msg));
             }
         }
         self.getHistory = function() {
+            // self.live = [];
             initialization.index = $rootScope.chatIndex;
             initialization.getHistory = true;
-            console.log(initialization);
             socket.send(JSON.stringify(initialization));
         }
     }

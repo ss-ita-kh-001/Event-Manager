@@ -33,6 +33,10 @@ var uploadEvent = multer({
 });
 var gen = new(require("./features/database/generator.js"));
 
+var responseExt = {
+    data: '',
+    haveHistory: true
+}
 
 var router = {
     init: function init(app) {
@@ -167,7 +171,17 @@ var router = {
         });
         app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
             users.getUsers(req.query.index).then(function(data) {
-                res.status(200).send(data);
+                // if no more users
+                if (data.length < 10) {
+                    responseExt.haveHistory = false;
+                } else {
+                    responseExt.haveHistory = true;
+                }
+                responseExt.index = Number(req.query.index) + data.length;
+                responseExt.data = data;
+                // console.log(responseExt);
+
+                res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
                 console.log(error);
@@ -349,8 +363,17 @@ var router = {
             });
         });
         app.get(apiPreff + "/events", function(req, res) {
-            events.getAll().then(function(data) {
-                res.status(200).send(data);
+            events.getEvents(req.query.index).then(function(data) {
+                console.log(req.query.index);
+                if (data.length < 10) {
+                    responseExt.haveHistory = false;
+                } else {
+                    responseExt.haveHistory = true;
+                }
+                responseExt.data = data;
+                responseExt.index = Number(req.query.index) + data.length;
+                console.log('responseExt.haveHistory',responseExt.haveHistory);
+                res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
@@ -399,11 +422,49 @@ var router = {
             });
         });
         app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, function(req, res) {
-            events.deleteEventById(req.params.id).then(function() {
-                res.status(200).end();
+            var titleOfDeletedEvent;
+            events.getByEvent(req.params.id).then(function(data) {
+                titleOfDeletedEvent = data[0].title;
+            })
+            events.getUsersByEvent(req.params.id).then(function(data) {
+                events.deleteEventById(req.params.id).then(function() {
+                    res.status(200).end();
+                    if(data.length>0){
+                        sendEmailAboutDeletingEvent(data);
+                    }
+                }).catch(function(error) {
+                    res.status(500).send(error);
+                });
             }).catch(function(error) {
                 res.status(500).send(error);
             });
+
+            function sendEmailAboutDeletingEvent (users) {
+                var emails = users.map(function (user) {
+                    return user.email;
+                });
+
+                var smtpTransport = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'event.manager.notification@gmail.com',
+                        pass: 'ss-ita-kh-001'
+                    }
+                });
+
+                var mailOptions = {
+                    to: emails,
+                    from: 'event.manager.notification@gmail.com',
+                    subject: 'Administrator has deleted event ' + titleOfDeletedEvent + ', which you was following on ',
+                    text: ' The details about this you can ask in event-manager chat:\n\n' +'http://' + req.headers.host + '/chat/'
+                };
+
+                smtpTransport.sendMail(mailOptions, function(error, info) {
+                    if (error) {
+                        return console.log(error);
+                    }
+                });
+            }
         });
         app.get(apiPreff + "/games/results", function(req, res) {
             games.getGamesForUserAcc().then(function(data) {
@@ -436,6 +497,16 @@ var router = {
         app.get(apiPreff + "/chat", auth.ensureAuthenticated, function(req, res) {
             chatDb.getHistory().then(function(data) {
                 res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+
+        app.put(apiPreff + "/event/report/:id", function(req, res) {
+            events.makeReport(Object.assign({
+                id: req.params.id
+            }, req.body)).then(function() {
+                res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
@@ -489,7 +560,7 @@ var router = {
             var mailOptions = {
                 to: req.body.user.email,
                 from: 'event.manager.notification@gmail.com',
-                subject: 'You have '+ req.body.status+' to event',
+                subject: 'You have ' + req.body.status + ' to event',
                 text: 'Hello,\n\n' +
                     'This is a confirmation that you have unsubscribed to ' + req.body.event.title + ' event ' + req.body.link + '.'
             };

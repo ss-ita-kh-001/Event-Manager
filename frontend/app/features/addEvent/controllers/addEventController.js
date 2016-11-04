@@ -12,7 +12,11 @@
 
                 };
 
+                $scope.en = true;
+                $scope.edit = false;
+
                 $scope.save = function() {
+                    $scope.en = false;
                     addEventService.addEvent($scope.event);
                 };
                 $scope.$watch("dt", function(value) {
@@ -21,6 +25,7 @@
 
                 break;
             case 'edit':
+                $scope.edit = true;
                 $scope.angular = angular;
                 $scope.id = $routeParams.id;
                 $scope.getEventPromise = eventService.getEvent($scope.id);

@@ -23,10 +23,9 @@
             <div class="container">
                 <tbody>
                     <!-- search field -->
-                    <div class="input-group text-right">
-                        <span class="input-group-btn form-group">
+                    <div class="form-group has-feedback">
                         <input type="text" placeholder="search" class="form-control ng-valid ng-dirty" ng-model="searchKeyword" />
-                    </span>
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
                     <tr ng-repeat="eventItem in events | filter: searchKeyword | orderBy:predicate:reverseSort track by $index" ng-click="fullEvent(eventItem.id)" class="row-item cursor-pointer">
                         <td>{{eventItem.title}}</td>
@@ -35,12 +34,14 @@
                         <td>
                             <button ng-if="currentUser.role === 'admin'" class="btn btn-primary full-width" ng-click="editEvent(eventItem.id)">Edit event</button>
                             <button ng-if="currentUser.role === 'admin'" class="btn btn-danger full-width" ng-click="openDeleteModal($event, eventItem)">Delete event</button>
-                            <!-- <button ng-if = "currentUser.role === 'user'" class="btn btn-warning full-width" ng-click="subscribeOnEvent($event)">Subscribe</button> -->
                             <button ng-if="currentUser.role === 'user'" class="btn btn-info full-width" ng-click="inviteFriend($event, eventItem)">Invite friend</button>
                         </td>
                     </tr>
                 </tbody>
         </table>
+        <div class="text-center">
+            <button ng-click="updateEventList()" ng-if="haveHistory" class="btn btn-lg btn-primary">Load more events</button>
+        </div>
         <script type="text/ng-template" id="deleteModalContent.html">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title">Delete event "{{currentEventTitle}}"</h3>

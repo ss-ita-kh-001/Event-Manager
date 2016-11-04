@@ -6,7 +6,6 @@
     userService.$inject = ['em.mainApiService', '$location', 'flashService', '$rootScope'];
 
     function userService(mainApiService, $location, flashService, $rootScope) {
-        $rootScope.usersIndex = 12;
         $rootScope.itemsPerPage = 10;
         $rootScope.allUsers = [];
 
@@ -120,5 +119,4 @@
             return userInfo;
         }
     }
-
 })();
