@@ -1,34 +1,31 @@
 (function() {
     angular.module("em.profile").controller("em.profile.profile-controller", profileController);
 
-    function profileController($scope, userService, $routeParams, $location) {
+    function profileController($scope, userService, $routeParams, $location, getCurrentUser, getCurrentUserEvents) {
 
-        userService.getById($routeParams.userID).then(function(res) {
-            $scope.user = res[0];
-            localStorage.setItem('userId', res[0].id);
-            localStorage.setItem('fullName', res[0].full_name);
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        $scope.user = userService.getUserInfo();
+
+        if (!userService.getCurrentUserEvents()) {
+            userService.setCurrentUserEvents(getCurrentUserEvents.data);
+        }
+        var events = userService.getCurrentUserEvents();
+        
+        angular.forEach(events, function(value, key) {
+            events[key].date = events[key].date.substring(0, 19).replace(/T/, ' ');
         });
-        userService.getUserEvents($routeParams.userID).then(function(res) {
-            $scope.events = res.data;
-            for (var i = 0; i < $scope.events.length; i++) {
-                $scope.events[i].desc = $scope.events[i].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[i].desc.length > 100 ? "..." : "");
-            }
-        });
+
+        $scope.events = events;
+
+        // console.log($scope.events);
+
         $scope.updateUserSend = function() {
-            var user = $scope.user;
-            var token = localStorage.getItem('satellizer_token');
-
-            if (token) {
-                user.token = token;
-            } else {
-                $location.path('/');
-                $scope.user = {};
-                localStorage.clear();
-            }
-            userService.update(user);
-            $location.path('/profile/' + user.id);
+            userService.update($scope.user);
+            $location.path('/me');
         };
-        $scope.classHandler();
+        // $scope.classHandler();
     }
-    profileController.$inject = ["$scope", "userService", "$routeParams", "$location"]
+    profileController.$inject = ["$scope", "userService", "$routeParams", "$location", "getCurrentUser", "getCurrentUserEvents"]
 })();

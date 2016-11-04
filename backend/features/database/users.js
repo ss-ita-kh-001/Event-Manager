@@ -6,7 +6,8 @@ var users = function() {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" >= " + Number(index) + " ORDER BY \"id\" LIMIT 10 ;");
     };
     self.getUserById = function(id) {
-        return db.query("SELECT * FROM \"users\" WHERE \"id\" = " + id + ";");
+        console.log('getUserById', id);
+        return db.query("SELECT \"full_name\",\"id\",\"role\",\"avatar\",\"email\" FROM \"users\" WHERE \"id\" = " + id + ";");
     };
     self.getUserByResetToken = function(token) {
         return db.query("SELECT * FROM \"users\" WHERE \"reset_password_token\" = \'" + token + "\';");
