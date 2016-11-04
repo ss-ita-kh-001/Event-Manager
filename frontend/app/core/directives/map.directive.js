@@ -1,6 +1,6 @@
 (function() {
     angular.module("em")
-        .directive('map', function($rootScope, $q) {
+        .directive('map', ["$rootScope", "$q", function($rootScope, $q) {
             return {
                 restrict: 'A',
                 link: function(scope, element) {
@@ -55,6 +55,6 @@
                     }
                 }
             }
-        })
+        }]);
 
 })();

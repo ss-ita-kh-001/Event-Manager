@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em").directive("mapNew", function($q) {
+    angular.module("em").directive("mapNew", ["$q", function($q) {
         return {
             restrict: "A",
             templateUrl: "./app/core/directives.v02/map.html",
@@ -37,5 +37,5 @@
                 };
             }
         };
-    });
+    }]);
 })();

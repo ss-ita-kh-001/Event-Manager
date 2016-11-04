@@ -31,4 +31,5 @@
         };
         $scope.classHandler();
     }
+    loginController.$inject = ["$scope", "$location", "flashService", "userService", "$auth"];
 })();
