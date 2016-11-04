@@ -29,6 +29,9 @@ var users = function() {
             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
             "\', \"email\" = \'" + user.email + "\'" + " WHERE \"id\" = " + user.id + ";");
     };
+    self.getAllUsers = function() {
+        return db.query("SELECT * FROM \"users\" ;");
+    };
     self.deleteUser = function(user) {
         return db.query("DELETE FROM \"users\" WHERE \"id\" = " + user.id + ";");
     };

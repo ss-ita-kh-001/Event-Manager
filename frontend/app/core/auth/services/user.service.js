@@ -28,6 +28,7 @@
         service.updatePassword = updatePassword;
         service.setUserInfo = setUserInfo;
         service.getUserInfo = getUserInfo;
+        service.getAll = getAll;
 
         service.setCurrentUserEvents = setCurrentUserEvents;
         service.getCurrentUserEvents = getCurrentUserEvents;
@@ -77,6 +78,11 @@
 
         function getUsersByEvent(id) {
             return mainApiService.get("event-users/" + id)
+        }
+
+        function getAll() {
+            return mainApiService.get('all-users')
+            .then(handleSuccess, handleError('Error getting all users'));
         }
 
         function create(user) {
