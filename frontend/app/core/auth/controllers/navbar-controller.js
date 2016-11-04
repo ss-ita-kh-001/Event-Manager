@@ -6,9 +6,8 @@
         $scope.isAuthenticated = function() {
             return $auth.isAuthenticated();
         };
-        $scope.getId = function() {
-            $scope.id = localStorage.getItem("userId");
-        };
+        $scope.currentUser = userService.getUserInfo();
+        console.log($scope.currentUser);
         $scope.menuItems = [{
             href: '/',
             name: 'main'
@@ -34,25 +33,7 @@
             href: '/register',
             name: 'register'
         }];
-        $scope.getCurrentUser = function() {
-            if (userService.getUserInfo()) {
-                $scope.currentUser = userService.getUserInfo();
-                return;
-            }
-            if (localStorage.getItem("userId")) {
-                userService.getById(localStorage.getItem("userId"))
-                    .then(function(response) {
-                        if (Array.isArray(response) && response.length > 0) {
-                            userService.setUserInfo(response[0]);
-                            $scope.currentUser = userService.getUserInfo();
-                        }
-                    });
-            };
-        };
-        $scope.getCurrentUser();
-
         $scope.setActiveClass = function() {
-            $scope.getCurrentUser();
             var path = $location.path();
             var eventCheck = path.split('').slice(0, 6).join('');
             if  (eventCheck === '/event') {

@@ -29,11 +29,21 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/profile/:userID", {
+            .when("/me", {
                 templateUrl: "./app/features/profile/views/profile.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
                 }
             })
             .when("/me", {
@@ -50,14 +60,30 @@
                     loginRequired: loginRequired,
                     getUsers: ["userService", function(userService) {
                         return userService.getUsers(1);
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
                     }]
                 }
             })
-            .when("/profile/:userID/settings", {
+            .when("/me/settings", {
                 templateUrl: "./app/features/profile/views/settings.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
                 }
             })
             .when("/me/settings", {
@@ -106,12 +132,29 @@
                 resolve: {
                     getEvents: ["em.events.event-list-service", function(itemEventService) {
                         return itemEventService.getEvents(1);
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
                     }]
                 }
             })
             .when('/events/:id', {
                 templateUrl: './app/features/events/views/event.html',
-                controller: "em.events.eventController"
+                controller: "em.events.eventController",
+                resolve: {
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
+                }
             })
             .when("/events/:id/edit", {
                 templateUrl: "./app/features/addEvent/views/addEvent.html",
