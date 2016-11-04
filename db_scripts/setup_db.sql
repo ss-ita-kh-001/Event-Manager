@@ -51,3 +51,5 @@ create table "chat"(
   "text" text,
   foreign key("user") references "users"("id") on delete cascade
 );
+
+INSERT INTO chat ("user","date", "text") VALUES(1 , timestamp'2016-11-4 15:23:25', 'Welcome to the chat');
