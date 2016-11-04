@@ -26,7 +26,7 @@
         $scope.isChatOnTop = function() {
             $rootScope.chatOnTop = true;
             $scope.id = localStorage.getItem('userId');
-            $location.path("/profile/" + $scope.id);
+            $location.path("/me");
             $scope.classHandler();
         };
 
