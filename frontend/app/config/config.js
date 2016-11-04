@@ -1,5 +1,5 @@
 (function() {
-    angular.module("em").configы(["$routeProvider", "$locationProvider", "$authProvider", function($routeProvider, $locationProvider, $authProvider) {
+    angular.module("em").config(["$routeProvider", "$locationProvider", "$authProvider", function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);
         /**
          * Helper auth functions
