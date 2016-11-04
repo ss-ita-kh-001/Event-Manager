@@ -37,7 +37,7 @@
         };
 
         $scope.getCurrentUser();
-        
+
         /**
          * Pagination
          * Called on click 'Load more events'
@@ -119,6 +119,9 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'inviteFriendForEvent.html',
                 scope: $scope,
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose:true
                 controller: function($uibModalInstance, $scope) {
                     $scope.newInvitation = {
                         userSender: userService.getUserInfo(),
