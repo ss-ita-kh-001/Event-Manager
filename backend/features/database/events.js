@@ -25,6 +25,7 @@ var events = function() {
             "VALUES(${avatar}, ${isGame}, ${report}, ${date},  ${desc}, ${title}, ${place});", data);
     };
     this.deleteEventById = function(id) {
+        console.log('deleteEventById events WHERE id = ', id);
         return db.query("DELETE FROM \"events\"  WHERE \"id\"  = " + id + ";");
     };
     this.getLastId = function() {

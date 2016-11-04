@@ -1,7 +1,11 @@
 (function() {
     angular.module("em.events").controller("em.events.event-list-controller", itemEventController);
 
-    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents) {
+    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents,getCurrentUser) {
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        $scope.currentUser = userService.getUserInfo();
         // by default button 'load more events' is visible
         $scope.haveHistory = true;
         // if rootscope is empty, save there response data
@@ -80,7 +84,7 @@
                 $scope.events.splice(eventIndex, 1);
             }, rejected);
         }
-        
+
         //add modal window
         $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();
@@ -171,7 +175,8 @@
         "em.events.event-list-service",
         "$uibModal",
         "userService",
-        "getEvents"
+        "getEvents",
+        "getCurrentUser"
     ];
 
 })();

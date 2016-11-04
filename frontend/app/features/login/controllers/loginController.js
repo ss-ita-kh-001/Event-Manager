@@ -13,7 +13,7 @@
                     localStorage.setItem('userId', res.data.user.id);
                     localStorage.setItem('fullName', res.data.user.full_name);
                     $scope.id = localStorage.getItem('userId');
-                    $location.path('/profile/' + $scope.id);
+                    $location.path('/me');
                     $scope.classHandler();
                     var getUserEventsPromise = userService.getUserEvents($scope.id);
                     getUserEventsPromise.then(function(res) {

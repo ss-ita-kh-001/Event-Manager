@@ -6,6 +6,8 @@
         $scope.isAuthenticated = function() {
             return $auth.isAuthenticated();
         };
+        $scope.currentUser = userService.getUserInfo();
+        console.log($scope.currentUser);
         $scope.menuItems = [{
             href: '/',
             name: 'main'

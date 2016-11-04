@@ -195,6 +195,14 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        // app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
+        //     users.getUserById(req.params.id).then(function(data) {
+        //         res.status(200).send(data);
+
+        //     }).catch(function(error) {
+        //         res.status(500).send(error);
+        //     });
+        // });
         app.get(apiPreff + "/participants/game/:id", function(req, res) {
             games.getParticipantsByGame(req.params.id).then(function(data) {
                 res.status(200).send(data);

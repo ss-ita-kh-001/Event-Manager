@@ -11,9 +11,15 @@
         if (!userService.getCurrentUserEvents()) {
             userService.setCurrentUserEvents(getCurrentUserEvents.data);
         }
-        $scope.events = userService.getCurrentUserEvents();
+        var events = userService.getCurrentUserEvents();
+        
+        angular.forEach(events, function(value, key) {
+            events[key].date = events[key].date.substring(0, 19).replace(/T/, ' ');
+        });
 
-        // console.log($scope.events);
+        $scope.events = events;
+
+        console.log($scope.events);
 
         $scope.updateUserSend = function() {
             userService.update($scope.user);

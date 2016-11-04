@@ -53,6 +53,11 @@
                     loginRequired: loginRequired,
                     getUsers: ["userService", function(userService) {
                         return userService.getUsers(1);
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
                     }]
                 }
             })
@@ -66,6 +71,11 @@
                             return userService.getCurrentUser();
                         }
 
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
                     }]
                 }
             })
@@ -108,6 +118,11 @@
                 resolve: {
                     getEvents: ["em.events.event-list-service", function(itemEventService) {
                         return itemEventService.getEvents(1);
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
                     }]
                 }
             })

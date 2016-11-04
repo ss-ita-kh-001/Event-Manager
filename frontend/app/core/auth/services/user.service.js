@@ -137,6 +137,7 @@
         }
 
         function setCurrentUserEvents(events) {
+            console.log('setCurrentUserEvents', events);
             userEvents = events;
         }
 

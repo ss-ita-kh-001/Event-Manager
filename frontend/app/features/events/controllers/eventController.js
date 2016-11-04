@@ -1,7 +1,7 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce, getCurrentUser, getCurrentUserEvents) {
+    function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce, getCurrentUser) {
         if (!userService.getUserInfo()) {
             userService.setUserInfo(getCurrentUser[0]);
         }
@@ -86,6 +86,7 @@
                 }))
                 .then(function(res) {
                     flashService.success(' You have successfully Subscribed to event', true);
+                    userService.setCurrentUserEvents(null); //shitcode
                     localStorage.setItem($scope.id, $scope.id);
                 }, rejected);
             $scope.sendMessage();
@@ -98,6 +99,7 @@
                 }))
                 .then(function(res) {
                     flashService.success('You have Unsubscribed to event', true);
+                    userService.setCurrentUserEvents(null); //shitcode
                     localStorage.removeItem($scope.id);
                 }, rejected);
             $scope.sendMessage();
@@ -161,5 +163,5 @@
         };
 
     }
-    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce", "getCurrentUser", "getCurrentUserEvents"];
+    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce", "getCurrentUser"];
 })();
