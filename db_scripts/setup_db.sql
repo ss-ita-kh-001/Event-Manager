@@ -1,6 +1,6 @@
--- database
-create database "ita-event-manager";
-\c "ita-event-manager";
+---- database
+--create database "ita-event-manager";
+--\c "ita-event-manager";
 
 --types
 create type "status_type" as enum('admin','user');
