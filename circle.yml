@@ -1,3 +1,7 @@
+## Set the artifacts
+general:
+  artifacts:
+    - "./tests/screenshots" #Save the screenshots for the tests
 database:
   override:
     — psql -u ubuntu circle_test < db_scripts/setup_db.sql
