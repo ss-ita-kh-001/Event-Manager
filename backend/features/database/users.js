@@ -6,6 +6,7 @@ var users = function() {
         return db.query("SELECT * FROM \"users\" WHERE \"id\" >= " + Number(index) + " ORDER BY \"id\" LIMIT 10 ;");
     };
     self.getUserById = function(id) {
+        console.log('getUserById typo', typeof(id));
         console.log('getUserById', id);
         return db.query("SELECT \"full_name\",\"id\",\"role\",\"avatar\",\"email\" FROM \"users\" WHERE \"id\" = " + id + ";");
     };

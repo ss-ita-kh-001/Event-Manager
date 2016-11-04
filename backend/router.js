@@ -39,9 +39,10 @@ var responseExt = {
     data: '',
     haveHistory: true
 };
+
 function createJWT(user) {
     var payload = {
-        sub: user[0].id,
+        id: user[0].id,
         role: user[0].role,
         iat: moment().unix(),
         exp: moment().add(14, 'days').unix()
@@ -214,25 +215,18 @@ var router = {
                     // Step 3a. Link user accounts.
 
                     //delete user temporarily
-            /*        users.deleteUser(112).then(function() {
-                      console.log('deleted');
-                      res.status(200).send();
-                    }).catch(function(error) {
-                        res.status(500).send(error);
-                    }); */
+                    /*        users.deleteUser(112).then(function() {
+                              console.log('deleted');
+                              res.status(200).send();
+                            }).catch(function(error) {
+                                res.status(500).send(error);
+                            }); */
                     console.log('profile.id: ', profile.id);
-                    if (profile.id) {
+
                     users.getUserByGithub(profile.id).then(function(data) {
-                      console.log('There is already a GitHub account that belongs to you!');
-                      console.log('data: ', data);
-                      var token = createJWT(data);
-                      console.log('token: ', token);
-                      res.status(200).send({ token: token });
-                    }).catch(function(error) {
-                        res.status(500).send(error);
-                    });
-                  } else {
-                    console.log('elsee');
+                        console.log('There is already a GitHub account that belongs to you!');
+                        console.log('data: ', data);
+                        if (data.length === 0) {
                             var user = [{}];
                             user[0].github = profile.id;
                             user[0].fullName = profile.name;
@@ -240,24 +234,40 @@ var router = {
                             user[0].role = 'user';
                             users.addUser(user[0]).then(function() {
                                 users.getLastId().then(function(data) {
-                                  users.getUserById(data[0].id).then(function(data) {
-                                      var token = createJWT(user);
-                                      res.status(200).send({ token: token });
-                                  }).catch(function(error) {
-                                      res.status(500).send(error);
-                                  });
+                                    users.getUserById(data[0].id).then(function(data) {
+                                        var token = createJWT(user);
+                                        console.log('user: ', user);
+                                        res.status(200).send({
+                                            token: token
+                                        });
+                                    }).catch(function(error) {
+                                        res.status(500).send(error);
+                                    });
                                 }).catch(function(error) {
                                     res.status(500).send(error);
                                 });
                             }).catch(function(error) {
                                 res.status(500).send(error);
                             });
+                        } else {
+                            var token = createJWT(data);
+                            console.log('token: ', token);
+                            res.status(200).send({
+                                token: token
+                            });
+                        }
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    });
 
-                          //  var token = createJWT(user);
-                        //    res.send({ token: token });
-                        //    console.log('test 2');
 
-                    };
+
+
+                    //  var token = createJWT(user);
+                    //    res.send({ token: token });
+                    //    console.log('test 2');
+
+
                 });
             });
         });
@@ -280,10 +290,12 @@ var router = {
             });
         });
         app.get(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
+            console.log('req.body.userID: ', req.body.userID);
             users.getUserById(req.body.userID).then(function(data) {
                 res.status(200).send(data);
 
             }).catch(function(error) {
+
                 res.status(500).send(error);
             });
         });
@@ -528,7 +540,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin,function(req, res) {
+        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             var titleOfDeletedEvent;
             events.getByEvent(req.params.id).then(function(data) {
                 titleOfDeletedEvent = data[0].title;
