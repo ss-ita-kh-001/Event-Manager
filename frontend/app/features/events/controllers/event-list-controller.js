@@ -117,25 +117,17 @@
                 $scope.users = response;
             }, rejected);
 
-
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'inviteFriendForEvent.html',
                 scope: $scope,
-                // parent: angular.element(document.body),
-                // targetEvent: $event,
-                // clickOutsideToClose:true
                 controller: function($uibModalInstance, $scope) {
                     $scope.newInvitation = {
                         userSender: userService.getUserInfo(),
-                        userReceiver: null,
+                        userReceiver: {full_name: ''},
                         event: eventItem
                     }
-
-                    $scope.getSelectedUser = function() {
-                        $scope.newInvitation.userReceiver = $scope.selectedFriend;
-                    };
 
                     $scope.invite = function(invitation) {
                         itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
@@ -149,6 +141,7 @@
                         $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');
                     };
+
                 }
             });
         }
