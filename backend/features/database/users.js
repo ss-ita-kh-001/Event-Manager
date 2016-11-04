@@ -14,6 +14,9 @@ var users = function() {
     self.getUserByEmail = function(email) {
         return db.query("SELECT * FROM \"users\" WHERE \"email\" = \'" + email + "\';");
     };
+    self.getUserByGithub = function(github) {
+        return db.query("SELECT * FROM \"users\" WHERE \"github\" = \'" + github + "\';");
+    };
     self.addUser = function(user) {
         return db.query("INSERT INTO \"users\"(\"full_name\",\"email\", \"password\", \"github\") " +
             "VALUES(\'" + user.fullName + "\', \'" + user.email + "\', \'" + user.password + "\', \'" + user.github + "\');");
@@ -24,8 +27,11 @@ var users = function() {
             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
             "\', \"email\" = \'" + user.email + "\'" + " WHERE \"id\" = " + user.id + ";");
     };
-    self.deleteUser = function(user) {
-        return db.query("DELETE FROM \"users\" WHERE \"id\" = " + user.id + ";");
+    self.deleteUser = function(id) {
+        return db.query("DELETE FROM \"users\" WHERE \"id\" = " + id + ";");
+    };
+    self.deleteUserByName = function(user) {
+        return db.query("DELETE FROM \"users\" WHERE \"full_name\" = \'" + user + "\'" + ";");
     };
     self.getLastId = function() {
         return db.query("SELECT \"id\" FROM \"users\" ORDER BY \"id\" DESC LIMIT 1;");

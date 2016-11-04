@@ -9,6 +9,7 @@
 
             $auth.login($scope.user)
                 .then(function(res) {
+                    console.log(res.data.user);
                     userService.setUserInfo(res.data.user); //write information about current logged user to userService
                     localStorage.setItem('userId', res.data.user.id);
                     localStorage.setItem('fullName', res.data.user.full_name);
@@ -36,10 +37,11 @@
                     console.log('sucessssss');
                     flashService.success('You have successfully signed in with ' + provider + '!', true);
                   //  localStorage.setItem('userId', res.data.user.id);
-                    console.log(data);
-                    $scope.id = localStorage.getItem('userId');
-                    $scope.id = 60;
-                    $location.path('/profile/' + $scope.id);
+                //    console.log(res.data);
+                //    console.log(res.data.user.id);
+                  //  $scope.id = localStorage.getItem('userId');
+
+                    $location.path('/me');
                 })
                 .catch(function(error) {
                     console.log('failure');

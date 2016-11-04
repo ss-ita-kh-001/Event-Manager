@@ -186,7 +186,6 @@ var router = {
  |--------------------------------------------------------------------------
  */
         app.post('/auth/github', function(req, res) {
-            console.log('baaack');
             var accessTokenUrl = 'https://github.com/login/oauth/access_token';
             var userApiUrl = 'https://api.github.com/user';
             var params = {
@@ -219,8 +218,27 @@ var router = {
                     console.log('step 3');
                     console.log('profile.id: ', profile.id);
                     // Step 3a. Link user accounts.
+                    console.log('req.header("Authorization"): ', req.header('Authorization'));
 
-                    if (req.header('Authorization')) {
+            /*        users.deleteUser(112).then(function() {
+                      console.log('deleted');
+                      res.status(200).send();
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    }); */
+
+                    if (profile.id) {
+                    users.getUserByGithub(profile.id).then(function(data) {
+                      console.log('There is already a GitHub account that belongs to you!');
+                      console.log(data);
+                      var token = createJWT(data);
+                      console.log('token: ', token);
+                      res.status(200).send({ token: token });
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    });
+
+                  /*  if (req.header('Authorization')) {
                         console.log('step 3a');
                         User.findOne({
                             github: profile.id
@@ -239,8 +257,8 @@ var router = {
                                     });
                                 }
                                 user.github = profile.id;
-                                user.picture = user.picture || profile.avatar_url;
-                                user.displayName = user.displayName || profile.name;
+
+                                user.fullName = user.displayName || profile.name;
                                 user.save(function() {
                                     var token = createJWT(user);
                                     res.send({
@@ -249,7 +267,7 @@ var router = {
                                 });
                             });
                         });
-                    } else {
+                    } */  } else {
                         console.log('step 3b');
                         console.log('profile.id: ', profile.id);
 
@@ -269,17 +287,29 @@ var router = {
                             user[0].github = profile.id;
                             user[0].fullName = profile.name;
                             user[0].email = profile.email;
+                            user[0].role = 'user';
                           //  console.log('profile: ', profile);
                             console.log('user: ', user);
-                            users.addUser(user).then(function() {
-                                users.getLastId().then(function(data, user) {
+                            users.addUser(user[0]).then(function() {
+                                console.log('I am here 2');
+                                users.getLastId().then(function(data) {
+                                  console.log(data[0].id);
+                                  users.getUserById(data[0].id).then(function(data) {
+                                      console.log('I am here');
+                                      var token = createJWT(user);
+                                    //  res.send({ token: token });
+                                      res.status(200).send({ token: token });
 
-                                    user[0].id = data;
-                                    res.status(200).send(data);
+                                  }).catch(function(error) {
+                                      res.status(500).send(error);
+                                  });
+                                  //  res.status(200).send(data);
                                 }).catch(function(error) {
+                              //    console.log('errror');
                                     res.status(500).send(error);
                                 });
                             }).catch(function(error) {
+                                console.log('errror');
                                 res.status(500).send(error);
                             });
                             console.log('test');
@@ -287,9 +317,13 @@ var router = {
                                 user: {},
                                 token: ''
                             };
-                          
+
                             var token = createJWT(user);
                             res.send({ token: token });
+                            console.log('test 2');
+                          //  console.log('req.params.id: ', req.params.id);
+
+
                           //  console.log('response.token: ', response.token);
 
                         /*
@@ -316,7 +350,7 @@ var router = {
                 console.log(error);
             });
         });
-        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
+        app.get(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
             users.getUserById(req.params.id).then(function(data) {
                 res.status(200).send(data);
 
@@ -353,7 +387,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
+        app.put(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
             users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {

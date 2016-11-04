@@ -28,8 +28,8 @@
             href: '/chat',
             name: 'chat'
         }, {
-            href: '/profile/' + localStorage.getItem("userId"),
-            name: 'profile'
+            href: '/me',
+            name: 'me'
         }, {
             href: '/register',
             name: 'register'
@@ -50,9 +50,7 @@
             };
         };
         $scope.getCurrentUser();
-        $scope.idInit = function() {
-            $scope.menuItems[6].href = '/profile/' + localStorage.getItem("userId");
-        };
+
         $scope.setActiveClass = function() {
             $scope.getCurrentUser();
             var path = $location.path();
@@ -60,7 +58,6 @@
             if  (eventCheck === '/event') {
                 path = eventCheck;
             }
-            $scope.idInit();
             angular.forEach($scope.menuItems, function(value, key) {
                 if ($scope.menuItems[key].href == path) {
                     $scope.thisActive = $scope.menuItems[key].name;
