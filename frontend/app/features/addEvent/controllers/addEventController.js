@@ -50,6 +50,7 @@
                     } else {
                         addEventService.update($scope.event);
                     }
+                    $rootScope.allEvents = []; //clear local cache 
                 }
 
                 break;
