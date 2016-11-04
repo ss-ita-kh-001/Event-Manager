@@ -169,7 +169,7 @@ var router = {
                 res.redirect('/forgot');
             });
         });
-        app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
+        app.get(apiPreff + "/users", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             users.getUsers(req.query.index).then(function(data) {
                 // if no more users
                 if (data.length < 10) {
