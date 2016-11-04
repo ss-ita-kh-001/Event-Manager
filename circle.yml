@@ -1,14 +1,13 @@
-## Set the artifacts
-general:
-  artifacts:
-    - "./tests/screenshots" #Save the screenshots for the tests
+dependencies:
+  post:
+    - node ./package.json
 database:
   override:
     — psql -u ubuntu circle_test < db_scripts/setup_db.sql
 test:
   override:
     - npm test
-    - end2end-test/*spec.js
+    - protractor protractor_conf.js
 deployment:
   prod:
     branch: master
