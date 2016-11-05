@@ -372,7 +372,7 @@ var router = {
                 }
                 responseExt.data = data;
                 responseExt.index = Number(req.query.index) + data.length;
-                console.log('responseExt.haveHistory',responseExt.haveHistory);
+                console.log('responseExt.haveHistory', responseExt.haveHistory);
                 res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -429,7 +429,7 @@ var router = {
             events.getUsersByEvent(req.params.id).then(function(data) {
                 events.deleteEventById(req.params.id).then(function() {
                     res.status(200).end();
-                    if(data.length>0){
+                    if (data.length > 0) {
                         sendEmailAboutDeletingEvent(data);
                     }
                 }).catch(function(error) {
@@ -439,8 +439,8 @@ var router = {
                 res.status(500).send(error);
             });
 
-            function sendEmailAboutDeletingEvent (users) {
-                var emails = users.map(function (user) {
+            function sendEmailAboutDeletingEvent(users) {
+                var emails = users.map(function(user) {
                     return user.email;
                 });
 
@@ -456,7 +456,7 @@ var router = {
                     to: emails,
                     from: 'event.manager.notification@gmail.com',
                     subject: 'Administrator has deleted event ' + titleOfDeletedEvent + ', which you was following on ',
-                    text: ' The details about this you can ask in event-manager chat:\n\n' +'http://' + req.headers.host + '/chat/'
+                    text: ' The details about this you can ask in event-manager chat:\n\n' + 'http://' + req.headers.host + '/chat/'
                 };
 
                 smtpTransport.sendMail(mailOptions, function(error, info) {
