@@ -15,7 +15,7 @@
                     localStorage.setItem('fullName', res.data.user.full_name);
                     $scope.id = localStorage.getItem('userId');
                     $location.path('/me');
-                    $scope.classHandler();
+                    //$scope.classHandler();
                     var getUserEventsPromise = userService.getUserEvents($scope.id);
                     getUserEventsPromise.then(function(res) {
                         angular.forEach(res.data, function(value, key) {
@@ -35,7 +35,7 @@
                 .then(function() {
                     flashService.success('You have successfully signed in with ' + provider + '!', true);
                     $location.path('/me');
-                    $scope.classHandler();
+                //    $scope.classHandler();
                 })
                 .catch(function(error) {
                     if (error.message) {
@@ -49,7 +49,7 @@
                     }
                 });
         };
-        $scope.classHandler();
+  //      $scope.classHandler();
     }
     loginController.$inject = ["$scope", "$location", "flashService", "userService", "$auth"];
 })();

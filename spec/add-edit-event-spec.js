@@ -16,11 +16,8 @@ describe("Add/Edit event", function() {
         $provide.service('eventService', function() {
             this.getEvent = jasmine.createSpy('getEvent');
         });
-        $provide.service("$route", function() {
-
-        });
     }));
-    beforeEach(angular.mock.inject(function($controller, $rootScope, addEventService, eventService, $route) {
+    beforeEach(angular.mock.inject(function($controller, $rootScope, addEventService, eventService, $route, $injector) {
         mockScope = $rootScope.$new();
         mockAddEventService = addEventService;
         mockEventService = eventService;
@@ -53,6 +50,7 @@ describe("Add/Edit event", function() {
             mockScope.state = mockRoute.current.mode
             expect(mockScope.state).toEqual('edit');
         });
+
     });
 
     it('getEventPromise function exist on controller initialisation', function() {
@@ -67,7 +65,22 @@ describe("Add/Edit event", function() {
         expect(mockScope.lookFor).toBeDefined();
     });
 
-    it("should add event", function() {
+    it("should call update method of AddEventService", function() {
+        Object.assign(mockScope.event, {
+           id: '1',
+            title: "TEST EVENT: title",
+            desc: "TEST EVENT: title",
+            date: "2016-01-01",
+            place: "London",
+            avatar: null
+        });
+        mockRoute.current = {
+            mode: 'edit'
+        };
+        mockScope.save();
+        expect(mockAddEventService.update).toBeDefined();
+    });
+    it("should call addEvent method of AddEventService", function() {
         Object.assign(mockScope.event, {
             title: "TEST EVENT: title",
             desc: "TEST EVENT: title",
@@ -76,5 +89,26 @@ describe("Add/Edit event", function() {
             avatar: null
         });
         mockScope.save();
+        expect(mockAddEventService.addEvent).toBeDefined();
     });
+    it("should call  event", function() {
+        Object.assign(mockScope.event, {
+           id: '1',
+            title: "TEST EVENT: title",
+            desc: "TEST EVENT: title",
+            date: "2016-01-01",
+            place: "London",
+            avatar: null
+        });
+        mockRoute.current = {
+            mode: 'edit'
+        };
+        mockScope.event.avatar= {
+            avatr: 'image.jpeg'
+        };
+        mockScope.save();
+        expect(mockAddEventService.updateWithImage).toBeDefined();
+
+    });
+
 });
