@@ -29,11 +29,8 @@ var users = function() {
             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
             "\', \"email\" = \'" + user.email + "\'" + " WHERE \"id\" = " + user.id + ";");
     };
-    self.deleteUser = function(id) {
-        return db.query("DELETE FROM \"users\" WHERE \"id\" = " + id + ";");
-    };
-    self.deleteUserByName = function(user) {
-        return db.query("DELETE FROM \"users\" WHERE \"full_name\" = \'" + user + "\'" + ";");
+    self.deleteUser = function(user) {
+        return db.query("DELETE FROM \"users\" WHERE \"id\" = " + user.id + ";");
     };
     self.getLastId = function() {
         return db.query("SELECT \"id\" FROM \"users\" ORDER BY \"id\" DESC LIMIT 1;");
