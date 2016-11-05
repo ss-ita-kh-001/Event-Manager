@@ -232,9 +232,13 @@ var router = {
                             user[0].fullName = profile.name;
                             user[0].email = profile.email;
                             user[0].role = 'user';
+                            user[0].id = null;
+                          
                             users.addUser(user[0]).then(function() {
                                 users.getLastId().then(function(data) {
+                                  console.log('data[0].id', data[0].id);
                                     users.getUserById(data[0].id).then(function(data) {
+                                        user[0].id = data[0].id;
                                         var token = createJWT(user);
                                         console.log('user: ', user);
                                         res.status(200).send({
