@@ -8,7 +8,6 @@
         };
         if ($auth.isAuthenticated()) {
             userService.getCurrentUser().then(function (data) {
-                console.log(data[0]);
                 $scope.currentUser = data[0];
             });
         }

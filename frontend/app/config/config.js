@@ -70,7 +70,6 @@
                         if (!userService.getUserInfo()) {
                             return userService.getCurrentUser();
                         }
-
                     }],
                     getCurrentUserEvents: ["userService", function(userService) {
                         if (!userService.getCurrentUserEvents()) {
@@ -83,7 +82,12 @@
                 templateUrl: "./app/features/chat/views/chat.html",
                 controller: "em.chat.chatController",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }]
                 }
             })
             .when("/login", {

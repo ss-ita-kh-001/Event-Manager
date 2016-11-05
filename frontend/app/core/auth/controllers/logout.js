@@ -2,7 +2,7 @@
 
     angular.module('em').controller('em.logoutController', logoutController);
 
-    function logoutController($location, $auth, userService) {
+    function logoutController($rootScope, $location, $auth, userService) {
         if (!$auth.isAuthenticated()) {
             return;
         }
@@ -16,5 +16,5 @@
             });
 
     }
-    logoutController.$inject = ["$location", "$auth", "userService"];
+    logoutController.$inject = ["$rootScope","$location", "$auth", "userService"];
 })();

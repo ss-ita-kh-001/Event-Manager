@@ -1,20 +1,33 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, flashService, $rootScope, $location) {
+    function chatController($scope, chatService, flashService, $rootScope, $location, userService, getCurrentUser) {
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        $scope.user = userService.getUserInfo();
+
+
         var maxSymbols = 300;
-        var obj = {
-            user: localStorage.getItem("userId")
+
+        var obj = {}; //save here text,time,and token of message
+
+        $scope.haveHistory = function() {
+            return chatService.haveHistory;
         }
 
-        $scope.isMine = function($index) {
-            return obj.user == $scope.live[$index].user;
+        $scope.isMineHistory = function($index) {
+            return $scope.user.id == $scope.history[$index].user;
+        }
+
+        $scope.isMineLive = function($index) {
+            return $scope.user.id == $scope.live[$index].user;
         }
 
         $scope.msgSend = function() {
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
-                obj.user = localStorage.getItem("userId");
+
                 obj.text = $scope.textMsg;
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
@@ -26,7 +39,7 @@
         $scope.isChatOnTop = function() {
             $rootScope.chatOnTop = true;
             $scope.id = localStorage.getItem('userId');
-            $location.path("/profile/" + $scope.id);
+            $location.path("/me");
             $scope.classHandler();
         };
 
@@ -70,6 +83,6 @@
         });
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "getCurrentUser"];
 
 })();

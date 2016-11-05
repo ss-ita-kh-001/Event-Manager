@@ -19,8 +19,6 @@
 
         $scope.events = events;
 
-        // console.log($scope.events);
-
         $scope.updateUserSend = function() {
             userService.update($scope.user);
             $location.path('/me');
