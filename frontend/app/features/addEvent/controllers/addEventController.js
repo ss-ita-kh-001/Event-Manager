@@ -3,33 +3,23 @@
 
     function addEventController($scope, $route, $rootScope, $routeParams, eventService, addEventService) {
 
-        switch ($route.current.mode) {
-            case 'add':
+        $scope.event = {
+            isGame: false,
+            report: null
+        };
+        $scope.angular = angular;
+        $scope.id = $routeParams.id;
+        $scope.en = true;
+        $scope.edit = false;
+        $scope.place = {};
 
-                $scope.event = {
-                    isGame: false,
-                    report: null
+        $scope.$watch("dt", function(value) {
+            $scope.event.date = moment(value).format("YYYY-MM-DD");
+        });
 
-                };
-
-                $scope.en = true;
-                $scope.edit = false;
-
-                $scope.save = function() {
-                    $scope.en = false;
-                    addEventService.addEvent($scope.event);
-                };
-                $scope.$watch("dt", function(value) {
-                    $scope.event.date = moment(value).format("YYYY-MM-DD");
-                });
-
-                break;
-            case 'edit':
-                $scope.edit = true;
-                $scope.angular = angular;
-                $scope.id = $routeParams.id;
-                $scope.getEventPromise = eventService.getEvent($scope.id);
-                $scope.getEventPromise.then(function(response) {
+        $scope.getEventPromise = function() {
+            eventService.getEvent($scope.id)
+                .then(function(response) {
                     $scope.event = response.data[0];
                     $scope.$watch("event.date", function(value) {
                         $scope.dt = new Date(moment(value).year(), moment(value).month(), moment(value).date());
@@ -38,28 +28,30 @@
                         $scope.event.date = moment(value).format("YYYY-MM-DD");
                     });
                     $scope.lookFor();
-                }, rejected);
-
-                function rejected(error) {
+                }, function(error) {
                     console.log('Error: ' + error.data.status);
-                }
+                });
+        }
 
-                $scope.save = function() {
-                    if (angular.isObject($scope.event.avatar)) {
-                        addEventService.updateWithImage($scope.event);
-                    } else {
-                        addEventService.update($scope.event);
-                    }
-                    delete $rootScope.allEvents; //clear local cache 
-                }
-
-                break;
-            default:
-                $state.go('404Error');
+        if ($route.current.mode === 'edit') {
+            $scope.edit = true;
+            $scope.getEventPromise()
         }
 
 
-        $scope.place = {};
+        $scope.save = function() {
+            $scope.en = false;
+            if (angular.isObject($scope.event.avatar) && ($route.current.mode === 'edit')) {
+                addEventService.updateWithImage($scope.event);
+            } else if ($route.current.mode === 'edit') {
+                addEventService.update($scope.event);
+            } else {
+                addEventService.addEvent($scope.event);
+            }
+            delete $rootScope.allEvents;
+        }
+
+
         $scope.lookFor = function() {
             $scope.apiError = false;
             $scope.search($scope.event.place)
