@@ -35,6 +35,7 @@
                 .then(function() {
                     flashService.success('You have successfully signed in with ' + provider + '!', true);
                     $location.path('/me');
+                    $scope.classHandler();
                 })
                 .catch(function(error) {
                     if (error.message) {
