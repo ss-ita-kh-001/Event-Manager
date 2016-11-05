@@ -4,9 +4,10 @@
         /**
          * Helper auth functions
          */
-        var skipIfLoggedIn = ['$q', '$auth', function($q, $auth) {
+        var skipIfLoggedIn = ['$q', '$location', '$auth', function($q, $location, $auth) {
             var deferred = $q.defer();
             if ($auth.isAuthenticated()) {
+                $location.path('/');
                 deferred.reject();
             } else {
                 deferred.resolve();
@@ -44,6 +45,13 @@
                             return userService.getUserEvents();
                         }
                     }]
+                }
+            })
+            .when("/profile/:id", {
+                templateUrl: "./app/features/profile/views/profile.html",
+                controller: "em.profile.profile-controller",
+                resolve: {
+                    loginRequired: loginRequired
                 }
             })
             .when("/users", {
