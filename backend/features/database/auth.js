@@ -26,16 +26,13 @@ var auth = function() {
         return hash;
     }
     this.ensureAuthenticated = function(req, res, next) {
-        console.log('req.body: ', req.header('Authorization'));
         if (!req.header('Authorization')) {
             return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
         }
         var token = req.header('Authorization').split(' ')[1];
-        console.log('token: ', token);
         var payload = null;
         try {
             payload = jwt.decode(token, config.TOKEN_SECRET);
-            console.log('payload: ', payload);
         } catch (err) {
             return res.status(401).send({
                 message: err.message
@@ -46,9 +43,7 @@ var auth = function() {
                 message: 'Token has expired'
             });
         }
-        console.log('payload.id: ', payload.id);
         req.body.userID = payload.id;
-        console.log('payload.role: ', payload.role);
         req.body.userRole = payload.role
         next();
     };

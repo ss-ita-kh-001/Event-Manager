@@ -31,20 +31,12 @@
                 });
         };
         $scope.authenticate = function(provider) {
-            console.log('start auth');
             $auth.authenticate(provider)
                 .then(function() {
-                    console.log('sucessssss');
                     flashService.success('You have successfully signed in with ' + provider + '!', true);
-                  //  localStorage.setItem('userId', res.data.user.id);
-                //    console.log(res.data);
-                //    console.log(res.data.user.id);
-                  //  $scope.id = localStorage.getItem('userId');
-
                     $location.path('/me');
                 })
                 .catch(function(error) {
-                    console.log('failure');
                     if (error.message) {
                         // Satellizer promise reject error.
                         flashService.error('Satellizer promise reject error', false);

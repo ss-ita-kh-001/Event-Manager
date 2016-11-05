@@ -196,7 +196,6 @@ var router = {
                 client_secret: config.GITHUB_SECRET,
                 redirect_uri: req.body.redirectUri
             };
-            // Step 1. Exchange authorization code for access token.
             request.get({
                 url: accessTokenUrl,
                 qs: params
@@ -205,27 +204,13 @@ var router = {
                 var headers = {
                     'User-Agent': 'Satellizer'
                 };
-                // Step 2. Retrieve profile information about the current user.
                 request.get({
                     url: userApiUrl,
                     qs: accessToken,
                     headers: headers,
                     json: true
                 }, function(err, response, profile) {
-                    // Step 3a. Link user accounts.
-
-                    //delete user temporarily
-                    /*        users.deleteUser(112).then(function() {
-                              console.log('deleted');
-                              res.status(200).send();
-                            }).catch(function(error) {
-                                res.status(500).send(error);
-                            }); */
-                    console.log('profile.id: ', profile.id);
-
                     users.getUserByGithub(profile.id).then(function(data) {
-                        console.log('There is already a GitHub account that belongs to you!');
-                        console.log('data: ', data);
                         if (data.length === 0) {
                             var user = [{}];
                             user[0].github = profile.id;
@@ -233,14 +218,11 @@ var router = {
                             user[0].email = profile.email;
                             user[0].role = 'user';
                             user[0].id = null;
-                          
                             users.addUser(user[0]).then(function() {
                                 users.getLastId().then(function(data) {
-                                  console.log('data[0].id', data[0].id);
                                     users.getUserById(data[0].id).then(function(data) {
                                         user[0].id = data[0].id;
                                         var token = createJWT(user);
-                                        console.log('user: ', user);
                                         res.status(200).send({
                                             token: token
                                         });
@@ -255,7 +237,6 @@ var router = {
                             });
                         } else {
                             var token = createJWT(data);
-                            console.log('token: ', token);
                             res.status(200).send({
                                 token: token
                             });
@@ -263,15 +244,6 @@ var router = {
                     }).catch(function(error) {
                         res.status(500).send(error);
                     });
-
-
-
-
-                    //  var token = createJWT(user);
-                    //    res.send({ token: token });
-                    //    console.log('test 2');
-
-
                 });
             });
         });
