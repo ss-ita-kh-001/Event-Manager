@@ -9,6 +9,7 @@
 
             $auth.login($scope.user)
                 .then(function(res) {
+                    console.log(res.data.user);
                     userService.setUserInfo(res.data.user); //write information about current logged user to userService
                     localStorage.setItem('userId', res.data.user.id);
                     localStorage.setItem('fullName', res.data.user.full_name);
@@ -27,6 +28,25 @@
                 .catch(function(error) {
                     flashService.error('Wrong email or password', false);
                     $scope.dataLoading = false;
+                });
+        };
+        $scope.authenticate = function(provider) {
+            $auth.authenticate(provider)
+                .then(function() {
+                    flashService.success('You have successfully signed in with ' + provider + '!', true);
+                    $location.path('/me');
+                    $scope.classHandler();
+                })
+                .catch(function(error) {
+                    if (error.message) {
+                        // Satellizer promise reject error.
+                        flashService.error('Satellizer promise reject error', false);
+                    } else if (error.data) {
+                        // HTTP response error from server
+                        flashService.error('HTTP response error from server', false);
+                    } else {
+                        flashService.error('Error');
+                    }
                 });
         };
         $scope.classHandler();

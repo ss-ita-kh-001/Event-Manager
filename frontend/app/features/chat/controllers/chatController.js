@@ -2,20 +2,15 @@
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
     function chatController($scope, chatService, flashService, $rootScope, $location, userService, $auth) {
-        // if (!userService.getUserInfo()) {
-        //     userService.setUserInfo(getCurrentUser[0]);
-        // }
-        if ($auth.isAuthenticated()) {
+
+        var maxSymbols = 300;
+        var obj = {}; //save here text,time,and token of message
+
+        if ($auth.isAuthenticated() && !userService.getUserInfo()) {
             userService.getCurrentUser().then(function(data) {
                 $scope.user = data[0];
             });
         }
-        // $scope.user = userService.getUserInfo();
-
-
-        var maxSymbols = 300;
-
-        var obj = {}; //save here text,time,and token of message
 
         $scope.haveHistory = function() {
             return chatService.haveHistory;
@@ -32,7 +27,6 @@
         $scope.msgSend = function() {
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
-
                 obj.text = $scope.textMsg;
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");

@@ -37,7 +37,6 @@
             href: '/register',
             name: 'register'
         }];
-
         $scope.setActiveClass = function() {
             var path = $location.path();
             var eventCheck = path.split('').slice(0, 6).join('');
