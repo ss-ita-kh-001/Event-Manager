@@ -23,8 +23,11 @@
                 <td>{{ user.full_name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
-                <td>
-                    <img src="{{user.avatar}}" alt="" class="img-responsive avatar-small">
+                <td class="text-center">
+                    <img src="{{user.avatar}}" alt="" class="avatar-small">
+                </td>
+                <td class="text-center">
+                    <a  href="/profile/{{user.id}}" class="btn btn-primary">View profile</a>
                 </td>
             </tr>
         </tbody>
