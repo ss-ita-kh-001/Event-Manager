@@ -378,9 +378,7 @@ var router = {
             });
         });
         app.get(apiPreff + "/events", function(req, res) {
-            console.log(req.query.index);
             events.getEvents(req.query.index).then(function(data) {
-                console.log(req.query.index);
                 if (data.length < 10) {
                     responseExt.haveHistory = false;
                 } else {
@@ -415,7 +413,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events/:id/i", uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events/:id/i", auth.ensureAuthenticated, auth.ensureIsAdmin,uploadEvent.any(), function(req, res) {
             events.updateEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
@@ -424,7 +422,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events", auth.ensureAuthenticated, auth.ensureIsAdmin,uploadEvent.any(), function(req, res) {
             events.addEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
