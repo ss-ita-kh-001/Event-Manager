@@ -197,7 +197,7 @@ var router = {
         });
         app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             users.getUserById(req.params.id).then(function(data) {
-                console.log(data);
+                // console.log(data);
                 res.status(200).send(data);
 
             }).catch(function(error) {
@@ -350,13 +350,15 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        // app.get(apiPreff + "/users-events/:id", function(req, res) {
-        //     events.getEventByUser(req.params.id).then(function(data) {
-        //         res.status(200).send(data);
-        //     }).catch(function(error) {
-        //         res.status(500).send(error);
-        //     });
-        // });
+        app.get(apiPreff + "/profile-events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
+            events.getEventByUser(req.params.id).then(function(data) {
+                console.log(data);
+                res.status(200).send(data);
+
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.get(apiPreff + "/users-events", auth.ensureAuthenticated, function(req, res) {
             events.getEventByUser(req.body.userID).then(function(data) {
                 res.status(200).send(data);

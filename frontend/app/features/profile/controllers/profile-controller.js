@@ -5,6 +5,7 @@
 
         // we're going to our profile
         if (!$routeParams.id) {
+            console.log('my profile');
 
             // get info about current user
             if (!userService.getUserInfo()) {
@@ -25,13 +26,18 @@
         }
         // admin open profile of other user
         else {
-            userService.getById($routeParams.id).then(function (data) {
-                // body...
-                $scope.user = data[0];
-                // console.log(data);
-            })
-            
+            console.log('profile of other user');
             console.log($routeParams.id);
+            userService.getById($routeParams.id).then(function (data) {
+                $scope.user = data[0];
+            });
+            
+            userService.getProfileEvents($routeParams.id).then(function (data) {
+                console.log(data.data);
+                $scope.events = data.data;
+            });
+            
+            
         }
         // $scope.classHandler();
 
