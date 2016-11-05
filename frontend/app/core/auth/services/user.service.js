@@ -7,11 +7,15 @@
 
     function userService(mainApiService, $location, flashService, $rootScope) {
         $rootScope.itemsPerPage = 10;
-        $rootScope.allUsers = [];
+        // $rootScope.allUsers = [];
 
         var service = {};
         var userInfo;
         var userEvents;
+
+        // var UsersInfo = [];
+        service.getUsersInfo = getUsersInfo;
+        // service.setUsersInfo = setUsersInfo;
 
         service.getCurrentUser = getCurrentUser;
 
@@ -37,6 +41,14 @@
         function getUsers(index) {
             return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
         }
+
+        function getUsersInfo() {
+            return $rootScope.allUsers;
+        }
+        // function setUsersInfo(users) {
+        //     $rootScope.allUsers = users;
+        //     return UsersInfo;
+        // }
 
         function getCurrentUser() {
             return mainApiService.get('me').then(handleSuccess, handleError('Error getting all users'));

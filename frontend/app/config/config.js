@@ -52,7 +52,10 @@
                 resolve: {
                     loginRequired: loginRequired,
                     getUsers: ["userService", function(userService) {
-                        return userService.getUsers(1);
+                        if (!userService.getUsersInfo()) {
+                            return userService.getUsers(0);
+                        }
+
                     }],
                     getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {
