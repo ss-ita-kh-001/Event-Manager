@@ -119,7 +119,11 @@
                 controller: "em.events.event-list-controller",
                 resolve: {
                     getEvents: ["em.events.event-list-service", function(itemEventService) {
-                        return itemEventService.getEvents(1);
+                        if (!itemEventService.getCacheEvents()) {
+                            console.log('get events');
+                            return itemEventService.getEvents(0);
+                        }
+
                     }],
                     getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {

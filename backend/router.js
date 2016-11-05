@@ -378,6 +378,7 @@ var router = {
             });
         });
         app.get(apiPreff + "/events", function(req, res) {
+            console.log(req.query.index);
             events.getEvents(req.query.index).then(function(data) {
                 console.log(req.query.index);
                 if (data.length < 10) {
@@ -387,7 +388,7 @@ var router = {
                 }
                 responseExt.data = data;
                 responseExt.index = Number(req.query.index) + data.length;
-                console.log('responseExt.haveHistory', responseExt.haveHistory);
+                console.log('responseExt.haveHistory', responseExt.data);
                 res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);

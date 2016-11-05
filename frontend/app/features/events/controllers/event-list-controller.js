@@ -1,47 +1,50 @@
 (function() {
     angular.module("em.events").controller("em.events.event-list-controller", itemEventController);
 
-    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents,getCurrentUser) {
+    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents, getCurrentUser) {
         if (!userService.getUserInfo()) {
             userService.setUserInfo(getCurrentUser[0]);
         }
         $scope.currentUser = userService.getUserInfo();
         // by default button 'load more events' is visible
         $scope.haveHistory = true;
-        // if rootscope is empty, save there response data
-        if ($rootScope.allEvents.length === 0) {
-            $rootScope.allEvents = getEvents.data;
-            $rootScope.eventsIndex = getEvents.index; //save last event index from server
-        }
-        // reset current user info when controller init
-        $scope.currentUser = null;
 
+        if (!itemEventService.getCacheEvents()) {
+            $rootScope.allEvents = getEvents.data;
+            $rootScope.eventsIndex = getEvents.index;
+        }
         $scope.events = $rootScope.allEvents;
+        // reset current user info when controller init
+        // $scope.currentUser = null; // SHITCODE ???
 
         // cut off tags
         angular.forEach($scope.events, function(value, key) {
             $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
-            .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
         });
 
-        $scope.getCurrentUser = function() {
-            if (userService.getUserInfo()) {
-                $scope.currentUser = userService.getUserInfo();
-                return;
-            }
-            if (localStorage.getItem("userId")) {
-                userService.getById(localStorage.getItem("userId"))
-                    .then(function(response) {
-                        if (Array.isArray(response) && response.length > 0) {
-                            userService.setUserInfo(response[0]);
-                            $scope.currentUser = userService.getUserInfo();
-                        }
-                    });
-            };
-        };
+        // SHITCODE ??? REMOVE IT???
 
-        $scope.getCurrentUser();
-        
+        // $scope.getCurrentUser = function() {
+        //     if (userService.getUserInfo()) {
+        //         $scope.currentUser = userService.getUserInfo();
+        //         return;
+        //     }
+        //     if (localStorage.getItem("userId")) {
+        //         userService.getById(localStorage.getItem("userId"))
+        //             .then(function(response) {
+        //                 if (Array.isArray(response) && response.length > 0) {
+        //                     userService.setUserInfo(response[0]);
+        //                     $scope.currentUser = userService.getUserInfo();
+        //                 }
+        //             });
+        //     };
+        // };
+
+        // SHITCODE ??? REMOVE IT???
+
+        // $scope.getCurrentUser();
+
         /**
          * Pagination
          * Called on click 'Load more events'
@@ -60,7 +63,7 @@
                 // cut off tags
                 angular.forEach($scope.events, function(value, key) {
                     $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
-                    .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                        .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
                 });
             }, rejected);
         };

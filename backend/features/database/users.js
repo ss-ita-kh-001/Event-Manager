@@ -3,7 +3,7 @@ var users = function() {
     self = this;
     self.getUsers = function(index) {
         console.log('SELECT users OFFSET ', index);
-        return db.query("SELECT * FROM \"users\" ORDER BY \"id\" OFFSET " + Number(index) + " ROWS FETCH NEXT 10 ROWS ONLY;");
+        return db.query("SELECT \"full_name\",\"id\",\"role\",\"avatar\",\"email\" FROM \"users\" ORDER BY \"id\" OFFSET " + Number(index) + " ROWS FETCH NEXT 10 ROWS ONLY;");
     };
     self.getUserById = function(id) {
         console.log('getUserById', id);
