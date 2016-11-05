@@ -8,10 +8,10 @@ exports.config = {
 
     // Framework to use. Jasmine is recommended.
     framework: 'jasmine',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+  //  seleniumAddress: 'http://localhost:4444/wd/hub',
 
     chromeOnly: true,
-    //chromeDriver: './node_modules/protractor/node_modules/selenium-webdriver/chrome.js',
+    chromeDriver: './node_modules/protractor/node_modules/selenium-webdriver/chrome.js',
 
     // Spec patterns are relative to the current working directory when
     // protractor is called.
