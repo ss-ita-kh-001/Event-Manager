@@ -19,7 +19,7 @@
         $scope.haveHistory = true;
 
         // run on click button 'Load more users'
-        $scope.getUsers = function() {
+        $scope.getMoreUsers = function() {
             userService.getUsers($rootScope.usersIndex).then(function(response) {
                 $scope.haveHistory = response.haveHistory;
                 $rootScope.usersIndex = response.index;

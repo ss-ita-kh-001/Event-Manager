@@ -138,7 +138,6 @@
                 resolve: {
                     getEvents: ["em.events.event-list-service", function(itemEventService) {
                         if (!itemEventService.getCacheEvents()) {
-                            console.log('get events');
                             return itemEventService.getEvents(0);
                         }
 
@@ -154,6 +153,7 @@
                 templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController",
                 resolve: {
+                    loginRequired: loginRequired,
                     getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {
                             return userService.getCurrentUser();
@@ -178,6 +178,7 @@
                 templateUrl: "./app/features/result-table/views/result-table.html",
                 controller: "em.result-table.chessResultController",
                 resolve: {
+                    loginRequired: loginRequired,
                     games: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getEventsGames();
                     }],
@@ -200,8 +201,8 @@
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
             });
-            $authProvider.github({
-              clientId: 'd1cdb4a9d640e6f9967e'
-            });
+        $authProvider.github({
+            clientId: 'd1cdb4a9d640e6f9967e'
+        });
     }]);
 })();
