@@ -1,4 +1,4 @@
 module.exports = {
   TOKEN_SECRET: process.env.TOKEN_SECRET || 'YOUR_UNIQUE_JWT_TOKEN_SECRET',
-  GITHUB_SECRET: process.env.GITHUB_SECRET || '4237538ffd563436824e42bce3b53dd73d877075'
+  GITHUB_SECRET: process.env.GITHUB_SECRET || '2b8dd41b5eaec1d46af4dea2e932df880a7eb7b1'
 };
