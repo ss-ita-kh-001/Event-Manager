@@ -17,7 +17,7 @@ exports.config = {
     // Spec patterns are relative to the current working directory when
     // protractor is called.
     specs: ['end2end-test/*spec.js'],
-    baseUrl: 'https://ita-event-manager.herokuapp.com/',
+    baseUrl: 'https://protractor-testing.herokuapp.com/',
 
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {

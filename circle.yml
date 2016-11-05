@@ -35,3 +35,6 @@ deployment:
      branch: dev
      heroku:
        appname: dev-ita-event-manager
+  tractor: dev
+       heroku:
+         appname: protractor-testing
