@@ -31,6 +31,9 @@ describe("Register Controller Test", function() {
     it('login function exist on controller initialisation', function() {
         expect(mockScope.login).toBeDefined();
     });
+    it('authenticate function exist on controller initialisation', function() {
+        expect(mockScope.authenticate).toBeDefined();
+    });
     it('check dataLoading ', function() {
         mockScope.login()
         expect(mockScope.dataLoading).toEqual(true);
