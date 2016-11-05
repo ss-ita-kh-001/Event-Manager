@@ -27,7 +27,7 @@
             $rootScope.chatOnTop = true;
             $scope.id = localStorage.getItem('userId');
             $location.path("/profile/" + $scope.id);
-            $scope.classHandler();
+        //    $scope.classHandler();
         };
 
         $scope.closeSmallChat = function() {
