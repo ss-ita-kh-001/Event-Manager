@@ -123,8 +123,8 @@
         //set and get information about current loged user
 
         function setUserInfo(user) {
-            localStorage.setItem('userId', user.id);
-            localStorage.setItem('fullName', user.full_name);
+          //  localStorage.setItem('userId', user.id);
+        //    localStorage.setItem('fullName', user.full_name);
             userInfo = user;
         }
 

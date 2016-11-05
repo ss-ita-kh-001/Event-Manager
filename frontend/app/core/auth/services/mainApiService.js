@@ -10,7 +10,9 @@
             return $http({
                 method: 'GET',
                 url: baseUrl + url + '/',
-                params: { index: index }
+                params: {
+                    index: index
+                }
             });
         }
 

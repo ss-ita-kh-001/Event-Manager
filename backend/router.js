@@ -15,6 +15,8 @@ var validate = new(require("./features/validate"));
 var nodemailer = require('nodemailer');
 var multer = require("multer");
 var mime = require("mime-types");
+var request = require('request');
+var qs = require('querystring');
 var eventStorage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "./frontend/img/events");
@@ -36,7 +38,18 @@ var gen = new(require("./features/database/generator.js"));
 var responseExt = {
     data: '',
     haveHistory: true
-}
+};
+
+function createJWT(user) {
+    var payload = {
+        id: user[0].id,
+        role: user[0].role,
+        iat: moment().unix(),
+        exp: moment().add(14, 'days').unix()
+    };
+
+    return jwt.encode(payload, config.TOKEN_SECRET);
+};
 
 var router = {
     init: function init(app) {
@@ -169,6 +182,71 @@ var router = {
                 res.redirect('/forgot');
             });
         });
+        /*
+ |--------------------------------------------------------------------------
+ | Login with GitHub
+ |--------------------------------------------------------------------------
+ */
+        app.post('/auth/github', function(req, res) {
+            var accessTokenUrl = 'https://github.com/login/oauth/access_token';
+            var userApiUrl = 'https://api.github.com/user';
+            var params = {
+                code: req.body.code,
+                client_id: req.body.clientId,
+                client_secret: config.GITHUB_SECRET,
+                redirect_uri: req.body.redirectUri
+            };
+            request.get({
+                url: accessTokenUrl,
+                qs: params
+            }, function(err, response, accessToken) {
+                accessToken = qs.parse(accessToken);
+                var headers = {
+                    'User-Agent': 'Satellizer'
+                };
+                request.get({
+                    url: userApiUrl,
+                    qs: accessToken,
+                    headers: headers,
+                    json: true
+                }, function(err, response, profile) {
+                    users.getUserByGithub(profile.id).then(function(data) {
+                        if (data.length === 0) {
+                            var user = [{}];
+                            user[0].github = profile.id;
+                            user[0].fullName = profile.name;
+                            user[0].email = profile.email;
+                            user[0].role = 'user';
+                            user[0].id = null;
+                            users.addUser(user[0]).then(function() {
+                                users.getLastId().then(function(data) {
+                                    users.getUserById(data[0].id).then(function(data) {
+                                        user[0].id = data[0].id;
+                                        var token = createJWT(user);
+                                        res.status(200).send({
+                                            token: token
+                                        });
+                                    }).catch(function(error) {
+                                        res.status(500).send(error);
+                                    });
+                                }).catch(function(error) {
+                                    res.status(500).send(error);
+                                });
+                            }).catch(function(error) {
+                                res.status(500).send(error);
+                            });
+                        } else {
+                            var token = createJWT(data);
+                            res.status(200).send({
+                                token: token
+                            });
+                        }
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    });
+                });
+            });
+        });
         app.get(apiPreff + "/users", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             users.getUsers(req.query.index).then(function(data) {
                 // if no more users
@@ -188,10 +266,12 @@ var router = {
             });
         });
         app.get(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
+            console.log('req.body.userID: ', req.body.userID);
             users.getUserById(req.body.userID).then(function(data) {
                 res.status(200).send(data);
 
             }).catch(function(error) {
+
                 res.status(500).send(error);
             });
         });
@@ -436,7 +516,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin,function(req, res) {
+        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             var titleOfDeletedEvent;
             events.getByEvent(req.params.id).then(function(data) {
                 titleOfDeletedEvent = data[0].title;

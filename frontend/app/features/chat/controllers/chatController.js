@@ -1,20 +1,23 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, flashService, $rootScope, $location) {
+    function chatController($scope, chatService, flashService, $rootScope, $location, userService) {
         var maxSymbols = 300;
+        $scope.currentUser;
+        userService.getCurrentUser().then(function (data) {
+            console.log(data[0]);
+            $scope.currentUser = data[0];
+        });
         var obj = {
             user: localStorage.getItem("userId")
-        }
-
+        };
         $scope.isMine = function($index) {
-            return obj.user == $scope.live[$index].user;
-        }
-
+            return $scope.currentUser.id == $scope.live[$index].user;
+        };
         $scope.msgSend = function() {
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
-                obj.user = localStorage.getItem("userId");
+                obj.user = $scope.currentUser.id;
                 obj.text = $scope.textMsg;
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
@@ -26,8 +29,8 @@
         $scope.isChatOnTop = function() {
             $rootScope.chatOnTop = true;
             $scope.id = localStorage.getItem('userId');
-            $location.path("/profile/" + $scope.id);
-        //    $scope.classHandler();
+            $location.path("/me");
+            $scope.classHandler();
         };
 
         $scope.closeSmallChat = function() {
@@ -70,6 +73,6 @@
         });
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService"];
 
 })();

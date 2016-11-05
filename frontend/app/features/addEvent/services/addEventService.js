@@ -35,7 +35,7 @@
                 console.log(error);
             });
         };
-    
+
     }
     addEventService.$inject = ["em.mainApiService", "$location"];
 })();
