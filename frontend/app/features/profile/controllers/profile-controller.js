@@ -5,7 +5,7 @@
 
         // we're going to our profile
         if (!$routeParams.id) {
-            console.log('my profile');
+            // console.log('my profile');
 
             // get info about current user
             if (!userService.getUserInfo()) {
@@ -16,18 +16,20 @@
             if (!userService.getCurrentUserEvents()) {
                 userService.setCurrentUserEvents(getCurrentUserEvents.data);
             }
-            var events = userService.getCurrentUserEvents();
+            $scope.events = userService.getCurrentUserEvents();
 
-            angular.forEach(events, function(value, key) {
-                events[key].date = events[key].date.substring(0, 19).replace(/T/, ' ');
+            angular.forEach($scope.events, function(value, key) {
+                $scope.events[key].date = $scope.events[key].date.substring(0, 19).replace(/T/, ' ');
+                $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
+                .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
             });
 
-            $scope.events = events;
+             
         }
         // admin open profile of other user
         else {
-            console.log('profile of other user');
-            console.log($routeParams.id);
+            // console.log('profile of other user');
+            // console.log($routeParams.id);
             userService.getById($routeParams.id).then(function (data) {
                 $scope.user = data[0];
             });
