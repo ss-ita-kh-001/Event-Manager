@@ -195,14 +195,15 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        // app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
-        //     users.getUserById(req.params.id).then(function(data) {
-        //         res.status(200).send(data);
+        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
+            users.getUserById(req.params.id).then(function(data) {
+                console.log(data);
+                res.status(200).send(data);
 
-        //     }).catch(function(error) {
-        //         res.status(500).send(error);
-        //     });
-        // });
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.get(apiPreff + "/participants/game/:id", function(req, res) {
             games.getParticipantsByGame(req.params.id).then(function(data) {
                 res.status(200).send(data);
@@ -413,7 +414,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events/:id/i", auth.ensureAuthenticated, auth.ensureIsAdmin,uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events/:id/i", auth.ensureAuthenticated, auth.ensureIsAdmin, uploadEvent.any(), function(req, res) {
             events.updateEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
@@ -422,7 +423,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events", auth.ensureAuthenticated, auth.ensureIsAdmin,uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events", auth.ensureAuthenticated, auth.ensureIsAdmin, uploadEvent.any(), function(req, res) {
             events.addEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
@@ -435,7 +436,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin,function(req, res) {
+        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             var titleOfDeletedEvent;
             events.getByEvent(req.params.id).then(function(data) {
                 titleOfDeletedEvent = data[0].title;

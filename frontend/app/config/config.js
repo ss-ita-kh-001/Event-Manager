@@ -51,7 +51,17 @@
                 templateUrl: "./app/features/profile/views/profile.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
                 }
             })
             .when("/users", {
