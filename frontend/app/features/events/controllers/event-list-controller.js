@@ -168,7 +168,7 @@
         "$uibModal",
         "userService",
         "getEvents",
-        "getCurrentUser"
+        "getCurrentUser",
         "flashService"
     ];
 
