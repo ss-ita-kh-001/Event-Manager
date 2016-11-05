@@ -1,8 +1,8 @@
 var db = require("./connection");
 var events = function() {
     this.getEvents = function(index) {
-        console.log('SELECT events WHERE id >= ', index);
-        return db.query("SELECT * FROM \"events\" WHERE \"id\" >= " + Number(index) + "ORDER BY \"id\" LIMIT 10;");
+        console.log('SELECT events OFFSET ', index);
+        return db.query("SELECT * FROM \"events\" ORDER BY \"id\" OFFSET " + Number(index) + " ROWS FETCH NEXT 10 ROWS ONLY;");
     };
     this.getByEvent = function(id) {
         return db.query("SELECT * FROM \"events\" WHERE \"id\" = " + id + ";");
@@ -15,7 +15,7 @@ var events = function() {
         return db.query("SELECT * FROM \"users_events\" INNER JOIN \"users\" ON \"users_events\".\"user\" = \"users\".\"id\" WHERE \"users_events\".\"event\" = " + id + ";");
     };
     this.updateEvent = function(event) {
-        console.log(event.avatar)
+        console.log(event.avatar);
         return db.query("UPDATE \"events\" SET \"title\" = \'" + event.title +
             "\', \"desc\" = \'" + event.desc + "\', \"date\" = \'" + event.date +
             "\', \"place\" = \'" + event.place + "\', \"isGame\" = " + event.isGame + ", avatar = '" + event.avatar + "' WHERE \"id\"  = " + event.id + ";");

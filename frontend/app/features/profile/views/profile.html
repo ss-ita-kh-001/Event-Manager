@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="user-info">
-                <img src="http://simpleicon.com/wp-content/uploads/user1.png" alt="Your Photo" class="img-responsive" />
+                <img src="{{user.avatar}}" alt="Your Photo" class="img-responsive" />
                 <h2>{{user.full_name}}</h2>
                 <p>
                     {{user.email}}
@@ -15,7 +15,7 @@
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
           </div>
             <p class="h3" ng-if="events.length">Events coming soon</p>
-            <div ng-repeat="event in events track by event.date" class="upcoming-events-item">
+            <div ng-repeat="event in events track by $index" class="upcoming-events-item">
                 <div>
                     <a href="/events/{{event.event}}">{{event.title}}</a><span class="pull-right event-date">{{event.date}}</span>
                     <p>

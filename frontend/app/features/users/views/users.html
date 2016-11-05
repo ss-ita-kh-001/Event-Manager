@@ -23,14 +23,17 @@
                 <td>{{ user.full_name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
-                <td>
-                    <img src="{{user.avatar}}" alt="" class="img-responsive avatar-small">
+                <td class="text-center">
+                    <img src="{{user.avatar}}" alt="" class="avatar-small">
+                </td>
+                <td class="text-center">
+                    <a  href="/profile/{{user.id}}" class="btn btn-primary">View profile</a>
                 </td>
             </tr>
         </tbody>
     </table>
     <div class="text-center">
-        <button ng-click="getUsers()" ng-if="haveHistory" class="btn btn-lg btn-primary">Load more users</button>
+        <button ng-click="getMoreUsers()" ng-if="haveHistory" class="btn btn-lg btn-primary">Load more users</button>
     </div>
     <!-- <p ng-if="!users" class="alert alert-danger text-center">
         No any users registered here!

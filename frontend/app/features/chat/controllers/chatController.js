@@ -1,23 +1,32 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, flashService, $rootScope, $location, userService) {
+    function chatController($scope, chatService, flashService, $rootScope, $location, userService, $auth) {
+
         var maxSymbols = 300;
-        $scope.currentUser;
-        userService.getCurrentUser().then(function (data) {
-            console.log(data[0]);
-            $scope.currentUser = data[0];
-        });
-        var obj = {
-            user: localStorage.getItem("userId")
-        };
-        $scope.isMine = function($index) {
-            return $scope.currentUser.id == $scope.live[$index].user;
-        };
+        var obj = {}; //save here text,time,and token of message
+
+        if ($auth.isAuthenticated() && !userService.getUserInfo()) {
+            userService.getCurrentUser().then(function(data) {
+                $scope.user = data[0];
+            });
+        }
+
+        $scope.haveHistory = function() {
+            return chatService.haveHistory;
+        }
+
+        $scope.isMineHistory = function($index) {
+            return $scope.user.id == $scope.history[$index].user;
+        }
+
+        $scope.isMineLive = function($index) {
+            return $scope.user.id == $scope.live[$index].user;
+        }
+
         $scope.msgSend = function() {
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
-                obj.user = $scope.currentUser.id;
                 obj.text = $scope.textMsg;
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
@@ -73,6 +82,6 @@
         });
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "$auth"];
 
 })();

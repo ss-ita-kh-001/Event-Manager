@@ -4,9 +4,10 @@
         /**
          * Helper auth functions
          */
-        var skipIfLoggedIn = ['$q', '$auth', function($q, $auth) {
+        var skipIfLoggedIn = ['$q', '$location', '$auth', function($q, $location, $auth) {
             var deferred = $q.defer();
             if ($auth.isAuthenticated()) {
+                $location.path('/');
                 deferred.reject();
             } else {
                 deferred.resolve();
@@ -46,13 +47,33 @@
                     }]
                 }
             })
+            .when("/profile/:id", {
+                templateUrl: "./app/features/profile/views/profile.html",
+                controller: "em.profile.profile-controller",
+                resolve: {
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
+                }
+            })
             .when("/users", {
                 templateUrl: "./app/features/users/views/users.html",
                 controller: "em.users.users-controller",
                 resolve: {
                     loginRequired: loginRequired,
                     getUsers: ["userService", function(userService) {
-                        return userService.getUsers(1);
+                        if (!userService.getUsersInfo()) {
+                            return userService.getUsers(0);
+                        }
+
                     }],
                     getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {
@@ -70,7 +91,6 @@
                         if (!userService.getUserInfo()) {
                             return userService.getCurrentUser();
                         }
-
                     }],
                     getCurrentUserEvents: ["userService", function(userService) {
                         if (!userService.getCurrentUserEvents()) {
@@ -117,7 +137,10 @@
                 controller: "em.events.event-list-controller",
                 resolve: {
                     getEvents: ["em.events.event-list-service", function(itemEventService) {
-                        return itemEventService.getEvents(1);
+                        if (!itemEventService.getCacheEvents()) {
+                            return itemEventService.getEvents(0);
+                        }
+
                     }],
                     getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {
@@ -130,6 +153,7 @@
                 templateUrl: './app/features/events/views/event.html',
                 controller: "em.events.eventController",
                 resolve: {
+                    loginRequired: loginRequired,
                     getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {
                             return userService.getCurrentUser();
@@ -154,6 +178,7 @@
                 templateUrl: "./app/features/result-table/views/result-table.html",
                 controller: "em.result-table.chessResultController",
                 resolve: {
+                    loginRequired: loginRequired,
                     games: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getEventsGames();
                     }],
@@ -176,8 +201,8 @@
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
             });
-            $authProvider.github({
-              clientId: 'd1cdb4a9d640e6f9967e'
-            });
+        $authProvider.github({
+            clientId: 'd1cdb4a9d640e6f9967e'
+        });
     }]);
 })();

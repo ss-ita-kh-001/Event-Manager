@@ -275,14 +275,15 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        // app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
-        //     users.getUserById(req.params.id).then(function(data) {
-        //         res.status(200).send(data);
+        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
+            users.getUserById(req.params.id).then(function(data) {
+                // console.log(data);
+                res.status(200).send(data);
 
-        //     }).catch(function(error) {
-        //         res.status(500).send(error);
-        //     });
-        // });
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.get(apiPreff + "/participants/game/:id", function(req, res) {
             games.getParticipantsByGame(req.params.id).then(function(data) {
                 res.status(200).send(data);
@@ -312,11 +313,20 @@ var router = {
                 res.status(500).send(error);
             });
         });
+
         app.put(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
             users.updateUser(Object.assign({}, req.body, req.body.userID)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
+            });
+        });
+        app.get(apiPreff + "/all-users", auth.ensureAuthenticated, function(req, res) {
+            users.getAllUsers().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+                console.log(error);
             });
         });
         app.delete(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
@@ -429,13 +439,15 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        // app.get(apiPreff + "/users-events/:id", function(req, res) {
-        //     events.getEventByUser(req.params.id).then(function(data) {
-        //         res.status(200).send(data);
-        //     }).catch(function(error) {
-        //         res.status(500).send(error);
-        //     });
-        // });
+        app.get(apiPreff + "/profile-events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
+            events.getEventByUser(req.params.id).then(function(data) {
+                console.log(data);
+                res.status(200).send(data);
+
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
         app.get(apiPreff + "/users-events", auth.ensureAuthenticated, function(req, res) {
             events.getEventByUser(req.body.userID).then(function(data) {
                 res.status(200).send(data);
@@ -459,7 +471,6 @@ var router = {
         });
         app.get(apiPreff + "/events", function(req, res) {
             events.getEvents(req.query.index).then(function(data) {
-                console.log(req.query.index);
                 if (data.length < 10) {
                     responseExt.haveHistory = false;
                 } else {
@@ -467,7 +478,7 @@ var router = {
                 }
                 responseExt.data = data;
                 responseExt.index = Number(req.query.index) + data.length;
-                console.log('responseExt.haveHistory', responseExt.haveHistory);
+                console.log('responseExt.haveHistory', responseExt.data);
                 res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -494,7 +505,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events/:id/i", uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events/:id/i", auth.ensureAuthenticated, auth.ensureIsAdmin, uploadEvent.any(), function(req, res) {
             events.updateEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
@@ -503,7 +514,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events", auth.ensureAuthenticated, auth.ensureIsAdmin, uploadEvent.any(), function(req, res) {
             events.addEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {

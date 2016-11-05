@@ -2,8 +2,8 @@ var db = require("./connection");
 var users = function() {
     self = this;
     self.getUsers = function(index) {
-        console.log('SELECT users WHERE id >= ', index);
-        return db.query("SELECT * FROM \"users\" WHERE \"id\" >= " + Number(index) + " ORDER BY \"id\" LIMIT 10 ;");
+        console.log('SELECT users OFFSET ', index);
+        return db.query("SELECT \"full_name\",\"id\",\"role\",\"avatar\",\"email\" FROM \"users\" ORDER BY \"id\" OFFSET " + Number(index) + " ROWS FETCH NEXT 10 ROWS ONLY;");
     };
     self.getUserById = function(id) {
         console.log('getUserById typo', typeof(id));
@@ -28,6 +28,9 @@ var users = function() {
             "\', \"avatar\" = \'" + user.avatar + "\', \"reset_password_token\" = \'" + user.reset_password_token +
             "\', \"reset_password_expires\" = \'" + user.reset_password_expires + "\', \"password\" = \'" + user.password +
             "\', \"email\" = \'" + user.email + "\'" + " WHERE \"id\" = " + user.id + ";");
+    };
+    self.getAllUsers = function() {
+        return db.query("SELECT * FROM \"users\" ;");
     };
     self.deleteUser = function(user) {
         return db.query("DELETE FROM \"users\" WHERE \"id\" = " + user.id + ";");

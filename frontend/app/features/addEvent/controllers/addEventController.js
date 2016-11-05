@@ -48,6 +48,7 @@
             } else {
                 addEventService.addEvent($scope.event);
             }
+            delete $rootScope.allEvents;
         }
 
 
