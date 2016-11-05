@@ -1,5 +1,5 @@
 exports.config = {
-   // directConnect: true,
+    //directConnect: true,
 
     // Capabilities to be passed to the webdriver instance.
     // capabilities: {
@@ -12,7 +12,7 @@ exports.config = {
     },
     seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
     // Framework to use. Jasmine is recommended.
-    framework: 'jasmine',
+    //framework: 'jasmine',
     //seleniumAddress: 'http://localhost:4444/wd/hub',
    // seleniumServerJar: './node_modules/protractor/selenium/latest.jar',
 

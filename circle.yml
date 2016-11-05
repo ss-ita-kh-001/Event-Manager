@@ -6,8 +6,8 @@ machine:
     BS_AUTOMATE_PROJECT: "Run on circleCI"
     BS_AUTOMATE_BUILD: "build No. $CIRCLE_BUILD_NUM for circleCI"
     SELENIUM_PLATFORM: WINDOWS
-    SELENIUM_BROWSER: IE
-    SELENIUM_VERSION: 9
+    SELENIUM_BROWSER: chrome
+ #   SELENIUM_VERSION: 9
 dependencies:
   pre:
 #    # Install Selenium.
