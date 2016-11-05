@@ -1,14 +1,19 @@
 exports.config = {
-    directConnect: true,
+   // directConnect: true,
 
     // Capabilities to be passed to the webdriver instance.
+    // capabilities: {
+    //     'browserName': 'chrome'
+    // },
     capabilities: {
-        'browserName': 'chrome'
+        'browserstack.user': 'marynayelakova1',
+        'browserstack.key': 'pe8cKNqc5y7hXG9kx5zM',
+        browserName: 'chrome'
     },
-
+    seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
     // Framework to use. Jasmine is recommended.
     framework: 'jasmine',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    //seleniumAddress: 'http://localhost:4444/wd/hub',
    // seleniumServerJar: './node_modules/protractor/selenium/latest.jar',
 
     chromeOnly: true,
@@ -17,7 +22,7 @@ exports.config = {
     // Spec patterns are relative to the current working directory when
     // protractor is called.
     specs: ['end2end-test/*spec.js'],
-    baseUrl: 'https://protractor-testing.herokuapp.com/',
+    baseUrl: 'http://localhost:5000/',
 
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {

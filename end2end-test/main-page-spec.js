@@ -1,6 +1,7 @@
+var baseUrl = 'http://localhost:5000/';
 describe('main page', function() {
     beforeEach(function() {
-        browser.get("/"); 
+        browser.get("/");
     });
 
     it('should have a title', function() {
@@ -13,22 +14,22 @@ describe('main page', function() {
     it("should change URL on events link click in navigation menu", function() {
         var redirectEvents = element(by.linkText('Events'));
         redirectEvents.click();
-        expect(browser.getCurrentUrl()).toEqual("https://ita-event-manager.herokuapp.com/events");
+        expect(browser.getCurrentUrl()).toEqual(baseUrl +"events");
     });
     it("should change URL on results link click", function() {
         var redirectResults = element(by.linkText('Results'));
         redirectResults.click();
-        expect(browser.getCurrentUrl()).toEqual("https://ita-event-manager.herokuapp.com/results");
+        expect(browser.getCurrentUrl()).toEqual(baseUrl + "results");
     });
     it("should change URL on register link click", function() {
         var redirectRegister = element(by.linkText('Register'));
         redirectRegister.click();
-        expect(browser.getCurrentUrl()).toEqual("https://ita-event-manager.herokuapp.com/register");
+        expect(browser.getCurrentUrl()).toEqual(baseUrl + "register");
     });
     it("should change URL on login link click", function() {
         var redirectLogin = element(by.linkText('Login'));
         redirectLogin.click();
-        expect(browser.getCurrentUrl()).toEqual("https://ita-event-manager.herokuapp.com/login");
+        expect(browser.getCurrentUrl()).toEqual(baseUrl + "login");
     });
     it("show  upcoming events on main page", function() {
         var upcomingEvents = element.all(by.repeater('eventItem in nextEvents'));
