@@ -19,13 +19,14 @@
         var self = this;
         self.haveHistory = true;
         self.history = [];
+        var history = [];
         self.live = [];
         self.error = false;
 
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
             console.log('------------------------');
-            console.log('index from server', response);
+            // console.log('index from server', response);
 
             if (!response.error) {
 
@@ -42,8 +43,8 @@
                         self.live.push(response.data[0]);
                     });
                 } else {
-                    console.log('get history from server');
-                    console.log('rootScope.chatIndex local', $rootScope.chatIndex);
+                    // console.log('get history from server');
+                    // console.log('rootScope.chatIndex local', $rootScope.chatIndex);
 
                     if (!$rootScope.chatIndex) {
                         $rootScope.chatIndex = response.index;
@@ -51,10 +52,15 @@
                         $rootScope.chatIndex -= response.data.length;
                     }
 
+                    // self.history = tmp.concat(response.data.reverse());
+                    var tmp = response.data.reverse();
+                    tmp = tmp.concat(self.history);
+
                     $rootScope.$apply(function() {
                         self.haveHistory = response.haveHistory;
-                        angular.extend(self.history, response.data.reverse());
+                        angular.extend(self.history, tmp);
                     });
+                    console.log(self.history.length);
                 }
             } else {
                 $rootScope.$apply(function() {
@@ -62,12 +68,12 @@
                     flashService.error(response.errorMessage, false);
                 });
             }
-            console.log('rootScope.chatIndex at the end', $rootScope.chatIndex);
+            // console.log('rootScope.chatIndex at the end', $rootScope.chatIndex);
         }
         self.msgSend = function(msg) {
             // self.live = [];
             if (socket.readyState == 1) {
-                console.log(msg);
+                // console.log(msg);
                 socket.send(JSON.stringify(msg));
             }
         }

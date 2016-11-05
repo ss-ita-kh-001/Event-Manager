@@ -6,11 +6,7 @@
         var maxSymbols = 300;
         var obj = {}; //save here text,time,and token of message
 
-        if ($auth.isAuthenticated() && !userService.getUserInfo()) {
-            userService.getCurrentUser().then(function(data) {
-                $scope.user = data[0];
-            });
-        }
+        $scope.user = userService.getUserInfo();
 
         $scope.haveHistory = function() {
             return chatService.haveHistory;
@@ -71,15 +67,16 @@
             }
         }
         // new messages
-        $scope.history = chatService.history;
+        // $scope.history = chatService.history;
         $scope.live = chatService.live;
         // new array for listening new history from service
-        $scope.newArray = chatService.history;
-        $scope.$watchCollection('newArray', function(newValue) {
-            var tmp = [];
-            tmp = tmp.concat(newValue);
-            $scope.history = tmp.concat($scope.history);
-        });
+        $scope.history = chatService.history;
+
+        // $scope.$watchCollection('newArray', function(newValue) {
+        //     var tmp = [];
+        //     tmp = tmp.concat(newValue);
+        //     $scope.history = tmp.concat($scope.history);
+        // });
     }
 
     chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "$auth"];

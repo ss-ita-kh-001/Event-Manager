@@ -22,9 +22,10 @@ var chat = {
         };
 
         webSocketServer.on('connection', function(socket) {
+
             var id = Math.random();
             clients[id] = socket;
-
+            console.log('connected', id);
             var currentIndex;
 
             socket.on('message', function(obj) {
