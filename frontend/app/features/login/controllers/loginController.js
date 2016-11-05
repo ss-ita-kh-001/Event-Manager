@@ -14,7 +14,7 @@
                     localStorage.setItem('fullName', res.data.user.full_name);
                     $scope.id = localStorage.getItem('userId');
                     $location.path('/me');
-                    $scope.classHandler();
+                    //$scope.classHandler();
                     var getUserEventsPromise = userService.getUserEvents($scope.id);
                     getUserEventsPromise.then(function(res) {
                         angular.forEach(res.data, function(value, key) {
@@ -29,7 +29,7 @@
                     $scope.dataLoading = false;
                 });
         };
-        $scope.classHandler();
+        //$scope.classHandler();
     }
     loginController.$inject = ["$scope", "$location", "flashService", "userService", "$auth"];
 })();
