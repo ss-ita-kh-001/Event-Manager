@@ -14,7 +14,6 @@ describe("Chat Controller Test", function() {
 
         controller = $controller("em.chat.chatController", {
             $scope: mockScope,
-            chatService: mockСhatService,
             flashService: mockFlashService
         });
     }));
