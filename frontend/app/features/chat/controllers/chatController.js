@@ -35,7 +35,6 @@
             $rootScope.chatOnTop = true;
             $scope.id = localStorage.getItem('userId');
             $location.path("/me");
-      //      $scope.classHandler();
         };
 
         $scope.closeSmallChat = function() {
@@ -67,16 +66,8 @@
             }
         }
         // new messages
-        // $scope.history = chatService.history;
         $scope.live = chatService.live;
-        // new array for listening new history from service
         $scope.history = chatService.history;
-
-        // $scope.$watchCollection('newArray', function(newValue) {
-        //     var tmp = [];
-        //     tmp = tmp.concat(newValue);
-        //     $scope.history = tmp.concat($scope.history);
-        // });
     }
 
     chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "$auth"];
