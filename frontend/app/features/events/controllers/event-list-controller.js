@@ -1,11 +1,13 @@
 (function() {
     angular.module("em.events").controller("em.events.event-list-controller", itemEventController);
 
-    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents, getCurrentUser) {
+    function itemEventController($scope, $rootScope, $location, $timeout, itemEventService, $uibModal, userService, getEvents, getCurrentUser, flashService) {
+
         if (!userService.getUserInfo()) {
             userService.setUserInfo(getCurrentUser[0]);
         }
         $scope.currentUser = userService.getUserInfo();
+
         // by default button 'load more events' is visible
         $scope.haveHistory = true;
 
@@ -120,7 +122,6 @@
                 $scope.users = response;
             }, rejected);
 
-
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -129,22 +130,21 @@
                 controller: function($uibModalInstance, $scope) {
                     $scope.newInvitation = {
                         userSender: userService.getUserInfo(),
-                        userReceiver: null,
+                        userReceiver: {full_name: ''},
                         event: eventItem
                     }
 
-                    $scope.getSelectedUser = function() {
-                        $scope.newInvitation.userReceiver = $scope.selectedFriend;
-                    };
-
                     $scope.invite = function(invitation) {
                         itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
-                            // TODO: add user notification about success
+                            flashService.success('The invitation was sent successfully', false);
+                            $timeout(function () {
+                                flashService.clearFlashMessage();
+                            }, 3000);
                         }, rejected);
 
                         $uibModalInstance.close();
-                    };
 
+                    };
                     $scope.cancel = function() {
                         $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');
@@ -163,11 +163,13 @@
         "$scope",
         "$rootScope",
         "$location",
+        "$timeout",
         "em.events.event-list-service",
         "$uibModal",
         "userService",
         "getEvents",
         "getCurrentUser"
+        "flashService"
     ];
 
 })();

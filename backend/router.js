@@ -313,11 +313,20 @@ var router = {
                 res.status(500).send(error);
             });
         });
+
         app.put(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
             users.updateUser(Object.assign({}, req.body, req.body.userID)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
+            });
+        });
+        app.get(apiPreff + "/all-users", auth.ensureAuthenticated, function(req, res) {
+            users.getAllUsers().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+                console.log(error);
             });
         });
         app.delete(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
