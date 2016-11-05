@@ -19,6 +19,7 @@ dependencies:
 #    - npm install -g protractor
 #    - webdriver-manager update
     - node ./package.json
+    - webdriver-manager start
 database:
   override:
     - psql -U ubuntu circle_test < ./db_scripts/setup_db.sql
