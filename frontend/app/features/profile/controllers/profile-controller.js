@@ -33,7 +33,6 @@
             });
             
             userService.getProfileEvents($routeParams.id).then(function (data) {
-                console.log(data.data);
                 $scope.events = data.data;
             });
             
