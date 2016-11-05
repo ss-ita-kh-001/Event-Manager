@@ -28,7 +28,7 @@ describe("Add/Edit event", function() {
         mockRoute.current = {
             mode: 'add'
         };
-        
+
         controller = $controller("em.addEvent.addEventController", {
             $scope: mockScope,
             $route: mockRoute,
@@ -77,16 +77,4 @@ describe("Add/Edit event", function() {
         });
         mockScope.save();
     });
-    //
-    // it('check email validation.flashService.error with params', function() {
-    //     Object.assign(mockScope.event, {
-    //         title: "TEST EVENT: title",
-    //         desc: "TEST EVENT: title",
-    //         date: "2016-01-01",
-    //         place: "London",
-    //         avatar: null
-    //     });
-    //     mockScope.save();
-    //     expect(mockAddEventService.addEvent).toHaveBeenCalledWith(mockScope.event);
-    // });
 });
