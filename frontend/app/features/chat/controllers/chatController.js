@@ -1,11 +1,16 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, flashService, $rootScope, $location, userService, getCurrentUser) {
-        if (!userService.getUserInfo()) {
-            userService.setUserInfo(getCurrentUser[0]);
+    function chatController($scope, chatService, flashService, $rootScope, $location, userService, $auth) {
+        // if (!userService.getUserInfo()) {
+        //     userService.setUserInfo(getCurrentUser[0]);
+        // }
+        if ($auth.isAuthenticated()) {
+            userService.getCurrentUser().then(function(data) {
+                $scope.user = data[0];
+            });
         }
-        $scope.user = userService.getUserInfo();
+        // $scope.user = userService.getUserInfo();
 
 
         var maxSymbols = 300;
@@ -83,6 +88,6 @@
         });
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "getCurrentUser"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "$auth"];
 
 })();

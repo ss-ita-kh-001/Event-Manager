@@ -82,12 +82,7 @@
                 templateUrl: "./app/features/chat/views/chat.html",
                 controller: "em.chat.chatController",
                 resolve: {
-                    loginRequired: loginRequired,
-                    getCurrentUser: ["userService", function(userService) {
-                        if (!userService.getUserInfo()) {
-                            return userService.getCurrentUser();
-                        }
-                    }]
+                    loginRequired: loginRequired
                 }
             })
             .when("/login", {
