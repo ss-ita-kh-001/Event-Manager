@@ -37,7 +37,7 @@
         };
 
         $scope.getCurrentUser();
-        
+
         /**
          * Pagination
          * Called on click 'Load more events'
@@ -113,7 +113,6 @@
                 $scope.users = response;
             }, rejected);
 
-
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -122,13 +121,9 @@
                 controller: function($uibModalInstance, $scope) {
                     $scope.newInvitation = {
                         userSender: userService.getUserInfo(),
-                        userReceiver: null,
+                        userReceiver: {full_name: ''},
                         event: eventItem
                     }
-
-                    $scope.getSelectedUser = function() {
-                        $scope.newInvitation.userReceiver = $scope.selectedFriend;
-                    };
 
                     $scope.invite = function(invitation) {
                         itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
@@ -142,6 +137,7 @@
                         $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');
                     };
+
                 }
             });
         }

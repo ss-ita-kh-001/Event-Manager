@@ -224,6 +224,14 @@ var router = {
                 res.status(500).send(error);
             });
         });
+        app.get(apiPreff + "/all-users", auth.ensureAuthenticated, function(req, res) {
+            users.getAllUsers().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+                console.log(error);
+            });
+        });
         app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
             users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
                 res.status(200).end();
