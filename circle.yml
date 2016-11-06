@@ -9,10 +9,11 @@ machine:
 dependencies:
   override:
     - npm install
-    - npm start &
-#    - node ./package.json
+    - npm start:
+        background: true
     - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
-    - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager start &
+    - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager start:
+        background: true
 database:
   override:
     - psql -U ubuntu circle_test < ./db_scripts/setup_db.sql
