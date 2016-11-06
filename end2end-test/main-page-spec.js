@@ -1,4 +1,4 @@
-var baseUrl = 'http://localhost:5000/';
+var baseUrl = 'http://127.0.0.1:5000/';
 describe('main page', function() {
     beforeEach(function() {
         browser.get("/");
@@ -15,11 +15,6 @@ describe('main page', function() {
         var redirectEvents = element(by.linkText('Events'));
         redirectEvents.click();
         expect(browser.getCurrentUrl()).toEqual(baseUrl +"events");
-    });
-    it("should change URL on results link click", function() {
-        var redirectResults = element(by.linkText('Results'));
-        redirectResults.click();
-        expect(browser.getCurrentUrl()).toEqual(baseUrl + "results");
     });
     it("should change URL on register link click", function() {
         var redirectRegister = element(by.linkText('Register'));
