@@ -8,6 +8,7 @@ machine:
 #    SELENIUM_BROWSER: chrome
 dependencies:
   pre:
+    - npm install
     - npm start
     - node ./package.json
     - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
