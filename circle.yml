@@ -9,7 +9,7 @@ machine:
 dependencies:
   pre:
     - npm install
-    - npm start
+    - npm start &
     - node ./package.json
     - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
     - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager start
