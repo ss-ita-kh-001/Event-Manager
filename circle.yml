@@ -11,14 +11,15 @@ machine:
 dependencies:
   pre:
     - node ./package.json
-
+#    - webdriver-manager update
+#    - webdriver-manager start
 database:
   override:
     - psql -U ubuntu circle_test < ./db_scripts/setup_db.sql
 test:
   override:
     - npm test
-    - protractor protractor_conf.js
+#    - protractor protractor_conf.js
 deployment:
   prod:
     branch: master
