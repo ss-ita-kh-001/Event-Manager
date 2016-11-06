@@ -1,6 +1,21 @@
+machine:
+  environment:
+    EM_PG_CONN: postgres://ubuntu@127.0.0.1:5432/circle_test
+dependencies:
+  override:
+    - npm install
+    - npm start:
+        background: true
+    - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
+    - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager start:
+        background: true
+database:
+  override:
+    - psql -U ubuntu circle_test < ./db_scripts/setup_db.sql
 test:
   override:
     - npm test
+    - node ./node_modules/protractor/bin/protractor protractor_conf.js --verbose
 deployment:
   prod:
     branch: master

@@ -6,10 +6,10 @@
         <div scroll-glue class="chat-body">
             <ul class="messages">
                 <div class="text-center">
-                    <button ng-click="getHistory()" class="btn btn-lg btn-primary">Load more messages</button>
+                    <button ng-click="getHistory()" ng-if="haveHistory()" class="btn btn-lg btn-primary">Load more messages</button>
                 </div>
                 <!-- History -->
-                <li class="message" ng-repeat="history in history track by $index">
+                <li class="message" ng-class="{ 'message--mine': isMineHistory($index) }" ng-repeat="history in history track by $index">
                     <div class="message__author">{{history.full_name}}</div>
                     <div class="message__text">
                         <div ng-bind-html="history.text">
@@ -22,7 +22,7 @@
             </ul>
             <ul class="messages">
                 <!-- New messages -->
-                <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
+                <li class="message" ng-class="{ 'message--mine': isMineLive($index) }" ng-repeat="live in live track by $index">
                     <div class="message__author">{{live.full_name}}</div>
                     <div class="message__text">
                         <div ng-bind-html="live.text">

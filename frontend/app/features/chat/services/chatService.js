@@ -17,6 +17,7 @@
         };
 
         var self = this;
+        self.haveHistory = true;
         self.history = [];
         self.live = [];
         self.error = false;
@@ -24,7 +25,7 @@
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
             console.log('------------------------');
-            console.log('index from server', response.index);
+            console.log('index from server', response);
 
             if (!response.error) {
 
@@ -35,7 +36,7 @@
                 //     self.live.push(response.data[0]);
                 // });
                 // if single msg
-                if (response.data.length == 1) {
+                if (response.singleMessage) {
                     $rootScope.$apply(function() {
                         // angular.extend(self.live, []);
                         self.live.push(response.data[0]);
@@ -43,16 +44,15 @@
                 } else {
                     console.log('get history from server');
                     console.log('rootScope.chatIndex local', $rootScope.chatIndex);
+
                     if (!$rootScope.chatIndex) {
                         $rootScope.chatIndex = response.index;
                     } else {
-                        $rootScope.chatIndex -= 10;
+                        $rootScope.chatIndex -= response.data.length;
                     }
-                    // console.log(self.live.length);
-                    $rootScope.$apply(function() {
-                        // angular.extend(self.live, []);
-                        // console.log(self.history);
 
+                    $rootScope.$apply(function() {
+                        self.haveHistory = response.haveHistory;
                         angular.extend(self.history, response.data.reverse());
                     });
                 }
@@ -67,6 +67,7 @@
         self.msgSend = function(msg) {
             // self.live = [];
             if (socket.readyState == 1) {
+                console.log(msg);
                 socket.send(JSON.stringify(msg));
             }
         }
