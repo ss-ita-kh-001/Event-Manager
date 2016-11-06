@@ -7,7 +7,8 @@ exports.config = {
     // },
 
 //    seleniumAddress: 'http://hub-cloud.browserstack.com/wd/hub',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    //seleniumAddress: 'http://localhost:4444/wd/hub',
+    seleniumServerJar: './node_modules/protractor/selenium/latest.jar',
     framework: 'jasmine',
 
     chromeOnly: true,
