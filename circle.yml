@@ -12,9 +12,8 @@ dependencies:
   pre:
     - node ./package.json
     - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update
-    - ln -s selenium-server-standalone-2.48.2.jar latest.jar
-#
- #   - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager start
+#    - ln -s selenium-server-standalone-2.48.2.jar latest.jar
+    - node ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager start
 database:
   override:
     - psql -U ubuntu circle_test < ./db_scripts/setup_db.sql

@@ -17,7 +17,7 @@ exports.config = {
     // Spec patterns are relative to the current working directory when
     // protractor is called.
     specs: ['end2end-test/*spec.js'],
-    baseUrl: 'http://localhost:5000/',
+    baseUrl: 'http://127.0.0.1:5000',
 
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {
