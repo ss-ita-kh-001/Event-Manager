@@ -1,81 +1,64 @@
 (function() {
-    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "flashService", chatService]);
+    angular.module("em.chat").service("em.chat.chatService", ["$rootScope", "flashService", "em.mainApiService", chatService]);
 
-    function chatService($rootScope, flashService) {
+    function chatService($rootScope, flashService, mainApiService) {
 
         var host = location.origin.replace(/^http/, 'ws');
         var socket = new WebSocket(host);
-
-        var initialization = {
-            token: localStorage.getItem("satellizer_token"),
-            getHistory: true,
-            index: $rootScope.chatIndex //index defined first time on server
-        }
-
-        socket.onopen = function(obj) {
-            socket.send(JSON.stringify(initialization));
-        };
 
         var self = this;
         self.haveHistory = true;
         self.history = [];
         self.live = [];
-        self.error = false;
 
+        socket.onopen = function(obj) {
+            mainApiService.get('chat-history', $rootScope.chatIndex).then(function(response) {
+                $rootScope.chatIndex = response.data.index;
+                // format data
+                console.log(response.data);
+                angular.forEach(response.data.data, function(value, key) {
+                    response.data.data[key].date = response.data.data[key].date.substring(11, 19);
+                });
+                self.haveHistory = response.data.haveHistory;
+                angular.extend(self.history, response.data.data.reverse());
+            });
+        };
         socket.onmessage = function(obj) {
             var response = JSON.parse(obj.data);
-            console.log('------------------------');
-            console.log('index from server', response);
-
+            // console.log();
             if (!response.error) {
-
+                // format data
                 angular.forEach(response.data, function(value, key) {
                     response.data[key].date = response.data[key].date.substring(11, 19);
                 });
-                // $rootScope.$apply(function() {
-                //     self.live.push(response.data[0]);
-                // });
-                // if single msg
-                if (response.singleMessage) {
-                    $rootScope.$apply(function() {
-                        // angular.extend(self.live, []);
-                        self.live.push(response.data[0]);
-                    });
-                } else {
-                    console.log('get history from server');
-                    console.log('rootScope.chatIndex local', $rootScope.chatIndex);
-
-                    if (!$rootScope.chatIndex) {
-                        $rootScope.chatIndex = response.index;
-                    } else {
-                        $rootScope.chatIndex -= response.data.length;
-                    }
-
-                    $rootScope.$apply(function() {
-                        self.haveHistory = response.haveHistory;
-                        angular.extend(self.history, response.data.reverse());
-                    });
-                }
+                $rootScope.$apply(function() {
+                    self.live.push(response.data[0]);
+                });
             } else {
                 $rootScope.$apply(function() {
-                    self.error = true;
                     flashService.error(response.errorMessage, false);
                 });
+                socket.close();
             }
-            console.log('rootScope.chatIndex at the end', $rootScope.chatIndex);
+
         }
         self.msgSend = function(msg) {
-            // self.live = [];
             if (socket.readyState == 1) {
-                console.log(msg);
                 socket.send(JSON.stringify(msg));
             }
         }
         self.getHistory = function() {
-            // self.live = [];
-            initialization.index = $rootScope.chatIndex;
-            initialization.getHistory = true;
-            socket.send(JSON.stringify(initialization));
+            mainApiService.get('chat-history', $rootScope.chatIndex).then(function(response) {
+                $rootScope.chatIndex = response.data.index;
+                // format data
+                angular.forEach(response.data.data, function(value, key) {
+                    response.data.data[key].date = response.data.data[key].date.substring(11, 19);
+                });
+                var tmp = response.data.data.reverse();
+                tmp = tmp.concat(self.history);
+                self.haveHistory = response.data.haveHistory;
+                angular.extend(self.history, tmp);
+            });
         }
     }
 })();
