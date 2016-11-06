@@ -188,7 +188,7 @@
                     players: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getAllPlayers();
                     }],
-                    currentUser: ["userService", function(userService) {
+                    getCurrentUser: ["userService", function(userService) {
                         if (!userService.getUserInfo()) {
                             return userService.getCurrentUser();
                         }
