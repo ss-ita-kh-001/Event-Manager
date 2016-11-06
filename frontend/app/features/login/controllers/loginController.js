@@ -11,12 +11,10 @@
                 .then(function(res) {
                     console.log(res.data.user);
                     userService.setUserInfo(res.data.user); //write information about current logged user to userService
-                    localStorage.setItem('userId', res.data.user.id);
-                    localStorage.setItem('fullName', res.data.user.full_name);
-                    $scope.id = localStorage.getItem('userId');
+                    $scope.currentUser = userService.getUserInfo();
                     $location.path('/me');
                     //$scope.classHandler();
-                    var getUserEventsPromise = userService.getUserEvents($scope.id);
+                    var getUserEventsPromise = userService.getUserEvents($scope.currentUser.id);
                     getUserEventsPromise.then(function(res) {
                         angular.forEach(res.data, function(value, key) {
                             localStorage.setItem(value.event, value.event);

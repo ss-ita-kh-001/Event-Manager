@@ -33,7 +33,6 @@
 
         $scope.isChatOnTop = function() {
             $rootScope.chatOnTop = true;
-            $scope.id = localStorage.getItem('userId');
             $location.path("/me");
         };
 
