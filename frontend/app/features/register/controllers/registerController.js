@@ -22,7 +22,7 @@
 
         $scope.checkEmail = function() {
             if ($scope.signupForm.email.$invalid) {
-                flashService.error('Please, enter valid e-mail', false);
+                flashService.error('Please, enter valid email', false);
             } else {
                 flashService.clearFlashMessage();
             }
