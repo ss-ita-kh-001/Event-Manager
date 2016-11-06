@@ -39,6 +39,9 @@
     opacity: 0.8;
     margin-top: 10px;
     margin-bottom: 10px;
+    border: 1px solid $time-header-bg-color;
+    border-radius: 4px;
+    transition: all 0.7s ease;
 }
 
 @media (min-width: 768px) {
@@ -48,7 +51,9 @@
 }
 
 .item-news:hover {
-    background-color: $item-news-bg-color-hover;
+    // background-color: darken($item-news-bg-color, 5%);
+    background-color: grayscale($item-news-bg-color);
+    transition: all 0.7s ease;
 }
 
 .time-header {

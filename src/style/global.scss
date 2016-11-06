@@ -3,6 +3,12 @@ body {
     word-wrap: break-word;
 }
 
+a,
+a:hover {
+    color: #171b65;
+    transition: all 0.3s ease;
+}
+
 .table > tbody > tr > td {
     vertical-align: middle;
 }
@@ -31,7 +37,7 @@ body {
     padding: 6px 12px;
     margin: 5px 0;
     box-shadow: 0 5px 10px -4px #000;
-    transition: all 0.4s;    
+    transition: all 0.4s;
     &:hover {
         box-shadow: 0 0 10px -4px #000;
     }

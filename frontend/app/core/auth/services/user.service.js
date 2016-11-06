@@ -13,12 +13,8 @@
         var userInfo;
         var userEvents;
 
-        // var UsersInfo = [];
         service.getUsersInfo = getUsersInfo;
-        // service.setUsersInfo = setUsersInfo;
-
         service.getCurrentUser = getCurrentUser;
-
         service.getUsers = getUsers;
         service.getById = getById;
         service.getUserEvents = getUserEvents;
@@ -34,7 +30,6 @@
         service.setUserInfo = setUserInfo;
         service.getUserInfo = getUserInfo;
         service.getAll = getAll;
-
         service.setCurrentUserEvents = setCurrentUserEvents;
         service.getCurrentUserEvents = getCurrentUserEvents;
 
@@ -47,10 +42,6 @@
         function getUsersInfo() {
             return $rootScope.allUsers;
         }
-        // function setUsersInfo(users) {
-        //     $rootScope.allUsers = users;
-        //     return UsersInfo;
-        // }
 
         function getCurrentUser() {
             return mainApiService.get('me').then(handleSuccess, handleError('Error getting all users'));
@@ -157,7 +148,6 @@
         }
 
         function setCurrentUserEvents(events) {
-            console.log('setCurrentUserEvents', events);
             userEvents = events;
         }
 
