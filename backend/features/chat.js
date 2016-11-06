@@ -36,13 +36,17 @@ var chat = {
                 if (!requestExt.error) {
                     // console.log(requestExt);
                     if (!requestExt.data.getHistory) {
+
+                        requestExt.singleMessage = true;
                         console.log('single message');
+
                         requestExt.data.text = validate.makeTrusted(requestExt.data.text);
                         chatDb.addMessage(requestExt.data).then(function(res) {
                             chatDb.getMessage().then(function(data, res) {
-                                response.data = data;
+                                requestExt.data = data;
+
                                 for (var key in clients) {
-                                    clients[key].send(JSON.stringify(response));
+                                    clients[key].send(JSON.stringify(requestExt));
                                 }
                             }).catch(function(error) {
                                 console.log(error);
@@ -54,27 +58,48 @@ var chat = {
                             sendError(clients, id, requestExt, error);
                         });
                     } else {
-                        // if index is defined on client
-                        requestExt.data.getHistory = false;
-                        chatDb.getLastId().then(function(data, res) {
-                            currentIndex = data[0].id;
-                            console.log('get Last id', currentIndex);
-                            if (requestExt.data.index) {
-                                console.log('requestExt.data.index true', requestExt.data.index);
-                                currentIndex = requestExt.data.index;
-                            }
+
+                        requestExt.getHistory = false;
+                        requestExt.singleMessage = false;
+
+                        // index present on client
+                        if (requestExt.data.index) {
                             console.log('index from client', requestExt.data.index);
+                            currentIndex = requestExt.data.index;
                             chatDb.getHistory(currentIndex).then(function(data, res) {
-                                // console.log('getHistory with currentIndex', currentIndex);
-                                response.data = data;
-                                response.index = (currentIndex - 10);
-                                clients[id].send(JSON.stringify(response));
+                                console.log('getHistory with currentIndex', currentIndex);
+                                requestExt.data = data;
+                                requestExt.index = (currentIndex - data.length);
+                                if (data.length < 10) {
+                                    requestExt.haveHistory = false;
+                                }
+
+                                clients[id].send(JSON.stringify(requestExt));
                             }).catch(function(error) {
                                 sendError(clients, id, requestExt, error);
                             });
-                        }).catch(function(error) {
-                            sendError(clients, id, requestExt, error);
-                        });
+                        } else {
+                            chatDb.getLastId().then(function(data, res) {
+                                currentIndex = data[0].id;
+                                console.log('get Last id', currentIndex);
+
+                                chatDb.getHistory(currentIndex).then(function(data, res) {
+                                    console.log('getHistory with currentIndex', currentIndex);
+                                    requestExt.data = data;
+                                    requestExt.index = (currentIndex - data.length);
+                                    if (data.length < 10) {
+                                        requestExt.haveHistory = false;
+                                    }
+                                    clients[id].send(JSON.stringify(requestExt));
+                                }).catch(function(error) {
+                                    sendError(clients, id, requestExt, error);
+                                });
+                            }).catch(function(error) {
+                                sendError(clients, id, requestExt, error);
+                            });
+
+                        }
+
                     }
                 } else {
                     sendError(clients, id, requestExt, 'Incorrect token. Try to login again');
@@ -101,8 +126,10 @@ function sendError(clients, id, response, status) {
 function isAuth(req) {
     var data = JSON.parse(req);
     var payload = null;
-    var obj = {
+    var requestExt = {
         data: data,
+        singleMessage: true,
+        haveHistory: true,
         error: false,
         errorMessage: ''
     }
@@ -111,17 +138,17 @@ function isAuth(req) {
     try {
         payload = jwt.decode(token, config.TOKEN_SECRET);
     } catch (err) {
-        obj.errorMessage = err.message;
-        obj.error = true;
-        return obj;
+        requestExt.errorMessage = err.message;
+        requestExt.error = true;
+        return requestExt;
     }
     if (payload.exp <= moment().unix()) {
-        obj.errorMessage = 'Token has expired';
-        obj.error = true;
-        return obj;
+        requestExt.errorMessage = 'Token has expired';
+        requestExt.error = true;
+        return requestExt;
     }
-    obj.data.decodedId = payload.sub;
-    return obj;
+    requestExt.data.userID = payload.id;
+    return requestExt;
 }
 
 module.exports = chat;

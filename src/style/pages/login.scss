@@ -2,3 +2,17 @@
   height: 70px;
   text-align: center;
 }
+.btn-github {
+  color: #fff;
+  background-color: #444;
+  border: 1px solid #3b3b3b;
+}
+
+.btn-github:hover,
+.btn-github:focus {
+  color: #fff;
+  background-color: #303030;
+}
+.github-icon {
+  width: 20px;
+}

@@ -4,7 +4,9 @@
 
     function itemEventService($rootScope, mainApiService) {
 
-        $rootScope.allEvents = [];
+        this.getCacheEvents = function () {
+            return $rootScope.allEvents;
+        }
         this.getEvents = function(index) {
             console.log('getEvents index', index);
             return mainApiService.get('events', index).then(handleSuccess, handleError('Error getting events'));

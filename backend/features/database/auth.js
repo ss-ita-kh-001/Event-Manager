@@ -26,9 +26,6 @@ var auth = function() {
         return hash;
     }
     this.ensureAuthenticated = function(req, res, next) {
-        if (req.header('count')) {
-            req.body.count = req.header('count');
-        }
         if (!req.header('Authorization')) {
             return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
         }
@@ -46,14 +43,25 @@ var auth = function() {
                 message: 'Token has expired'
             });
         }
-        req.body.sub = payload.sub;
+        req.body.userID = payload.id;
+        req.body.userRole = payload.role
+        next();
+    };
+    this.ensureIsAdmin = function(req, res, next) {
+
+        if (req.body.userRole !== "admin") {
+            return res.status(403).send({
+                message: 'Access denied'
+            });
+        }
         next();
     };
 };
 
 function createJWT(user) {
     var payload = {
-        sub: user[0].id,
+        id: user[0].id,
+        role: user[0].role,
         iat: moment().unix(),
         exp: moment().add(14, 'days').unix()
     };

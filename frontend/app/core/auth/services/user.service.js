@@ -7,16 +7,23 @@
 
     function userService(mainApiService, $location, flashService, $rootScope) {
         $rootScope.itemsPerPage = 10;
-        $rootScope.allUsers = [];
+        // $rootScope.allUsers = [];
 
         var service = {};
         var userInfo;
+        var userEvents;
+
+        // var UsersInfo = [];
+        service.getUsersInfo = getUsersInfo;
+        // service.setUsersInfo = setUsersInfo;
+
+        service.getCurrentUser = getCurrentUser;
 
         service.getUsers = getUsers;
         service.getById = getById;
         service.getUserEvents = getUserEvents;
+        service.getProfileEvents = getProfileEvents;
         service.getUsersByEvent = getUsersByEvent;
-        //  service.getByUserEmail = getByUserEmail;
         service.create = create;
         service.update = update;
         service.remove = remove;
@@ -26,6 +33,10 @@
         service.updatePassword = updatePassword;
         service.setUserInfo = setUserInfo;
         service.getUserInfo = getUserInfo;
+        service.getAll = getAll;
+
+        service.setCurrentUserEvents = setCurrentUserEvents;
+        service.getCurrentUserEvents = getCurrentUserEvents;
 
         return service;
 
@@ -33,12 +44,23 @@
             return mainApiService.get('users', index).then(handleSuccess, handleError('Error getting all users'));
         }
 
+        function getUsersInfo() {
+            return $rootScope.allUsers;
+        }
+        // function setUsersInfo(users) {
+        //     $rootScope.allUsers = users;
+        //     return UsersInfo;
+        // }
+
+        function getCurrentUser() {
+            return mainApiService.get('me').then(handleSuccess, handleError('Error getting all users'));
+        }
+
         function forgotPassword(email, callback) {
             return mainApiService.post('forgot', email).then(function(res) {
                 flashService.success('An e-mail has been sent to ' + res.config.data.email + ' with further instructions.', true);
                 callback();
             });
-
         }
 
         function getByUserToken(token) {
@@ -60,12 +82,21 @@
             return mainApiService.get('profile/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function getUserEvents(id) {
-            return mainApiService.get("users-events/" + id)
+        function getProfileEvents(id) {
+            console.log('getUserEvents',id);
+            return mainApiService.get("profile-events/" + id)
+        }
+        function getUserEvents() {
+            return mainApiService.get("users-events")
         }
 
         function getUsersByEvent(id) {
             return mainApiService.get("event-users/" + id)
+        }
+
+        function getAll() {
+            return mainApiService.get('all-users')
+            .then(handleSuccess, handleError('Error getting all users'));
         }
 
         function create(user) {
@@ -87,7 +118,7 @@
         }
 
         function update(user) {
-            return mainApiService.put('profile/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return mainApiService.put('me', user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function remove(id) {
@@ -112,11 +143,23 @@
         //set and get information about current loged user
 
         function setUserInfo(user) {
+          //  localStorage.setItem('userId', user.id);
+        //    localStorage.setItem('fullName', user.full_name);
             userInfo = user;
         }
 
         function getUserInfo() {
             return userInfo;
         }
+
+        function getCurrentUserEvents() {
+            return userEvents;
+        }
+
+        function setCurrentUserEvents(events) {
+            console.log('setCurrentUserEvents', events);
+            userEvents = events;
+        }
+
     }
 })();

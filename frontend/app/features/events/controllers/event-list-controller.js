@@ -1,48 +1,58 @@
 (function() {
     angular.module("em.events").controller("em.events.event-list-controller", itemEventController);
 
-    function itemEventController($scope, $rootScope, $location, itemEventService, $uibModal, userService, getEvents) {
+    function itemEventController($scope, $rootScope, $location, $timeout, itemEventService, $uibModal, userService, getEvents, getCurrentUser, flashService) {
+
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        $scope.currentUser = userService.getUserInfo();
+
         // by default button 'load more events' is visible
         $scope.haveHistory = true;
-        // if rootscope is empty, save there response data
-        if ($rootScope.allEvents.length === 0) {
-            $rootScope.allEvents = getEvents.data;
-            $rootScope.eventsIndex = getEvents.index; //save last event index from server
-        }
 
+        if (!itemEventService.getCacheEvents()) {
+            $rootScope.allEvents = getEvents.data;
+            $rootScope.eventsIndex = getEvents.index;
+        }
         $scope.events = $rootScope.allEvents;
+        // reset current user info when controller init
+        // $scope.currentUser = null; // SHITCODE ???
 
         // cut off tags
         angular.forEach($scope.events, function(value, key) {
-            $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+            $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
+                .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
         });
 
-        $scope.getCurrentUser = function() {
-            if (userService.getUserInfo()) {
-                $scope.currentUser = userService.getUserInfo();
-                return;
-            }
-            if (localStorage.getItem("userId")) {
-                userService.getById(localStorage.getItem("userId"))
-                    .then(function(response) {
-                        if (Array.isArray(response) && response.length > 0) {
-                            userService.setUserInfo(response[0]);
-                            $scope.currentUser = userService.getUserInfo();
-                        }
-                    });
-            };
-        };
+        // SHITCODE ??? REMOVE IT???
 
-        $scope.getCurrentUser();
+        // $scope.getCurrentUser = function() {
+        //     if (userService.getUserInfo()) {
+        //         $scope.currentUser = userService.getUserInfo();
+        //         return;
+        //     }
+        //     if (localStorage.getItem("userId")) {
+        //         userService.getById(localStorage.getItem("userId"))
+        //             .then(function(response) {
+        //                 if (Array.isArray(response) && response.length > 0) {
+        //                     userService.setUserInfo(response[0]);
+        //                     $scope.currentUser = userService.getUserInfo();
+        //                 }
+        //             });
+        //     };
+        // };
+
+        // SHITCODE ??? REMOVE IT???
+
+        // $scope.getCurrentUser();
 
         /**
          * Pagination
-         * Called on click 'Load more users'
+         * Called on click 'Load more events'
          */
         $scope.updateEventList = function() {
             // save
-            console.log($rootScope.eventsIndex);
-
             itemEventService.getEvents($rootScope.eventsIndex).then(function(response) {
                 $scope.haveHistory = response.haveHistory;
                 $rootScope.eventsIndex = response.index;
@@ -54,7 +64,8 @@
 
                 // cut off tags
                 angular.forEach($scope.events, function(value, key) {
-                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "").substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
+                        .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
                 });
             }, rejected);
         };
@@ -80,7 +91,7 @@
                 $scope.events.splice(eventIndex, 1);
             }, rejected);
         }
-        
+
         //add modal window
         $scope.openDeleteModal = function(event, eventItem) {
             event.stopPropagation();
@@ -95,7 +106,6 @@
                         $uibModalInstance.close();
                         $scope.currentEventTitle = null;
                         $scope.deleteEventItem(eventItem.id);
-                        // $scope.getUsersByEvent(eventItem.id);
                     };
                     $scope.cancel = function() {
                         $scope.currentEventTitle = null;
@@ -105,26 +115,12 @@
             });
         };
 
-        //opportunity to subscribe and invite friend to event
-        $scope.subscribeOnEvent = function() {
-            event.stopPropagation();
-            $scope.isSubscribe = !$scope.isSubscribe;
-            $scope.getUsersByEvent()
-            if ($scope.isSubscribe) {
-                $scope.SubscribeMessage = 'Unsubscribe';
-                $scope.subscribe();
-            } else {
-                $scope.SubscribeMessage = 'Subscribe'
-                $scope.unSubscribe();
-            }
-        };
-
+        //opportunity to  invite friend to event
         $scope.inviteFriend = function(event, eventItem) {
             event.stopPropagation();
             userService.getAll().then(function(response) {
                 $scope.users = response;
             }, rejected);
-
 
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
@@ -134,22 +130,21 @@
                 controller: function($uibModalInstance, $scope) {
                     $scope.newInvitation = {
                         userSender: userService.getUserInfo(),
-                        userReceiver: null,
+                        userReceiver: {full_name: ''},
                         event: eventItem
                     }
 
-                    $scope.getSelectedUser = function() {
-                        $scope.newInvitation.userReceiver = $scope.selectedFriend;
-                    };
-
                     $scope.invite = function(invitation) {
                         itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
-                            // TODO: add user notification about success
+                            flashService.success('The invitation was sent successfully', false);
+                            $timeout(function () {
+                                flashService.clearFlashMessage();
+                            }, 3000);
                         }, rejected);
 
                         $uibModalInstance.close();
-                    };
 
+                    };
                     $scope.cancel = function() {
                         $scope.newTnvitation = null;
                         $uibModalInstance.dismiss('cancel');
@@ -168,10 +163,13 @@
         "$scope",
         "$rootScope",
         "$location",
+        "$timeout",
         "em.events.event-list-service",
         "$uibModal",
         "userService",
-        "getEvents"
+        "getEvents",
+        "getCurrentUser",
+        "flashService"
     ];
 
 })();
