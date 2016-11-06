@@ -202,7 +202,7 @@
                 templateUrl: "./app/features/main/views/main.html"
             });
         $authProvider.github({
-            clientId: 'd1cdb4a9d640e6f9967e'
+            clientId: '90259c12436cbfe1419a'
         });
     }]);
 })();
