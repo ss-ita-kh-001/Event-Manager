@@ -1,7 +1,6 @@
 exports.config = {
     
     seleniumAddress: 'http://localhost:4444/wd/hub',
-    seleniumServerJar: './node_modules/protractor/selenium/latest.jar',
     framework: 'jasmine',
 
     chromeOnly: true,
