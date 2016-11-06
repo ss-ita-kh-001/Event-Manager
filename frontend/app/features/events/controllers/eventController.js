@@ -1,13 +1,18 @@
 (function() {
     angular.module("em.events").controller("em.events.eventController", eventController);
 
-    function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce) {
+    function eventController($scope, $location, $routeParams, eventService, $rootScope, userService, flashService, $sce, getCurrentUser) {
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        $scope.user = userService.getUserInfo();
+
 
         $scope.showReportTextArea = false;
         $scope.isSubscribe;
         $scope.report;
         $scope.id = $routeParams.id;
-        $scope.UserId = localStorage.getItem("userId");
+        $scope.UserId = $scope.user.id;
         $scope.SubscribeMessage = 'Subscribe';
         $scope.reportDone = false;
 
@@ -17,16 +22,19 @@
             $scope.isSubscribe = !$scope.isSubscribe;
         }
 
-        $scope.getCurrentUser = function() {
-            userService.getById(localStorage.getItem("userId"))
-                .then(function(response) {
-                    userService.setUserInfo(response[0]);
-                    $scope.currentUser = userService.getUserInfo();
-                });
-        };
+
+        // $scope.events = getUserEvents.data;
+
+        // $scope.getCurrentUser = function() {
+        //     userService.getById(localStorage.getItem("userId"))
+        //         .then(function(response) {
+        //             userService.setUserInfo(response[0]);
+        //             $scope.currentUser = userService.getUserInfo();
+        //         });
+        // };
 
         if ($scope.UserId) {
-            $scope.getCurrentUser();
+            // $scope.getCurrentUser();
         }
 
         $scope.getUsersByEvent = function() {
@@ -78,6 +86,7 @@
                 }))
                 .then(function(res) {
                     flashService.success(' You have successfully Subscribed to event', true);
+                    userService.setCurrentUserEvents(null); //shitcode
                     localStorage.setItem($scope.id, $scope.id);
                 }, rejected);
             $scope.sendMessage();
@@ -90,13 +99,14 @@
                 }))
                 .then(function(res) {
                     flashService.success('You have Unsubscribed to event', true);
+                    userService.setCurrentUserEvents(null); //shitcode
                     localStorage.removeItem($scope.id);
                 }, rejected);
             $scope.sendMessage();
         };
 
         $scope.sendMessage = function(event) {
-            userService.getById(localStorage.getItem("userId"))
+            userService.getCurrentUser(localStorage.getItem("userId"))
                 .then(function(response) {
                     userService.setUserInfo(response[0]);
                     $scope.message = {
@@ -138,7 +148,7 @@
             return $scope.event ? ((new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < moment().subtract(1, "days")) && ($scope.event.report === "null")) : false;
         };
         $scope.passed = function() {
-            return $scope.event ? (new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < moment().subtract(1, "days")): false;
+            return $scope.event ? (new Date(moment($scope.event.date).year(), moment($scope.event.date).month(), moment($scope.event.date).date()) < moment().subtract(1, "days")) : false;
         };
         $scope.submitReport = function() {
             $scope.showReportTextArea = false;
@@ -153,5 +163,5 @@
         };
 
     }
-    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce"];
+    eventController.$inject = ["$scope", "$location", "$routeParams", "em.events.eventService", "$rootScope", "userService", "flashService", "$sce", "getCurrentUser"];
 })();

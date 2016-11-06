@@ -15,6 +15,8 @@ var validate = new(require("./features/validate"));
 var nodemailer = require('nodemailer');
 var multer = require("multer");
 var mime = require("mime-types");
+var request = require('request');
+var qs = require('querystring');
 var eventStorage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "./frontend/img/events");
@@ -36,7 +38,18 @@ var gen = new(require("./features/database/generator.js"));
 var responseExt = {
     data: '',
     haveHistory: true
-}
+};
+
+function createJWT(user) {
+    var payload = {
+        id: user[0].id,
+        role: user[0].role,
+        iat: moment().unix(),
+        exp: moment().add(14, 'days').unix()
+    };
+
+    return jwt.encode(payload, config.TOKEN_SECRET);
+};
 
 var router = {
     init: function init(app) {
@@ -169,7 +182,72 @@ var router = {
                 res.redirect('/forgot');
             });
         });
-        app.get(apiPreff + "/users", auth.ensureAuthenticated, function(req, res) {
+        /*
+ |--------------------------------------------------------------------------
+ | Login with GitHub
+ |--------------------------------------------------------------------------
+ */
+        app.post('/auth/github', function(req, res) {
+            var accessTokenUrl = 'https://github.com/login/oauth/access_token';
+            var userApiUrl = 'https://api.github.com/user';
+            var params = {
+                code: req.body.code,
+                client_id: req.body.clientId,
+                client_secret: config.GITHUB_SECRET,
+                redirect_uri: req.body.redirectUri
+            };
+            request.get({
+                url: accessTokenUrl,
+                qs: params
+            }, function(err, response, accessToken) {
+                accessToken = qs.parse(accessToken);
+                var headers = {
+                    'User-Agent': 'Satellizer'
+                };
+                request.get({
+                    url: userApiUrl,
+                    qs: accessToken,
+                    headers: headers,
+                    json: true
+                }, function(err, response, profile) {
+                    users.getUserByGithub(profile.id).then(function(data) {
+                        if (data.length === 0) {
+                            var user = [{}];
+                            user[0].github = profile.id;
+                            user[0].fullName = profile.name;
+                            user[0].email = profile.email;
+                            user[0].role = 'user';
+                            user[0].id = null;
+                            users.addUser(user[0]).then(function() {
+                                users.getLastId().then(function(data) {
+                                    users.getUserById(data[0].id).then(function(data) {
+                                        user[0].id = data[0].id;
+                                        var token = createJWT(user);
+                                        res.status(200).send({
+                                            token: token
+                                        });
+                                    }).catch(function(error) {
+                                        res.status(500).send(error);
+                                    });
+                                }).catch(function(error) {
+                                    res.status(500).send(error);
+                                });
+                            }).catch(function(error) {
+                                res.status(500).send(error);
+                            });
+                        } else {
+                            var token = createJWT(data);
+                            res.status(200).send({
+                                token: token
+                            });
+                        }
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    });
+                });
+            });
+        });
+        app.get(apiPreff + "/users", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             users.getUsers(req.query.index).then(function(data) {
                 // if no more users
                 if (data.length < 10) {
@@ -187,8 +265,19 @@ var router = {
                 console.log(error);
             });
         });
-        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
+        app.get(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
+            console.log('req.body.userID: ', req.body.userID);
+            users.getUserById(req.body.userID).then(function(data) {
+                res.status(200).send(data);
+
+            }).catch(function(error) {
+
+                res.status(500).send(error);
+            });
+        });
+        app.get(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             users.getUserById(req.params.id).then(function(data) {
+                // console.log(data);
                 res.status(200).send(data);
 
             }).catch(function(error) {
@@ -224,14 +313,23 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
-            users.updateUser(Object.assign({}, req.body, req.params)).then(function() {
+
+        app.put(apiPreff + "/me", auth.ensureAuthenticated, function(req, res) {
+            users.updateUser(Object.assign({}, req.body, req.body.userID)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/profile/:id", auth.ensureAuthenticated, function(req, res) {
+        app.get(apiPreff + "/all-users", auth.ensureAuthenticated, function(req, res) {
+            users.getAllUsers().then(function(data) {
+                res.status(200).send(data);
+            }).catch(function(error) {
+                res.status(500).send(error);
+                console.log(error);
+            });
+        });
+        app.delete(apiPreff + "/profile/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             users.deleteUser(req.params).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
@@ -266,7 +364,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/games/event/:event", auth.ensureAuthenticated, function(req, res) {
+        app.post(apiPreff + "/games/event/:event", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.addGame(Object.assign({}, req.body, req.params)).then(function() {
                 games.getLastId().then(function(data) {
                     res.status(200).send(data);
@@ -277,7 +375,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/games/user/:user", auth.ensureAuthenticated, function(req, res) {
+        app.post(apiPreff + "/games/user/:user", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.addGame(Object.assign({}, req.body, req.params)).then(function() {
                 games.getLastId().then(function(data) {
                     res.status(200).send(data);
@@ -288,7 +386,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/games/:user/:event", auth.ensureAuthenticated, function(req, res) {
+        app.post(apiPreff + "/games/:user/:event", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.addGame(Object.assign({}, req.body, req.params)).then(function() {
                 games.getLastId().then(function(data) {
                     res.status(200).send(data);
@@ -299,28 +397,28 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/games/:id", auth.ensureAuthenticated, function(req, res) {
+        app.put(apiPreff + "/games/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.updateGame(Object.assign({}, req.params, req.body)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/games/:id", auth.ensureAuthenticated, function(req, res) {
+        app.delete(apiPreff + "/games/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.deleteById(req.params.id).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/games/user/:user", auth.ensureAuthenticated, function(req, res) {
+        app.delete(apiPreff + "/games/user/:user", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.deleteByUser(req.params.user).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/games/event/:event", auth.ensureAuthenticated, function(req, res) {
+        app.delete(apiPreff + "/games/event/:event", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             games.deleteByEvent(req.params.event).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
@@ -341,8 +439,17 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/users-events/:id", function(req, res) {
+        app.get(apiPreff + "/profile-events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             events.getEventByUser(req.params.id).then(function(data) {
+                console.log(data);
+                res.status(200).send(data);
+
+            }).catch(function(error) {
+                res.status(500).send(error);
+            });
+        });
+        app.get(apiPreff + "/users-events", auth.ensureAuthenticated, function(req, res) {
+            events.getEventByUser(req.body.userID).then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -364,7 +471,6 @@ var router = {
         });
         app.get(apiPreff + "/events", function(req, res) {
             events.getEvents(req.query.index).then(function(data) {
-                console.log(req.query.index);
                 if (data.length < 10) {
                     responseExt.haveHistory = false;
                 } else {
@@ -372,7 +478,7 @@ var router = {
                 }
                 responseExt.data = data;
                 responseExt.index = Number(req.query.index) + data.length;
-                console.log('responseExt.haveHistory',responseExt.haveHistory);
+                console.log('responseExt.haveHistory', responseExt.data);
                 res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -392,14 +498,14 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.put(apiPreff + "/events/:id/", auth.ensureAuthenticated, function(req, res) {
+        app.put(apiPreff + "/events/:id/", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             events.updateEvent(Object.assign({}, req.body, req.params)).then(function() {
                 res.status(200).end();
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events/:id/i", uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events/:id/i", auth.ensureAuthenticated, auth.ensureIsAdmin, uploadEvent.any(), function(req, res) {
             events.updateEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
@@ -408,7 +514,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.post(apiPreff + "/events", uploadEvent.any(), function(req, res) {
+        app.post(apiPreff + "/events", auth.ensureAuthenticated, auth.ensureIsAdmin, uploadEvent.any(), function(req, res) {
             events.addEvent(Object.assign({
                 avatar: req.files[0].filename
             }, req.body, req.params)).then(function() {
@@ -421,7 +527,7 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, function(req, res) {
+        app.delete(apiPreff + "/events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             var titleOfDeletedEvent;
             events.getByEvent(req.params.id).then(function(data) {
                 titleOfDeletedEvent = data[0].title;
@@ -429,7 +535,7 @@ var router = {
             events.getUsersByEvent(req.params.id).then(function(data) {
                 events.deleteEventById(req.params.id).then(function() {
                     res.status(200).end();
-                    if(data.length>0){
+                    if (data.length > 0) {
                         sendEmailAboutDeletingEvent(data);
                     }
                 }).catch(function(error) {
@@ -439,8 +545,8 @@ var router = {
                 res.status(500).send(error);
             });
 
-            function sendEmailAboutDeletingEvent (users) {
-                var emails = users.map(function (user) {
+            function sendEmailAboutDeletingEvent(users) {
+                var emails = users.map(function(user) {
                     return user.email;
                 });
 
@@ -456,7 +562,7 @@ var router = {
                     to: emails,
                     from: 'event.manager.notification@gmail.com',
                     subject: 'Administrator has deleted event ' + titleOfDeletedEvent + ', which you was following on ',
-                    text: ' The details about this you can ask in event-manager chat:\n\n' +'http://' + req.headers.host + '/chat/'
+                    text: ' The details about this you can ask in event-manager chat:\n\n' + 'http://' + req.headers.host + '/chat/'
                 };
 
                 smtpTransport.sendMail(mailOptions, function(error, info) {
@@ -502,7 +608,7 @@ var router = {
             });
         });
 
-        app.put(apiPreff + "/event/report/:id", function(req, res) {
+        app.put(apiPreff + "/event/report/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             events.makeReport(Object.assign({
                 id: req.params.id
             }, req.body)).then(function() {
@@ -517,7 +623,7 @@ var router = {
         });
 
         // route to invite friend for event
-        app.post(apiPreff + "/invite", function(req, res) {
+        app.post(apiPreff + "/invite", auth.ensureAuthenticated, function(req, res) {
 
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',

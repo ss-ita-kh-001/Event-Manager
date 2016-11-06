@@ -55,11 +55,11 @@
                             <li ng-cloak ng-class="{'active': thisActive === 'main'}"><a href="/" >Main<span class="sr-only">(current)</span></a></li>
                             <li ng-cloak ng-class="{'active': thisActive === 'events'}"><a href="events" >Events</a></li>
                             <li ng-cloak ng-if="isAuthenticated() && currentUser.role === 'admin'" ng-class="{'active': thisActive === 'users'}"><a href="users" >Users</a></li>
-                            <li ng-cloak ng-class="{'active': thisActive === 'results'}"><a href="results" >Results</a></li>
+                            <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'results'}"><a href="results" >Results</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li ng-cloak ng-if="isAuthenticated() && !chatOnTop" ng-class="{'active': thisActive === 'chat'}"><a href="chat">Chat</a></li>
-                            <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'profile'}"><a href="profile/{{id}}" ng-click="getId()">My Profile</a></li>
+                            <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'me'}"><a href="me">My Profile</a></li>
                             <li ng-cloak ng-if="!isAuthenticated()" ng-class="{'active': thisActive === 'register'}"><a href="register">Register</a></li>
                             <li ng-cloak ng-if="!isAuthenticated()" ng-class="{'active': thisActive === 'login'}"><a href="login">Login</a></li>
                             <li ng-cloak ng-if="isAuthenticated()" ng-class="{'active': thisActive === 'logout'}"><a href="logout">Logout</a></li>
@@ -84,7 +84,7 @@
             <div class="chat-window collapse" uib-collapse="isCollapsed">
                 <div scroll-glue class="chat-body">
                     <ul class="messages">
-                        <li class="message" ng-class="{ 'message--mine': isMine($index) }" ng-repeat="live in live track by $index">
+                        <li class="message" ng-class="{ 'message--mine': isMineLive($index) }" ng-repeat="live in live track by $index">
                             <div class="message__author">{{live.full_name}}</div>
                             <div class="message__text">
                                 <div ng-bind-html="live.text">
