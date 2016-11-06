@@ -1,11 +1,6 @@
 machine:
   environment:
     EM_PG_CONN: postgres://ubuntu@127.0.0.1:5432/circle_test
-#    SELENIUM_PORT: 4444
-#    BS_AUTOMATE_PROJECT: "Run on circleCI"
-#    BS_AUTOMATE_BUILD: "build No. $CIRCLE_BUILD_NUM for circleCI"
-#    SELENIUM_PLATFORM: WINDOWS
-#    SELENIUM_BROWSER: chrome
 dependencies:
   override:
     - npm install
