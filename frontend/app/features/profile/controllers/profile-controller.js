@@ -21,24 +21,27 @@
             angular.forEach($scope.events, function(value, key) {
                 $scope.events[key].date = $scope.events[key].date.substring(0, 19).replace(/T/, ' ');
                 $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
-                .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                    .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
             });
 
-             
+
         }
         // admin open profile of other user
         else {
-            // console.log('profile of other user');
-            // console.log($routeParams.id);
-            userService.getById($routeParams.id).then(function (data) {
+            userService.getById($routeParams.id).then(function(data) {
                 $scope.user = data[0];
             });
-            
-            userService.getProfileEvents($routeParams.id).then(function (data) {
+
+            userService.getProfileEvents($routeParams.id).then(function(data) {
                 $scope.events = data.data;
+                angular.forEach($scope.events, function(value, key) {
+                    $scope.events[key].date = $scope.events[key].date.substring(0, 19).replace(/T/, ' ');
+                    $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
+                        .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                });
             });
-            
-            
+
+
         }
         // $scope.classHandler();
 
