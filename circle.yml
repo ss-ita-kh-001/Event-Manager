@@ -20,7 +20,7 @@ database:
 test:
   override:
     - npm test
-    - protractor protractor_conf.js --troubleshoot
+    - node ./node_modules/protractor/bin/protractor protractor_conf.js --verbose
 deployment:
   prod:
     branch: master
