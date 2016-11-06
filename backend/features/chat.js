@@ -32,76 +32,25 @@ var chat = {
                 console.log('-----------------------------------------------------');
                 // if token can be decoded and isn't expired
                 var requestExt = isAuth(obj);
-                // console.log(requestExt);
-
                 if (!requestExt.error) {
-                    // console.log(requestExt);
-                    if (!requestExt.data.getHistory) {
-
-                        requestExt.singleMessage = true;
-                        console.log('single message');
-
-                        requestExt.data.text = validate.makeTrusted(requestExt.data.text);
-                        chatDb.addMessage(requestExt.data).then(function(res) {
-                            chatDb.getMessage().then(function(data, res) {
-                                requestExt.data = data;
-
-                                for (var key in clients) {
-                                    clients[key].send(JSON.stringify(requestExt));
-                                }
-                            }).catch(function(error) {
-                                console.log(error);
-                                sendError(clients, id, requestExt, error);
-                            });
-
+                    requestExt.singleMessage = true;
+                    console.log('single message');
+                    requestExt.data.text = validate.makeTrusted(requestExt.data.text);
+                    // console.log('addMessage',requestExt.data);
+                    chatDb.addMessage(requestExt.data).then(function(res) {
+                        chatDb.getMessage().then(function(data, res) {
+                            requestExt.data = data;
+                            for (var key in clients) {
+                                clients[key].send(JSON.stringify(requestExt));
+                            }
                         }).catch(function(error) {
                             console.log(error);
                             sendError(clients, id, requestExt, error);
                         });
-                    } else {
-
-                        requestExt.getHistory = false;
-                        requestExt.singleMessage = false;
-
-                        // index present on client
-                        if (requestExt.data.index) {
-                            console.log('index from client', requestExt.data.index);
-                            currentIndex = requestExt.data.index;
-                            chatDb.getHistory(currentIndex).then(function(data, res) {
-                                console.log('getHistory with currentIndex', currentIndex);
-                                requestExt.data = data;
-                                requestExt.index = (currentIndex - data.length);
-                                if (data.length < 10) {
-                                    requestExt.haveHistory = false;
-                                }
-
-                                clients[id].send(JSON.stringify(requestExt));
-                            }).catch(function(error) {
-                                sendError(clients, id, requestExt, error);
-                            });
-                        } else {
-                            chatDb.getLastId().then(function(data, res) {
-                                currentIndex = data[0].id;
-                                console.log('get Last id', currentIndex);
-
-                                chatDb.getHistory(currentIndex).then(function(data, res) {
-                                    console.log('getHistory with currentIndex', currentIndex);
-                                    requestExt.data = data;
-                                    requestExt.index = (currentIndex - data.length);
-                                    if (data.length < 10) {
-                                        requestExt.haveHistory = false;
-                                    }
-                                    clients[id].send(JSON.stringify(requestExt));
-                                }).catch(function(error) {
-                                    sendError(clients, id, requestExt, error);
-                                });
-                            }).catch(function(error) {
-                                sendError(clients, id, requestExt, error);
-                            });
-
-                        }
-
-                    }
+                    }).catch(function(error) {
+                        console.log(error);
+                        sendError(clients, id, requestExt, error);
+                    });
                 } else {
                     sendError(clients, id, requestExt, 'Incorrect token. Try to login again');
                 }
@@ -111,30 +60,19 @@ var chat = {
                 console.log('disconnected', id);
                 delete clients[id];
             });
-
-
         });
 
     }
 };
-
-function sendError(clients, id, response, status) {
-    response.error = true;
-    response.errorMessage = status;
-    clients[id].send(JSON.stringify(response));
-}
 
 function isAuth(req) {
     var data = JSON.parse(req);
     var payload = null;
     var requestExt = {
         data: data,
-        singleMessage: true,
-        haveHistory: true,
         error: false,
         errorMessage: ''
     }
-
     var token = data.token;
     try {
         payload = jwt.decode(token, config.TOKEN_SECRET);
@@ -149,7 +87,14 @@ function isAuth(req) {
         return requestExt;
     }
     requestExt.data.userID = payload.id;
+    // console.log(payload.id);
     return requestExt;
+}
+function sendError(clients, id, response, status) {
+    response.error = true;
+    response.errorMessage = status;
+    console.log('sendError', response);
+    clients[id].send(JSON.stringify(response));
 }
 
 module.exports = chat;

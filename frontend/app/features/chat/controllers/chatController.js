@@ -42,7 +42,7 @@
         };
 
         $scope.isError = function() {
-            if (chatService.error || !$scope.textMsg || $scope.textMsg.length > maxSymbols) {
+            if (!$scope.textMsg || $scope.textMsg.length > maxSymbols) {
                 return true;
             }
         };

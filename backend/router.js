@@ -37,6 +37,7 @@ var gen = new(require("./features/database/generator.js"));
 
 var responseExt = {
     data: '',
+    index: 0,
     haveHistory: true
 };
 
@@ -600,12 +601,42 @@ var router = {
             gen.chat(req.params.amount);
             res.status(200).end();
         });
-        app.get(apiPreff + "/chat", auth.ensureAuthenticated, function(req, res) {
-            chatDb.getHistory().then(function(data) {
-                res.status(200).send(data);
-            }).catch(function(error) {
-                res.status(500).send(error);
-            });
+        // app.get(apiPreff + "/chat", auth.ensureAuthenticated, function(req, res) {
+        //     chatDb.getHistory().then(function(data) {
+        //         res.status(200).send(data);
+        //     }).catch(function(error) {
+        //         res.status(500).send(error);
+        //     });
+        // });
+        app.get(apiPreff + "/chat-history/", auth.ensureAuthenticated, function(req, res) {
+            if (req.query.index) {
+                chatDb.getHistory(req.query.index).then(function(data) {
+                    responseExt.data = data;
+                    responseExt.index = (req.query.index - data.length);
+                    if (data.length < 10) {
+                        responseExt.haveHistory = false;
+                    }
+                    res.status(200).send(responseExt);
+                }).catch(function(error) {
+                    res.status(500).send(error);
+                });
+            } else {
+                chatDb.getLastId().then(function(data) {
+                    var lastId = data[0].id;
+                    chatDb.getHistory(data[0].id).then(function(data) {
+                        responseExt.data = data;
+                        responseExt.index = (lastId - data.length);
+                        if (data.length < 10) {
+                            responseExt.haveHistory = false;
+                        }
+                        res.status(200).send(responseExt);
+                    }).catch(function(error) {
+                        res.status(500).send(error);
+                    });
+                }).catch(function(error) {
+                    res.status(500).send(error);
+                })
+            }
         });
 
         app.put(apiPreff + "/event/report/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
