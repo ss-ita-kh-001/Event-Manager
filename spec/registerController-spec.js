@@ -41,7 +41,7 @@ describe("Register Controller Test", function () {
         expect(mockScope.range).toEqual('.{6,16}');
     });
     it('check email length value', function(){
-        expect(mockScope.email).toEqual('.{5,50}');
+        expect(mockScope.email).toEqual(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i);
     });
     it('check username value', function(){
         expect(mockScope.username).toEqual(/^[a-zA-Z\s]{3,50}$/);
@@ -67,7 +67,7 @@ describe("Register Controller Test", function () {
     it('check email validation.flashService.error with params', function () {
         mockScope.signupForm = {email: {$invalid : true}};
         mockScope.checkEmail();
-        expect(mockFlashService.error).toHaveBeenCalledWith('The email must be correct and shorter than 50 characters', false);
+        expect(mockFlashService.error).toHaveBeenCalledWith('Please, enter valid email', false);
     });
     it('check email validation.flashService.error with params', function () {
         mockScope.signupForm = {email: {$invalid : false}};
