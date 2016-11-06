@@ -1,4 +1,4 @@
-var baseUrl = 'http://127.0.0.1:5000/';
+var baseUrl = 'http://localhost:5000/';
 describe('main page', function() {
     beforeEach(function() {
         browser.get("/");
