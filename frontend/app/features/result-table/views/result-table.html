@@ -25,8 +25,7 @@
                     <th class="col-sm-2 cursor-pointer" table-sorting="draws">Draws
                         <arrow-sorting ng-if="predicate === 'draws'" ></arrow-sorting>
                     </th>
-                    <th class="col-sm-2 cursor-pointer" table-sorting="Total games">Total games
-                        <arrow-sorting ng-if="predicate === 'Total games'" ></arrow-sorting>
+                    <th class="col-sm-2 cursor-pointer" >Total games
                     </th>
                 </tr>
                 </thead>
@@ -111,7 +110,7 @@
                 </tbody>
             </table>
         </uib-tab>
-        <uib-tab index="1" heading="User results" ng-if = "currentUser.role === 'admin'">
+        <uib-tab index="1" heading="User results">
             <h2>User results</h2>
             <select ng-options="allPlayer as allPlayer.full_name for allPlayer in allPlayers track by allPlayer.id"
                     ng-model="userResults.selectedPlayer" ng-disabled="allPlayers.length === 0"
@@ -138,9 +137,8 @@
                     <th class="col-sm-2 cursor-pointer" table-sorting="draws">Draws
                         <arrow-sorting ng-if="predicate === 'draws'" ></arrow-sorting>
                     </th>
-                    <th class="col-sm-2 cursor-pointer" table-sorting="Total games">Total games
-                        <arrow-sorting ng-if="predicate === 'Total games'" ></arrow-sorting>
-
+                    <th class="col-sm-2 cursor-pointer">Total games
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
