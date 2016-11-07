@@ -2,23 +2,7 @@
     'use strict';
     angular.module('em.result-table').controller('em.result-table.chessResultController', resultController);
 
-    function resultController($scope, resultService, games, players, userService, gamesForUsers) {
-
-        $scope.getCurrentUser = function () {
-            if (userService.getUserInfo()) {
-                $scope.currentUser = userService.getUserInfo();
-                return;
-            }
-            if(localStorage.getItem("userId")){
-                userService.getById(localStorage.getItem("userId"))
-                    .then(function (response) {
-                        if (Array.isArray(response) && response.length > 0) {
-                            userService.setUserInfo(response[0]);
-                            $scope.currentUser = userService.getUserInfo();
-                        }
-                    } );
-            }
-        };
+    function resultController($scope, resultService, games, players, gamesForUsers, getCurrentUser, userService) {
 
         $scope.selectGame = function () {
             $scope.getPlayersList($scope.gameResults.selectedGame);
@@ -37,13 +21,16 @@
                 if($scope.newGameRes.selectedParticipant === undefined){
                      $scope.newGameRes.selectedParticipant = $scope.participantsList[0];
                 }else{
-                    var j=0;
-                    while (j < $scope.participantsList.length && $scope.participantsList[j].id != $scope.newGameRes.selectedParticipant){
-                        j++;
-                    }
-                    if(j >= $scope.participantsList.length){
+                    $scope.flag = false;
+                    angular.forEach($scope.participantsList, function(participant, key){
+                        if (participant.id === $scope.newGameRes.selectedParticipant){
+                            $scope.flag =true;
+                            return true;
+                        }else{}
+                    });
+                    if(!$scope.flag){
                         $scope.newGameRes.selectedParticipant = $scope.participantsList[0];
-                    }else{}
+                    }
                 }
             }, rejected);
         };
@@ -69,11 +56,14 @@
                     if($scope.allPlayers.length == 0){
                         $scope.usersGameList =[];
                     }else{
-                        var i=0;
-                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.userResults.selectedPlayer.id){
-                            i++;
-                        }
-                        if (i>=$scope.allPlayers.length){
+                        $scope.flag = false;
+                        angular.forEach($scope.allPlayers, function(allPlayer,key){
+                            if(allPlayer.id === $scope.userResults.selectedPlayer.id){
+                                $scope.flag = true;
+                                return true;
+                            }else{}
+                        });
+                        if(!$scope.flag){
                             $scope.userResults.selectedPlayer = $scope.allPlayers[0];
                         }
                         $scope.getGameListByUser($scope.userResults.selectedPlayer);
@@ -97,11 +87,13 @@
                 $scope.getParticipantsByGame($scope.gameResults.selectedGame);
                 resultService.getAllPlayers().then(function (response) {
                     $scope.allPlayers = response.data;
-                    var i=0;
-                    while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.userResults.selectedPlayer.id){
-                        i++;
-                    }
-                    if (i>=$scope.allPlayers.length){
+                    angular.forEach($scope.allPlayers, function(allPlayer,key){
+                        if(allPlayer.id === $scope.userResults.selectedPlayer.id){
+                            $scope.flag = true;
+                            return true;
+                        }else{}
+                    });
+                    if(!$scope.flag){
                         $scope.userResults.selectedPlayer = $scope.allPlayers[0];
                     }
                     $scope.getGameListByUser($scope.userResults.selectedPlayer);
@@ -113,19 +105,25 @@
             if($scope.upRes.id !== id){
                 $scope.upRes.id = id;
                 var i = 0;
-                while(i < $scope.playersList.length && $scope.playersList[i].id != id){
-                    i++;
-                }
+                angular.forEach($scope.playersList.length, function(player,key){
+                    if(player.id === id){
+                        i = key;
+                        return true;
+                    }
+                });
                 $scope.upRes.event = $scope.gameResults.selectedGame.id;
                 $scope.upRes.wins = $scope.playersList[i].wins;
                 $scope.upRes.loses = $scope.playersList[i].loses;
                 $scope.upRes.draws = $scope.playersList[i].draws;
                 resultService.getUpdatingParticipants($scope.gameResults.selectedGame.id, id).then(function (response) {
                     $scope.updatingParticipantsList = response.data;
-                    var j=0;
-                    while(j < $scope.updatingParticipantsList.length && $scope.updatingParticipantsList[j].id != $scope.playersList[i].user){
-                        j++;
-                    }
+                    var j = 0;
+                    angular.forEach($scope.updatingParticipantsList, function(updatingParticipant,key){
+                        if(updatingParticipant.id === $scope.playersList[i].user){
+                            j = key;
+                            return true;
+                        }
+                    });
                     $scope.upRes.selectedParticipant = $scope.updatingParticipantsList[j];
                 }, rejected);
 
@@ -142,11 +140,14 @@
                     $scope.getParticipantsByGame($scope.gameResults.selectedGame);
                     resultService.getAllPlayers().then(function (response) {
                         $scope.allPlayers = response.data;
-                        var i=0;
-                        while (i<$scope.allPlayers.length && $scope.allPlayers[i].id != $scope.userResults.selectedPlayer.id){
-                            i++;
-                        }
-                        if (i>=$scope.allPlayers.length){
+                        $scope.flag = false;
+                        angular.forEach($scope.allPlayers, function(allPlayer,key){
+                            if(allPlayer.id === $scope.userResults.selectedPlayer.id){
+                                $scope.flag = true;
+                                return true;
+                            }else{}
+                        });
+                        if(!$scope.flag){
                             $scope.userResults.selectedPlayer = $scope.allPlayers[0];
                         }
                         $scope.getGameListByUser($scope.userResults.selectedPlayer);
@@ -163,10 +164,14 @@
         function rejected (error) {
             console.log('Error: ' + error.data.status);
         }
+        
+        $scope.flag = false;
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
+        }
+        
+        $scope.currentUser = userService.getUserInfo();
 
-        $scope.currentUser={};
-        $scope.currentUser.role = 'user';
-        $scope.getCurrentUser();
         if($scope.currentUser.role  !== 'admin'){
             $scope.gamesList = gamesForUsers.data;
         }else{
@@ -201,5 +206,5 @@
         }
     }
 
-    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "userService", "gamesForUsers"];
+    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "gamesForUsers", "getCurrentUser", "userService"];
 })();
