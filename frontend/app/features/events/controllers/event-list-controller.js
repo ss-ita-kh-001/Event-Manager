@@ -16,12 +16,37 @@
             $rootScope.eventsIndex = getEvents.index;
         }
         $scope.events = $rootScope.allEvents;
+        // reset current user info when controller init
+        // $scope.currentUser = null; // SHITCODE ???
 
         // cut off tags
         angular.forEach($scope.events, function(value, key) {
             $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
                 .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
         });
+
+        // SHITCODE ??? REMOVE IT???
+
+        // $scope.getCurrentUser = function() {
+        //     if (userService.getUserInfo()) {
+        //         $scope.currentUser = userService.getUserInfo();
+        //         return;
+        //     }
+        //     if (localStorage.getItem("userId")) {
+        //         userService.getById(localStorage.getItem("userId"))
+        //             .then(function(response) {
+        //                 if (Array.isArray(response) && response.length > 0) {
+        //                     userService.setUserInfo(response[0]);
+        //                     $scope.currentUser = userService.getUserInfo();
+        //                 }
+        //             });
+        //     };
+        // };
+
+        // SHITCODE ??? REMOVE IT???
+
+        // $scope.getCurrentUser();
+
         /**
          * Pagination
          * Called on click 'Load more events'
