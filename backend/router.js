@@ -285,14 +285,14 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/participants/game/:id", function(req, res) {
+        app.get(apiPreff + "/participants/game/:id", auth.ensureAuthenticated, function(req, res) {
             games.getParticipantsByGame(req.params.id).then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/participants/event/:event/game/:game", function(req, res) {
+        app.get(apiPreff + "/participants/event/:event/game/:game", auth.ensureAuthenticated, function(req, res) {
             games.getUpdatingParticipantsByGame(req.params.event, req.params.game).then(function(data) {
                 res.status(200).send(data);
 
@@ -344,21 +344,21 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/games", function(req, res) {
+        app.get(apiPreff + "/games", auth.ensureAuthenticated, function(req, res) {
             games.getGames().then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/games/users", function(req, res) {
+        app.get(apiPreff + "/games/users", auth.ensureAuthenticated, function(req, res) {
             games.getPlayers().then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/games/event/:event", function(req, res) {
+        app.get(apiPreff + "/games/event/:event", auth.ensureAuthenticated, function(req, res) {
             games.getByEvent(req.params.event).then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
@@ -485,14 +485,14 @@ var router = {
                 res.status(500).send(error);
             });
         });
-        app.get(apiPreff + "/events/:id", function(req, res) {
+        app.get(apiPreff + "/events/:id", auth.ensureAuthenticated, function(req, res) {
             events.getByEvent(req.params.id).then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
             })
         });
-        app.get(apiPreff + "/event-users/:id", function(req, res) {
+        app.get(apiPreff + "/event-users/:id", auth.ensureAuthenticated, function(req, res) {
             events.getUsersByEvent(req.params.id).then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
@@ -573,41 +573,13 @@ var router = {
                 });
             }
         });
-        app.get(apiPreff + "/games/results", function(req, res) {
+        app.get(apiPreff + "/games/results", auth.ensureAuthenticated, function(req, res) {
             games.getGamesForUserAcc().then(function(data) {
                 res.status(200).send(data);
             }).catch(function(error) {
                 res.status(500).send(error);
             });
         });
-
-        app.post(apiPreff + "/gen/events/:amount", function(req, res) {
-            gen.events(req.params.amount);
-            res.status(200).end();
-        });
-        app.post(apiPreff + "/gen/users/:amount", function(req, res) {
-            gen.users(req.params.amount);
-            res.status(200).end();
-        });
-        app.post(apiPreff + "/gen/sub/:amount", function(req, res) {
-            gen.subscribe(req.params.amount);
-            res.status(200).end();
-        });
-        app.post(apiPreff + "/gen/games/:amount", function(req, res) {
-            gen.games(req.params.amount);
-            res.status(200).end();
-        });
-        app.post(apiPreff + "/gen/chat/:amount", function(req, res) {
-            gen.chat(req.params.amount);
-            res.status(200).end();
-        });
-        // app.get(apiPreff + "/chat", auth.ensureAuthenticated, function(req, res) {
-        //     chatDb.getHistory().then(function(data) {
-        //         res.status(200).send(data);
-        //     }).catch(function(error) {
-        //         res.status(500).send(error);
-        //     });
-        // });
         app.get(apiPreff + "/chat-history/", auth.ensureAuthenticated, function(req, res) {
             if (req.query.index) {
                 chatDb.getHistory(req.query.index).then(function(data) {
@@ -691,7 +663,7 @@ var router = {
         });
 
 
-        app.post(apiPreff + "/message/subscribe", function(req, res) {
+        app.post(apiPreff + "/message/subscribe", auth.ensureAuthenticated, function(req, res) {
 
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
@@ -719,7 +691,7 @@ var router = {
 
         });
 
-        app.post(apiPreff + "/message/unsubscribe", function(req, res) {
+        app.post(apiPreff + "/message/unsubscribe", auth.ensureAuthenticated, function(req, res) {
 
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
