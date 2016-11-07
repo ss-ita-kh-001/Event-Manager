@@ -442,7 +442,7 @@ var router = {
         });
         app.get(apiPreff + "/profile-events/:id", auth.ensureAuthenticated, auth.ensureIsAdmin, function(req, res) {
             events.getEventByUser(req.params.id).then(function(data) {
-                console.log(data);
+                // console.log(data);
                 res.status(200).send(data);
 
             }).catch(function(error) {
@@ -479,7 +479,7 @@ var router = {
                 }
                 responseExt.data = data;
                 responseExt.index = Number(req.query.index) + data.length;
-                console.log('responseExt.haveHistory', responseExt.data);
+                // console.log('responseExt.haveHistory', responseExt.data);
                 res.status(200).send(responseExt);
             }).catch(function(error) {
                 res.status(500).send(error);
@@ -616,6 +616,9 @@ var router = {
                     if (data.length < 10) {
                         responseExt.haveHistory = false;
                     }
+                    else {
+                        responseExt.haveHistory = true;
+                    }
                     res.status(200).send(responseExt);
                 }).catch(function(error) {
                     res.status(500).send(error);
@@ -628,6 +631,9 @@ var router = {
                         responseExt.index = (lastId - data.length);
                         if (data.length < 10) {
                             responseExt.haveHistory = false;
+                        }
+                        else{
+                            responseExt.haveHistory = true;
                         }
                         res.status(200).send(responseExt);
                     }).catch(function(error) {

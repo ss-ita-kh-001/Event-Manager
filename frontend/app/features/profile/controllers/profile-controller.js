@@ -23,8 +23,6 @@
                 $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
                     .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
             });
-
-
         }
         // admin open profile of other user
         else {
@@ -40,10 +38,8 @@
                         .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
                 });
             });
-
-
         }
-        // $scope.classHandler();
+        $scope.classHandler();
 
         $scope.updateUserSend = function() {
             userService.update($scope.user);
