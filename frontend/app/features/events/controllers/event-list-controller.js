@@ -76,7 +76,7 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'deleteModalContent.html',
                 scope: $scope,
-                controller: ['uibModalInstance', '$scope',
+                controller: ['$uibModalInstance', '$scope',
                     function($uibModalInstance, $scope) {
                         $scope.delete = function() {
                             $uibModalInstance.close();
@@ -104,7 +104,7 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'inviteFriendForEvent.html',
                 scope: $scope,
-                controller: ['uibModalInstance', '$scope',
+                controller: ['$uibModalInstance', '$scope',
                     function($uibModalInstance, $scope) {
                         $scope.newInvitation = {
                             userSender: userService.getUserInfo(),
