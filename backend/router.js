@@ -215,8 +215,8 @@ var router = {
                         if (data.length === 0) {
                             var user = [{}];
                             user[0].github = profile.id;
-                            user[0].fullName = profile.name;
-                            user[0].email = profile.email;
+                            user[0].fullName = profile.name || 'anonym';
+                            user[0].email = profile.email || '';
                             user[0].role = 'user';
                             user[0].id = null;
                             users.addUser(user[0]).then(function() {
