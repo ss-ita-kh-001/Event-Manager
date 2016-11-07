@@ -33,5 +33,5 @@ This project is designed to track events schedule.
 ## CircleCI & Heroku:
 http://www.mattmakai.com/source/static/img/presentations/heroku-deployments/local-to-github.jpg
 
-## ER-diagram
+## ER-diagram: 
 https://s17.postimg.org/rkyh0j4of/er_diagram.png
