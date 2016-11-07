@@ -22,21 +22,6 @@
             $scope.isSubscribe = !$scope.isSubscribe;
         }
 
-
-        // $scope.events = getUserEvents.data;
-
-        // $scope.getCurrentUser = function() {
-        //     userService.getById(localStorage.getItem("userId"))
-        //         .then(function(response) {
-        //             userService.setUserInfo(response[0]);
-        //             $scope.currentUser = userService.getUserInfo();
-        //         });
-        // };
-
-        if ($scope.UserId) {
-            // $scope.getCurrentUser();
-        }
-
         $scope.getUsersByEvent = function() {
             userService.getUsersByEvent($scope.id)
                 .then(function(res) {
@@ -85,7 +70,7 @@
                     user: $scope.UserId
                 }))
                 .then(function(res) {
-                    flashService.success(' You have successfully Subscribed to event', true);
+                    flashService.success(' You have successfully Subscribed to event', false);
                     userService.setCurrentUserEvents(null); //shitcode
                     localStorage.setItem($scope.id, $scope.id);
                 }, rejected);
@@ -98,7 +83,7 @@
                     user: $scope.UserId
                 }))
                 .then(function(res) {
-                    flashService.success('You have Unsubscribed to event', true);
+                    flashService.success('You have Unsubscribed to event', false);
                     userService.setCurrentUserEvents(null); //shitcode
                     localStorage.removeItem($scope.id);
                 }, rejected);
