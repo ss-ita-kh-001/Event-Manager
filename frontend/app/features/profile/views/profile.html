@@ -2,18 +2,23 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="user-info">
-                <img src="http://simpleicon.com/wp-content/uploads/user1.png" alt="Your Photo" class="img-responsive" />
+                <img src="{{user.avatar}}" alt="Your Photo" class="img-responsive" />
                 <h2>{{user.full_name}}</h2>
                 <p>
                     {{user.email}}
                 </p>
-                <a href="/profile/{{user.id}}/settings" class="btn btn-primary btn-lg">Settings</a>
+                <a href="/me/settings" class="btn btn-primary btn-lg">Settings</a>
             </div>
         </div>
         <div class="col-sm-8">
-            <div ng-repeat="event in events" class="upcoming-events-item">
+          <div class="col-sm-12 flash-block">
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+          </div>
+            <p class="h3" ng-if="events.length">My events:</p>
+            <div ng-repeat="event in events track by $index" class="upcoming-events-item">
                 <div>
-                    <a href="/events/{{event.event}}">{{event.title}}</a>
+                    <a href="/events/{{event.event}}"><h4 class="cursor-pointer">{{event.title}}</h4></a>
+                    <h6>{{event.date | date:'dd.MM.yyyy'}}</h6>
                     <p>
                         {{event.desc}}
                     </p>

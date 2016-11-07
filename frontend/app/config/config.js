@@ -4,9 +4,10 @@
         /**
          * Helper auth functions
          */
-        var skipIfLoggedIn = ['$q', '$auth', function($q, $auth) {
+        var skipIfLoggedIn = ['$q', '$location', '$auth', function($q, $location, $auth) {
             var deferred = $q.defer();
             if ($auth.isAuthenticated()) {
+                $location.path('/');
                 deferred.reject();
             } else {
                 deferred.resolve();
@@ -29,11 +30,38 @@
                 templateUrl: "./app/features/main/views/main.html",
                 controller: "em.main.mainController"
             })
-            .when("/profile/:userID", {
+            .when("/me", {
                 templateUrl: "./app/features/profile/views/profile.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
+                }
+            })
+            .when("/profile/:id", {
+                templateUrl: "./app/features/profile/views/profile.html",
+                controller: "em.profile.profile-controller",
+                resolve: {
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
                 }
             })
             .when("/users", {
@@ -42,15 +70,33 @@
                 resolve: {
                     loginRequired: loginRequired,
                     getUsers: ["userService", function(userService) {
-                        return userService.getUsers(1);
+                        if (!userService.getUsersInfo()) {
+                            return userService.getUsers(0);
+                        }
+
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
                     }]
                 }
             })
-            .when("/profile/:userID/settings", {
+            .when("/me/settings", {
                 templateUrl: "./app/features/profile/views/settings.html",
                 controller: "em.profile.profile-controller",
                 resolve: {
-                    loginRequired: loginRequired
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
                 }
             })
             .when("/chat", {
@@ -91,13 +137,34 @@
                 controller: "em.events.event-list-controller",
                 resolve: {
                     getEvents: ["em.events.event-list-service", function(itemEventService) {
-                        return itemEventService.getEvents(1);
+                        if (!itemEventService.getCacheEvents()) {
+                            return itemEventService.getEvents(0);
+                        }
+
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
                     }]
                 }
             })
             .when('/events/:id', {
                 templateUrl: './app/features/events/views/event.html',
-                controller: "em.events.eventController"
+                controller: "em.events.eventController",
+                resolve: {
+                    loginRequired: loginRequired,
+                    getCurrentUser: ["userService", function(userService) {
+                        if (!userService.getUserInfo()) {
+                            return userService.getCurrentUser();
+                        }
+                    }],
+                    getCurrentUserEvents: ["userService", function(userService) {
+                        if (!userService.getCurrentUserEvents()) {
+                            return userService.getUserEvents();
+                        }
+                    }]
+                }
             })
             .when("/events/:id/edit", {
                 templateUrl: "./app/features/addEvent/views/addEvent.html",
@@ -111,6 +178,7 @@
                 templateUrl: "./app/features/result-table/views/result-table.html",
                 controller: "em.result-table.chessResultController",
                 resolve: {
+                    loginRequired: loginRequired,
                     games: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getEventsGames();
                     }],
@@ -119,6 +187,9 @@
                     }],
                     players: ["em.result-table.result-table-service", function(resultService) {
                         return resultService.getAllPlayers();
+                    }],
+                    getCurrentUser: ["userService", function(userService) {
+                            return userService.getCurrentUser();
                     }]
                 }
             })
@@ -133,6 +204,8 @@
             .otherwise({
                 templateUrl: "./app/features/main/views/main.html"
             });
-
+        $authProvider.github({
+            clientId: '90259c12436cbfe1419a'
+        });
     }]);
 })();

@@ -1,20 +1,28 @@
 (function() {
     angular.module("em.chat").controller("em.chat.chatController", chatController);
 
-    function chatController($scope, chatService, flashService, $rootScope, $location) {
+    function chatController($scope, chatService, flashService, $rootScope, $location, userService, $auth) {
+
         var maxSymbols = 300;
-        var obj = {
-            user: localStorage.getItem("userId")
+        var obj = {}; //save here text,time,and token of message
+
+        $scope.user = userService.getUserInfo();
+
+        $scope.haveHistory = function() {
+            return chatService.haveHistory;
         }
 
-        $scope.isMine = function($index) {
-            return obj.user == $scope.live[$index].user;
+        $scope.isMineHistory = function($index) {
+            return $scope.user.id == $scope.history[$index].user;
+        }
+
+        $scope.isMineLive = function($index) {
+            return $scope.user.id == $scope.live[$index].user;
         }
 
         $scope.msgSend = function() {
             if (!$scope.isError()) {
                 flashService.clearFlashMessage();
-                obj.user = localStorage.getItem("userId");
                 obj.text = $scope.textMsg;
                 obj.date = moment().format("YYYY-MM-DD HH:mm:ss");
                 obj.token = localStorage.getItem("satellizer_token");
@@ -25,9 +33,7 @@
 
         $scope.isChatOnTop = function() {
             $rootScope.chatOnTop = true;
-            $scope.id = localStorage.getItem('userId');
-            $location.path("/profile/" + $scope.id);
-            $scope.classHandler();
+            $location.path("/me");
         };
 
         $scope.closeSmallChat = function() {
@@ -35,7 +41,7 @@
         };
 
         $scope.isError = function() {
-            if (chatService.error || !$scope.textMsg || $scope.textMsg.length > maxSymbols) {
+            if (!$scope.textMsg || $scope.textMsg.length > maxSymbols) {
                 return true;
             }
         };
@@ -59,17 +65,10 @@
             }
         }
         // new messages
-        $scope.history = chatService.history;
         $scope.live = chatService.live;
-        // new array for listening new history from service
-        $scope.newArray = chatService.history;
-        $scope.$watchCollection('newArray', function(newValue) {
-            var tmp = [];
-            tmp = tmp.concat(newValue);
-            $scope.history = tmp.concat($scope.history);
-        });
+        $scope.history = chatService.history;
     }
 
-    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location"];
+    chatController.$inject = ["$scope", "em.chat.chatService", "flashService", "$rootScope", "$location", "userService", "$auth"];
 
 })();

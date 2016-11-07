@@ -6,7 +6,7 @@
     function registerController($scope, userService, flashService) {
 
         $scope.range = '.{6,16}';
-        $scope.email = '.{5,50}';
+        $scope.email = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
         $scope.username = /^[a-zA-Z\s]{3,50}$/;
         $scope.register = function() {
             $scope.dataLoading = true;
@@ -22,7 +22,7 @@
 
         $scope.checkEmail = function() {
             if ($scope.signupForm.email.$invalid) {
-                flashService.error('The email must be correct and shorter than 50 characters', false);
+                flashService.error('Please, enter valid email', false);
             } else {
                 flashService.clearFlashMessage();
             }

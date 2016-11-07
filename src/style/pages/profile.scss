@@ -1,5 +1,18 @@
 .upcoming-events-item {
-    border-left: 4px solid #CC6666;
+    border-left: 4px solid #00b4d5;
     padding: 0 10px;
     margin: 20px 5px;
+}
+
+.profile-event {
+    color: #0194af;
+}
+
+.event-date {
+    font-size: 14px;
+    margin: 0;
+    color: #0194af;
+}
+.profile-event:hover {
+    color: #0194af;
 }
