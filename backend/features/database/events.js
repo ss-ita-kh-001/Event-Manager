@@ -2,7 +2,7 @@ var db = require("./connection");
 var events = function() {
     this.getEvents = function(index) {
         console.log('SELECT events OFFSET ', index);
-        return db.query("SELECT * FROM \"events\" ORDER BY \"id\" OFFSET " + Number(index) + " ROWS FETCH NEXT 10 ROWS ONLY;");
+        return db.query("SELECT * FROM \"events\" ORDER BY \"date\" DESC OFFSET " + Number(index) + " ROWS FETCH NEXT 10 ROWS ONLY;");
     };
     this.getByEvent = function(id) {
         return db.query("SELECT * FROM \"events\" WHERE \"id\" = " + id + ";");
