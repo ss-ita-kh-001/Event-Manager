@@ -2,6 +2,32 @@ describe("Controller Test", function () {
 
     var mockScope = {};
     var controller;
+    var mockEvents = {data:[{
+        "id": 22,
+        "title": "Football",
+        "desc": "description about football",
+        "date": "2016-10-28T18:00:00.000Z",
+        "place": "Kharkiv",
+        "photos": null,
+        "report": null,
+        "isGame": true
+      },
+      {
+        "id": 23,
+        "title": "Picnic",
+        "desc": "description about picnic",
+        "date": "2016-10-28T18:00:00.000Z",
+        "place": "Kharkiv",
+        "photos": null,
+        "report": null,
+        "isGame": true
+      }]};
+    var mockCurrentUser = {data:[{
+        "id": 1,
+        "role": "admin",
+        "name": "Natasha",
+        "lastName": "Poberezhets"
+      }]};
 
     beforeEach(angular.mock.module("em"));
 
@@ -9,63 +35,22 @@ describe("Controller Test", function () {
         mockScope = $rootScope.$new();
 
         controller = $controller("em.events.event-list-controller", {
-            $scope: mockScope
+            $scope: mockScope,
+            getEvents : mockEvents,
+            getCurrentUser: mockCurrentUser
         });
     }));
 
-    describe("HTTP service test", function () {
+    it('Get events array on controller initialization', function(){
+        expect(mockScope.events).toBeDefined();
+    });
 
-        var backend;
+    it('Data processing', function(){
+        expect(mockScope.events.length).toEqual(2);
+    });
 
-        beforeEach(angular.mock.inject(function ($httpBackend) {
-            backend = $httpBackend;
-
-            backend.when("GET", "/api/events/").respond(
-                [{
-                    "id": 22,
-                    "title": "Football",
-                    "desc": "description about football",
-                    "date": "2016-10-28T18:00:00.000Z",
-                    "place": "Kharkiv",
-                    "photos": null,
-                    "report": null,
-                    "isGame": true
-                  },
-                  {
-                    "id": 23,
-                    "title": "Picnic",
-                    "desc": "description about picnic",
-                    "date": "2016-10-28T18:00:00.000Z",
-                    "place": "Kharkiv",
-                    "photos": null,
-                    "report": null,
-                    "isGame": true
-                  }
-                ]);
-        }));
-
-        beforeEach(angular.mock.inject(function ($controller, $rootScope, $http) {
-            mockScope = $rootScope.$new();
-            $controller("em.events.event-list", {
-                $scope: mockScope,
-                $http: $http
-            });
-
-            backend.flush();
-        }));
-
-        // it("Ajax request", function () {
-        //     backend.verifyNoOutstandingExpectation();
-        // });
-
-        // it("Data processing", function () {
-        //     expect(mockScope.events).toBeDefined();
-        //     expect(mockScope.events.length).toEqual(2);
-        // });
-
-        // it("Order data in the response", function () {
-        //     expect(mockScope.events[0].title).toEqual("Football");
-        //     expect(mockScope.events[1].title).toEqual("Picnic");
-        // });
+    it("Order data in the response", function () {
+        expect(mockScope.events[0].title).toEqual("Football");
+        expect(mockScope.events[1].title).toEqual("Picnic");
     });
 });
