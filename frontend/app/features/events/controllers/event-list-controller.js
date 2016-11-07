@@ -76,17 +76,19 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'deleteModalContent.html',
                 scope: $scope,
-                controller: function($uibModalInstance, $scope) {
-                    $scope.delete = function() {
-                        $uibModalInstance.close();
-                        $scope.currentEventTitle = null;
-                        $scope.deleteEventItem(eventItem.id);
-                    };
-                    $scope.cancel = function() {
-                        $scope.currentEventTitle = null;
-                        $uibModalInstance.dismiss('cancel');
-                    };
-                }
+                controller: ['$uibModalInstance', '$scope',
+                    function($uibModalInstance, $scope) {
+                        $scope.delete = function() {
+                            $uibModalInstance.close();
+                            $scope.currentEventTitle = null;
+                            $scope.deleteEventItem(eventItem.id);
+                        };
+                        $scope.cancel = function() {
+                            $scope.currentEventTitle = null;
+                            $uibModalInstance.dismiss('cancel');
+                        };
+                    }
+                ]
             });
         };
 
@@ -102,29 +104,31 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'inviteFriendForEvent.html',
                 scope: $scope,
-                controller: function($uibModalInstance, $scope) {
-                    $scope.newInvitation = {
-                        userSender: userService.getUserInfo(),
-                        userReceiver: {full_name: ''},
-                        event: eventItem
+                controller: ['$uibModalInstance', '$scope',
+                    function($uibModalInstance, $scope) {
+                        $scope.newInvitation = {
+                            userSender: userService.getUserInfo(),
+                            userReceiver: {full_name: ''},
+                            event: eventItem
+                        }
+
+                        $scope.invite = function(invitation) {
+                            itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
+                                flashService.success('The invitation was sent successfully', false);
+                                $timeout(function () {
+                                    flashService.clearFlashMessage();
+                                }, 3000);
+                            }, rejected);
+
+                            $uibModalInstance.close();
+
+                        };
+                        $scope.cancel = function() {
+                            $scope.newTnvitation = null;
+                            $uibModalInstance.dismiss('cancel');
+                        };
                     }
-
-                    $scope.invite = function(invitation) {
-                        itemEventService.sendInvitation($scope.newInvitation).then(function(response) {
-                            flashService.success('The invitation was sent successfully', false);
-                            $timeout(function () {
-                                flashService.clearFlashMessage();
-                            }, 3000);
-                        }, rejected);
-
-                        $uibModalInstance.close();
-
-                    };
-                    $scope.cancel = function() {
-                        $scope.newTnvitation = null;
-                        $uibModalInstance.dismiss('cancel');
-                    };
-                }
+                ]
             });
         }
 
