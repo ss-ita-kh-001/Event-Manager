@@ -6,7 +6,6 @@
     function mainApiService($http, baseUrl) {
 
         this.get = function(url, index) {
-            console.log('mainApiService.get:', url);
             return $http({
                 method: 'GET',
                 url: baseUrl + url + '/',

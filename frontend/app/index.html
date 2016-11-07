@@ -78,9 +78,10 @@
         </div>
         <!-- Small Chat -->
         <div ng-cloak ng-if="chatOnTop" class="chat-on-top" ng-controller="em.chat.chatController">
-            <span class="collapse-area" ng-click="isCollapsed = !isCollapsed">
-                </span>
-            <a href="" class="close-cross" ng-click="closeSmallChat()"></a>
+            <div class="collapse-area">
+                <a href="" class="close-cross" ng-click="closeSmallChat()"></a>
+                <span class="hide-cross" ng-click="isCollapsed = !isCollapsed"></span>
+            </div>
             <div class="chat-window collapse" uib-collapse="isCollapsed">
                 <div scroll-glue class="chat-body">
                     <ul class="messages">
