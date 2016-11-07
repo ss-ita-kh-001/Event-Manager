@@ -38,14 +38,11 @@
                 $rootScope.$apply(function() {
                     flashService.error(response.errorMessage, false);
                 });
-                socket.close();
             }
 
         }
         self.msgSend = function(msg) {
-            if (socket.readyState == 1) {
-                socket.send(JSON.stringify(msg));
-            }
+            socket.send(JSON.stringify(msg));
         }
         self.getHistory = function() {
             mainApiService.get('chat-history', $rootScope.chatIndex).then(function(response) {
