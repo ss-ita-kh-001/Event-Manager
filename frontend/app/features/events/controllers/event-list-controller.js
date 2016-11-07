@@ -20,7 +20,7 @@
         // cut off tags
         angular.forEach($scope.events, function(value, key) {
             $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
-                .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                .substring(0, 150) + ($scope.events[key].desc.length > 100 ? "..." : "");
         });
         /**
          * Pagination
@@ -40,7 +40,7 @@
                 // cut off tags
                 angular.forEach($scope.events, function(value, key) {
                     $scope.events[key].desc = $scope.events[key].desc.replace(/(<([^>]+)>)/g, "")
-                        .substring(0, 57) + ($scope.events[key].desc.length > 100 ? "..." : "");
+                        .substring(0, 150) + ($scope.events[key].desc.length > 100 ? "..." : "");
                 });
             }, rejected);
         };
