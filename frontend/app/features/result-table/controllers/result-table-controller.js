@@ -104,8 +104,9 @@
         $scope.updateResult = function (id) {
             if($scope.upRes.id !== id){
                 $scope.upRes.id = id;
+
                 var i = 0;
-                angular.forEach($scope.playersList.length, function(player,key){
+                angular.forEach($scope.playersList, function(player,key){
                     if(player.id === id){
                         i = key;
                         return true;
