@@ -237,6 +237,7 @@ gulp.task('font:build', function() {
 gulp.task('concat', function() {
     gulp.src(path.src.concatJS)
         .pipe(gulpif(config.env === 'development', sourcemaps.init())) //init sourcemap
+        .pipe(uglify())
         .pipe(concat('all.js'))
         .pipe(gulpif(config.env === 'development', sourcemaps.write())) //write sourcemap
         .pipe(gulp.dest(path.build.js))
