@@ -17,8 +17,8 @@
             <p class="h3" ng-if="events.length">Events coming soon</p>
             <div ng-repeat="event in events track by $index" class="upcoming-events-item">
                 <div>
-                    <a href="/events/{{event.event}}" class="profile-event">{{event.title}}</a>
-                    <p class="event-date">{{event.date}}</p>
+                    <a href="/events/{{event.event}}"><h4 class="cursor-pointer">{{event.title}}</h4></a>
+                    <h6>{{event.date | date:'dd.MM.yyyy'}}</h6>
                     <p>
                         {{event.desc}}
                     </p>
