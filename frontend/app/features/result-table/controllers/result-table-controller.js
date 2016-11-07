@@ -2,7 +2,7 @@
     'use strict';
     angular.module('em.result-table').controller('em.result-table.chessResultController', resultController);
 
-    function resultController($scope, resultService, games, players, gamesForUsers,getCurrentUser) {
+    function resultController($scope, resultService, games, players, gamesForUsers, getCurrentUser, userService) {
 
         $scope.selectGame = function () {
             $scope.getPlayersList($scope.gameResults.selectedGame);
@@ -166,9 +166,12 @@
         }
         
         $scope.flag = false;
-        if(getCurrentUser){
-            $scope.currentUser = getCurrentUser;
+        if (!userService.getUserInfo()) {
+            userService.setUserInfo(getCurrentUser[0]);
         }
+        
+        $scope.currentUser = userService.getUserInfo();
+
         if($scope.currentUser.role  !== 'admin'){
             $scope.gamesList = gamesForUsers.data;
         }else{
@@ -203,5 +206,5 @@
         }
     }
 
-    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "gamesForUsers", "getCurrentUser"];
+    resultController.$inject = ["$scope", "em.result-table.result-table-service", "games","players", "gamesForUsers", "getCurrentUser", "userService"];
 })();

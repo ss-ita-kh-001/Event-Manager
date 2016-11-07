@@ -189,9 +189,7 @@
                         return resultService.getAllPlayers();
                     }],
                     getCurrentUser: ["userService", function(userService) {
-                        if (!userService.getUserInfo()) {
                             return userService.getCurrentUser();
-                        }
                     }]
                 }
             })
