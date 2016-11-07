@@ -14,7 +14,7 @@
           <div class="col-sm-12 flash-block">
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
           </div>
-            <p class="h3" ng-if="events.length">Events coming soon</p>
+            <p class="h3" ng-if="events.length">My events:</p>
             <div ng-repeat="event in events track by $index" class="upcoming-events-item">
                 <div>
                     <a href="/events/{{event.event}}" class="profile-event">{{event.title}}</a>
